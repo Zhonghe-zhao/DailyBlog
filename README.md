@@ -1,6 +1,6 @@
 # DailyBlog
 
-[欢迎来到我的博客！](https://blogs.zhaozhonghe.me)
+[欢迎来到我的博客！](https://blog.zhaozhonghe.me)
 
 ---
 
