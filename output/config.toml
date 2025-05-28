@@ -1,0 +1,20 @@
+
+title = "isite"
+base_url = "/"
+theme = "even"
+compile_sass = true
+generate_feeds = true
+taxonomies = [
+	{ name = "tags"},
+]
+
+[markdown]
+highlight_code = true
+render_emoji = true
+
+[extra]
+# this only affects the default "even" theme
+even_menu = [
+    {url = "$BASE_URL", name = "Home"},
+    {url = "$BASE_URL/tags", name = "Tags"},
+]
