@@ -8,9 +8,9 @@
 
 ## 置顶文章
 
--[Reddit 提问](https://github.com/Zhonghe-zhao/DailyBlog/issues/7)
+- [Reddit 提问](https://github.com/Zhonghe-zhao/DailyBlog/issues/7)
 
--[文章推荐](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)
+- [文章推荐](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)
 
 ## 最近更新
 
@@ -42,7 +42,7 @@
 
 ## 2024
 
--[我的2024](https://github.com/Zhonghe-zhao/DailyBlog/issues/3)
+- [我的2024](https://github.com/Zhonghe-zhao/DailyBlog/issues/3)
 
 ## TODO
 
