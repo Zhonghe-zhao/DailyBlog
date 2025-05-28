@@ -10,23 +10,28 @@
 
 - [Reddit 提问](https://github.com/Zhonghe-zhao/DailyBlog/issues/7)
 
-## 生活思考
+## 保持思考
 
 -[提问的智慧](https://github.com/Zhonghe-zhao/DailyBlog/issues/6)
+
 -[你的灯还亮着吗](https://github.com/Zhonghe-zhao/DailyBlog/issues/5)
 
 ## 最近更新
 
 - [属于自己的博客](https://github.com/Zhonghe-zhao/DailyBlog/issues/1)
 - [c++ 学习](https://github.com/Zhonghe-zhao/DailyBlog/issues/2)
-- - [Reddit 提问](https://github.com/Zhonghe-zhao/DailyBlog/issues/7)
+- [Reddit 提问](https://github.com/Zhonghe-zhao/DailyBlog/issues/7)
 
 ## 语言学习
 
 - [c++ 学习](https://github.com/Zhonghe-zhao/DailyBlog/issues/2)
 
 ## 后端学习
-- [c++ 学习](https://github.com/Zhonghe-zhao/DailyBlog/issues/2)
+
+## ComputerScience
+
+-[6.s081](https://github.com/Zhonghe-zhao/DailyBlog/issues/8)
+
 
 
 <details>
