@@ -1,6 +1,6 @@
 # DailyBlog
 
-欢迎来到我的博客！
+[欢迎来到我的博客！](https://blogs.zhaozhonghe.me)
 
 ---
 
@@ -8,16 +8,26 @@
 
 ## 置顶文章
 
-- [c++ 学习](https://github.com/Zhonghe-zhao/DailyBlog/issues/2)
+- [Reddit 提问](https://github.com/Zhonghe-zhao/DailyBlog/issues/7)
+
+## 生活思考
+
+-[提问的智慧](https://github.com/Zhonghe-zhao/DailyBlog/issues/6)
+-[你的灯还亮着吗](https://github.com/Zhonghe-zhao/DailyBlog/issues/5)
 
 ## 最近更新
 
 - [属于自己的博客](https://github.com/Zhonghe-zhao/DailyBlog/issues/1)
 - [c++ 学习](https://github.com/Zhonghe-zhao/DailyBlog/issues/2)
+- - [Reddit 提问](https://github.com/Zhonghe-zhao/DailyBlog/issues/7)
 
-## 技术文章
+## 语言学习
 
 - [c++ 学习](https://github.com/Zhonghe-zhao/DailyBlog/issues/2)
+
+## 后端学习
+- [c++ 学习](https://github.com/Zhonghe-zhao/DailyBlog/issues/2)
+
 
 <details>
   <summary>📚 展开阅读更多链接</summary>
