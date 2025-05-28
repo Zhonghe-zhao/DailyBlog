@@ -9,7 +9,8 @@
 ## 置顶文章
 
 -[Reddit 提问](https://github.com/Zhonghe-zhao/DailyBlog/issues/7)
--[博文推荐](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)
+
+-[文章推荐](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)
 
 ## 最近更新
 
@@ -19,11 +20,11 @@
 
 ## 保持思考
 
--[提问的智慧](https://github.com/Zhonghe-zhao/DailyBlog/issues/6)
+- [提问的智慧](https://github.com/Zhonghe-zhao/DailyBlog/issues/6)
 
--[你的灯还亮着吗](https://github.com/Zhonghe-zhao/DailyBlog/issues/5)
+- [你的灯还亮着吗](https://github.com/Zhonghe-zhao/DailyBlog/issues/5)
 
--[博文推荐](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)
+- [博文推荐](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)
 
 ## 语言学习
 
@@ -33,7 +34,7 @@
 
 ## ComputerScience
 
--[6.s081](https://github.com/Zhonghe-zhao/DailyBlog/issues/8)
+- [6.s081](https://github.com/Zhonghe-zhao/DailyBlog/issues/8)
 
 <details>
   <summary>📚 展开阅读更多链接</summary>
