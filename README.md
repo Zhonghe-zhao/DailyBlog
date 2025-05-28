@@ -8,6 +8,13 @@
 
 ## 置顶文章
 
+-[Reddit 提问](https://github.com/Zhonghe-zhao/DailyBlog/issues/7)
+-[博文推荐](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)
+
+## 最近更新
+
+- [属于自己的博客](https://github.com/Zhonghe-zhao/DailyBlog/issues/1)
+- [c++ 学习](https://github.com/Zhonghe-zhao/DailyBlog/issues/2)
 - [Reddit 提问](https://github.com/Zhonghe-zhao/DailyBlog/issues/7)
 
 ## 保持思考
@@ -16,11 +23,7 @@
 
 -[你的灯还亮着吗](https://github.com/Zhonghe-zhao/DailyBlog/issues/5)
 
-## 最近更新
-
-- [属于自己的博客](https://github.com/Zhonghe-zhao/DailyBlog/issues/1)
-- [c++ 学习](https://github.com/Zhonghe-zhao/DailyBlog/issues/2)
-- [Reddit 提问](https://github.com/Zhonghe-zhao/DailyBlog/issues/7)
+-[博文推荐](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)
 
 ## 语言学习
 
@@ -32,12 +35,9 @@
 
 -[6.s081](https://github.com/Zhonghe-zhao/DailyBlog/issues/8)
 
-
-
 <details>
   <summary>📚 展开阅读更多链接</summary>
 </details>
- 
 
 ## 2024
 
