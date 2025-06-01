@@ -42,7 +42,7 @@
 
 ## 2024
 
-- [我的2024](https://github.com/Zhonghe-zhao/DailyBlog/issues/3)
+- [我的2024](https://github.com/Zhonghe-zhao/DailyBlog/issues/3)--2024.10.28
 
 ## TODO
 
