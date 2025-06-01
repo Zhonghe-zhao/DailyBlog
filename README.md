@@ -8,27 +8,27 @@
 
 ## 置顶文章
 
-- [Reddit 提问](https://github.com/Zhonghe-zhao/DailyBlog/issues/7)
+- [Reddit 提问](https://github.com/Zhonghe-zhao/DailyBlog/issues/7)--2025-5-26
 
 - [文章推荐](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)
 
 ## 最近更新
 
 - [属于自己的博客](https://github.com/Zhonghe-zhao/DailyBlog/issues/1)
-- [c++ 学习](https://github.com/Zhonghe-zhao/DailyBlog/issues/2)
-- [Reddit 提问](https://github.com/Zhonghe-zhao/DailyBlog/issues/7)
+- [c++ 学习](https://github.com/Zhonghe-zhao/DailyBlog/issues/2)--2025-5-29
+- [Reddit 提问](https://github.com/Zhonghe-zhao/DailyBlog/issues/7)--2025-5-26
 
 ## 保持思考
 
-- [提问的智慧](https://github.com/Zhonghe-zhao/DailyBlog/issues/6)
+- [提问的智慧](https://github.com/Zhonghe-zhao/DailyBlog/issues/6)--2025-3-16
 
-- [你的灯还亮着吗](https://github.com/Zhonghe-zhao/DailyBlog/issues/5)
+- [你的灯还亮着吗](https://github.com/Zhonghe-zhao/DailyBlog/issues/5)--2024-12-30
 
 - [博文推荐](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)
 
 ## 语言学习
 
-- [c++ 学习](https://github.com/Zhonghe-zhao/DailyBlog/issues/2)
+- [c++ 学习](https://github.com/Zhonghe-zhao/DailyBlog/issues/2)--2025-5-29
 
 ## 后端学习
 
@@ -42,7 +42,7 @@
 
 ## 2024
 
-- [我的2024](https://github.com/Zhonghe-zhao/DailyBlog/issues/3)--2024.10.28
+- [我的2024](https://github.com/Zhonghe-zhao/DailyBlog/issues/3)--2024-10-28
 
 ## TODO
 
