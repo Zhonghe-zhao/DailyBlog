@@ -9,14 +9,15 @@
 ## 置顶文章
 
 - [Reddit 提问](https://github.com/Zhonghe-zhao/DailyBlog/issues/7)--2025-05-26
-
-- [文章推荐](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)
+- [文章推荐](https://github.com/Zhonghe-zhao/DailyBlog/issues/9) Weekly
+-[深入学习Go](https://github.com/Zhonghe-zhao/DailyBlog/issues/19)--2025-06-11
 
 ## 最近更新
 
 - [属于自己的博客](https://github.com/Zhonghe-zhao/DailyBlog/issues/1)
 - [c++ 学习](https://github.com/Zhonghe-zhao/DailyBlog/issues/2)--2025-05-29
 - [Reddit 提问](https://github.com/Zhonghe-zhao/DailyBlog/issues/7)--2025-05-26
+- [图片与时空的对话](https://github.com/Zhonghe-zhao/DailyBlog/issues/16)--2025-06-10
 
 ## 保持思考
 
@@ -24,13 +25,16 @@
 
 - [你的灯还亮着吗](https://github.com/Zhonghe-zhao/DailyBlog/issues/5)--2024-12-30
 
-- [博文推荐](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)
+- [博文推荐](https://github.com/Zhonghe-zhao/DailyBlog/issues/9) Weekly
 
 ## 语言学习
 
 - [c++ 学习](https://github.com/Zhonghe-zhao/DailyBlog/issues/2)--2025-5-29
+- [深入学习Go](https://github.com/Zhonghe-zhao/DailyBlog/issues/19)--2025-06-11
 
 ## 后端学习
+
+-[深入学习Go](https://github.com/Zhonghe-zhao/DailyBlog/issues/19)--2025-06-11
 
 ## ComputerScience
 
@@ -44,9 +48,12 @@
 
 - [我的2024](https://github.com/Zhonghe-zhao/DailyBlog/issues/3)--2024-10-28
 
-## Surprises in Life
+## Life
 
 - [儿童节](https://github.com/Zhonghe-zhao/DailyBlog/issues/13)--2025-06-01
+- [我的2024](https://github.com/Zhonghe-zhao/DailyBlog/issues/3)--2024-10-28
+- [图片与时空的对话](https://github.com/Zhonghe-zhao/DailyBlog/issues/16)--2025-06-10
+- [开源年会](https://github.com/Zhonghe-zhao/DailyBlog/issues/15)--2024--11.04
 
 ## TODO
 
