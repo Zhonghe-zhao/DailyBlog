@@ -10,7 +10,7 @@
 
 - [Reddit 提问](https://github.com/Zhonghe-zhao/DailyBlog/issues/7)--2025-05-26
 - [文章推荐](https://github.com/Zhonghe-zhao/DailyBlog/issues/9) Weekly
--[深入学习Go](https://github.com/Zhonghe-zhao/DailyBlog/issues/19)--2025-06-11
+- [深入学习Go](https://github.com/Zhonghe-zhao/DailyBlog/issues/19)--2025-06-11
 
 ## 最近更新
 
