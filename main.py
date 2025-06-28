@@ -9,9 +9,9 @@ from github import Github
 from lxml.etree import CDATA
 from marko.ext.gfm import gfm as marko
 
-MD_HEAD = """## [Gitblog](https://yihong0618.github.io/gitblog/)
-My personal blog([About Me](https://github.com/yihong0618/gitblog/issues/282)) using issues and GitHub Actions (随意转载，无需署名)
-[Things I like](https://github.com/yihong0618/gitblog/issues/311)
+MD_HEAD = """## [DailyBlog](https://Zhonghe-zhao.github.io/DailyBlog/)
+My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34))
+[Things I like](https://github.com/Zhonghe-zhao/DailyBlog/issues/35)
 ![image](https://github.com/user-attachments/assets/a168bf11-661e-4566-b042-7fc9544de528)
 [RSS Feed](https://raw.githubusercontent.com/{repo_name}/master/feed.xml)
 """
@@ -178,7 +178,7 @@ def add_md_firends(repo, md, me):
     s = markdown.markdown(s, output_format="html", extensions=["extra"])
     with open(md, "a+", encoding="utf-8") as md:
         md.write(
-            f"## [友情链接](https://github.com/{str(me)}/gitblog/issues/{friends_issue_number})\n"
+            f"## [友情链接](https://github.com/{str(me)}/DailyBlog/issues/{friends_issue_number})\n"
         )
         md.write("<details><summary>显示</summary>\n")
         md.write(s)
