@@ -23,7 +23,7 @@ jobs:
       ZOLA_VERSION: v0.20.0
       USER: ${{ github.repository_owner }}
       REPO: ${{ github.event.repository.name }}
-      BASE_URL: https://blog.zhaozhonghe.me/
+      BASE_URL: https://blog.zhaozhonghe.me
     steps:
       - name: Checkout
         uses: actions/checkout@v4
