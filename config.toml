@@ -1,4 +1,4 @@
-base_url = "https://Zhonghe-zhao.github.io/DailyBlog/"
+base_url = "https://zhonghe-zhao.github.io/DailyBlog/"
 generate_feeds = true
 feed_filenames = ["rss.xml"]
 theme = "even"
