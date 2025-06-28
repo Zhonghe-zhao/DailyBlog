@@ -16,9 +16,6 @@ concurrency:
 
 jobs:
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
@@ -26,31 +23,41 @@ jobs:
       ZOLA_VERSION: v0.20.0
       USER: ${{ github.repository_owner }}
       REPO: ${{ github.event.repository.name }}
-      BASE_URL: https://blog.zhaozhonghe.me
+      BASE_URL: https://blog.zhaozhonghe.me/
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Generate markdown
+      - name: Download and Setup isite
         run: |
           gh release download $ISITE_VERSION --repo kemingy/isite -p '*Linux_x86_64*' --output isite.tar.gz
           tar zxf isite.tar.gz && mv isite /usr/local/bin
+
+      - name: Generate Markdown
+        run: |
           isite generate --user $USER --repo $REPO
           git clone https://github.com/kemingy/even.git output/themes/even
+
+      - name: Download and Setup Zola
+        run: |
           gh release download $ZOLA_VERSION --repo getzola/zola -p '*x86_64-unknown-linux*' --output zola.tar.gz
           tar zxf zola.tar.gz && mv zola /usr/local/bin
-          cp config.toml output/config.toml
-          cd output && zola build --base-url $BASE_URL
-      
-      
+
+      - name: Copy config
+        run: cp config.toml output/config.toml
+
+      - name: Build site with Zola
+        run: |
+          cd output
+          zola build --base-url $BASE_URL
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload artifact
+      - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'output/public'
+          path: output/public
 
       - name: Deploy to GitHub Pages
         id: deployment
