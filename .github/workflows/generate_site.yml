@@ -2,9 +2,21 @@ name: Deploy static content to Pages
 
 on:
   issues:
-    types: [opened, edited, closed, reopened, labeled, unlabeled]
+    types:
+      - opened
+      - edited
+      - closed
+      - reopened
+      - labeled
+      - unlabeled
+  issue_comment:
+    types:
+      - created
+      - edited
+      - deleted
   workflow_dispatch:
 
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
@@ -16,49 +28,44 @@ concurrency:
 
 jobs:
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      pages: write
     env:
       GH_TOKEN: ${{ github.token }}
       ISITE_VERSION: v0.2.2
       ZOLA_VERSION: v0.20.0
       USER: ${{ github.repository_owner }}
       REPO: ${{ github.event.repository.name }}
-      BASE_URL: https://blog.zhaozhonghe.me
+      BASE_URL: https://blog.yihong0618.me # change to your own domain
+      # Change to below if you are using GitHub Pages
+      # BASE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Download and Setup isite
+      - name: Generate markdown
         run: |
           gh release download $ISITE_VERSION --repo kemingy/isite -p '*Linux_x86_64*' --output isite.tar.gz
           tar zxf isite.tar.gz && mv isite /usr/local/bin
-
-      - name: Generate Markdown
-        run: |
           isite generate --user $USER --repo $REPO
-          git clone https://github.com/kemingy/even.git output/themes/even
-
-      - name: Download and Setup Zola
-        run: |
           gh release download $ZOLA_VERSION --repo getzola/zola -p '*x86_64-unknown-linux*' --output zola.tar.gz
           tar zxf zola.tar.gz && mv zola /usr/local/bin
-
-      - name: Copy config
-        run: cp config.toml output/config.toml
-
-      - name: Build site with Zola
-        run: |
-          cd output
-          zola build --base-url $BASE_URL
-
+          cp config.toml output/config.toml
+          cd output && zola build --base-url $BASE_URL
       - name: Setup Pages
         uses: actions/configure-pages@v5
-
-      - name: Upload Pages Artifact
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: output/public
-
+          # Upload dist repository
+          name: pages-artifact
+          path: 'output/public'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: pages-artifact
