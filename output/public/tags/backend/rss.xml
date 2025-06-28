@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title> - Backend</title>
+      <link>https://Zhonghe-zhao.github.io/DailyBlog/</link>
+      <description></description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://Zhonghe-zhao.github.io/DailyBlog/tags/backend/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Fri, 27 Jun 2025 13:41:09 +0000</lastBuildDate>
+      <item>
+          <title>跨网络通信编程模式</title>
+          <pubDate>Fri, 27 Jun 2025 13:41:09 +0000</pubDate>
+          <author>Zhonghe-zhao</author>
+          <link>https://Zhonghe-zhao.github.io/DailyBlog/issue-33/</link>
+          <guid>https://Zhonghe-zhao.github.io/DailyBlog/issue-33/</guid>
+          <description xml:base="https://Zhonghe-zhao.github.io/DailyBlog/issue-33/">&lt;h2 id=&quot;restful-api&quot;&gt;RESTFUL API&lt;&#x2F;h2&gt;
+&lt;p&gt;虽然HTTP协议已经规范了基础的请求&#x2F;响应格式，但正是因为它太灵活，反而导致了早期Web服务的混乱。&lt;&#x2F;p&gt;
+&lt;p&gt;HTTP原生问题：
+同一个用户查询功能，不同开发者可能设计出完全不同的接口&lt;&#x2F;p&gt;
+&lt;p&gt;所以导致了 RESTFUL API的诞生!&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;约定:&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;URL 表示资源，如 &#x2F;users&#x2F;1&lt;&#x2F;p&gt;
+&lt;p&gt;用标准 HTTP 动词：GET 查，POST 新增，PUT 修改，DELETE 删&lt;&#x2F;p&gt;
+&lt;p&gt;数据统一用 JSON（或标准格式）&lt;&#x2F;p&gt;
+&lt;p&gt;服务无状态（每次请求都完整表达意图）&lt;&#x2F;p&gt;
+&lt;p&gt;规范为&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;http&quot; class=&quot;language-http &quot;&gt;&lt;code class=&quot;language-http&quot; data-lang=&quot;http&quot;&gt;
+HTTP&amp;#x2F;1.1 201 Created
+Location: &amp;#x2F;users&amp;#x2F;123
+Content-Type: application&amp;#x2F;json
+
+{ &amp;quot;id&amp;quot;: 123, &amp;quot;name&amp;quot;: &amp;quot;Alice&amp;quot; }
+
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre&gt;&lt;code&gt;
+&amp;#x2F;&amp;#x2F; 传统混乱的响应
+{
+  &amp;quot;success&amp;quot;: true,
+  &amp;quot;code&amp;quot;: 200,
+  &amp;quot;message&amp;quot;: &amp;quot;OK&amp;quot;,
+  &amp;quot;data&amp;quot;: { &amp;quot;id&amp;quot;: 123, &amp;quot;name&amp;quot;: &amp;quot;Alice&amp;quot; }
+}
+
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;也就是说:&lt;&#x2F;p&gt;
+&lt;p&gt;HTTP 可以发任何东西，RESTful API 让它发得标准、发得规范。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;注意:&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;RESTful API 规范是靠人遵守的工程文化，不是自动生效的。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;grpc&quot;&gt;gRPC&lt;&#x2F;h2&gt;
+&lt;h2 id=&quot;websocket&quot;&gt;WebSocket&lt;&#x2F;h2&gt;
+&lt;h2 id=&quot;xiao-xi-dui-lie&quot;&gt;消息队列&lt;&#x2F;h2&gt;
+</description>
+      </item>
+      <item>
+          <title>授权与认证</title>
+          <pubDate>Fri, 27 Jun 2025 09:34:29 +0000</pubDate>
+          <author>Zhonghe-zhao</author>
+          <link>https://Zhonghe-zhao.github.io/DailyBlog/issue-32/</link>
+          <guid>https://Zhonghe-zhao.github.io/DailyBlog/issue-32/</guid>
+          <description xml:base="https://Zhonghe-zhao.github.io/DailyBlog/issue-32/">&lt;h1 id=&quot;ming-que-gai-nian&quot;&gt;明确概念&lt;&#x2F;h1&gt;
+&lt;p&gt;&lt;strong&gt;认证：&lt;&#x2F;strong&gt; 确认你是谁？ 验证你的身份&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;授权：&lt;&#x2F;strong&gt; 确认你能做什么，给_认证的用户_分配权限&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;why-dan-sheng-cookie-session&quot;&gt;Why 诞生 Cookie Session？&lt;&#x2F;h2&gt;
+&lt;p&gt;因为HTTP的无状态性，诞生的问题&lt;&#x2F;p&gt;
+&lt;p&gt;“如何在同一用户的多次请求间保持连续状态？”&lt;&#x2F;p&gt;
+&lt;p&gt;用户登录后，服务器需要知道后续请求（如购物车操作）来自同一个已认证用户。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;cookie&quot;&gt;Cookie&lt;&#x2F;h2&gt;
+&lt;p&gt;Cookie 必须通过 HTTP 协议的头字段（Headers）传递&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;服务器下发 Cookie（响应头）
+通过 &lt;em&gt;Set-Cookie&lt;&#x2F;em&gt; 头字段向客户端（如浏览器）写入 Cookie&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;客户端回传 Cookie（请求头）&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;有一定安全风险！&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;session&quot;&gt;Session&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;strong&gt;解决问题：&lt;&#x2F;strong&gt;  如果直接把用户权限、余额等敏感信息存在客户端（如 Cookie），用户可以轻易篡改&lt;&#x2F;p&gt;
+&lt;p&gt;敏感数据存服务端，客户端仅持有无意义的 session_id&lt;&#x2F;p&gt;
+&lt;p&gt;在服务器端集中存储用户状态，用户登录时，服务器生成唯一 session_id 并存储相关数据&lt;&#x2F;p&gt;
+&lt;p&gt;传递Session_id -&amp;gt; 客户端&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Session的本质：&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;用户登录 → 浏览网站 → 加购商品 → 退出登录。&lt;&#x2F;p&gt;
+&lt;p&gt;这一系列操作属于 同一个会话，数据仅在会话期间需要。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;问题：&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;为什么Session要具备 存储具体数据的能力？&lt;&#x2F;p&gt;
+&lt;p&gt;Session 存在于服务端，它的职责是「存储这个人的状态和数据」，比如 user_id、is_login、username 等。&lt;&#x2F;p&gt;
+&lt;p&gt;方便服务端快速取用用户数据
+Session 已经在内存或持久化存储中存了这些信息，后续请求不需要每次拿 token 去查数据库。&lt;&#x2F;p&gt;
+&lt;p&gt;安全性和灵活性
+Session 的内容在服务端，客户端完全看不到。这样可以存一些和权限、业务相关的信息（比如角色、登录状态等），防止客户端篡改。&lt;&#x2F;p&gt;
+&lt;p&gt;支持更多状态管理
+比如除了登录状态，还可以记录购物车、上次访问时间、权限标志等，这些都放在 Session 里方便统一管理。&lt;&#x2F;p&gt;
+&lt;p&gt;所以Session：&lt;&#x2F;p&gt;
+&lt;p&gt;可以，但那样每次请求都需要拿这个 id 去查数据库或其他存储，浪费性能。&lt;strong&gt;Session 就是为了避免频繁查数据库&lt;&#x2F;strong&gt;，同时把&lt;strong&gt;状态控制在服务端&lt;&#x2F;strong&gt;，提高安全性。&lt;&#x2F;p&gt;
+&lt;p&gt;如果想极简方案，也可以只存 user_id，但这会牺牲性能或灵活性。&lt;&#x2F;p&gt;
+&lt;p&gt;**减少数据库查询：将高频访问的数据（如权限、购物车）缓存在 Session 中。&lt;&#x2F;p&gt;
+&lt;p&gt;实时生效：修改 Session 后立即可见（如用户退出时直接删除 Session）。**&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;que-xian&quot;&gt;缺陷&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;strong&gt;Cookie 的短板：&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;若把所有数据（如 user_role=admin）存在 Cookie 中：&lt;&#x2F;p&gt;
+&lt;p&gt;用户可手动修改 role=superadmin 提权（安全隐患）。&lt;&#x2F;p&gt;
+&lt;p&gt;数据大小受限（不能存购物车等复杂数据）。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;token&quot;&gt;Token&lt;&#x2F;h2&gt;
+&lt;p&gt;在客户端存储自包含的加密数据（如 JWT），服务端无需存储会话状态。&lt;&#x2F;p&gt;
+&lt;p&gt;如果 Token 是明文（如 user_id=123&amp;amp;role=admin），用户可随意修改（如改 role=superadmin）。&lt;&#x2F;p&gt;
+&lt;p&gt;通过签名（如 HMAC、RSA）加密 Token，确保数据不被篡改。&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>Docker</title>
+          <pubDate>Thu, 26 Jun 2025 08:59:00 +0000</pubDate>
+          <author>Zhonghe-zhao</author>
+          <link>https://Zhonghe-zhao.github.io/DailyBlog/issue-30/</link>
+          <guid>https://Zhonghe-zhao.github.io/DailyBlog/issue-30/</guid>
+          <description xml:base="https://Zhonghe-zhao.github.io/DailyBlog/issue-30/">&lt;h1 id=&quot;dockerwei-shen-me-hui-dan-sheng&quot;&gt;Docker为什么会诞生&lt;&#x2F;h1&gt;
+&lt;p&gt;为解决传统部署存在的问题！&lt;&#x2F;p&gt;
+&lt;p&gt;Docker(容器)：&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;确保环境一致性： 将应用打包成镜像， 一次构建到处运行！&lt;&#x2F;li&gt;
+&lt;li&gt;**隔离性：**利用Linux内核特性（cgroups&#x2F;namespace）实现进程隔离。&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;&lt;strong&gt;vs&lt;&#x2F;strong&gt; 虚拟机的隔离方式：&lt;&#x2F;p&gt;
+&lt;p&gt;虚拟机：本质跑多个完整的系统，每个虚拟机有自己的 （独立内核 独立文件系统 独立网络 独立资源控制）&lt;&#x2F;p&gt;
+&lt;p&gt;Docker： 本质是“在同一个系统中虚拟多个独立空间”，不用虚拟完整 OS，只是隔离进程  共享主机内核&lt;&#x2F;p&gt;
+&lt;p&gt;Docker 利用 Namespaces 实现资源“看不见”（不同容器有自己独立的网络、进程表、文件系统），利用 Cgroups 实现资源“用不了太多”（ 限制 CPU 核心数、内存上限，避免资源抢光）&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;wen-ti&quot;&gt;问题：&lt;&#x2F;h3&gt;
+&lt;p&gt;要做到上述功能 必须需要Docker具有linux的内核，在Windows&#x2F;mac上怎么才能具有linux内核呢？&lt;&#x2F;p&gt;
+&lt;p&gt;Windows WSL2（Windows Subsystem for Linux） 轻量级Linux虚拟机（内置Linux内核）
+macOS HyperKit（基于Hypervisor.framework） 轻量级Linux虚拟机&lt;&#x2F;p&gt;
+&lt;p&gt;用户启动Docker Desktop&lt;&#x2F;p&gt;
+&lt;p&gt;自动启动一个隐藏的Linux虚拟机（通过WSL2或Hyper-V）&lt;&#x2F;p&gt;
+&lt;p&gt;所有Docker容器实际运行在这个Linux虚拟机内&lt;&#x2F;p&gt;
+&lt;p&gt;Docker CLI通过RPC与虚拟机内的Docker引擎通信&lt;&#x2F;p&gt;
+&lt;p&gt;事实就是：&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&quot;Docker容器本质依赖Linux内核的特性（如Namespace&#x2F;Cgroups）。在Windows&#x2F;Mac上，Docker Desktop通过内置的Linux虚拟机（WSL2&#x2F;HyperKit）提供Linux内核支持，容器实际运行在这个虚拟机内，而非直接调用Windows内核。&quot;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h2 id=&quot;wei-shen-me-docker-yao-yun-xing-zai-linux-shang&quot;&gt;为什么Docker 要运行在 Linux 上？&lt;&#x2F;h2&gt;
+&lt;p&gt;容器化技术依赖Linux内核的三大机制：&lt;&#x2F;p&gt;
+&lt;p&gt;Namespaces（命名空间） → 提供进程隔离（PID、网络、挂载点等）&lt;&#x2F;p&gt;
+&lt;p&gt;Cgroups（控制组） → 限制资源（CPU、内存、IO）&lt;&#x2F;p&gt;
+&lt;p&gt;UnionFS（联合文件系统） → 实现镜像分层存储&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;wsl2-vs-vm&quot;&gt;WSL2 VS VM&lt;&#x2F;h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;WSL2 共享Windows内核的部分功能（如调度器），而传统VM需模拟完整硬件并运行独立OS。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h3 id=&quot;wen-ti-1&quot;&gt;问题：&lt;&#x2F;h3&gt;
+&lt;p&gt;“内核”到底是什么？它的角色和操作系统是一致的？&lt;&#x2F;p&gt;
+&lt;p&gt;内核四大职责：&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;进程管理&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;创建&#x2F;销毁进程（fork()、exit()）&lt;&#x2F;p&gt;
+&lt;p&gt;CPU调度（决定哪个进程运行）
+示例：Docker容器本质是内核通过clone()+Namespace创建的隔离进程&lt;&#x2F;p&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;内存管理&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;分配物理内存（malloc()底层依赖内核）&lt;&#x2F;p&gt;
+&lt;p&gt;虚拟内存（分页&#x2F;交换空间）&lt;&#x2F;p&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;设备驱动&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;[todo]&lt;&#x2F;p&gt;
+&lt;ol start=&quot;4&quot;&gt;
+&lt;li&gt;文件系统&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;[todo]&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;联合文件系统&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;向上：通过系统调用（syscall） 为软件提供服务
+向下：直接操作CPU&#x2F;内存&#x2F;设备寄存器&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;dockerbu-shu-de-liu-cheng&quot;&gt;Docker部署的流程&lt;&#x2F;h2&gt;
+&lt;ol&gt;
+&lt;li&gt;编写 Dockerfile&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;定义基础镜像（如 golang:1.20 或更小的 scratch）&lt;&#x2F;p&gt;
+&lt;p&gt;拷贝你的代码和依赖&lt;&#x2F;p&gt;
+&lt;p&gt;编译生成可执行文件（或直接用编译好的二进制）&lt;&#x2F;p&gt;
+&lt;p&gt;设置容器启动命令（比如运行 simplebank 服务）&lt;&#x2F;p&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;构建镜像&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;执行 docker build -t simplebank:latest .&lt;&#x2F;p&gt;
+&lt;p&gt;生成一个包含你的程序和运行环境的镜像文件&lt;&#x2F;p&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;推送镜像（可选）&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;把镜像上传到远程仓库，如 Docker Hub 或私有 Harbor&lt;&#x2F;p&gt;
+&lt;p&gt;方便其他服务器拉取&lt;&#x2F;p&gt;
+&lt;ol start=&quot;4&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;运行容器&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;访问服务
+通过服务器的 IP 和端口访问你的 SimpleBank API&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;维护和更新&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;更新代码后，重复构建镜像和部署容器流程&lt;&#x2F;p&gt;
+&lt;p&gt;可以通过 Docker Compose 或 Kubernetes 做多容器编排和扩展&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;jing-xiang-guan-li&quot;&gt;镜像管理&lt;&#x2F;h2&gt;
+&lt;h2 id=&quot;rong-qi-cao-zuo&quot;&gt;容器操作&lt;&#x2F;h2&gt;
+&lt;h2 id=&quot;wang-luo-guan-li&quot;&gt;网络管理&lt;&#x2F;h2&gt;
+&lt;h2 id=&quot;shu-ju-chi-jiu-hua&quot;&gt;数据持久化&lt;&#x2F;h2&gt;
+&lt;h2 id=&quot;dockerfile&quot;&gt;Dockerfile&lt;&#x2F;h2&gt;
+&lt;p&gt;构建镜像： 基础环境 依赖安装 文件复制 启动命令&lt;&#x2F;p&gt;
+&lt;p&gt;实际的执行流程：&lt;&#x2F;p&gt;
+&lt;p&gt;镜像（Image） → 启动后变成 → 容器（Container）&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;shelljiao-ben&quot;&gt;Shell脚本&lt;&#x2F;h2&gt;
+&lt;p&gt;用途： 自动化任务、批量处理、服务管理、部署流程等。&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh &quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;#!&amp;#x2F;bin&amp;#x2F;sh
+
+set -e
+
+echo &amp;quot;run db migrations&amp;quot;
+&amp;#x2F;app&amp;#x2F;migrate -path &amp;#x2F;app&amp;#x2F;migration -database &amp;quot;$DB_SOURCE&amp;quot; -verbose up
+
+echo &amp;quot;start the app&amp;quot;
+exec &amp;quot;$@&amp;quot;
+
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre data-lang=&quot;Dockerfiles&quot; class=&quot;language-Dockerfiles &quot;&gt;&lt;code class=&quot;language-Dockerfiles&quot; data-lang=&quot;Dockerfiles&quot;&gt;
+EXPOSE 8080 
+CMD [ &amp;quot;&amp;#x2F;app&amp;#x2F;main&amp;quot; ]
+ENTRYPOINT [ &amp;quot;&amp;#x2F;app&amp;#x2F;start.sh&amp;quot; ]
+
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;em&gt;CMD&lt;&#x2F;em&gt;  定义默认参数，会被 &lt;em&gt;ENTRYPOINT&lt;&#x2F;em&gt; 使用，也可被 docker run 的参数覆盖&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;完成_Dockerfiles_文件的编写，构建镜像！&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;docker build -t your-service:1.0 .&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;docker run -it --rm your-service:1.0 sh&lt;&#x2F;code&gt; 运行！&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;docker-compose-yaml&quot;&gt;Docker-compose.yaml&lt;&#x2F;h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;通过一个 YAML 文件定义和编排多容器应用，实现一键启动完整服务栈。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h3 id=&quot;shen-me-shi-duo-rong-qi-bian-pai&quot;&gt;什么是多容器编排&lt;&#x2F;h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;多个容器协同运行，组成一个完整系统，并通过自动化工具统一管理和部署的过程，就叫多容器编排。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;多个容器之间需要保证什么？&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;启动顺序正确&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;网络互通&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;环境一致&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;自动恢复&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;动态扩容&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h2 id=&quot;shi-li&quot;&gt;实例：&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;yml&quot; class=&quot;language-yml &quot;&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt;
+services:
+  postgres:
+    image: postgres:12-alpine
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=simple_bank
+    ports:
+      - &amp;quot;5433:5432&amp;quot;
+    volumes:
+      - data-volume:&amp;#x2F;var&amp;#x2F;lib&amp;#x2F;postgresql&amp;#x2F;data
+
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;启动了一个数据库容器 并且配置了一系列环境&lt;&#x2F;p&gt;
+&lt;pre&gt;&lt;code&gt;    depends_on:
+      - postgres
+      - redis
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;启动顺序&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;lian-jie-dockerfiles-he-docker-compose&quot;&gt;连接Dockerfiles 和 docker-compose&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;yml&quot; class=&quot;language-yml &quot;&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt; api:
+  build:
+    context: .
+    dockerfile: Dockerfile
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;wen-ti-2&quot;&gt;问题&lt;&#x2F;h3&gt;
+&lt;p&gt;编写完Dockerfiles文件后 也就是构建完成镜像之后就可以启动镜像为容器了，也就是项目可以正常启动了，为什么还需要docker-compose文件编排多个容器呢？&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;docker-compose up -d  # 一键启动所有服务，自动处理依赖&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;dockerzhong-de-wang-luo-wen-ti&quot;&gt;docker中的网络问题&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;strong&gt;网络模式：&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;bridge&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;每个 Bridge 网络形成一个独立的虚拟局域网（VLAN）&lt;&#x2F;p&gt;
+&lt;p&gt;同一网络内的容器可通过容器名互相访问（无需IP）&lt;&#x2F;p&gt;
+&lt;p&gt;容器访问外网时，IP会被转换为宿主机IP（通过iptables规则）&lt;&#x2F;p&gt;
+&lt;p&gt;需手动映射端口（-p 8080:80）才能从宿主机外部访问容器服务&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;duan-kou-ying-she&quot;&gt;端口映射&lt;&#x2F;h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Docker 将容器内部端口绑定到宿主机端口的机制&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;github.com&#x2F;user-attachments&#x2F;assets&#x2F;c1b8951b-0444-4cb4-8341-fad1707d9947&quot; alt=&quot;Image&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;# 将容器的80端口映射到宿主机的8080端口 docker run -d -p 8080:80 --name nginx nginx &lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;网卡的作用：&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;主机和外部网络的桥梁，完成数据收发和初步封装&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Docker 会创建虚拟网卡（veth pair）：&lt;&#x2F;p&gt;
+&lt;p&gt;一端在容器内，另一端接到宿主机的网桥（docker0）。&lt;&#x2F;p&gt;
+&lt;p&gt;通过虚拟网卡，容器流量被送到宿主机网络，再被转发出去（如 NAT）。&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;nat&quot;&gt;NAT&lt;&#x2F;h4&gt;
+&lt;p&gt;把私有网络的 IP 地址转换成公有网络的 IP 地址，实现内网访问外网或不同网段通信。 主要解决 IP 不够用 + 内网隔离 + 控制流量 的问题。&lt;&#x2F;p&gt;
+&lt;p&gt;Docker 默认用 NAT：
+容器内的私有 IP（如 172.17.x.x）通过 NAT 转换成宿主机的 IP 对外通信。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;tong-xin&quot;&gt;通信&lt;&#x2F;h2&gt;
+&lt;p&gt;同网络下的容器可以通信，在自定义的网络中 他们可以通过容器名自动互相访问&lt;&#x2F;p&gt;
+&lt;p&gt;创建网络 并加入pg容器&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;docker network connect bank-network postgres12&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;检查容器内部配置&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;docker network inspect bank-newtork&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;docker container inspect postgres12&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>go-redis使用</title>
+          <pubDate>Sun, 15 Jun 2025 12:57:28 +0000</pubDate>
+          <author>Zhonghe-zhao</author>
+          <link>https://Zhonghe-zhao.github.io/DailyBlog/issue-22/</link>
+          <guid>https://Zhonghe-zhao.github.io/DailyBlog/issue-22/</guid>
+          <description xml:base="https://Zhonghe-zhao.github.io/DailyBlog/issue-22/">&lt;h1 id=&quot;redis&quot;&gt;Redis&lt;&#x2F;h1&gt;
+&lt;p&gt;高性能内存数据库：&lt;&#x2F;p&gt;
+&lt;p&gt;为解决传统数据库在高并发和低延迟场景下的性能瓶颈&lt;&#x2F;p&gt;
+&lt;p&gt;传统数据库 I&#x2F;O 慢，不适合做高频缓存&lt;&#x2F;p&gt;
+&lt;p&gt;Memcached 只支持简单的 key-value，不能表达复杂业务&lt;&#x2F;p&gt;
+&lt;p&gt;项目中很多需求本质上是“操作数据结构”：列表、集合、计数器等&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;wei-shen-me-yao-cao-zuo-shu-ju-jie-gou&quot;&gt;为什么要操作数据结构？&lt;&#x2F;h2&gt;
+&lt;p&gt;展示出最近的10条评论&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;SELECT * FROM comments WHERE post_id = ? ORDER BY created_at DESC LIMIT 10 OFFSET x&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;redisnei-zhi-shu-ju-jie-gou&quot;&gt;Redis内置数据结构：&lt;&#x2F;h2&gt;
+&lt;p&gt;（String、Hash、List、Set、Sorted Set 等）&lt;&#x2F;p&gt;
+&lt;p&gt;根据情况 &lt;strong&gt;选择合适的数据结构&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;字符串&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;缓存用户姓名：SET user:1:name &quot;Alice&quot;.&lt;&#x2F;p&gt;
+&lt;p&gt;页面访问计数：INCR page:views.&lt;&#x2F;p&gt;
+&lt;p&gt;数据量小，操作简单（读写、增减）。&lt;&#x2F;p&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;Hash（哈希）&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;存储用户信息：HSET user:1 name &quot;Alice&quot; age 25.&lt;&#x2F;p&gt;
+&lt;p&gt;更新年龄：HSET user:1 age 26.&lt;&#x2F;p&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;List（列表）&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;任务队列：LPUSH tasks &quot;send_email&quot;，RPOP tasks.&lt;&#x2F;p&gt;
+&lt;p&gt;最近浏览记录：LPUSH user:1:history &quot;item1&quot;, LTRIM user:1:history 0 9（保留最近 10 条）。&lt;&#x2F;p&gt;
+&lt;ol start=&quot;4&quot;&gt;
+&lt;li&gt;Set（集合）&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;用户标签：SADD user:1:tags &quot;tech&quot; &quot;sports&quot;.&lt;&#x2F;p&gt;
+&lt;p&gt;共同好友：SINTER user:1:friends user:2:friends.&lt;&#x2F;p&gt;
+&lt;p&gt;用 Set 实现推荐系统（比如推荐共同兴趣的用户）。&lt;&#x2F;p&gt;
+&lt;ol start=&quot;5&quot;&gt;
+&lt;li&gt;Sorted Set（有序集合）&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;游戏排行榜：ZADD leaderboard 100 &quot;Alice&quot;.&lt;&#x2F;p&gt;
+&lt;p&gt;获取前 3 名：ZREVRANGE leaderboard 0 2.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;wen-ti&quot;&gt;问题：&lt;&#x2F;h2&gt;
+&lt;p&gt;“如何用 Redis 做缓存？”（String&#x2F;Hash）&lt;&#x2F;p&gt;
+&lt;p&gt;“如何实现消息队列？”（List）&lt;&#x2F;p&gt;
+&lt;p&gt;“如何设计排行榜？”（Sorted Set）&lt;&#x2F;p&gt;
+&lt;p&gt;为什么选这个数据结构？ 它的优点！&lt;&#x2F;p&gt;
+&lt;p&gt;##问题&lt;&#x2F;p&gt;
+&lt;p&gt;为什么redis可以操作列表等数据结构呢？ 它的底层就是一个哈希表吗？&lt;&#x2F;p&gt;
+&lt;p&gt;Redis 的全局键值存储是基于哈希表（Dict）&lt;&#x2F;p&gt;
+&lt;p&gt;全局哈希表只存储「键」和「值的指针」&lt;&#x2F;p&gt;
+&lt;p&gt;对于Redis 不同数据类型有不同的底层实现&lt;&#x2F;p&gt;
+&lt;p&gt;实际上：&lt;&#x2F;p&gt;
+&lt;p&gt;以 &lt;em&gt;LPUSH mylist A&lt;&#x2F;em&gt; 为例：&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;查找 Key：先在全局哈希表中查找 &quot;mylist&quot;：&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;如果不存在，创建一个新的 List（底层可能是 QuickList）。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;如果存在，拿到指向 List 的指针。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;操作数据结构：调用 QuickList 的插入逻辑，在头部插入 &quot;A&quot;。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+</description>
+      </item>
+    </channel>
+</rss>

@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+      <!-- Enable responsiveness on mobile devices-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+      
+    
+
+      <title> - Docker</title>
+
+      
+          
+          <link rel="alternate" type="application/rss+xml" title="RSS" href="https://Zhonghe-zhao.github.io/DailyBlog/rss.xml">
+          
+      
+
+      
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js"></script>
+          
+      
+
+      
+          <link rel="stylesheet" href="https://Zhonghe-zhao.github.io/DailyBlog/site.css">
+          
+      
+
+      
+      
+    </head>
+
+    <body>
+        <div class="container">
+
+            <div id="mobile-navbar" class="mobile-navbar">
+              <div class="mobile-header-logo">
+                <a href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;" class="logo"></a>
+              </div>
+              <div class="mobile-navbar-icon icon-out">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
+            <nav id="mobile-menu" class="mobile-menu slideout-menu slideout-menu-left">
+              <ul class="mobile-menu-list">
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;">
+                            Home
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;&#x2F;tags&#x2F;top&#x2F;">
+                            Top
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;&#x2F;issue-34&#x2F;">
+                            About
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;&#x2F;issue-35&#x2F;">
+                            Things I like
+                        </a>
+                    </li>
+                
+              </ul>
+            </nav>
+
+            <header id="header">
+                <div class="logo"><a href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;"></a></div>
+                <nav class="menu">
+                    <ul>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;">
+                                    Home
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;&#x2F;tags&#x2F;top&#x2F;">
+                                    Top
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;&#x2F;issue-34&#x2F;">
+                                    About
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;&#x2F;issue-35&#x2F;">
+                                    Things I like
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </nav>
+            </header>
+
+            <main>
+                <div class="content" id="mobile-panel">
+                    
+
+
+<div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content always-active">
+        <nav id="TableOfContents">
+            <ul>
+                
+                <li>
+                    <a href="https://Zhonghe-zhao.github.io/DailyBlog/issue-30/#dockerwei-shen-me-hui-dan-sheng" class="toc-link">Docker为什么会诞生</a>
+                    
+                    <ul>
+                        
+                        <li>
+                            <a href="https://Zhonghe-zhao.github.io/DailyBlog/issue-30/#wen-ti" class="toc-link">问题：</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://Zhonghe-zhao.github.io/DailyBlog/issue-30/#wei-shen-me-docker-yao-yun-xing-zai-linux-shang" class="toc-link">为什么Docker 要运行在 Linux 上？</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://Zhonghe-zhao.github.io/DailyBlog/issue-30/#wsl2-vs-vm" class="toc-link">WSL2 VS VM</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://Zhonghe-zhao.github.io/DailyBlog/issue-30/#dockerbu-shu-de-liu-cheng" class="toc-link">Docker部署的流程</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://Zhonghe-zhao.github.io/DailyBlog/issue-30/#jing-xiang-guan-li" class="toc-link">镜像管理</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://Zhonghe-zhao.github.io/DailyBlog/issue-30/#rong-qi-cao-zuo" class="toc-link">容器操作</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://Zhonghe-zhao.github.io/DailyBlog/issue-30/#wang-luo-guan-li" class="toc-link">网络管理</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://Zhonghe-zhao.github.io/DailyBlog/issue-30/#shu-ju-chi-jiu-hua" class="toc-link">数据持久化</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://Zhonghe-zhao.github.io/DailyBlog/issue-30/#dockerfile" class="toc-link">Dockerfile</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://Zhonghe-zhao.github.io/DailyBlog/issue-30/#shelljiao-ben" class="toc-link">Shell脚本</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://Zhonghe-zhao.github.io/DailyBlog/issue-30/#docker-compose-yaml" class="toc-link">Docker-compose.yaml</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://Zhonghe-zhao.github.io/DailyBlog/issue-30/#shi-li" class="toc-link">实例：</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://Zhonghe-zhao.github.io/DailyBlog/issue-30/#lian-jie-dockerfiles-he-docker-compose" class="toc-link">连接Dockerfiles 和 docker-compose</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://Zhonghe-zhao.github.io/DailyBlog/issue-30/#dockerzhong-de-wang-luo-wen-ti" class="toc-link">docker中的网络问题</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://Zhonghe-zhao.github.io/DailyBlog/issue-30/#tong-xin" class="toc-link">通信</a>
+                        </li>
+                        
+                    </ul>
+                    
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+<article class="post">
+    
+    <header class="post__header">
+        <h1 class="post__title">
+            <a href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;issue-30&#x2F;">Docker</a>
+        </h1>
+        <div class="post__meta">
+            <span class="post__time">2025-06-26</span>
+            
+                <span class="post__source">
+                    <a href="https:&#x2F;&#x2F;github.com&#x2F;Zhonghe-zhao&#x2F;DailyBlog&#x2F;issues&#x2F;30">read the source issue</a>
+                </span>
+            
+            
+        </div>
+    </header>
+
+
+    <div class="post-reactions">
+        
+        
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+
+    <div class="post-content">
+      <h1 id="dockerwei-shen-me-hui-dan-sheng">Docker为什么会诞生</h1>
+<p>为解决传统部署存在的问题！</p>
+<p>Docker(容器)：</p>
+<ol>
+<li>确保环境一致性： 将应用打包成镜像， 一次构建到处运行！</li>
+<li>**隔离性：**利用Linux内核特性（cgroups/namespace）实现进程隔离。</li>
+</ol>
+<p><strong>vs</strong> 虚拟机的隔离方式：</p>
+<p>虚拟机：本质跑多个完整的系统，每个虚拟机有自己的 （独立内核 独立文件系统 独立网络 独立资源控制）</p>
+<p>Docker： 本质是“在同一个系统中虚拟多个独立空间”，不用虚拟完整 OS，只是隔离进程  共享主机内核</p>
+<p>Docker 利用 Namespaces 实现资源“看不见”（不同容器有自己独立的网络、进程表、文件系统），利用 Cgroups 实现资源“用不了太多”（ 限制 CPU 核心数、内存上限，避免资源抢光）</p>
+<h3 id="wen-ti">问题：</h3>
+<p>要做到上述功能 必须需要Docker具有linux的内核，在Windows/mac上怎么才能具有linux内核呢？</p>
+<p>Windows WSL2（Windows Subsystem for Linux） 轻量级Linux虚拟机（内置Linux内核）
+macOS HyperKit（基于Hypervisor.framework） 轻量级Linux虚拟机</p>
+<p>用户启动Docker Desktop</p>
+<p>自动启动一个隐藏的Linux虚拟机（通过WSL2或Hyper-V）</p>
+<p>所有Docker容器实际运行在这个Linux虚拟机内</p>
+<p>Docker CLI通过RPC与虚拟机内的Docker引擎通信</p>
+<p>事实就是：</p>
+<blockquote>
+<p>"Docker容器本质依赖Linux内核的特性（如Namespace/Cgroups）。在Windows/Mac上，Docker Desktop通过内置的Linux虚拟机（WSL2/HyperKit）提供Linux内核支持，容器实际运行在这个虚拟机内，而非直接调用Windows内核。"</p>
+</blockquote>
+<h2 id="wei-shen-me-docker-yao-yun-xing-zai-linux-shang">为什么Docker 要运行在 Linux 上？</h2>
+<p>容器化技术依赖Linux内核的三大机制：</p>
+<p>Namespaces（命名空间） → 提供进程隔离（PID、网络、挂载点等）</p>
+<p>Cgroups（控制组） → 限制资源（CPU、内存、IO）</p>
+<p>UnionFS（联合文件系统） → 实现镜像分层存储</p>
+<h2 id="wsl2-vs-vm">WSL2 VS VM</h2>
+<blockquote>
+<p>WSL2 共享Windows内核的部分功能（如调度器），而传统VM需模拟完整硬件并运行独立OS。</p>
+</blockquote>
+<h3 id="wen-ti-1">问题：</h3>
+<p>“内核”到底是什么？它的角色和操作系统是一致的？</p>
+<p>内核四大职责：</p>
+<ol>
+<li>进程管理</li>
+</ol>
+<p>创建/销毁进程（fork()、exit()）</p>
+<p>CPU调度（决定哪个进程运行）
+示例：Docker容器本质是内核通过clone()+Namespace创建的隔离进程</p>
+<ol start="2">
+<li>内存管理</li>
+</ol>
+<p>分配物理内存（malloc()底层依赖内核）</p>
+<p>虚拟内存（分页/交换空间）</p>
+<ol start="3">
+<li>设备驱动</li>
+</ol>
+<p>[todo]</p>
+<ol start="4">
+<li>文件系统</li>
+</ol>
+<p>[todo]</p>
+<p><strong>联合文件系统</strong></p>
+<p><strong>向上：通过系统调用（syscall） 为软件提供服务
+向下：直接操作CPU/内存/设备寄存器</strong></p>
+<h2 id="dockerbu-shu-de-liu-cheng">Docker部署的流程</h2>
+<ol>
+<li>编写 Dockerfile</li>
+</ol>
+<p>定义基础镜像（如 golang:1.20 或更小的 scratch）</p>
+<p>拷贝你的代码和依赖</p>
+<p>编译生成可执行文件（或直接用编译好的二进制）</p>
+<p>设置容器启动命令（比如运行 simplebank 服务）</p>
+<ol start="2">
+<li>构建镜像</li>
+</ol>
+<p>执行 docker build -t simplebank:latest .</p>
+<p>生成一个包含你的程序和运行环境的镜像文件</p>
+<ol start="3">
+<li>推送镜像（可选）</li>
+</ol>
+<p>把镜像上传到远程仓库，如 Docker Hub 或私有 Harbor</p>
+<p>方便其他服务器拉取</p>
+<ol start="4">
+<li>
+<p>运行容器</p>
+</li>
+<li>
+<p>访问服务
+通过服务器的 IP 和端口访问你的 SimpleBank API</p>
+</li>
+<li>
+<p>维护和更新</p>
+</li>
+</ol>
+<p>更新代码后，重复构建镜像和部署容器流程</p>
+<p>可以通过 Docker Compose 或 Kubernetes 做多容器编排和扩展</p>
+<h2 id="jing-xiang-guan-li">镜像管理</h2>
+<h2 id="rong-qi-cao-zuo">容器操作</h2>
+<h2 id="wang-luo-guan-li">网络管理</h2>
+<h2 id="shu-ju-chi-jiu-hua">数据持久化</h2>
+<h2 id="dockerfile">Dockerfile</h2>
+<p>构建镜像： 基础环境 依赖安装 文件复制 启动命令</p>
+<p>实际的执行流程：</p>
+<p>镜像（Image） → 启动后变成 → 容器（Container）</p>
+<h2 id="shelljiao-ben">Shell脚本</h2>
+<p>用途： 自动化任务、批量处理、服务管理、部署流程等。</p>
+<pre data-lang="sh" class="language-sh "><code class="language-sh" data-lang="sh">#!&#x2F;bin&#x2F;sh
+
+set -e
+
+echo &quot;run db migrations&quot;
+&#x2F;app&#x2F;migrate -path &#x2F;app&#x2F;migration -database &quot;$DB_SOURCE&quot; -verbose up
+
+echo &quot;start the app&quot;
+exec &quot;$@&quot;
+
+</code></pre>
+<pre data-lang="Dockerfiles" class="language-Dockerfiles "><code class="language-Dockerfiles" data-lang="Dockerfiles">
+EXPOSE 8080 
+CMD [ &quot;&#x2F;app&#x2F;main&quot; ]
+ENTRYPOINT [ &quot;&#x2F;app&#x2F;start.sh&quot; ]
+
+</code></pre>
+<p><em>CMD</em>  定义默认参数，会被 <em>ENTRYPOINT</em> 使用，也可被 docker run 的参数覆盖</p>
+<hr />
+<p>完成_Dockerfiles_文件的编写，构建镜像！</p>
+<p><code>docker build -t your-service:1.0 .</code></p>
+<p><code>docker run -it --rm your-service:1.0 sh</code> 运行！</p>
+<h2 id="docker-compose-yaml">Docker-compose.yaml</h2>
+<blockquote>
+<p>通过一个 YAML 文件定义和编排多容器应用，实现一键启动完整服务栈。</p>
+</blockquote>
+<h3 id="shen-me-shi-duo-rong-qi-bian-pai">什么是多容器编排</h3>
+<blockquote>
+<p>多个容器协同运行，组成一个完整系统，并通过自动化工具统一管理和部署的过程，就叫多容器编排。</p>
+</blockquote>
+<p><strong>多个容器之间需要保证什么？</strong></p>
+<ol>
+<li>
+<p>启动顺序正确</p>
+</li>
+<li>
+<p>网络互通</p>
+</li>
+<li>
+<p>环境一致</p>
+</li>
+<li>
+<p>自动恢复</p>
+</li>
+<li>
+<p>动态扩容</p>
+</li>
+</ol>
+<h2 id="shi-li">实例：</h2>
+<pre data-lang="yml" class="language-yml "><code class="language-yml" data-lang="yml">
+services:
+  postgres:
+    image: postgres:12-alpine
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=simple_bank
+    ports:
+      - &quot;5433:5432&quot;
+    volumes:
+      - data-volume:&#x2F;var&#x2F;lib&#x2F;postgresql&#x2F;data
+
+</code></pre>
+<p>启动了一个数据库容器 并且配置了一系列环境</p>
+<pre><code>    depends_on:
+      - postgres
+      - redis
+</code></pre>
+<p>启动顺序</p>
+<h2 id="lian-jie-dockerfiles-he-docker-compose">连接Dockerfiles 和 docker-compose</h2>
+<pre data-lang="yml" class="language-yml "><code class="language-yml" data-lang="yml"> api:
+  build:
+    context: .
+    dockerfile: Dockerfile
+</code></pre>
+<h3 id="wen-ti-2">问题</h3>
+<p>编写完Dockerfiles文件后 也就是构建完成镜像之后就可以启动镜像为容器了，也就是项目可以正常启动了，为什么还需要docker-compose文件编排多个容器呢？</p>
+<p><code>docker-compose up -d  # 一键启动所有服务，自动处理依赖</code></p>
+<h2 id="dockerzhong-de-wang-luo-wen-ti">docker中的网络问题</h2>
+<p><strong>网络模式：</strong></p>
+<ol>
+<li>bridge</li>
+</ol>
+<p>每个 Bridge 网络形成一个独立的虚拟局域网（VLAN）</p>
+<p>同一网络内的容器可通过容器名互相访问（无需IP）</p>
+<p>容器访问外网时，IP会被转换为宿主机IP（通过iptables规则）</p>
+<p>需手动映射端口（-p 8080:80）才能从宿主机外部访问容器服务</p>
+<h3 id="duan-kou-ying-she">端口映射</h3>
+<blockquote>
+<p>Docker 将容器内部端口绑定到宿主机端口的机制</p>
+</blockquote>
+<p><img src="https://github.com/user-attachments/assets/c1b8951b-0444-4cb4-8341-fad1707d9947" alt="Image" /></p>
+<p><code># 将容器的80端口映射到宿主机的8080端口 docker run -d -p 8080:80 --name nginx nginx </code></p>
+<p><strong>网卡的作用：</strong></p>
+<p><em>主机和外部网络的桥梁，完成数据收发和初步封装</em></p>
+<p>Docker 会创建虚拟网卡（veth pair）：</p>
+<p>一端在容器内，另一端接到宿主机的网桥（docker0）。</p>
+<p>通过虚拟网卡，容器流量被送到宿主机网络，再被转发出去（如 NAT）。</p>
+<h4 id="nat">NAT</h4>
+<p>把私有网络的 IP 地址转换成公有网络的 IP 地址，实现内网访问外网或不同网段通信。 主要解决 IP 不够用 + 内网隔离 + 控制流量 的问题。</p>
+<p>Docker 默认用 NAT：
+容器内的私有 IP（如 172.17.x.x）通过 NAT 转换成宿主机的 IP 对外通信。</p>
+<h2 id="tong-xin">通信</h2>
+<p>同网络下的容器可以通信，在自定义的网络中 他们可以通过容器名自动互相访问</p>
+<p>创建网络 并加入pg容器</p>
+<p><code>docker network connect bank-network postgres12</code></p>
+<p>检查容器内部配置</p>
+<p><code>docker network inspect bank-newtork</code></p>
+<p><code>docker container inspect postgres12</code></p>
+
+    </div>
+
+    
+
+    
+
+    
+
+    <div class="post-footer">
+        
+            
+                <div class="post-tags">
+                    
+                        <a href="https://Zhonghe-zhao.github.io/DailyBlog/tags/development/">#Development</a>
+                    
+                        <a href="https://Zhonghe-zhao.github.io/DailyBlog/tags/go/">#Go</a>
+                    
+                        <a href="https://Zhonghe-zhao.github.io/DailyBlog/tags/backend/">#Backend</a>
+                    
+                </div>
+            
+            
+                <div class="post-nav">
+                    
+                        <a class="previous" href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;issue-31&#x2F;">‹ Kevin Kelly</a>
+                    
+                    
+                        <a class="next" href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;issue-29&#x2F;">软件工程中的一些重要思想 ›</a>
+                    
+                </div>
+            
+
+        
+
+    </div>
+
+    
+    
+</article>
+
+
+                </div>
+            </main>
+
+            
+            
+        </div>
+
+      
+          <script type="text/javascript" src="https://Zhonghe-zhao.github.io/DailyBlog/even.js" ></script>
+      
+    </body>
+
+</html>

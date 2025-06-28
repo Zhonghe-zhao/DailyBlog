@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+      <!-- Enable responsiveness on mobile devices-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+      
+    
+
+      <title> - 理解char **argv</title>
+
+      
+          
+          <link rel="alternate" type="application/rss+xml" title="RSS" href="https://Zhonghe-zhao.github.io/DailyBlog/rss.xml">
+          
+      
+
+      
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js"></script>
+          
+      
+
+      
+          <link rel="stylesheet" href="https://Zhonghe-zhao.github.io/DailyBlog/site.css">
+          
+      
+
+      
+      
+    </head>
+
+    <body>
+        <div class="container">
+
+            <div id="mobile-navbar" class="mobile-navbar">
+              <div class="mobile-header-logo">
+                <a href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;" class="logo"></a>
+              </div>
+              <div class="mobile-navbar-icon icon-out">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
+            <nav id="mobile-menu" class="mobile-menu slideout-menu slideout-menu-left">
+              <ul class="mobile-menu-list">
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;">
+                            Home
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;&#x2F;tags&#x2F;top&#x2F;">
+                            Top
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;&#x2F;issue-34&#x2F;">
+                            About
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;&#x2F;issue-35&#x2F;">
+                            Things I like
+                        </a>
+                    </li>
+                
+              </ul>
+            </nav>
+
+            <header id="header">
+                <div class="logo"><a href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;"></a></div>
+                <nav class="menu">
+                    <ul>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;">
+                                    Home
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;&#x2F;tags&#x2F;top&#x2F;">
+                                    Top
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;&#x2F;issue-34&#x2F;">
+                                    About
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;&#x2F;issue-35&#x2F;">
+                                    Things I like
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </nav>
+            </header>
+
+            <main>
+                <div class="content" id="mobile-panel">
+                    
+
+
+
+<article class="post">
+    
+    <header class="post__header">
+        <h1 class="post__title">
+            <a href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;issue-26&#x2F;">理解char **argv</a>
+        </h1>
+        <div class="post__meta">
+            <span class="post__time">2025-06-21</span>
+            
+                <span class="post__source">
+                    <a href="https:&#x2F;&#x2F;github.com&#x2F;Zhonghe-zhao&#x2F;DailyBlog&#x2F;issues&#x2F;26">read the source issue</a>
+                </span>
+            
+            
+        </div>
+    </header>
+
+
+    <div class="post-reactions">
+        
+        
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+
+    <div class="post-content">
+      <p>首先的困惑就像下述链接描述的一样：</p>
+<p><a href="https://www.quora.com/What-is-the-difference-between-char-*-argv-and-char-argv">char *argv[] &amp;&amp; char **argv</a></p>
+<p><code>char *argv[]</code></p>
+<p>这是指向 char 的指针数组 。数组中的每个元素都是一个指针，它指向一个字符串（一个字符序列）。</p>
+<p>常用于 main 函数的上下文中 ，以处理命令行参数。它通常定义为 <em>int main(int argc, char *argv[])</em> 或 <em>int main(int argc, char **argv)</em></p>
+<p><em>char *argv[]</em> 用于表示多个字符串（命令行参数），而 char argv[] 表示单个字符串（字符数组）。</p>
+<pre data-lang="c" class="language-c "><code class="language-c" data-lang="c">printf(&quot;%s\n&quot;, argv[0]);  sh 正确：打印整个字符串
+printf(&quot;%c\n&quot;, argv[0]);  未定义行为（可能乱码&#x2F;崩溃） | 错误：%c 需要 char，但 argv[0] 是 char*
+printf(&quot;%c\n&quot;, argv[0][0]);  正确：打印字符串的第一个字符
+</code></pre>
+<pre data-lang="text" class="language-text "><code class="language-text" data-lang="text">地址 0x1000: &#x27;s&#x27;
+地址 0x1001: &#x27;h&#x27;
+地址 0x1002: &#x27;\0&#x27; (字符串结束符)
+</code></pre>
+<p><strong>printf 的 %s 格式化符号的工作原理：</strong></p>
+<p><em><em>它期望一个 char</em> 类型的参数</em>*（即字符串的起始地址）。</p>
+<p>从该地址开始，逐个字符打印，直到遇到 \0（NULL 终止符）。</p>
+<p>它 自动解引用指针，并持续向后读取内存，直到 \0。</p>
+<p>等价</p>
+<pre data-lang="c" class="language-c "><code class="language-c" data-lang="c">char *ptr = argv[0];  &#x2F;&#x2F; ptr 指向 &quot;sh&quot; 的首地址
+while (*ptr != &#x27;\0&#x27;) {
+    putchar(*ptr);    &#x2F;&#x2F; 打印当前字符
+    ptr++;           &#x2F;&#x2F; 移动到下一个字符
+}
+</code></pre>
+
+    </div>
+
+    
+
+    
+
+    
+
+    <div class="post-footer">
+        
+            
+                <div class="post-tags">
+                    
+                        <a href="https://Zhonghe-zhao.github.io/DailyBlog/tags/computerscience/">#ComputerScience</a>
+                    
+                </div>
+            
+            
+                <div class="post-nav">
+                    
+                        <a class="previous" href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;issue-27&#x2F;">‹ 记忆不是复读机</a>
+                    
+                    
+                        <a class="next" href="https:&#x2F;&#x2F;Zhonghe-zhao.github.io&#x2F;DailyBlog&#x2F;issue-25&#x2F;">good_first_issue ›</a>
+                    
+                </div>
+            
+
+        
+
+    </div>
+
+    
+    
+</article>
+
+
+                </div>
+            </main>
+
+            
+            
+        </div>
+
+      
+          <script type="text/javascript" src="https://Zhonghe-zhao.github.io/DailyBlog/even.js" ></script>
+      
+    </body>
+
+</html>

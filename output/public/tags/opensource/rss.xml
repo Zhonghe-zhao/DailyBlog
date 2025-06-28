@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title> - OpenSource</title>
+      <link>https://Zhonghe-zhao.github.io/DailyBlog/</link>
+      <description></description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://Zhonghe-zhao.github.io/DailyBlog/tags/opensource/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Sat, 21 Jun 2025 08:39:28 +0000</lastBuildDate>
+      <item>
+          <title>good_first_issue</title>
+          <pubDate>Sat, 21 Jun 2025 08:39:28 +0000</pubDate>
+          <author>Zhonghe-zhao</author>
+          <link>https://Zhonghe-zhao.github.io/DailyBlog/issue-25/</link>
+          <guid>https://Zhonghe-zhao.github.io/DailyBlog/issue-25/</guid>
+          <description xml:base="https://Zhonghe-zhao.github.io/DailyBlog/issue-25/">&lt;h1 id=&quot;chang-shi-jie-jue-ren-sheng-de-di-yi-ge-issue&quot;&gt;尝试解决人生的第一个issue&lt;&#x2F;h1&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;rust-lang&#x2F;rust-clippy&#x2F;issues&#x2F;3219&quot;&gt;rust-clippy&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;这个issue的由来大概是StackOverFlow中的一个人的疑惑&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;stackoverflow.com&#x2F;questions&#x2F;48361537&#x2F;why-do-underscore-prefixed-variables-exist&#x2F;48370313#48370313&quot;&gt;Stackoverflow&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;大概内容是：&lt;&#x2F;p&gt;
+&lt;p&gt;&quot;rust 现在变量名称的开头添加下划线将使编译器在未使用时不会发出警告， 未使用的变量可能是不受欢迎的！&quot;&lt;&#x2F;p&gt;
+&lt;p&gt;要解决的问题： 添加一个lint&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;fn main() {
+  used_underscore_but_unused(42);
+}
+
+&amp;#x2F;&amp;#x2F; ⚠️ `_param` 没用，但以 `_` 开头（我们想让它被 lint 出来）
+fn used_underscore_but_unused(_param: i32) {
+  println!(&amp;quot;just doing nothing with param&amp;quot;);
+}
+
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;当前输出：&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;shell&quot; class=&quot;language-shell &quot;&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;PS E:\rust-demo\src&amp;gt; cargo clippy -- -W unused_variables -W clippy::used_underscore_binding -D warnings
+    Checking rust-demo v0.1.0 (E:\rust-demo)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.31s  
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;问题可能比想象的要复杂：&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;github.com&#x2F;user-attachments&#x2F;assets&#x2F;acb302e2-221e-4746-a3b2-470de5808c01&quot; alt=&quot;Image&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;这是社区的回复，我可能要先释放这个issue了&lt;&#x2F;p&gt;
+</description>
+      </item>
+    </channel>
+</rss>

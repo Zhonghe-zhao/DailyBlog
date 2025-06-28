@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title> - think</title>
+      <link>https://Zhonghe-zhao.github.io/DailyBlog/</link>
+      <description></description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://Zhonghe-zhao.github.io/DailyBlog/tags/think/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Fri, 27 Jun 2025 04:09:14 +0000</lastBuildDate>
+      <item>
+          <title>Kevin Kelly</title>
+          <pubDate>Fri, 27 Jun 2025 04:09:14 +0000</pubDate>
+          <author>Zhonghe-zhao</author>
+          <link>https://Zhonghe-zhao.github.io/DailyBlog/issue-31/</link>
+          <guid>https://Zhonghe-zhao.github.io/DailyBlog/issue-31/</guid>
+          <description xml:base="https://Zhonghe-zhao.github.io/DailyBlog/issue-31/">&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;kk.org&#x2F;thetechnium&#x2F;99-additional-bits-of-unsolicited-advice&#x2F;&quot;&gt;kk.org&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;一些很好的建议！&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;“It’s not an apology if it comes with an excuse. It is not a compliment if it comes with a request. ”&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;如果道歉夹带理由或借口，本质上是在为自己开脱，而不是承担责任。真正的道歉应当是直面错误，不推卸、不辩解。&lt;&#x2F;p&gt;
+&lt;p&gt;如果夸奖后立刻提要求，这夸奖就成了手段，不是发自内心的赞赏。真诚的赞美不图回报，只是表达认可。&lt;&#x2F;p&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&quot;Learn how to learn from those you disagree with, or even offend you. See if you can find the truth in what they believe. &quot;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;放下成见，善于从不同或对立的观点中吸取智慧，这能拓宽你的认知边界。&lt;&#x2F;p&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&quot;Always demand a deadline. A deadline weeds out the extraneous and the ordinary. It prevents you from trying to make it perfect, so you have to make it different. Different is better.&quot;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;时间压力能激发创新，不要浪费时间在琐碎细节上。&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>记忆不是复读机</title>
+          <pubDate>Mon, 23 Jun 2025 09:14:47 +0000</pubDate>
+          <author>Zhonghe-zhao</author>
+          <link>https://Zhonghe-zhao.github.io/DailyBlog/issue-27/</link>
+          <guid>https://Zhonghe-zhao.github.io/DailyBlog/issue-27/</guid>
+          <description xml:base="https://Zhonghe-zhao.github.io/DailyBlog/issue-27/">&lt;h1 id=&quot;li-jie-lei-bi&quot;&gt;理解类比&lt;&#x2F;h1&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;github.com&#x2F;user-attachments&#x2F;assets&#x2F;9909e7a1-4867-4ad1-b087-b1b432509271&quot; alt=&quot;Image&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;lei-bi-si-xiang&quot;&gt;类比思想：&lt;&#x2F;h2&gt;
+&lt;p&gt;类比思想是： &lt;em&gt;利用已知事物的特点理解新事物&lt;&#x2F;em&gt;，减少学习成本&lt;&#x2F;p&gt;
+&lt;p&gt;学习新知识时：&lt;&#x2F;p&gt;
+&lt;p&gt;可以这么去想，联系已知的概念，大体可以这么运用：&lt;&#x2F;p&gt;
+&lt;p&gt;学习电路时，将电流比作水流，电压比作水压&lt;&#x2F;p&gt;
+&lt;p&gt;理解原子结构时，用太阳系行星绕太阳运行来类比电子绕原子核运动&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;wen-ti&quot;&gt;问题：&lt;&#x2F;h2&gt;
+&lt;p&gt;怎么知道自己的类比是否正确？ 或者得体？ 如果不恰当的类比并且有可能错误的类比会造成误会吧！&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;yuan-shi-gai-nian-yuan-ze&quot;&gt;原始概念原则&lt;&#x2F;h1&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;github.com&#x2F;user-attachments&#x2F;assets&#x2F;b73092cf-030e-4c40-8f07-d6c7333197f0&quot; alt=&quot;Image&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;所有逻辑推导都建立在无需证明的&quot;公理&quot;（或原始概念）之上，就像盖房子需要地基。 越底层的概念越需要直接记忆并形成直觉反应（如看到&quot;+&quot;立刻想到&quot;相加&quot;）。高层定义（如极限）由底层符号（如∀、∃）组合而成，类似编程语言的&quot;从机器码到高级语法&quot;。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;思考方向：&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;遇到新概念时追问：&quot;这个定义依赖哪些更基础的概念？&quot;
+（例如&quot;导数&quot;依赖&quot;极限&quot;，&quot;极限&quot;依赖&quot;∀∃&quot;）&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;但不应该：&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;试图把&quot;点&quot;再分解为&quot;更小的点&quot;（违反不可再分性），&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;总结为：&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;原始概念是思维的地基。理解任何领域时，先识别其最底层的&quot;逻辑字母表&quot;，通过刻意练习将其内化为直觉，才能高效构建知识大厦。这正是数学家希尔伯特所说的：&quot;数学的基础不是水泥，而是透明的晶体。&quot;&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;ji-yi-de-yuan-shi-gai-nian&quot;&gt;记忆的原始概念&lt;&#x2F;h1&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;github.com&#x2F;user-attachments&#x2F;assets&#x2F;070d780c-b5c8-4514-8fd2-9f72d8526d84&quot; alt=&quot;Image&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;构成人类逻辑思维基础的、最底层的记忆单位&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;ji-yi-yuan-yu-de-fen-lei-he-te-zheng&quot;&gt;记忆源于的分类和特征&lt;&#x2F;h2&gt;
+&lt;ol&gt;
+&lt;li&gt;对象记忆：&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;可独立识别的逻辑个体&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;示例：&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;数学中的&quot;变量x&quot;&lt;&#x2F;p&gt;
+&lt;p&gt;语言中的&quot;单词apple&quot;&lt;&#x2F;p&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;关系记忆&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对象间的逻辑关联&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;示例：&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;数学中的&quot;x &amp;gt; y&quot;&lt;&#x2F;p&gt;
+&lt;p&gt;语言中的&quot;主语-谓语&quot;结构&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;&quot;约束规则&quot;&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;_强制性：_只要前提A→B和A为真，B必须为真，否则逻辑系统自相矛盾。&lt;&#x2F;p&gt;
+&lt;p&gt;_不可违反性：_这是逻辑推理的基石，类似数学中的&quot;1+1=2&quot;。&lt;&#x2F;p&gt;
+&lt;p&gt;_传递性：_通过A→B和B→C，可进一步推出A→C（假言三段论）。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;给抽象概念赋予具体属性：&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;如将逻辑命题P想象成一个&quot;可开关的灯泡&quot;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;但不应该：&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;试图用高层概念（如&quot;定理&quot;）解释原始对象（如&quot;变量&quot;），只背单词不练句法，导致无法实际应用&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;li-jie-ji-yi-fa&quot;&gt;理解记忆法：&lt;&#x2F;h1&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;github.com&#x2F;user-attachments&#x2F;assets&#x2F;1664152e-7089-44b7-83c2-16412f3f399e&quot; alt=&quot;Image&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;若直接记忆极限的保序性定理（如公式所示），而不理解其底层逻辑（极限定义、量词含义等），会导致：&lt;&#x2F;p&gt;
+&lt;p&gt;记忆负担重（像背随机字符串）&lt;&#x2F;p&gt;
+&lt;p&gt;缺乏应用直觉（无法灵活推导）&lt;&#x2F;p&gt;
+&lt;p&gt;产生认知焦虑（总担心遗漏条件）&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&quot;如果对极限的理解全来源于定理而非源头含义，会陷入‘考虑不周全’的担忧。&quot;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h2 id=&quot;jie-jue&quot;&gt;解决：&lt;&#x2F;h2&gt;
+&lt;p&gt;分层拆解与逻辑构建&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;实际使用：&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;遇到新定理时，列出其中所有符号和关系：
+&quot;这个‘∃’是什么意思？‘→’如何作用？&quot;&lt;&#x2F;p&gt;
+&lt;p&gt;若发现未掌握的底层概念（如不懂极限定义），优先补足。&lt;&#x2F;p&gt;
+&lt;p&gt;尝试用底层逻辑重新推导定理，而非直接背诵。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;注意避免：&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;以为“看懂了”就是“会用了”（需通过推导练习检验）&lt;&#x2F;p&gt;
+&lt;p&gt;试图将公理再分解（如追问“为什么1+1=2”）&lt;&#x2F;p&gt;
+&lt;p&gt;理解记忆法是通过知识网络化取代信息点状化&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;总结为：&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;理解记忆法是通过知识网络化取代信息点状化。如同建造金字塔——底层石块（原始概念）越稳固，上层结构（高阶定理）越容易搭建。这正是数学家庞加莱所言：“逻辑是证明的工具，直觉是发明的工具。”而理解记忆，正是二者的桥梁&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;“记忆不是复读机，而是创造性的重构。”真正的学习，是让知识在你的大脑中活起来。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+</description>
+      </item>
+      <item>
+          <title>与北邮老哥的交谈</title>
+          <pubDate>Tue, 10 Jun 2025 11:26:59 +0000</pubDate>
+          <author>Zhonghe-zhao</author>
+          <link>https://Zhonghe-zhao.github.io/DailyBlog/issue-18/</link>
+          <guid>https://Zhonghe-zhao.github.io/DailyBlog/issue-18/</guid>
+          <description xml:base="https://Zhonghe-zhao.github.io/DailyBlog/issue-18/">&lt;h1 id=&quot;mo-ni-mian-shi&quot;&gt;模拟面试&lt;&#x2F;h1&gt;
+&lt;p&gt;2025-06-10日 老哥给我来了一个模拟面试，看到了自己的不足和欠缺&lt;&#x2F;p&gt;
+&lt;p&gt;没有面试过真的不知道，面试官主要问的是什么，怎么问！&lt;&#x2F;p&gt;
+&lt;p&gt;其实 &lt;strong&gt;简历是自己与面试官沟通的一个桥梁&lt;&#x2F;strong&gt; 根据简历，让面试官快速了解你，通过简历，能够知道问你什么知识！&lt;&#x2F;p&gt;
+&lt;p&gt;对于项目的整体架构，流程，模块，功能是怎么了解的！技术选型是为什么？ 你所回答的每一个问题，都会成为面试官下一步的追问点，对于每一步
+你应该有所准备有所了解！代码的编写能力，不能落下！&lt;&#x2F;p&gt;
+&lt;p&gt;修改简历，为你真正能够回答的你所涉及的知识，而不是为了好看而去写上，但问你你却答不出来，反而成了减分项！&lt;&#x2F;p&gt;
+&lt;p&gt;基础不行（数据结构和算法 操作系统 计算机网络） 对于下一步如何正确的学习，老哥给了我一些方法和建议，我认为非常有帮助！&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;pre&gt;&lt;code&gt;
+我说一个学习的方式：提问-&amp;gt;解答-&amp;gt;再提问的方式：
+首先提出一个问题，比如TCP是什么？
+
+TCP是传输层的一种可靠传输协议
+
+得到这个答案后，我自然想问：
+
+传输层是什么？可靠传输协议又是什么?
+
+传输层是OSI网络模型中，负责提供抽象通道的一层协议集
+可靠传输协议能够保证该抽象通道的数据能够从通道A端完整可靠地到达B端
+
+得到上面的解答后，我又能够提问：
+OSI网络模型是什么？可靠传输协议有哪些？可靠传输怎么实现的？
+
+OSI是一种将承担不同责任的基础设施分层，并按照不同层将各自的通信协议分类的模型
+可靠传输协议最常见的是TCP，其他的我暂时不关心
+可靠传输主要通过重传实现，也就是说如果数据没有发到，再发一次
+
+怎么知道数据有没有发到？
+
+如果B端接收到了A端的数据，会发送一个ack，表示收到
+
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;如何&lt;strong&gt;判断&lt;&#x2F;strong&gt;对某个知识你是否真的&lt;strong&gt;理解了&lt;&#x2F;strong&gt;？&lt;&#x2F;p&gt;
+&lt;p&gt;这真的很重要！&lt;&#x2F;p&gt;
+&lt;p&gt;我自己的感受就是很多知识学习了，会忘，那种感觉很难受，反反复复的看，总是记不住，时间花出去了但是没有收获到什么！ 在被问道的时候什么也回答不上来！&lt;&#x2F;p&gt;
+&lt;p&gt;也就是 &lt;strong&gt;有些东西你看懂了表面的行为，但是实际上并不理解本质&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;cong-biao-ceng-kai-shi-si-kao&quot;&gt;从表层开始思考&lt;&#x2F;h2&gt;
+&lt;p&gt;比如鉴权系统需要知道用户信息，否则就无法执行后续逻辑，那就是流程上存在数据依赖，如果是两台服务器提供并发服务，那么就是全局上要求两者的数据一致，但是&lt;strong&gt;只看通信&lt;&#x2F;strong&gt;就很好理解：数据从A到B，所以理解了一个简单易懂的机制后，学会追问为什么要这么做&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;说到底，没有记住的东西，一般是缺乏思考了&lt;&#x2F;strong&gt; &lt;em&gt;多问问自己，为了达到目的，我应该做什么？&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;hua-ti-zhan-kai&quot;&gt;话题展开&lt;&#x2F;h2&gt;
+&lt;p&gt;老哥说了关于粒度 和 维度 这词语在IT届 公司中很常用的词语，但是我确实不太理解是什么意思&lt;&#x2F;p&gt;
+&lt;p&gt;什么是 &quot;切分数据“? 这是我从没有涉猎过的一个词语&lt;&#x2F;p&gt;
+&lt;p&gt;_事物本质往往更抽象&lt;&#x2F;p&gt;
+&lt;p&gt;具体的东西很好理解和学习，适合入门_&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;例如搜索：MVCC&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;你并不理解MVCC是什么！ 但是在网上搜索会有很多相关的文章， 实现大多是基于InnoDB，虽然你不知道是什么，但是&lt;strong&gt;文章中总是会将某个概念绑定到某个具体的实现&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;但实际上MVCC是一个抽象的概念它的作用是 ：要求多版本共存，事务隔离（引发思考：MVCC是什么？ 要达到什么要求？）为了实现这个要求，谁谁谁具体做了什么？&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;对于TCP：&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;传输是个抽象的概念，可靠的传输是个抽象的概念，落到TCP上就有了具体实现, 但是可靠传输不依赖TCP,所以写代码一般会先写接口&lt;&#x2F;p&gt;
+&lt;p&gt;先约定接口，然后实现，这是一种思考方式!（&lt;strong&gt;实现能力，代码能力&lt;&#x2F;strong&gt;）&lt;&#x2F;p&gt;
+&lt;p&gt;然后反过来，我们看到一个设计，反过来想为什么要这么设计，目的是什么(&lt;strong&gt;抽象能力&lt;&#x2F;strong&gt;)&lt;&#x2F;p&gt;
+&lt;p&gt;如果不懂某个概念应该去弄明白它的概念 ， 然后从AI给你的一堆：SQL中的切分、数学中的切分、数据工程中的切分等等中，找到具体事物的共性&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;看了一段话，想一下为什么是这样，如果不是这样呢？&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;go.dev&#x2F;ref&#x2F;meml&quot;&gt;go从抽象的层面探讨并发编程的本质&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;慢慢啃，然后理解为什么会有锁、条件变量、channel各种并发原语，能不能用一种唯一的机制实现他们，为什么不用唯一的机制实现它们，等等&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;结合一点能激活大脑兴奋的事情&lt;&#x2F;strong&gt; ，看书陷入困惑是容易放弃思考&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;需要的时候选合适的章节过一遍 把疑惑点选出来 再通过各种能激发思考途径解决&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;改正自己从头读到尾的看一本书 ，知识学不完的&lt;&#x2F;p&gt;
+&lt;p&gt;让自己的思维喜欢上思考！慢慢来&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>图片和视频的时空对话</title>
+          <pubDate>Sun, 08 Jun 2025 07:20:43 +0000</pubDate>
+          <author>Zhonghe-zhao</author>
+          <link>https://Zhonghe-zhao.github.io/DailyBlog/issue-16/</link>
+          <guid>https://Zhonghe-zhao.github.io/DailyBlog/issue-16/</guid>
+          <description xml:base="https://Zhonghe-zhao.github.io/DailyBlog/issue-16/">&lt;h1 id=&quot;you-gan-er-fa&quot;&gt;有感而发&lt;&#x2F;h1&gt;
+&lt;p&gt;最近总是翻看相册中的图片和视频，引发了一些对过往记录的思考。&lt;&#x2F;p&gt;
+&lt;p&gt;我相信，当你按下快门的那一刻，你是开心的。你想记录这一瞬间，想永远拥有这个时刻——于是你按下快门。大家都不例外，毕竟，谁也不会把不喜欢的照片存放在手机里。&lt;&#x2F;p&gt;
+&lt;p&gt;但此刻，当我回看这些美好的影像，心里却五味杂陈。它们让我感慨时间的流逝，甚至渴望永远停留在某个瞬间——那种“再也回不去”的感觉愈发强烈。&lt;&#x2F;p&gt;
+&lt;p&gt;图片和视频的冲击力是极强的。即使时隔多年，再次观看时，它们仍能瞬间唤醒记忆，那些美好仿佛就在眼前……可奇怪的是，我总会感到一丝失落。因为我发现，自己很难完全回到当时的心境，重现彼时的思绪。这感觉就像——你明明看得见，却永远无法真正重返那个时刻。它们能保存视觉，却无法封存其他因素：比如当时“雪的温度，风的刺骨，暖阳的照射，或是那一刻心跳的节奏。&lt;&#x2F;p&gt;
+&lt;p&gt;影像既是记忆的钥匙，又是时间的证据——这种既亲近又疏离的张力，实在奇妙。&lt;&#x2F;p&gt;
+&lt;p&gt;—— 2025.06.08&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>编程的一些观念</title>
+          <pubDate>Fri, 06 Jun 2025 04:05:21 +0000</pubDate>
+          <author>Zhonghe-zhao</author>
+          <link>https://Zhonghe-zhao.github.io/DailyBlog/issue-14/</link>
+          <guid>https://Zhonghe-zhao.github.io/DailyBlog/issue-14/</guid>
+          <description xml:base="https://Zhonghe-zhao.github.io/DailyBlog/issue-14/">&lt;h1 id=&quot;bian-cheng-xue-xi-de-7ge-zhong-yao-guan-nian&quot;&gt;编程学习的7个重要观念&lt;&#x2F;h1&gt;
+&lt;p&gt;观看了一个视频，视频中的要点，很多是我有过的困惑，希望大家能避免，不要追求完美！&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1W87qzuEzX?vd_source=4f3d528d84e2e77c1b7ceb97ba4ecab1&quot;&gt;bilibili&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;1-ni-bu-xu-yao-shen-me-du-zhi-dao&quot;&gt;1. 你不需要什么都知道&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;要点&lt;&#x2F;strong&gt;：编程不是记忆语言，而是理解模式和查找答案。资深开发者也常用 Google 搜索。&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;重要性&lt;&#x2F;strong&gt;：消除“必须全知”的误解，减轻初学者压力，专注学习过程。&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;建议&lt;&#x2F;strong&gt;：使用 MDN、Stack Overflow 查资料，记录常用代码片段。&lt;br &#x2F;&gt;
+&lt;strong&gt;例子&lt;&#x2F;strong&gt;：搜索 &lt;code&gt;JavaScript get last array element&lt;&#x2F;code&gt; 得：&lt;code&gt;array[array.length - 1]&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;2-xue-xi-ru-he-xue-xi&quot;&gt;2. 学习如何学习&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;要点&lt;&#x2F;strong&gt;：看教程不等于学会，动手实践是关键。建议 1 小时教程配 4 小时独立 coding。&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;重要性&lt;&#x2F;strong&gt;：实践巩固知识，过度依赖教程会导致“虚假进步”。&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;建议&lt;&#x2F;strong&gt;：做小项目（如待办事项列表），卡住时分解问题、搜索答案。&lt;br &#x2F;&gt;
+&lt;strong&gt;例子&lt;&#x2F;strong&gt;：写函数过滤数组偶数，搜索 &lt;code&gt;JavaScript filter&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;3-wan-mei-shi-yi-ge-xian-jing&quot;&gt;3. 完美是一个陷阱&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;要点&lt;&#x2F;strong&gt;：追求完美代码会拖慢进度，完成的“丑陋”代码更有价值。资深开发者也写 bug。&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;重要性&lt;&#x2F;strong&gt;：避免因不完美而拖延，迭代才是提升代码质量的关键。&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;建议&lt;&#x2F;strong&gt;：先实现 MVP，用 Git 跟踪改进。&lt;br &#x2F;&gt;
+&lt;strong&gt;例子&lt;&#x2F;strong&gt;：别花 3 小时纠结变量名，用 &lt;code&gt;data&lt;&#x2F;code&gt; 继续写功能&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;4-ni-yong-yuan-bu-hui-gan-dao-zhun-bei-jiu-xu&quot;&gt;4. 你永远不会感到准备就绪&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;要点&lt;&#x2F;strong&gt;：自信来自行动，而非等待“准备好”。接受失败是成长的一部分。&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;重要性&lt;&#x2F;strong&gt;：拖延会错失机会，边做边学是正道。&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;建议&lt;&#x2F;strong&gt;：从克隆简单网页开始，勇敢申请工作或项目。&lt;br &#x2F;&gt;
+&lt;strong&gt;例子&lt;&#x2F;strong&gt;：彼得首个自由职业项目靠 Google 完成&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;5-zhen-zheng-de-ji-neng-shi-jie-jue-wen-ti&quot;&gt;5. 真正的技能是解决问题&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;要点&lt;&#x2F;strong&gt;：编程核心是分解问题和调试，而非记语法。开发者像侦探，追踪线索。&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;重要性&lt;&#x2F;strong&gt;：调试是工作常态，培养逻辑思维比记代码更重要。&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;建议&lt;&#x2F;strong&gt;：将任务拆成小步，用 &lt;code&gt;console.log&lt;&#x2F;code&gt; 或调试器检查。&lt;br &#x2F;&gt;
+&lt;strong&gt;例子&lt;&#x2F;strong&gt;：页面不显示数据，查 API、数据格式或渲染逻辑&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;6-mei-ren-zai-hu-ni-de-dai-ma-ta-men-guan-xin-ta-neng-zuo-shen-me&quot;&gt;6. 没人在乎你的代码，他们关心它能做什么&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;要点&lt;&#x2F;strong&gt;：用户&#x2F;客户只关心功能（如按钮能否工作），不在乎代码优雅。&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;重要性&lt;&#x2F;strong&gt;：避免沉迷代码美学，优先交付实用产品。&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;建议&lt;&#x2F;strong&gt;：先确保功能实现，再优化代码。&lt;br &#x2F;&gt;
+&lt;strong&gt;例子&lt;&#x2F;strong&gt;：客户只想按钮变蓝色，不在乎你用没用 React Hook&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;7-juan-dai-shi-zhen-shi-cun-zai-de-bao-hu-ni-de-neng-liang&quot;&gt;7. 倦怠是真实存在的，保护你的能量&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;要点&lt;&#x2F;strong&gt;：编程是马拉松，过度消耗会导致倦怠。休息和边界感确保可持续性。&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;重要性&lt;&#x2F;strong&gt;：倦怠让人怀疑能力，健康习惯提升效率。&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;建议&lt;&#x2F;strong&gt;：使用番茄工作法（25 分钟工作 + 5 分钟休息），保证睡眠，散步放松。&lt;br &#x2F;&gt;
+&lt;strong&gt;例子&lt;&#x2F;strong&gt;：彼得熬夜修 bug 得不偿失&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;hr &#x2F;&gt;
+</description>
+      </item>
+      <item>
+          <title>博文推荐</title>
+          <pubDate>Wed, 28 May 2025 13:07:22 +0000</pubDate>
+          <author>Zhonghe-zhao</author>
+          <link>https://Zhonghe-zhao.github.io/DailyBlog/issue-9/</link>
+          <guid>https://Zhonghe-zhao.github.io/DailyBlog/issue-9/</guid>
+          <description xml:base="https://Zhonghe-zhao.github.io/DailyBlog/issue-9/">&lt;h1 id=&quot;you-zhi-bo-wen-jing-xuan-ji&quot;&gt;优质博文精选集&lt;&#x2F;h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;一个持续更新的高质量技术&#x2F;设计&#x2F;思维类博文索引库&lt;br &#x2F;&gt;
+「我们站在巨人的肩膀上，但需要知道肩膀在哪」&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;2025-06-12ri-tui-jian&quot;&gt;2025-06-12日推荐&lt;&#x2F;h2&gt;
+&lt;p&gt;获取前沿资料&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;dl.acm.org&#x2F;&quot;&gt;ACM&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.nature.com&#x2F;&quot;&gt;Nature&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;blog.sigplan.org&#x2F;&quot;&gt;SIGPLAN编程语言博客&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;scholar.google.de&#x2F;&quot;&gt;Google学术搜索&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;arxiv.org&#x2F;list&#x2F;cs.PL&#x2F;recent&quot;&gt;arXiv编程语言文论&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;dev.golang.org&#x2F;&quot;&gt;Go官方文档&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;golang&#x2F;go&quot;&gt;Go语言Github&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;go-review.googlesource.com&quot;&gt;Go代码审查&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;x.com&#x2F;&quot;&gt;Twitter&#x2F;X平台&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;reddit&#x2F;r&#x2F;golang&quot;&gt;Reddit Go社区&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;groups.google.com&#x2F;g&#x2F;golang-nuts&quot;&gt;Go技术讨论组&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;groups.google.com&#x2F;g&#x2F;golang-dev&quot;&gt;Go开发组&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;groups.google.com&#x2F;g&#x2F;golang-tools&quot;&gt;Go工具组&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;2025-06-06ri-tui-jian&quot;&gt;2025-06-06日推荐&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;terriblesoftware.org&#x2F;2025&#x2F;04&#x2F;23&#x2F;the-hidden-cost-of-ai-coding&#x2F;&quot;&gt;关于AI编码思考&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&quot;我们生命中最美好的时刻不是被动、接受、放松的时光......最好的时刻通常发生在一个人的身体或思想自愿努力完成困难和有价值的事情时。— 米哈利·西克森特米哈伊&quot;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;2025-05-11ri-tui-jian&quot;&gt;2025-05-11日推荐&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;cn.nytimes.com&#x2F;obits&#x2F;20210524&#x2F;yuan-longping-dead&#x2F;&quot;&gt;讣告-袁隆平&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;“这不是什么秘密，我的经历可以用四个词来概括：知识、汗水、灵感和机会，”袁隆平去年在一段鼓励中国年轻人投身科学的视频中说。他还在英语引用了科学家路易斯·巴斯德(Louis Pasteur)的话：“机会青睐有准备的头脑。”&lt;&#x2F;p&gt;
+&lt;p&gt;---袁隆平&lt;&#x2F;p&gt;
+&lt;p&gt;[低期望，多尝试]&lt;&#x2F;p&gt;
+&lt;p&gt;“我们应该做一个积极行动的悲观主义者，对未来低期望，但只要是值得的，就坚定去做。当一个有前途的新项目出现在你面前时，不妨认定它很难成功，但是如果你相信这个项目，即便赚不到钱你也想做，那么无论如此，你要去试一下。”&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;2025-04-16tui-jian&quot;&gt;2025-04-16推荐&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.dutchosintguy.com&#x2F;post&#x2F;the-slow-collapse-of-critical-thinking-in-osint-due-to-ai&quot;&gt;AI导致批判性思维逐渐崩溃&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+</description>
+      </item>
+      <item>
+          <title> 提问的智慧</title>
+          <pubDate>Wed, 28 May 2025 12:26:17 +0000</pubDate>
+          <author>Zhonghe-zhao</author>
+          <link>https://Zhonghe-zhao.github.io/DailyBlog/issue-6/</link>
+          <guid>https://Zhonghe-zhao.github.io/DailyBlog/issue-6/</guid>
+          <description xml:base="https://Zhonghe-zhao.github.io/DailyBlog/issue-6/">&lt;p&gt;“好问题！”是诚挚的大力称赞&lt;&#x2F;p&gt;
+&lt;p&gt;你必须花费时间在问题上，而不是遇到问题什么也不付出的直接索取！那和强盗没什么区别！&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;你并不是一个不劳而获且浪费别人的时间的提问者&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;zai-ti-wen-zhi-qian&quot;&gt;在提问之前&lt;&#x2F;h2&gt;
+&lt;p&gt;在你准备要通过电子邮件、新闻群组或者聊天室提出技术问题前，请先做到以下事情：&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;尝试在你准备提问的论坛的旧文章中搜索答案。&lt;&#x2F;li&gt;
+&lt;li&gt;尝试上网搜索以找到答案。&lt;&#x2F;li&gt;
+&lt;li&gt;尝试阅读手册以找到答案。&lt;&#x2F;li&gt;
+&lt;li&gt;尝试阅读常见问题文件（FAQ）以找到答案。&lt;&#x2F;li&gt;
+&lt;li&gt;尝试自己检查或试验以找到答案。&lt;&#x2F;li&gt;
+&lt;li&gt;向你身边的强者朋友打听以找到答案。&lt;&#x2F;li&gt;
+&lt;li&gt;如果你是程序开发者，请尝试阅读源代码以找到答案。&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;&lt;em&gt;不要将所有问题一股脑拋出，只因你的第一次搜索没有找到答案&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;草率的发问只能得到草率的回答，或者根本得不到任何答案&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;你为解决问题所付出的努力，你越有可能得到实质性的帮助。&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;shen-xuan-ti-wen-de-lun-tan&quot;&gt;慎选提问的论坛&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;在与主题不合的论坛上贴出你的问题。&lt;&#x2F;li&gt;
+&lt;li&gt;在探讨进阶技术问题的论坛张贴非常初级的问题；反之亦然。&lt;&#x2F;li&gt;
+&lt;li&gt;在太多的不同新闻群组上重复转贴同样的问题（cross-post）。&lt;&#x2F;li&gt;
+&lt;li&gt;向既非熟人也没有义务解决你问题的人发送私人电邮。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;stack-overflow&quot;&gt;Stack Overflow&lt;&#x2F;h3&gt;
+&lt;p&gt;搜索，_然后_在 Stack Exchange 问。&lt;&#x2F;p&gt;
+&lt;p&gt;近年来，Stack Exchange 社区已经成为回答技术及其他问题的主要渠道，尤其是那些开放源码的项目。&lt;&#x2F;p&gt;
+&lt;p&gt;Stack Exchange 已经成长到&lt;a href=&quot;https:&#x2F;&#x2F;stackexchange.com&#x2F;sites&quot;&gt;超过一百个网站&lt;&#x2F;a&gt;，以下是最常用的几个站：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Super User 是问一些通用的电脑问题，如果你的问题跟代码或是写程序无关，只是一些网络连线之类的，请到这里。&lt;&#x2F;li&gt;
+&lt;li&gt;Stack Overflow 是问写程序有关的问题。&lt;&#x2F;li&gt;
+&lt;li&gt;Server Fault 是问服务器和网管相关的问题。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;wang-zhan-he-irc-lun-tan&quot;&gt;网站和 IRC 论坛&lt;&#x2F;h3&gt;
+&lt;p&gt;在使用 IRC 的时候，首先最好不要发布很长的问题描述，有些人称之为频道洪水。最好通过一句话的问题描述来开始聊天&lt;&#x2F;p&gt;
+&lt;p&gt;RTFM（Read The Fucking Manual）&lt;&#x2F;p&gt;
+&lt;p&gt;STFW（Search The Fucking Web）&lt;&#x2F;p&gt;
+&lt;p&gt;如何知道你已完全搞砸了哈哈哈&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>你的灯还亮着吗</title>
+          <pubDate>Wed, 28 May 2025 12:25:43 +0000</pubDate>
+          <author>Zhonghe-zhao</author>
+          <link>https://Zhonghe-zhao.github.io/DailyBlog/issue-5/</link>
+          <guid>https://Zhonghe-zhao.github.io/DailyBlog/issue-5/</guid>
+          <description xml:base="https://Zhonghe-zhao.github.io/DailyBlog/issue-5/">&lt;p&gt;今天一下午的时间看了这本书，对我的感触很大，很有助于思考，对于一个问题的思考，一种问题不同的问法，产生不同的问题&lt;&#x2F;p&gt;
+&lt;p&gt;文字游戏：一句话不同的停顿产生不同的问题&lt;&#x2F;p&gt;
+&lt;p&gt;有些事情是不是简单的问题复杂化（这应该是普遍现象） 复杂的问题简单化（很少）&lt;&#x2F;p&gt;
+&lt;p&gt;你是不是真的想要解决这问题？&lt;&#x2F;p&gt;
+&lt;p&gt;追溯本源，从一个婴儿视角重新审视这个问题！&lt;&#x2F;p&gt;
+&lt;p&gt;一生二，二生三，三生万物： 你对一个问题的解决（是否是真的解决？）一个问题的解决必然产生另一个问题的产生！&lt;&#x2F;p&gt;
+&lt;p&gt;看看你是否能从一个问题的解决，来想到它产生了3个其他的问题？&lt;&#x2F;p&gt;
+&lt;p&gt;询问问题可能简单的一句话就可以起到很重要的作用！&lt;&#x2F;p&gt;
+&lt;p&gt;比如： 在隧道中提醒车辆：你的灯还亮着吗？（避免询问过长） 解决了因为客户要欣赏风景而不清楚他们的灯是否还亮着&lt;&#x2F;p&gt;
+&lt;p&gt;从多个角度思一个问题问题的产生，最有可能是由谁来解决，或者说有的问题已经给出了最佳的解决人选，你需要让他自身清楚他需要站出来解决问题&lt;&#x2F;p&gt;
+&lt;p&gt;有些问题需要从自身去思考，从而问题也就解决了&lt;&#x2F;p&gt;
+&lt;p&gt;鱼事最后一个见到水的：周围环境的影响！（经常思考自己身处的环境）有一些东西已经被固化了！处在一种模式下，你的思想可能也跟着这种思想牵着&lt;&#x2F;p&gt;
+</description>
+      </item>
+    </channel>
+</rss>

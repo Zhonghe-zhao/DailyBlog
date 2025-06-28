@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title> - Concurrency</title>
+      <link>https://Zhonghe-zhao.github.io/DailyBlog/</link>
+      <description></description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://Zhonghe-zhao.github.io/DailyBlog/tags/concurrency/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Sun, 01 Jun 2025 07:47:47 +0000</lastBuildDate>
+      <item>
+          <title>Grokking Concurrency</title>
+          <pubDate>Sun, 01 Jun 2025 07:47:47 +0000</pubDate>
+          <author>Zhonghe-zhao</author>
+          <link>https://Zhonghe-zhao.github.io/DailyBlog/issue-12/</link>
+          <guid>https://Zhonghe-zhao.github.io/DailyBlog/issue-12/</guid>
+          <description xml:base="https://Zhonghe-zhao.github.io/DailyBlog/issue-12/">&lt;hr &#x2F;&gt;
+&lt;p&gt;Date: 2025-06-01&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;bing-xing-de-xian-zhi&quot;&gt;并行的限制&lt;&#x2F;h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;程序中无法并行的部分，决定了整体性能的上限。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Amdahl 定律&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;github.com&#x2F;user-attachments&#x2F;assets&#x2F;8424dc92-6a55-4270-ac97-b1d229244343&quot; alt=&quot;Image&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;一个程序中，假设其中 Lock &#x2F; Unlock 是串行（不可并行），只占 30% 时间；&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;你把其余的 70% 并行了，最多也只能加速约 1 &#x2F; (0.3 + 0.7&#x2F;N)；&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;即使 N=100，也不是 100 倍加速，可能只有 3 倍左右。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;任务中无法并行的部分就是瓶颈&lt;&#x2F;strong&gt;，再多线程、再多 CPU 也没用；&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;可并行度越小，增加资源的收益越差&lt;&#x2F;strong&gt;。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;em&gt;虽然Amdahl 定律 展现了一个令人失望的结果！ 但我们仍然需要乐观&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;le-guan-shi-jiao&quot;&gt;乐观视角&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;strong&gt;Gustafson 定律&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Amdahl 假设任务总量是固定的，这在现实中不常见，反过来看：既然加速比有瓶颈，那我们不如做更多的任务！&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;核心思想：&lt;&#x2F;strong&gt; 并行不是为了加速固定的任务，而是为了让我们能处理更大的问题规模、更复杂的数据量。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;github.com&#x2F;user-attachments&#x2F;assets&#x2F;223d1c36-fdde-47e2-97fe-b83e4443ec56&quot; alt=&quot;Image&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;你银行系统如果每天只能处理 1 万笔转账（串行），用了并发系统之后，不是把 1 万笔处理更快 —— 而是你能处理 100 万笔！&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;bing-fa-he-bing-xing&quot;&gt;并发和并行&lt;&#x2F;h2&gt;
+&lt;p&gt;Rob Pike说过的一句经典的话&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;“Concurrency is about dealing with lots of things at once. Parallelism is about doing lots of things at once.”&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;并发： 你能同时接收很多个转账请求，每个请求你都安排好流程、排队、处理顺序；&lt;&#x2F;p&gt;
+&lt;p&gt;并行： 你有多个处理器，多个请求可以真的在同一时刻一起处理（比如一个核心处理用户 A 的转账，另一个处理用户 B 的转账）。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;并发是编程模型，Go 语言提供了 goroutine + channel，容易表达并发逻辑；是否能并行，是操作系统 + CPU 的事。&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;jin-cheng-he-xian-cheng&quot;&gt;进程和线程&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;strong&gt;为什么说没有线程的进程是不存在的？&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;现代操作系统的进程实现方式。从技术角度看，进程至少包含一个执行线程（即主线程）&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;进程类比为： 拥有者资源
+线程类比为： 执行资源的人&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;线程(工人) 进程（建筑）&lt;&#x2F;p&gt;
+&lt;p&gt;所以说 即使你拥有资源但是无法执行 也就相当于没有拥有！&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;谁又去管理 线程和进程呢？&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;也就是操作系统，操作系统_使用PCB和TCB_去管理&lt;&#x2F;p&gt;
+&lt;p&gt;操作系统用PCB记录进程的资源（内存、文件等）。&lt;&#x2F;p&gt;
+&lt;p&gt;用TCB记录线程的执行状态（寄存器、栈等）。&lt;&#x2F;p&gt;
+&lt;p&gt;PCB必须关联至少一个TCB，否则进程无法被调度执行。&lt;&#x2F;p&gt;
+</description>
+      </item>
+    </channel>
+</rss>

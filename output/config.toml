@@ -1,20 +1,16 @@
-
-title = "isite"
-base_url = "/"
-theme = "even"
-compile_sass = true
+base_url = "https://Zhonghe-zhao.github.io/DailyBlog/"
 generate_feeds = true
+feed_filenames = ["rss.xml"]
+theme = "even"
 taxonomies = [
-	{ name = "tags"},
+    {name = "categories", feed = true},
+    {name = "tags", feed = true},
 ]
-
-[markdown]
-highlight_code = true
-render_emoji = true
-
 [extra]
-# this only affects the default "even" theme
+even_title = "Zhonghe-zhao's Blog"
 even_menu = [
     {url = "$BASE_URL", name = "Home"},
-    {url = "$BASE_URL/tags", name = "Tags"},
+    {url = "$BASE_URL/tags/top/", name = "Top"},
+    {url = "$BASE_URL/issue-34/", name = "About"},
+    {url = "$BASE_URL/issue-35/", name = "Things I like"},
 ]

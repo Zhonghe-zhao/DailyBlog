@@ -1,0 +1,810 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title> - Book</title>
+      <link>https://Zhonghe-zhao.github.io/DailyBlog/</link>
+      <description></description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://Zhonghe-zhao.github.io/DailyBlog/tags/book/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Sun, 01 Jun 2025 07:47:47 +0000</lastBuildDate>
+      <item>
+          <title>Grokking Concurrency</title>
+          <pubDate>Sun, 01 Jun 2025 07:47:47 +0000</pubDate>
+          <author>Zhonghe-zhao</author>
+          <link>https://Zhonghe-zhao.github.io/DailyBlog/issue-12/</link>
+          <guid>https://Zhonghe-zhao.github.io/DailyBlog/issue-12/</guid>
+          <description xml:base="https://Zhonghe-zhao.github.io/DailyBlog/issue-12/">&lt;hr &#x2F;&gt;
+&lt;p&gt;Date: 2025-06-01&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;bing-xing-de-xian-zhi&quot;&gt;并行的限制&lt;&#x2F;h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;程序中无法并行的部分，决定了整体性能的上限。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Amdahl 定律&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;github.com&#x2F;user-attachments&#x2F;assets&#x2F;8424dc92-6a55-4270-ac97-b1d229244343&quot; alt=&quot;Image&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;一个程序中，假设其中 Lock &#x2F; Unlock 是串行（不可并行），只占 30% 时间；&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;你把其余的 70% 并行了，最多也只能加速约 1 &#x2F; (0.3 + 0.7&#x2F;N)；&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;即使 N=100，也不是 100 倍加速，可能只有 3 倍左右。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;任务中无法并行的部分就是瓶颈&lt;&#x2F;strong&gt;，再多线程、再多 CPU 也没用；&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;可并行度越小，增加资源的收益越差&lt;&#x2F;strong&gt;。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;em&gt;虽然Amdahl 定律 展现了一个令人失望的结果！ 但我们仍然需要乐观&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;le-guan-shi-jiao&quot;&gt;乐观视角&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;strong&gt;Gustafson 定律&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Amdahl 假设任务总量是固定的，这在现实中不常见，反过来看：既然加速比有瓶颈，那我们不如做更多的任务！&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;核心思想：&lt;&#x2F;strong&gt; 并行不是为了加速固定的任务，而是为了让我们能处理更大的问题规模、更复杂的数据量。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;github.com&#x2F;user-attachments&#x2F;assets&#x2F;223d1c36-fdde-47e2-97fe-b83e4443ec56&quot; alt=&quot;Image&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;你银行系统如果每天只能处理 1 万笔转账（串行），用了并发系统之后，不是把 1 万笔处理更快 —— 而是你能处理 100 万笔！&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;bing-fa-he-bing-xing&quot;&gt;并发和并行&lt;&#x2F;h2&gt;
+&lt;p&gt;Rob Pike说过的一句经典的话&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;“Concurrency is about dealing with lots of things at once. Parallelism is about doing lots of things at once.”&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;并发： 你能同时接收很多个转账请求，每个请求你都安排好流程、排队、处理顺序；&lt;&#x2F;p&gt;
+&lt;p&gt;并行： 你有多个处理器，多个请求可以真的在同一时刻一起处理（比如一个核心处理用户 A 的转账，另一个处理用户 B 的转账）。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;并发是编程模型，Go 语言提供了 goroutine + channel，容易表达并发逻辑；是否能并行，是操作系统 + CPU 的事。&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;jin-cheng-he-xian-cheng&quot;&gt;进程和线程&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;strong&gt;为什么说没有线程的进程是不存在的？&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;现代操作系统的进程实现方式。从技术角度看，进程至少包含一个执行线程（即主线程）&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;进程类比为： 拥有者资源
+线程类比为： 执行资源的人&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;线程(工人) 进程（建筑）&lt;&#x2F;p&gt;
+&lt;p&gt;所以说 即使你拥有资源但是无法执行 也就相当于没有拥有！&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;谁又去管理 线程和进程呢？&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;也就是操作系统，操作系统_使用PCB和TCB_去管理&lt;&#x2F;p&gt;
+&lt;p&gt;操作系统用PCB记录进程的资源（内存、文件等）。&lt;&#x2F;p&gt;
+&lt;p&gt;用TCB记录线程的执行状态（寄存器、栈等）。&lt;&#x2F;p&gt;
+&lt;p&gt;PCB必须关联至少一个TCB，否则进程无法被调度执行。&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>Reddit提问</title>
+          <pubDate>Wed, 28 May 2025 12:31:52 +0000</pubDate>
+          <author>Zhonghe-zhao</author>
+          <link>https://Zhonghe-zhao.github.io/DailyBlog/issue-7/</link>
+          <guid>https://Zhonghe-zhao.github.io/DailyBlog/issue-7/</guid>
+          <description xml:base="https://Zhonghe-zhao.github.io/DailyBlog/issue-7/">&lt;pre&gt;&lt;code&gt;hello everyone! Recently, while learning the concurrency model of Go language, I have been very interested in its idea of &amp;quot;Do not communicate by sharing memory&amp;quot; (instant, share memory by communication).The channel mechanism of Go replaces explicit locks with data transfer between goroutines, making concurrent programming safer and simpler. This makes me think: can similar ideas be used in operating system design? For example, replacing traditional IPC mechanisms such as shared memory and semaphore with channels?I would like to discuss the following points with everyone:The inter process&amp;#x2F;thread communication (IPC) of the operating system currently relies on shared memory, message queues, pipelines, and so on. What are the advantages and challenges of using a mechanism similar to Go channel?Will performance become a bottleneck (such as system call overhead)?Realistic case:Have any existing operating systems or research projects attempted this design? (For example, microkernel, Unikernel, or certain academic systems?)? ）Do you think the abstraction of channels is feasible at the OS level?  
+大家好！最近，我在学习 Go 语言的并发模型时，对它的 “Do not communicate by sharing memory” （instant， share memory by communication） 的思想非常感兴趣。Go 的通道机制用 goroutine 之间的数据传输取代了显式锁，使并发编程更安全、更简单。这让我思考：类似的思路可以用在作系统设计中吗？例如，用通道替换共享内存和信号量等传统 IPC 机制？我想和大家讨论以下几点：作系统的进程间 &amp;#x2F; 线程通信（IPC）目前依赖于共享内存、消息队列、管道等。使用类似于 Go 频道的机制有哪些优势和挑战？性能会不会成为瓶颈（如系统调用开销）？现实案例：是否有任何现有的作系统或研究项目尝试过这种设计？（例如，微内核、Unikernel 或某些学术系统？）您认为通道的抽象在 OS 级别是否可行？
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;这是我第一次重视reddit&lt;&#x2F;p&gt;
+&lt;p&gt;这是我的第一次提问在社区中，非常的难忘！社区中的大家是那么的热情，即使你们从未见过面！英文部分是我的想法用ai转换之后得来的，我的英语并不是很好哈哈&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.reddit.com&#x2F;r&#x2F;golang&#x2F;comments&#x2F;1krtd88&#x2F;could_gos_share_memory_by_communicating&#x2F;&quot;&gt;很开心这么多人回复问题！&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;understanding-csp&quot;&gt;Understanding CSP&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;strong&gt;CSP（Communicating Sequential Processes）&lt;&#x2F;strong&gt; 是一种并发模型，全称是 &lt;strong&gt;通信顺序进程&lt;&#x2F;strong&gt;，由计算机科学家 &lt;strong&gt;Tony Hoare&lt;&#x2F;strong&gt; 在 1978 年提出。&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;CSP 的核心思想是：进程之间不共享内存，而是通过通信（消息传递）来协作&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.cnblogs.com&#x2F;papering&#x2F;p&#x2F;9479496.html&quot;&gt;CSP_blog&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;go&quot; class=&quot;language-go &quot;&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;func worker(ch chan int) {
+    val := &amp;lt;-ch         &amp;#x2F;&amp;#x2F; 接收数据
+    fmt.Println(val)
+}
+
+func main() {
+    ch := make(chan int)
+    go worker(ch)
+    ch &amp;lt;- 42             &amp;#x2F;&amp;#x2F; 发送数据
+}
+
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;这个例子就是标准的 CSP：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;两个顺序进程（&lt;code&gt;main&lt;&#x2F;code&gt; 和 &lt;code&gt;worker&lt;&#x2F;code&gt;）&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;通道 &lt;code&gt;ch&lt;&#x2F;code&gt; 是它们的通信桥梁&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;没有共享内存，只靠通道通信&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;CSP&lt;&#x2F;strong&gt; 是一种并发编程理论，强调进程通过**事件（Event）**通信（而非共享内存）。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;进程（Process）&lt;&#x2F;strong&gt;：代表一个独立的行为实体（如售货机或顾客），通过&lt;strong&gt;事件序列&lt;&#x2F;strong&gt;描述行为。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;同步（Synchronization）&lt;&#x2F;strong&gt;：多个进程在特定事件上必须“同步执行”（如顾客投币和售货机接收硬币是同一个 &lt;code&gt;coin&lt;&#x2F;code&gt; 事件）。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;1-shou-huo-ji-jin-cheng&quot;&gt;&lt;strong&gt;1. 售货机进程&lt;&#x2F;strong&gt;&lt;&#x2F;h4&gt;
+&lt;p&gt;&lt;strong&gt;行为&lt;&#x2F;strong&gt;：&lt;&#x2F;p&gt;
+&lt;pre&gt;&lt;code&gt;1. 等待 `coin` 事件（投币）。
+    
+2. 执行 `choc` 事件（发放巧克力）。
+    
+3. 终止（`STOP`）。
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;意义&lt;&#x2F;strong&gt;：售货机&lt;strong&gt;必须先收钱再给货&lt;&#x2F;strong&gt;。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;2-gu-ke-jin-cheng&quot;&gt;&lt;strong&gt;2. 顾客进程&lt;&#x2F;strong&gt;&lt;&#x2F;h4&gt;
+&lt;p&gt;Person = (coin \rightarrow STOP) \square (card \rightarrow STOP)&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;行为&lt;&#x2F;strong&gt;：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;□&lt;&#x2F;code&gt; 表示&lt;strong&gt;外部选择&lt;&#x2F;strong&gt;（顾客可以选 &lt;code&gt;coin&lt;&#x2F;code&gt; 或 &lt;code&gt;card&lt;&#x2F;code&gt; 事件，但不会同时发生）。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;选择后终止（&lt;code&gt;STOP&lt;&#x2F;code&gt;）。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;意义&lt;&#x2F;strong&gt;：顾客有&lt;strong&gt;两种支付方式&lt;&#x2F;strong&gt;（硬币或刷卡），但每次只能选一种。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;3-ru-guo-shou-huo-ji-zhi-tong-bu-coin&quot;&gt;&lt;strong&gt;3. 如果售货机只同步 &lt;code&gt;coin&lt;&#x2F;code&gt;&lt;&#x2F;strong&gt;&lt;&#x2F;h4&gt;
+&lt;p&gt;VendingMachine ,|, [coin] ,|, Person&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;结果&lt;&#x2F;strong&gt;：&lt;&#x2F;p&gt;
+&lt;p&gt;(coin \rightarrow choc \rightarrow STOP) \square (card \rightarrow STOP)&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;顾客选 &lt;code&gt;coin&lt;&#x2F;code&gt;：正常走售货机流程。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;顾客选 &lt;code&gt;card&lt;&#x2F;code&gt;：售货机不响应，顾客直接终止（&lt;code&gt;STOP&lt;&#x2F;code&gt;）。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;4-yin-cang-shi-jian&quot;&gt;&lt;strong&gt;4. 隐藏事件&lt;&#x2F;strong&gt;&lt;&#x2F;h4&gt;
+&lt;p&gt;&lt;strong&gt;结果&lt;&#x2F;strong&gt;：外部只能看到 &lt;code&gt;choc&lt;&#x2F;code&gt; 或直接终止，表现为&lt;strong&gt;非确定性选择&lt;&#x2F;strong&gt;（&lt;code&gt;⊓&lt;&#x2F;code&gt;）：&lt;&#x2F;p&gt;
+&lt;p&gt;(choc \rightarrow STOP) \sqcap STOP&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;可能发放巧克力后停止，也可能直接停止（因为看不到顾客的支付选择）&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;同步约束：售货机和顾客必须就支付方式达成一致（如只支持现金时，刷卡会失败）。&lt;&#x2F;strong&gt;&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;非确定性：隐藏内部事件后，系统行为对外部观察者变得不可预测（如同实际场景中，路人看不到顾客是否投币，只能看到巧克力是否出来）。&lt;&#x2F;strong&gt;&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;CSP 的 &lt;code&gt;coin → choc → STOP&lt;&#x2F;code&gt; 类似 Go 中通过 channel 同步的两个 goroutine：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;同步失败&lt;&#x2F;strong&gt;：如果 &lt;code&gt;vendingMachine&lt;&#x2F;code&gt; 只监听 &lt;code&gt;coin&lt;&#x2F;code&gt;，&lt;code&gt;card&lt;&#x2F;code&gt; 会阻塞。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;cao-zuo-xi-tong-wei-shen-me-mei-yong-csp&quot;&gt;操作系统为什么没用 CSP：&lt;&#x2F;h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;性能优先：共享内存更快&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;操作系统关注 &lt;strong&gt;高性能调度与资源访问&lt;&#x2F;strong&gt;，**共享内存 + 同步机制（如锁、信号量）**可以做到：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;最低延迟（不需要拷贝）&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;高吞吐（直接访问同一块内存）&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;➡ 相比之下，&lt;strong&gt;CSP 的通信（尤其跨进程）要复制数据、上下文切换，代价更大&lt;&#x2F;strong&gt;。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;&lt;strong&gt;OS 中的“进程”不是 CSP 的“轻量进程”&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;CSP 模型适合的是 &lt;strong&gt;轻量并发实体（如 goroutine）&lt;&#x2F;strong&gt;，操作系统的：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;线程：重量级，切换成本高&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;进程：拥有独立内存空间，天然隔离&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;操作系统级别的“进程”之间&lt;strong&gt;不共享内存&lt;&#x2F;strong&gt;，但通信靠 IPC（管道、socket、共享内存）实现——和 CSP 很像，但远不如 goroutine 高效。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;ipc-jin-cheng-jian-tong-xin&quot;&gt;IPC 进程间通信&lt;&#x2F;h3&gt;
+&lt;pre&gt;&lt;code&gt;IPC（Inter-Process Communication，进程间通信）是一种机制，允许操作系统中不同进程之间交换数据或信号。由于每个进程拥有独立的内存空间，它们无法直接访问彼此的数据，因此需要通过IPC来实现协作和资源共享。
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;cspde-you-lie-shi&quot;&gt;CSP的优劣势&lt;&#x2F;h3&gt;
+&lt;p&gt;原则： 如果违反 CSP 原则，&lt;strong&gt;通过 Channel 间接共享内存&lt;&#x2F;strong&gt;，仍需要锁：&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;go&quot; class=&quot;language-go &quot;&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;type Data struct{ X int }
+func main() {
+    ch := make(chan *Data)
+    d := &amp;amp;Data{X: 1}
+    go func() { ch &amp;lt;- d }() &amp;#x2F;&amp;#x2F; 发送指针
+    go func() { d.X++ }()   &amp;#x2F;&amp;#x2F; 竞态！违背 CSP
+}
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;channel 不是万能保险，传的是引用时就要小心。&lt;&#x2F;p&gt;
+&lt;p&gt;社区回答！&lt;&#x2F;p&gt;
+&lt;pre&gt;&lt;code&gt;There are cases where CSP produces better performance and cases where the performance is worse. On the one hand, for code that does a lot of small multithreaded operations (like incrementing integers etc), converting all operations to happen via channels is going to be much less performant because channels involve more work per operation. On the other hand, the fact that memory isn&amp;#x27;t concurrently shared means that you can write faster single threaded code because you don&amp;#x27;t need to worry about mutexes and barriers etc for objects received from channels.
+
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;go-benchmarks.com&#x2F;synchronization-methods&quot;&gt;同步方法测试&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.jtolio.com&#x2F;2016&#x2F;03&#x2F;go-channels-are-bad-and-you-should-feel-bad&#x2F;&quot;&gt;一篇帖子的说明&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;作者的吐槽点&lt;&#x2F;em&gt; ： “- &lt;strong&gt;channel 适合某些场景&lt;&#x2F;strong&gt;（如任务队列、事件通知、流水线模式）。&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;mutex 适合另一些场景&lt;&#x2F;strong&gt;（如保护共享状态、简单临界区）。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&quot;channel of channels&quot; 确实可能增加复杂度&lt;&#x2F;strong&gt;，但 Go 的 select + channel 机制也能提供强大的并发控制能力。”&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;“作者的观点是 &lt;strong&gt;&quot;不要为了用 channel 而用 channel&quot;&lt;&#x2F;strong&gt;，应该根据实际情况选择最合适的同步机制（mutex 或 channel），而不是盲目遵循 Go 的 &quot;share memory by communicating&quot; 哲学。”&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;songlh.github.io&#x2F;paper&#x2F;go-study.pdf&quot;&gt;一篇论文&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;yi-csp-de-lie-shi-chang-jing-xing-neng-chai&quot;&gt;一、CSP 的劣势场景（性能差）：&lt;&#x2F;h4&gt;
+&lt;pre data-lang=&quot;go&quot; class=&quot;language-go &quot;&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;&amp;#x2F;&amp;#x2F; 用 mutex 的方式做 ++ 操作
+mu.Lock()
+counter++
+mu.Unlock()
+
+&amp;#x2F;&amp;#x2F; 用 channel 的方式做 ++ 操作
+counterChan &amp;lt;- 1
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;chan&lt;&#x2F;code&gt; 本质是有同步开销的（排队、调度、阻塞），一个简单的 &lt;code&gt;++&lt;&#x2F;code&gt; 操作搞成 channel 会变得很重。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;所以在高频、低开销场景，&lt;strong&gt;channel 性能不如原子操作 &#x2F; 锁&lt;&#x2F;strong&gt;。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;csp-de-you-shi-chang-jing-xing-neng-hao&quot;&gt;CSP 的优势场景（性能好）：&lt;&#x2F;h4&gt;
+&lt;p&gt;“但另一方面，因为内存不是共享的，单线程处理收到的 channel 数据，不需要加锁，写起来更快、更简单。”&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;内存不是共享的”表述不严谨&lt;&#x2F;strong&gt;：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;channel 的底层本质仍然是共享内存；&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;它只是&lt;strong&gt;封装了共享细节，让你不直接共享&lt;&#x2F;strong&gt;；&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;所以说准确表述应是：“你&lt;strong&gt;不需要直接访问共享内存&lt;&#x2F;strong&gt;”&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;go&quot; class=&quot;language-go &quot;&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;&amp;#x2F;&amp;#x2F; 一个 goroutine 独占处理任务队列
+go func() {
+  for task := range taskChan {
+    handle(task) &amp;#x2F;&amp;#x2F; 不需要担心并发访问
+  }
+}()
+
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h4 id=&quot;kun-huo&quot;&gt;困惑&lt;&#x2F;h4&gt;
+&lt;p&gt;channel的内部也就是底层实现 不还是使用的内存共享+锁机制实现的吗，这里面真的会有性能差别吗？&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;he-xin-hui-da&quot;&gt;核心回答！&lt;&#x2F;h4&gt;
+&lt;p&gt;&lt;code&gt;你用不用锁，和系统&#x2F;库替你加不加锁，是两回事。&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Go 的 &lt;code&gt;channel&lt;&#x2F;code&gt; 底层确实是用&lt;strong&gt;共享内存 + 加锁&lt;&#x2F;strong&gt;实现的：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;chan&lt;&#x2F;code&gt; 的发送和接收涉及锁（&lt;code&gt;mutex&lt;&#x2F;code&gt;）、等待队列（&lt;code&gt;sudog&lt;&#x2F;code&gt;）、调度协程切换等。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;所以说 channel 本身也有“同步开销”。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;那为什么说 “你写的代码没锁” 性能反而更好？&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;guan-jian-shi-feng-zhuang-he-bing-fa-yu-zui-xiao-hua&quot;&gt;&lt;strong&gt;关键是“封装” 和 “并发域最小化”&lt;&#x2F;strong&gt;：&lt;&#x2F;h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;channel 把“并发边界”控制在接口级别，而不是让你每个字段自己去加锁。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;你写的处理函数&lt;&#x2F;strong&gt;只处理 &lt;code&gt;&amp;lt;-chan&lt;&#x2F;code&gt; 接收的数据，不访问共享变量：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;它是&lt;strong&gt;串行&lt;&#x2F;strong&gt;的，不涉及任何并发操作；&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;所以&lt;strong&gt;你可以不用管加锁、原子操作、同步屏障&lt;&#x2F;strong&gt;；&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;你的代码天然是“线程安全”的，这会&lt;strong&gt;减少脑力负担 + 提高可维护性 + 避免 bug&lt;&#x2F;strong&gt;。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;channel 是“通信安全”，不是“零成本”。&lt;&#x2F;strong&gt;&lt;br &#x2F;&gt;
+真正的性能差异不在“是否用了内存共享”，而是&lt;strong&gt;谁来负责并发同步的复杂性&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;数据被携带着传输”这句，&lt;strong&gt;精准命中了 CSP 的核心思想&lt;&#x2F;strong&gt;，也正是 Go 在并发编程中推荐的思维方式。&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;不要通过共享内存来通信，而应该通过通信来共享内存。&lt;&#x2F;strong&gt;（Go 编程语言官方理念）&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h3 id=&quot;plan-9-from-bell-labs&quot;&gt;&lt;strong&gt;Plan 9 from Bell Labs&lt;&#x2F;strong&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;go&quot; class=&quot;language-go &quot;&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;The OS itself also avoids sharing memory, and of course there are &amp;quot;channels&amp;quot; for communicating: file descriptors, which can be devices, pipes, network connections, etc. Like in Unix. But it goes beyond what traditional Unix does, because many userspace applications are file servers that provide a file descriptor that can be mounted onto the file system, and provide more such file descriptors, etc. It&amp;#x27;s a very simple but powerful system.
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;plan9操作系统避免了共享内存, 那内部是什么样的呢 进程之间如何通信呢&lt;&#x2F;p&gt;
+&lt;p&gt;在Go SDK中 runtime包中含又 plan9的身影！&lt;&#x2F;p&gt;
+&lt;p&gt;Plan 9 &lt;strong&gt;避免传统的共享内存和多线程同步机制&lt;&#x2F;strong&gt;，鼓励进程之间用“文件通信”（如命名管道、9P 协议）：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;类似 Go 的 Channel，但用的是文件协议。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;所有通信都可序列化，可远程传输。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;难道操作文件就不是操作同一块内存了吗？&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;示例：&lt;&#x2F;p&gt;
+&lt;p&gt;共享内存&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;go&quot; class=&quot;language-go &quot;&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;int *shared = mmap(...);  &amp;#x2F;&amp;#x2F; 多个进程访问这个地址
+*shared = 42;             &amp;#x2F;&amp;#x2F; 谁都能读写这块内存
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;文件通信&lt;&#x2F;p&gt;
+&lt;pre&gt;&lt;code&gt;echo 42 &amp;gt; &amp;#x2F;srv&amp;#x2F;somefile     # 写入
+cat &amp;#x2F;srv&amp;#x2F;somefile           # 另一个程序读
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;虽然最终数据可能写入页缓存或磁盘（确实会进内存），但你&lt;strong&gt;无法直接访问或共享那块内存&lt;&#x2F;strong&gt;，只能通过：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;系统调用（read&#x2F;write）&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Channel 抽象（Go）&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;文件协议（Plan 9）&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;yi-wen&quot;&gt;疑问：&lt;&#x2F;h4&gt;
+&lt;ol&gt;
+&lt;li&gt;那xv6系统的内存的关于 前面所说的CSP理论和共享内存，xv6是偏向与什么？ 或者说linux系统都沿用了文件通信？&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;xv6 和 Linux 都以“共享内存 + 文件通信”为基础，核心机制是“共享内存 + 加锁”，而不是 CSP 模型。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;所以说文件通信和CSP之间的关系是什么？ 有联系吗 为什么前面你跟我说Plan 9 设计就是避免共享内存，强调文件通信 + 用户态协议 那既然文件通信是避免共享内存，那为什么不能说xv6等liunx操作系统不是CSP模型呢&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;文件通信是一种实现机制，CSP 是一种并发模型。Plan 9 把文件通信机制用于实现类似 CSP 的并发风格；而 Linux 虽然也有文件通信，但仍然基于共享内存 + 锁，不符合 CSP 的并发语义。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;特性&lt;&#x2F;th&gt;&lt;th&gt;Linux&#x2F;xv6&lt;&#x2F;th&gt;&lt;th&gt;CSP (Plan 9 风格)&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;默认通信方式&lt;&#x2F;td&gt;&lt;td&gt;共享内存 + 锁&lt;&#x2F;td&gt;&lt;td&gt;Channel &#x2F; 消息&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;文件通信&lt;&#x2F;td&gt;&lt;td&gt;有，但不普遍用作并发通信&lt;&#x2F;td&gt;&lt;td&gt;核心机制&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;并发语义&lt;&#x2F;td&gt;&lt;td&gt;多线程共享状态&lt;&#x2F;td&gt;&lt;td&gt;顺序过程 + 通信&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;并发控制&lt;&#x2F;td&gt;&lt;td&gt;mutex、atomic、lock&lt;&#x2F;td&gt;&lt;td&gt;通信即同步&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;数据一致性&lt;&#x2F;td&gt;&lt;td&gt;程序员手动维护&lt;&#x2F;td&gt;&lt;td&gt;通信机制保证&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;Plan 9 并没有在商业或主流社区中广泛流行，但它对&lt;strong&gt;现代操作系统的设计理念影响深远&lt;&#x2F;strong&gt;。许多重要思想被吸收进 Linux、Go 语言、Docker 等系统中。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;mkfifo-is-os-s-channel&quot;&gt;mkfifo is OS&#x27;s channel&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;mkfifo&lt;&#x2F;code&gt; 是一个 Linux 系统调用（命令），用于&lt;strong&gt;创建一个命名管道（FIFO）&lt;&#x2F;strong&gt;。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;FIFO = First In, First Out，像文件一样存在于磁盘，但其实是一种特殊的**IPC（进程间通信）**手段。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;创建后，多个进程可以通过读写这个“文件”来通信。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Go 的 &lt;code&gt;chan&lt;&#x2F;code&gt;&lt;&#x2F;th&gt;&lt;th&gt;OS 的 &lt;code&gt;mkfifo&lt;&#x2F;code&gt;&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;语言级通道，只在 Go 中使用&lt;&#x2F;td&gt;&lt;td&gt;系统级别，多个进程&#x2F;语言可用&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;内存中的结构，速度快&lt;&#x2F;td&gt;&lt;td&gt;磁盘上的文件，效率低，但能跨进程&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;用于 goroutine 间通信&lt;&#x2F;td&gt;&lt;td&gt;用于进程间通信（IPC）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;类型安全、阻塞&#x2F;非阻塞控制强&lt;&#x2F;td&gt;&lt;td&gt;只能读字节流，无结构化信&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h2 id=&quot;xian-cheng-chi&quot;&gt;线程池&lt;&#x2F;h2&gt;
+&lt;h2 id=&quot;pi-ping-go-yu-yan-zai-cuo-wu-chu-li-he-yi-xie-te-shu-yu-fa-shang-de-bu-yi-zhi-xing&quot;&gt; &lt;strong&gt;批评 Go 语言在错误处理和一些特殊语法上的不一致性&lt;&#x2F;strong&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;bravenewgeek.com&#x2F;go-is-unapologetically-flawed-heres-why-we-use-it&#x2F;&quot;&gt;另一篇&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;pre&gt;&lt;code&gt;There are other peculiar idiosyncrasies. Error handling is generally done by returning error values. This is fine, and I can certainly see the motivation coming from the abomination of C++ exceptions, but there are cases where Go doesn’t follow its own rule. For example, map lookups return two values: the value itself (or zero-value&amp;#x2F;nil if it doesn’t exist) and a boolean indicating if the key was in the map. Interestingly, we can choose to ignore the boolean value altogether—a syntax reserved for certain blessed types in the standard library. Type assertions and channel receives have equally curious behavior.
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre data-lang=&quot;go&quot; class=&quot;language-go &quot;&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;file, err := os.Open(&amp;quot;foo.txt&amp;quot;)
+if err != nil {
+    return err
+}
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;这是 Go 的核心设计哲学之一：&lt;strong&gt;强制程序员显式处理错误&lt;&#x2F;strong&gt;，避免像 C++ 异常（exceptions）那样隐式传播。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;go&quot; class=&quot;language-go &quot;&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;value, exists := myMap[&amp;quot;key&amp;quot;]  &amp;#x2F;&amp;#x2F; 返回值和布尔值
+value = myMap[&amp;quot;key&amp;quot;]           &amp;#x2F;&amp;#x2F; 可以忽略布尔值，直接取值
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;但 Go 允许 &lt;strong&gt;直接忽略布尔值&lt;&#x2F;strong&gt;，这种语法是 &lt;strong&gt;标准库的 &quot;特权&quot;&lt;&#x2F;strong&gt;（&quot;blessed types&quot;），普通函数无法实现类似行为。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;这违背了 Go 的 &quot;显式处理&quot; 原则。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;go&quot; class=&quot;language-go &quot;&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;str, ok := x.(string)  &amp;#x2F;&amp;#x2F; 安全写法，返回 (value, bool)
+str = x.(string)       &amp;#x2F;&amp;#x2F; 如果失败，直接 panic（类似异常）
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;第一种形式（返回 &lt;code&gt;bool&lt;&#x2F;code&gt;）符合 Go 的错误处理风格。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;第二种形式（直接 &lt;code&gt;panic&lt;&#x2F;code&gt;）却 &lt;strong&gt;退回到了异常机制&lt;&#x2F;strong&gt;，与 Go 的哲学矛盾。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;go&quot; class=&quot;language-go &quot;&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;val, ok := &amp;lt;-ch  &amp;#x2F;&amp;#x2F; 如果 channel 关闭，ok 为 false
+val = &amp;lt;-ch       &amp;#x2F;&amp;#x2F; 如果 channel 关闭，返回零值（无警告）
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;第一种形式可以检测 channel 是否关闭。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;第二种形式 &lt;strong&gt;静默接受零值&lt;&#x2F;strong&gt;，可能导致隐蔽的 bug。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;对开发者的启示：&lt;&#x2F;strong&gt;&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;需要警惕这些 &quot;语法糖&quot; 可能隐藏的问题。&lt;&#x2F;strong&gt;&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;在关键代码中，始终使用完整形式（如 &lt;code&gt;val, ok := m[key]&lt;&#x2F;code&gt;）以避免 bug。&lt;&#x2F;strong&gt;&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;li-jie-yi-chang-he-cuo-wu&quot;&gt;理解异常和错误&lt;&#x2F;h2&gt;
+&lt;ol&gt;
+&lt;li&gt;错误（&lt;code&gt;error&lt;&#x2F;code&gt;）——正常业务流程中的问题&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;本质：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;是一种&lt;strong&gt;值&lt;&#x2F;strong&gt;（&lt;code&gt;error&lt;&#x2F;code&gt; 接口类型），代表函数运行时出现的问题。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;你需要主动检查和处理&lt;&#x2F;strong&gt;。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;异常（&lt;code&gt;panic&lt;&#x2F;code&gt;）——非正常流程，程序直接崩溃&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;本质：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;是 Go 用来表示&lt;strong&gt;程序出现严重问题时&lt;&#x2F;strong&gt;的机制。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;一旦 &lt;code&gt;panic&lt;&#x2F;code&gt; 被调用，当前函数就会停止执行，&lt;strong&gt;逐层向上退出栈帧&lt;&#x2F;strong&gt;，直到程序崩溃或被 &lt;code&gt;recover&lt;&#x2F;code&gt; 捕获&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;常用于：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;数组越界&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;nil 指针调用&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;程序员写错逻辑时提示开发者修复&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;错误（error）是业务可恢复的问题，异常（panic）是不可恢复、必须终止或特殊处理的问题。&lt;&#x2F;strong&gt;&lt;br &#x2F;&gt;
+在实际开发中，&lt;strong&gt;90% 的问题都用 error 返回，不要滥用 panic&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;Go 的理念之一是“通过交流分享记忆;不要通过共享内存来交流。这是标准库似乎经常打破的另一个规则。标准库中大约有 60 个通道，不包括测试。如果您浏览代码，您会发现互斥锁往往是首选，并且通常性能更好 — 稍后将对此进行详细介绍。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;sync-atomic&quot;&gt;sync&#x2F;atomic&lt;&#x2F;h2&gt;
+&lt;pre&gt;&lt;code&gt;We want sync to be clearly documented and used when appropriate. We generally don’t want sync&amp;#x2F;atomic to be used at all…Experience has shown us again and again that very very few people are capable of writing correct code that uses atomic operations…If we had thought of internal packages when we added the sync&amp;#x2F;atomic package, perhaps we would have used that. Now we can’t remove the package because of the Go 1 guarantee.
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;sync&lt;&#x2F;code&gt; 包的定位&lt;&#x2F;strong&gt;：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;sync&lt;&#x2F;code&gt; 包（如 &lt;code&gt;sync.Mutex&lt;&#x2F;code&gt;、&lt;code&gt;sync.WaitGroup&lt;&#x2F;code&gt;）是 &lt;strong&gt;官方推荐&lt;&#x2F;strong&gt; 的同步原语，应该被 &lt;strong&gt;清晰地文档化&lt;&#x2F;strong&gt; 并在合适的场景使用。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;这些高阶同步工具（如互斥锁、条件变量）已经封装了底层复杂性，普通开发者可以安全使用。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;sync&#x2F;atomic&lt;&#x2F;code&gt; 包的定位&lt;&#x2F;strong&gt;：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;sync&#x2F;atomic&lt;&#x2F;code&gt;（提供原子操作，如 &lt;code&gt;atomic.AddInt32&lt;&#x2F;code&gt;）&lt;strong&gt;本应设计为内部包&lt;&#x2F;strong&gt;（&lt;code&gt;internal&lt;&#x2F;code&gt;），因为它的正确使用需要极深的并发编程经验。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;绝大多数开发者 &lt;strong&gt;无法写出正确的原子操作代码&lt;&#x2F;strong&gt;（即使是有经验的程序员也容易犯错）。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;但由于历史原因（Go 1 兼容性承诺），现在无法移除或隐藏该包。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Go 团队认为 原子操作是危险的，应该尽量避免使用，除非在极少数底层库（如运行时、标准库内部）中。&lt;&#x2F;strong&gt;&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;普通业务代码应优先使用 &lt;code&gt;sync&lt;&#x2F;code&gt; 包提供的更安全的抽象（如 &lt;code&gt;Mutex&lt;&#x2F;code&gt;），而非直接操作 &lt;code&gt;atomic&lt;&#x2F;code&gt;。&lt;&#x2F;strong&gt;&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;em&gt;WHY？？？&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;原子操作的正确性依赖于 &lt;strong&gt;内存模型&lt;&#x2F;strong&gt;（memory model）和 &lt;strong&gt;CPU 指令顺序&lt;&#x2F;strong&gt;（memory ordering）。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;开发者需要理解 &lt;strong&gt;可见性&lt;&#x2F;strong&gt;（visibility）、&lt;strong&gt;重排序&lt;&#x2F;strong&gt;（reordering）、&lt;strong&gt;ABA 问题&lt;&#x2F;strong&gt; 等复杂概念，否则极易写出有 bug 的代码。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;基于原子操作的代码通常难以阅读和调试（例如无锁数据结构）。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;团队协作时，其他成员可能无法理解其背后的并发逻辑。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre&gt;&lt;code&gt; Go 团队的历史决策反思
+1. `internal` 包的缺失：
+
+    - Go 早期没有 `internal` 包机制（限制某些包仅限标准库内部使用）。
+        
+    - 如果当时有，`sync&amp;#x2F;atomic` 可能会被标记为 `internal`，避免外部开发者误用。
+        
+2. Go 1 兼容性承诺：
+    
+    - Go 1 版本承诺不破坏向后兼容性，因此即使现在认识到 `atomic` 的问题，也无法移除或降级该包。
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre&gt;&lt;code&gt;Clearly, channels are not particularly great for workload throughput, and you’re typically better off using a lock-free ring buffer or even a synchronized queue. Channels as a unit of composition tend to [fall short](https:&amp;#x2F;&amp;#x2F;gist.github.com&amp;#x2F;kachayev&amp;#x2F;21e7fe149bc5ae0bd878) as well. Instead, they are better suited as a coordination pattern, a mechanism for signaling and timing-related code. Ultimately, you must use channels judiciously if you are sensitive to performance.
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;yuan-zi-cao-zuo-he-suo-de-qu-bie&quot;&gt;原子操作和锁的区别&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;特性&lt;&#x2F;th&gt;&lt;th&gt;原子操作（&lt;code&gt;atomic&lt;&#x2F;code&gt;）&lt;&#x2F;th&gt;&lt;th&gt;锁（&lt;code&gt;Mutex&lt;&#x2F;code&gt;）&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;底层机制&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;直接使用 CPU 原子指令（如 &lt;code&gt;CAS&lt;&#x2F;code&gt;、&lt;code&gt;LL&#x2F;SC&lt;&#x2F;code&gt;）&lt;&#x2F;td&gt;&lt;td&gt;基于操作系统调度（如 &lt;code&gt;futex&lt;&#x2F;code&gt;）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;粒度&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;单变量级别（如 &lt;code&gt;int32&lt;&#x2F;code&gt;、&lt;code&gt;pointer&lt;&#x2F;code&gt;）&lt;&#x2F;td&gt;&lt;td&gt;代码块级别（保护一段逻辑）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;是否阻塞&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;非阻塞（硬件级原子操作，无上下文切换）&lt;&#x2F;td&gt;&lt;td&gt;阻塞（竞争失败时，线程会休眠）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;适用场景&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;简单变量操作（计数器、标志位）&lt;&#x2F;td&gt;&lt;td&gt;复杂逻辑（需保护多个变量或代码段）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;性能&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;极高（无锁，无线程切换）&lt;&#x2F;td&gt;&lt;td&gt;较低（锁竞争时有上下文切换开销）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;正确性难度&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;高（需理解内存模型，易写出 bug）&lt;&#x2F;td&gt;&lt;td&gt;低（直接加锁，逻辑清晰）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h2 id=&quot;gong-xiang-nei-cun-he-csp&quot;&gt;共享内存和CSP&lt;&#x2F;h2&gt;
+&lt;p&gt;共享内存去并发，和csp理论去并发 为什么会有很大的差别，为什么csp貌似是对并发更好的模型&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;共享内存并发强调“状态共享”，而 CSP 并发强调“消息传递”&lt;&#x2F;strong&gt;。&lt;br &#x2F;&gt;
+&lt;strong&gt;CSP 更容易构建正确、安全、可组合的并发程序。&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;方面&lt;&#x2F;th&gt;&lt;th&gt;共享内存 (Shared Memory)&lt;&#x2F;th&gt;&lt;th&gt;CSP（通信顺序进程）&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;本质&lt;&#x2F;td&gt;&lt;td&gt;多个线程访问同一内存变量&lt;&#x2F;td&gt;&lt;td&gt;多个进程通过通道通信&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;协作方式&lt;&#x2F;td&gt;&lt;td&gt;读写共享变量 + 加锁&lt;&#x2F;td&gt;&lt;td&gt;发送消息 + 阻塞等待&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;错误风险&lt;&#x2F;td&gt;&lt;td&gt;数据竞争，死锁，难调试&lt;&#x2F;td&gt;&lt;td&gt;更可控，天然同步&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;例子&lt;&#x2F;td&gt;&lt;td&gt;C&#x2F;C++ 中的线程 + mutex&lt;&#x2F;td&gt;&lt;td&gt;Go 中的 goroutine + channel&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;&lt;em&gt;共享内存的问题！&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;可见性问题&lt;&#x2F;strong&gt;：一个线程修改变量，另一个线程可能看不到（CPU 缓存、编译器优化等）&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;竞争条件（Race Condition）&lt;&#x2F;strong&gt;：线程读写冲突导致不一致&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;加锁非常脆弱&lt;&#x2F;strong&gt;：容易忘记加锁、锁顺序死锁、性能差、调试困难&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;状态耦合&lt;&#x2F;strong&gt;：多个线程对共享数据的意图难以区分&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;em&gt;CSP 把“并发的核心问题”转化了：&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;从“如何共享变量”转为“如何传递消息”&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;通道通信是同步的，相当于自带锁机制&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;goroutine 是轻量级的，天然适合大规模并发&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;CSP 不是性能最强的模型，但&lt;&#x2F;strong&gt;：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;对“人类开发者”更友好；&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;对复杂系统的“构建和演化”更稳定；&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;也是构建现代高并发系统时的&lt;strong&gt;主流模型之一&lt;&#x2F;strong&gt;。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;！！！ 你不是去“抢”变量，而是“请求”那个管理它的 goroutine 来操作它。&lt;&#x2F;strong&gt;&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;plan9-go&quot;&gt;Plan9 &amp;amp; Go&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;she-ji-si-xiang-de-guan-lian&quot;&gt;设计思想的关联&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Plan 9 的设计思想&lt;&#x2F;th&gt;&lt;th&gt;Go 中的体现&lt;&#x2F;th&gt;&lt;th&gt;说明&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;一切皆文件&lt;&#x2F;strong&gt;（包括网络、图形等）&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;io.Reader&lt;&#x2F;code&gt; &#x2F; &lt;code&gt;io.Writer&lt;&#x2F;code&gt; 接口统一抽象&lt;&#x2F;td&gt;&lt;td&gt;所有输入输出都被看作流（stream），统一接口风格&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;简洁统一的接口设计&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;接口设计简洁、不需显式实现，强调组合&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;interface&lt;&#x2F;code&gt; 不需要 &lt;code&gt;implements&lt;&#x2F;code&gt;，鼓励面向抽象编程&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;资源命名空间 per process&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;每个 &lt;code&gt;goroutine&lt;&#x2F;code&gt; 轻量、可独立使用 channel&lt;&#x2F;td&gt;&lt;td&gt;更细粒度的资源隔离感，goroutine 独立如 namespace&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;9P 协议：分布式资源像本地一样访问&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;Go 的网络库设计抽象化（如 &lt;code&gt;net.Conn&lt;&#x2F;code&gt;）&lt;&#x2F;td&gt;&lt;td&gt;可以轻松写出“远程等于本地”的通信程序&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;并发不是线程，是消息通信（管道）&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;goroutine&lt;&#x2F;code&gt; + &lt;code&gt;channel&lt;&#x2F;code&gt; 是核心特性&lt;&#x2F;td&gt;&lt;td&gt;正是 CSP 模型（通讯顺序进程），而非线程锁死等待&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;最小化系统复杂性&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;Go 排除继承、多重继承、异常机制&lt;&#x2F;td&gt;&lt;td&gt;简单就是力量，避免复杂性带来的维护成本&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;自举系统（compiler&#x2F;runtime 用自己写）&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;Go 的工具链也是用 Go 写的（包括编译器、fmt 工具等）&lt;&#x2F;td&gt;&lt;td&gt;自洽、可控、统一体验&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;从plan9中吸收的内容&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;组合优于继承&lt;&#x2F;strong&gt;：Plan 9 没有传统面向对象；Go 同样用接口 + 组合结构体替代类继承；&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;消息通信代替共享内存&lt;&#x2F;strong&gt;：Plan 9 提倡“不要共享内存”；Go 鼓励用 channel 通信而非锁；&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;极简内核&lt;&#x2F;strong&gt;：Plan 9 内核极简但灵活；Go 工具链同样追求“一个命令搞定”的体验；&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;统一接口抽象&lt;&#x2F;strong&gt;：Plan 9 的资源访问统一为文件；Go 将几乎所有资源抽象成 &lt;code&gt;io.Reader&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;Writer&lt;&#x2F;code&gt;。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Plan 9 的几个核心哲学在 Go 中的体现&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h3 id=&quot;1-yi-qie-jie-wen-jian-io-reader-io-writer-chou-xiang&quot;&gt;1. &lt;strong&gt;一切皆文件 &#x2F; io.Reader + io.Writer 抽象&lt;&#x2F;strong&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;go&quot; class=&quot;language-go &quot;&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;package main
+
+import (
+	&amp;quot;fmt&amp;quot;
+	&amp;quot;io&amp;quot;
+	&amp;quot;os&amp;quot;
+	&amp;quot;strings&amp;quot;
+)
+
+func main() {
+	var r io.Reader = strings.NewReader(&amp;quot;Hello Plan 9!&amp;quot;)
+	io.Copy(os.Stdout, r) &amp;#x2F;&amp;#x2F; 输出到标准输出：Hello Plan 9!
+}
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;无论是文件、字符串、网络连接，只要实现 &lt;code&gt;Reader&lt;&#x2F;code&gt; 接口，就能互换使用。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h3 id=&quot;2-zu-he-you-yu-ji-cheng&quot;&gt;2. &lt;strong&gt;组合优于继承&lt;&#x2F;strong&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;go&quot; class=&quot;language-go &quot;&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;type Logger struct{}
+
+func (l Logger) Log(msg string) {
+	println(&amp;quot;[LOG]&amp;quot;, msg)
+}
+
+type Service struct {
+	Logger &amp;#x2F;&amp;#x2F; 嵌入，而非继承
+}
+
+func main() {
+	s := Service{}
+	s.Log(&amp;quot;Service started&amp;quot;) &amp;#x2F;&amp;#x2F; 调用嵌入字段的方法
+}
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Go 不用继承，通过结构体组合来共享行为。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h4 id=&quot;zu-he-you-yu-ji-cheng-wei-shen-me-zai-go-zhong-shi-zheng-que-de&quot;&gt;组合优于继承” 为什么在 Go 中是正确的？&lt;&#x2F;h4&gt;
+&lt;pre data-lang=&quot;go&quot; class=&quot;language-go &quot;&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;type Logger struct{}
+func (l Logger) Log(msg string) { fmt.Println(&amp;quot;[LOG]&amp;quot;, msg) }
+
+type Service struct {
+	Logger &amp;#x2F;&amp;#x2F; 组合，而不是继承
+}
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;继承带来耦合，组合带来解耦&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;灵活：只组合需要的行为&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;解耦：Logger 改变不影响 Service&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;模块化更强，符合现代微服务理念&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;hr &#x2F;&gt;
+&lt;h3 id=&quot;3-csp-bing-fa-mo-xing-goroutine-channel&quot;&gt;3. &lt;strong&gt;CSP 并发模型（goroutine + channel）&lt;&#x2F;strong&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;go&quot; class=&quot;language-go &quot;&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;func worker(ch chan string) {
+	for msg := range ch {
+		println(&amp;quot;received:&amp;quot;, msg)
+	}
+}
+
+func main() {
+	ch := make(chan string)
+	go worker(ch)
+
+	ch &amp;lt;- &amp;quot;task 1&amp;quot;
+	ch &amp;lt;- &amp;quot;task 2&amp;quot;
+	close(ch)
+}
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;goroutine 类似 Plan 9 的 lightweight process，channel 是通信通道，避免共享内存。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h3 id=&quot;4-zi-yuan-an-ming-ming-kong-jian-chou-xiang-net-conn-chou-xiang&quot;&gt;4. &lt;strong&gt;资源按命名空间抽象（net.Conn 抽象）&lt;&#x2F;strong&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;go&quot; class=&quot;language-go &quot;&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;package main
+
+import (
+	&amp;quot;fmt&amp;quot;
+	&amp;quot;net&amp;quot;
+)
+
+func main() {
+	conn, _ := net.Dial(&amp;quot;tcp&amp;quot;, &amp;quot;example.com:80&amp;quot;)
+	fmt.Fprintf(conn, &amp;quot;GET &amp;#x2F; HTTP&amp;#x2F;1.0\r\n\r\n&amp;quot;)
+	buf := make([]byte, 4096)
+	n, _ := conn.Read(buf)
+	fmt.Println(string(buf[:n]))
+}
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;net.Conn&lt;&#x2F;code&gt; 可以代表 TCP、Unix socket 等，是统一的“文件风格”资源访问。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h3 id=&quot;5-zi-ju-zui-xiao-gong-ju-lian-go-bian-yi-qi-gong-ju-jiu-shi-yong-go-xie-de&quot;&gt;5. &lt;strong&gt;自举 + 最小工具链：Go 编译器&#x2F;工具就是用 Go 写的&lt;&#x2F;strong&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;go build main.go
+go fmt main.go
+go run main.go
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;没有 &lt;code&gt;make&lt;&#x2F;code&gt;，不需要配置，直接编译运行，体现极简主义。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h3 id=&quot;zong-jie&quot;&gt;总结&lt;&#x2F;h3&gt;
+&lt;p&gt;Go 语言很多地方直接体现了 Plan 9 的理念，尤其是：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;接口驱动的抽象&lt;&#x2F;strong&gt;：&lt;code&gt;io.Reader&lt;&#x2F;code&gt; &#x2F; &lt;code&gt;net.Conn&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;并发设计&lt;&#x2F;strong&gt;：channel 通信优先于加锁&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;结构体组合&lt;&#x2F;strong&gt;：轻松构造可复用模块&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;极简工具链&lt;&#x2F;strong&gt;：从构建到部署尽可能统一&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;xi-tong-zi-liao&quot;&gt;系统资料&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;lwn.net&#x2F;Articles&#x2F;250967&#x2F;&quot;&gt;Articles&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;go-proverbs.github.io&#x2F;&quot;&gt;Go 谚语&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;draven.co&#x2F;golang&#x2F;&quot;&gt;Go语言设计与实现&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;luminousmen.com&#x2F;&quot;&gt;技术博客&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;pipe-he-channel&quot;&gt;pipe 和 channel&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;strong&gt;channel 和管道（pipe）不是一个东西&lt;&#x2F;strong&gt;，虽然它们的用途都是“通信”，但它们&lt;strong&gt;作用范围、实现层级、性能、使用方式都不同&lt;&#x2F;strong&gt;。&lt;&#x2F;p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;特性&lt;&#x2F;th&gt;&lt;th&gt;Go &lt;code&gt;channel&lt;&#x2F;code&gt;&lt;&#x2F;th&gt;&lt;th&gt;操作系统 &lt;code&gt;pipe&lt;&#x2F;code&gt;（管道）&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;属于哪一层&lt;&#x2F;td&gt;&lt;td&gt;&lt;strong&gt;用户态&lt;&#x2F;strong&gt;，Go runtime 提供&lt;&#x2F;td&gt;&lt;td&gt;&lt;strong&gt;内核态&lt;&#x2F;strong&gt;，操作系统提供&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;通信对象&lt;&#x2F;td&gt;&lt;td&gt;&lt;strong&gt;Goroutine 之间通信（线程级）&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;strong&gt;进程之间通信（进程级）&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;是否跨语言&lt;&#x2F;td&gt;&lt;td&gt;否（Go 专属）&lt;&#x2F;td&gt;&lt;td&gt;是（C、Python、Bash 等都能用）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;是否跨进程&lt;&#x2F;td&gt;&lt;td&gt;否&lt;&#x2F;td&gt;&lt;td&gt;是&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;是否需要内核参与&lt;&#x2F;td&gt;&lt;td&gt;否（调度在用户态）&lt;&#x2F;td&gt;&lt;td&gt;是（需要系统调用）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;通信方式&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;ch &amp;lt;- val&lt;&#x2F;code&gt;, &lt;code&gt;&amp;lt;- ch&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;write(pipefd[1], ...)&lt;&#x2F;code&gt;, &lt;code&gt;read(...)&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;性能&lt;&#x2F;td&gt;&lt;td&gt;高（上下文切换成本低）&lt;&#x2F;td&gt;&lt;td&gt;相对低（涉及内核上下文切换）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;线程安全&lt;&#x2F;td&gt;&lt;td&gt;是（channel 天然并发安全）&lt;&#x2F;td&gt;&lt;td&gt;是（由内核控制）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;&lt;strong&gt;pipe 并不使用 CSP（通信顺序进程）思想&lt;&#x2F;strong&gt;。&lt;&#x2F;p&gt;
+&lt;p&gt;操作系统中的 &lt;code&gt;pipe&lt;&#x2F;code&gt; 本质上是&lt;strong&gt;两个进程通过共享内核缓冲区来读写数据&lt;&#x2F;strong&gt;：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;写进程调用 &lt;code&gt;write()&lt;&#x2F;code&gt; 把数据写入 pipe（内核缓冲区）；&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;读进程调用 &lt;code&gt;read()&lt;&#x2F;code&gt; 从 pipe 中读取数据；&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;管道本质上是&lt;strong&gt;一个 FIFO（先进先出）缓冲区&lt;&#x2F;strong&gt;；&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;多数是&lt;strong&gt;阻塞式&lt;&#x2F;strong&gt;的（读时无数据就阻塞，写时缓冲区满也阻塞）；&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;是一种&lt;strong&gt;共享内存 + 同步机制&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</description>
+      </item>
+    </channel>
+</rss>
