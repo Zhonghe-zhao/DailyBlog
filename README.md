@@ -19,18 +19,15 @@
 - [6.s081](https://blog.zhaozhonghe.me/issue-8/)--2025-03
 - [Concurrency](https://github.com/Zhonghe-zhao/DailyBlog/issues/12)--2025-06-01
 - [NetWork](https://github.com/Zhonghe-zhao/DailyBlog/issues/28)--2025-06-25
-- [cmu15445](https://github.com/Zhonghe-zhao/DailyBlog/issues/10)--2025-03
-- [DB](https://github.com/Zhonghe-zhao/DailyBlog/issues/21)--2025-06-14
+- [cmu15445](https://github.com/Zhonghe-zhao/DailyBlog/issues/10)
 
 ### Golang
 
 - [Golang In Deep](https://github.com/Zhonghe-zhao/DailyBlog/issues/12)--2025-06-14
-- [Docker](https://github.com/Zhonghe-zhao/DailyBlog/issues/30)--2025-06-26
 - [Go By Mistakes](https://github.com/Zhonghe-zhao/DailyBlog/issues/11)--2025-05
 
 ### Backend
 
-- [授权与认证](https://github.com/Zhonghe-zhao/DailyBlog/issues/32)--2025-06-27
 - [char **argv](https://github.com/Zhonghe-zhao/DailyBlog/issues/26)--2025-06-21
 
 ## Keep thinking
