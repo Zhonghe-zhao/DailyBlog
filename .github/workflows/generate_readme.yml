@@ -45,6 +45,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add BACKUP/ README.md feed.xml
+          mkdir -p BACKUP
+          git add README.md feed.xml
           git commit -m 'update new blog' || echo "nothing to commit"
-          git push
+          git push || echo "nothing to push"

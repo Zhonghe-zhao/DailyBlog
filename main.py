@@ -215,6 +215,8 @@ def add_md_custom_categories(repo, md, me):
     """使用自定义分类显示文章"""
     with open(md, "a+", encoding="utf-8") as md_file:
         for category_name, labels in CUSTOM_CATEGORIES.items():
+            if category_name == "🦄 置顶文章":
+                continue
             # 获取该分类下的所有issues
             category_issues = []
             for label_name in labels:
