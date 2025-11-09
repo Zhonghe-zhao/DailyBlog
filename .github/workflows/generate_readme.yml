@@ -20,6 +20,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.G_T }}
+          
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -35,10 +38,16 @@ jobs:
         run: |
           python main.py ${{ secrets.G_T }} ${{ github.repository }} --issue_number '${{ github.event.issue.number }}'
 
-      - name: Push README
+      - name: Configure Git
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+
+      - name: Commit changes
+        run: |
           git add BACKUP/ README.md feed.xml
-          git commit -m 'update new blog: add BACKUP files and update README'
-          git push https://${{ github.actor }}:${{ secrets.G_T }}@github.com/${{ github.repository }}.git main
+          git commit -m 'update new blog: add BACKUP files and update README' || echo "No changes to commit"
+
+      - name: Push changes
+        run: |
+          git push https://x-access-token:${{ secrets.G_T }}@github.com/${{ github.repository }}.git main
