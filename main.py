@@ -356,17 +356,19 @@ def main(token, repo_name, issue_number=None, dir_name=BACKUP_DIR):
     # 生成README
     add_md_header("README.md", repo_name)
     
-    # 按这个顺序显示 - 删除重复的调用
+    # 按这个顺序显示 - 修复：包含所有必要的功能
     for func in [
         add_md_top,                 # 置顶文章
         add_md_recent,              # 最近更新
+        add_md_todo,                # TODO列表
+        add_md_firends,             # 友情链接
         add_md_custom_categories,   # 自定义分类
     ]:
         func(repo, "README.md", me)
 
     generate_rss_feed(repo, "feed.xml", me)
     
-    # 备份issues到BACKUP文件夹（只保留这一个生成逻辑）
+    # 备份issues到BACKUP文件夹
     to_generate_issues = get_to_generate_issues(repo, dir_name, issue_number)
     
     # 保存md文件到backup文件夹
@@ -375,4 +377,3 @@ def main(token, repo_name, issue_number=None, dir_name=BACKUP_DIR):
         save_issue(issue, me, dir_name)
     
     print("=== Script Completed ===")
-    #调试
