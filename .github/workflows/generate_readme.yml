@@ -1,4 +1,4 @@
-name: Generate DailyBlog README
+name: Generate GitBlog README
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
     types: [created, edited]
   push:
     branches:
-      - main
+      - master
     paths:
       - main.py
 
@@ -16,13 +16,10 @@ jobs:
   sync:
     name: Generate README
     runs-on: ubuntu-latest
-    if: github.repository_owner_id == github.event.issue.user.id || github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    if: github.repository_owner_id == github.event.issue.user.id || github.event_name == 'push'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.G_T }}
-          
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -38,17 +35,10 @@ jobs:
         run: |
           python main.py ${{ secrets.G_T }} ${{ github.repository }} --issue_number '${{ github.event.issue.number }}'
 
-      - name: Configure Git
+      - name: Push README
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-
-      - name: Commit changes
-        run: |
-          git add BACKUP/ README.md feed.xml
-          git commit -m 'update new blog: add BACKUP files and update README' || echo "No changes to commit"
-
-      - name: Push changes
-        run: |
-          git push https://x-access-token:${{ secrets.G_T }}@github.com/${{ github.repository }}.git main
-#调试
+          git add BACKUP/*.md
+          git commit -a -m 'update new blog' || echo "nothing to commit"
+          git push || echo "nothing to push"
