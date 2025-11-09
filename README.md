@@ -9,6 +9,7 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 - [与北邮老哥的交谈](https://github.com/Zhonghe-zhao/DailyBlog/issues/18)--2025-06-10
 - [定期分享](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)--2025-05-28
 ## 📖 最近更新
+- [成长计划(随时改变😆)](https://github.com/Zhonghe-zhao/DailyBlog/issues/77)--2025-11-09
 - [Blog完全体](https://github.com/Zhonghe-zhao/DailyBlog/issues/76)--2025-11-09
 - [丢失更新](https://github.com/Zhonghe-zhao/DailyBlog/issues/75)--2025-11-04
 - [6.5840 Lab 2: Key/Value Server](https://github.com/Zhonghe-zhao/DailyBlog/issues/74)--2025-11-03
@@ -18,7 +19,16 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 - [重装c盘](https://github.com/Zhonghe-zhao/DailyBlog/issues/70)--2025-10-18
 - [瓶颈 - 近期总结](https://github.com/Zhonghe-zhao/DailyBlog/issues/69)--2025-10-14
 - [时间](https://github.com/Zhonghe-zhao/DailyBlog/issues/57)--2025-07-21
-- [大二下半学期结束！](https://github.com/Zhonghe-zhao/DailyBlog/issues/56)--2025-07-20
+## TODO
+TODO list from [成长计划(随时改变😆)](https://github.com/Zhonghe-zhao/DailyBlog/issues/77)--3 jobs to do--4 jobs done
+- [x] 坚持跑步 
+- [x] 保持学习 
+- [x] 保持思考 
+- [x] 笔记输出
+- [ ] 出国旅游 
+- [ ] 坚持学习外语 
+- [ ] 第一份实习 - 下学期找
+
 ## 🤓 计算机基础
 
 - [丢失更新](https://github.com/Zhonghe-zhao/DailyBlog/issues/75) - 2025-11-04
