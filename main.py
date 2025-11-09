@@ -19,7 +19,7 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 BACKUP_DIR = "BACKUP"
 ANCHOR_NUMBER = 5
 
-# 新的标签配置 - 方案A
+# 新的标签配置
 TOP_ISSUES_LABELS = ["Top"]
 TODO_ISSUES_LABELS = ["TODO"]
 FRIENDS_LABELS = ["Friends"]
@@ -30,7 +30,7 @@ THINGS_LABELS = ["Things"]
 CUSTOM_CATEGORIES = {
     "🤓 计算机基础": [
         # 操作系统
-        "os", "os-linux","os-memory", "os-network",
+        "os", "os-linux", "os-memory", "os-network",
         # 数据库
         "db", "db-sql", "db-nosql", "db-optimization", "db-design", "db-transaction",
         # 分布式系统
@@ -65,12 +65,14 @@ FRIENDS_INFO_DICT = {
     "描述": "",
 }
 
-# 原有的工具函数保持不变
+
 def get_me(user):
     return user.get_user().login
 
+
 def is_me(issue, me):
     return issue.user.login == me
+
 
 def is_hearted_by_me(comment, me):
     reactions = list(comment.get_reactions())
@@ -78,6 +80,7 @@ def is_hearted_by_me(comment, me):
         if r.content == "heart" and r.user.login == me:
             return True
     return False
+
 
 def _make_friend_table_string(s):
     info_dict = FRIENDS_INFO_DICT.copy()
@@ -97,6 +100,7 @@ def _make_friend_table_string(s):
         print(str(e))
         return
 
+
 def _valid_xml_char_ordinal(c):
     codepoint = ord(c)
     return (
@@ -106,14 +110,18 @@ def _valid_xml_char_ordinal(c):
         or 0x10000 <= codepoint <= 0x10FFFF
     )
 
+
 def format_time(time):
     return str(time)[:10]
+
 
 def login(token):
     return Github(token)
 
+
 def get_repo(user: Github, repo: str):
     return user.get_repo(repo)
+
 
 def parse_TODO(issue):
     body = issue.body.splitlines()
@@ -126,45 +134,53 @@ def parse_TODO(issue):
         todo_done + todo_undone,
     )
 
+
 def get_top_issues(repo):
     return repo.get_issues(labels=TOP_ISSUES_LABELS)
+
 
 def get_todo_issues(repo):
     return repo.get_issues(labels=TODO_ISSUES_LABELS)
 
+
 def get_repo_labels(repo):
     return [l for l in repo.get_labels()]
 
+
 def get_issues_from_label(repo, label):
     return repo.get_issues(labels=(label,))
+
 
 def add_issue_info(issue, md):
     time = format_time(issue.created_at)
     md.write(f"- [{issue.title}]({issue.html_url})--{time}\n")
 
+
 def add_md_todo(repo, md, me):
     todo_issues = list(get_todo_issues(repo))
     if not TODO_ISSUES_LABELS or not todo_issues:
         return
-    with open(md, "a+", encoding="utf-8") as md_file:
-        md_file.write("## TODO\n")
+    with open(md, "a+", encoding="utf-8") as md:
+        md.write("## TODO\n")
         for issue in todo_issues:
             if is_me(issue, me):
                 todo_title, todo_list = parse_TODO(issue)
-                md_file.write("TODO list from " + todo_title + "\n")
+                md.write("TODO list from " + todo_title + "\n")
                 for t in todo_list:
-                    md_file.write(t + "\n")
-                md_file.write("\n")
+                    md.write(t + "\n")
+                md.write("\n")
+
 
 def add_md_top(repo, md, me):
     top_issues = list(get_top_issues(repo))
     if not TOP_ISSUES_LABELS or not top_issues:
         return
-    with open(md, "a+", encoding="utf-8") as md_file:
-        md_file.write("## 🦄 置顶文章\n")
+    with open(md, "a+", encoding="utf-8") as md:
+        md.write("## 🦄 置顶文章\n")
         for issue in top_issues:
             if is_me(issue, me):
-                add_issue_info(issue, md_file)
+                add_issue_info(issue, md)
+
 
 def add_md_firends(repo, md, me):
     s = FRIENDS_TABLE_HEAD
@@ -181,39 +197,41 @@ def add_md_firends(repo, md, me):
                     print(str(e))
                     pass
     s = markdown.markdown(s, output_format="html", extensions=["extra"])
-    with open(md, "a+", encoding="utf-8") as md_file:
-        md_file.write(
+    with open(md, "a+", encoding="utf-8") as md:
+        md.write(
             f"## [友情链接](https://github.com/{str(me)}/DailyBlog/issues/{friends_issue_number})\n"
         )
-        md_file.write("<details><summary>显示</summary>\n")
-        md_file.write(s)
-        md_file.write("</details>\n")
-        md_file.write("\n\n")
+        md.write("<details><summary>显示</summary>\n")
+        md.write(s)
+        md.write("</details>\n")
+        md.write("\n\n")
+
 
 def add_md_recent(repo, md, me, limit=10):
     """显示最近更新的文章"""
     count = 0
-    with open(md, "a+", encoding="utf-8") as md_file:
-        md_file.write("## 📖 最近更新\n")
+    with open(md, "a+", encoding="utf-8") as md:
+        md.write("## 📖 最近更新\n")
         try:
             for issue in repo.get_issues(sort="created", direction="desc"):
                 if is_me(issue, me):
-                    add_issue_info(issue, md_file)
+                    add_issue_info(issue, md)
                     count += 1
                     if count >= limit:
                         break
         except Exception as e:
             print(str(e))
 
-def add_md_header(md, repo_name):
-    with open(md, "w", encoding="utf-8") as md_file:
-        md_file.write(MD_HEAD.format(repo_name=repo_name))
-        md_file.write("\n")
 
-# 替换原来的 add_md_label 函数
+def add_md_header(md, repo_name):
+    with open(md, "w", encoding="utf-8") as md:
+        md.write(MD_HEAD.format(repo_name=repo_name))
+        md.write("\n")
+
+
 def add_md_custom_categories(repo, md, me):
     """使用自定义分类显示文章"""
-    with open(md, "a+", encoding="utf-8") as md_file:
+    with open(md, "a+", encoding="utf-8") as md:
         for category_name, labels in CUSTOM_CATEGORIES.items():
             if category_name == "🦄 置顶文章":
                 continue
@@ -233,20 +251,21 @@ def add_md_custom_categories(repo, md, me):
             category_issues.sort(key=lambda x: x.created_at, reverse=True)
             
             if category_issues:
-                md_file.write(f"## {category_name}\n\n")
+                md.write(f"## {category_name}\n\n")
                 
                 # 显示文章，超过5篇时折叠
                 for i, issue in enumerate(category_issues):
                     if i == 5:  # 只显示5篇，更多内容折叠
-                        md_file.write("<details><summary>显示更多</summary>\n\n")
+                        md.write("<details><summary>显示更多</summary>\n\n")
                     
                     time = format_time(issue.created_at)
-                    md_file.write(f"- [{issue.title}]({issue.html_url}) - {time}\n")
+                    md.write(f"- [{issue.title}]({issue.html_url}) - {time}\n")
                 
                 if len(category_issues) > 5:
-                    md_file.write("</details>\n")
+                    md.write("</details>\n")
                 
-                md_file.write("\n")
+                md.write("\n")
+
 
 def get_to_generate_issues(repo, dir_name, issue_number=None):
     """获取需要生成的issues"""
@@ -292,6 +311,7 @@ def get_to_generate_issues(repo, dir_name, issue_number=None):
     print(f"Issues to generate: {len(to_generate_issues)}")
     return to_generate_issues
 
+
 def generate_rss_feed(repo, filename, me):
     generator = FeedGenerator()
     generator.id(repo.html_url)
@@ -318,6 +338,7 @@ def generate_rss_feed(repo, filename, me):
         item.content(CDATA(marko.convert(body)), type="html")
     generator.atom_file(filename)
 
+
 def save_issue(issue, me, dir_name=BACKUP_DIR):
     """保存issue到BACKUP文件夹"""
     # 清理文件名中的非法字符
@@ -334,6 +355,7 @@ def save_issue(issue, me, dir_name=BACKUP_DIR):
                 if is_me(c, me):
                     f.write("\n\n---\n\n")
                     f.write(c.body or "")
+
 
 def main(token, repo_name, issue_number=None, dir_name=BACKUP_DIR):
     """主函数"""
@@ -356,14 +378,8 @@ def main(token, repo_name, issue_number=None, dir_name=BACKUP_DIR):
     # 生成README
     add_md_header("README.md", repo_name)
     
-    # 按这个顺序显示 - 修复：包含所有必要的功能
-    for func in [
-        add_md_top,                 # 置顶文章
-        add_md_recent,              # 最近更新
-        add_md_todo,                # TODO列表
-        add_md_firends,             # 友情链接
-        add_md_custom_categories,   # 自定义分类
-    ]:
+    # 按这个顺序显示
+    for func in [add_md_top, add_md_recent, add_md_todo, add_md_firends, add_md_custom_categories]:
         func(repo, "README.md", me)
 
     generate_rss_feed(repo, "feed.xml", me)
@@ -377,3 +393,16 @@ def main(token, repo_name, issue_number=None, dir_name=BACKUP_DIR):
         save_issue(issue, me, dir_name)
     
     print("=== Script Completed ===")
+
+
+if __name__ == "__main__":
+    if not os.path.exists(BACKUP_DIR):
+        os.mkdir(BACKUP_DIR)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("github_token", help="github_token")
+    parser.add_argument("repo_name", help="repo_name")
+    parser.add_argument(
+        "--issue_number", help="issue_number", default=None, required=False
+    )
+    options = parser.parse_args()
+    main(options.github_token, options.repo_name, options.issue_number)
