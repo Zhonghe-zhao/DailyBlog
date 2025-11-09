@@ -30,12 +30,14 @@ THINGS_LABELS = ["Things"]
 CUSTOM_CATEGORIES = {
     "🤓 计算机基础": [
         # 操作系统
-        "os", "os-linux", "os-windows", "os-kernel", "os-memory", "os-network",
+        "os", "os-linux","os-memory", "os-network",
         # 数据库
         "db", "db-sql", "db-nosql", "db-optimization", "db-design", "db-transaction",
+        # 分布式系统
+        "distributed-system", "distributed-consensus", "cloud-native",
         # 网络
-        "network", "network-protocol", "tcp-ip", "http", "network-security",
-        # 算法
+        "network", "network-protocol",
+        # 数据结构和算法
         "algorithm", "data-structure", "leetcode", "coding-interview"
     ],
     "🎭 开发技术": [
