@@ -12,9 +12,7 @@ even_menu = [
     {url = "$BASE_URL", name = "Home"},
     {url = "$BASE_URL/tags/top/", name = "Top"},
     {url = "$BASE_URL/tags/life/", name = "Life"},
-    {url = "$BASE_URL/tags/think/", name = "Think"},
     {url = "$BASE_URL/tags/tech/", name = "Tech"},
-    {url = "$BASE_URL/tags/algorithms/", name = "Algorithms"},
     {url = "$BASE_URL/issue-34/", name = "About"},
     {url = "$BASE_URL/issue-35/", name = "Things I like"},
 ]
