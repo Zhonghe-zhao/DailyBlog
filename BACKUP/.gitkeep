@@ -1,0 +1,2 @@
+# This file ensures the BACKUP directory is tracked by git
+# 备份的博客文章将自动生成在此目录中
