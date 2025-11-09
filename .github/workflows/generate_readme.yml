@@ -36,11 +36,9 @@ jobs:
           python main.py ${{ secrets.G_T }} ${{ github.repository }} --issue_number '${{ github.event.issue.number }}'
 
       - name: Push README
-  env:
-    GITHUB_TOKEN: ${{ secrets.G_T }}
-  run: |
-    git config --local user.email "action@github.com"
-    git config --local user.name "GitHub Action"
-    git add BACKUP/ README.md feed.xml
-    git commit -m 'update new blog: add BACKUP files and update README'
-    git push https://${{ github.actor }}:${{ secrets.G_T }}@github.com/${{ github.repository }}.git main
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add BACKUP/ README.md feed.xml
+          git commit -m 'update new blog: add BACKUP files and update README'
+          git push https://${{ github.actor }}:${{ secrets.G_T }}@github.com/${{ github.repository }}.git main
