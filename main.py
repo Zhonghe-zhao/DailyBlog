@@ -28,8 +28,7 @@ THINGS_LABELS = ["Things"]
 
 # 自定义分类 - 方案A平铺展示
 CUSTOM_CATEGORIES = {
-    "🚀 置顶文章": ["top"],
-    "💯 计算机基础": [
+    "🤓 计算机基础": [
         # 操作系统
         "os", "os-linux", "os-windows", "os-kernel", "os-memory", "os-network",
         # 数据库
@@ -39,13 +38,13 @@ CUSTOM_CATEGORIES = {
         # 算法
         "algorithm", "data-structure", "leetcode", "coding-interview"
     ],
-    "🔧 开发技术": [
-        "tech", "programming", "python", "java", "javascript",
-        "web-dev", "frontend", "backend", 
+    "🎭 开发技术": [
+        "tech", "programming", "go", "Python", "c",
+        "web-dev", "backend", 
         "tools", "ide", "productivity",
         "devops", "docker", "kubernetes", "ci-cd"
     ],
-    "🌱 生活随笔": ["life", "daily-life", "thoughts", "reading", "travel", "photography"]
+    "🧭 生活随笔": ["life", "daily-life", "thoughts", "reading", "travel", "photography"]
 }
 
 IGNORE_LABELS = (
@@ -160,7 +159,7 @@ def add_md_top(repo, md, me):
     if not TOP_ISSUES_LABELS or not top_issues:
         return
     with open(md, "a+", encoding="utf-8") as md_file:
-        md_file.write("## 🚀 置顶文章\n")
+        md_file.write("## 🦄 置顶文章\n")
         for issue in top_issues:
             if is_me(issue, me):
                 add_issue_info(issue, md_file)
@@ -348,23 +347,22 @@ def main(token, repo_name, issue_number=None, dir_name=BACKUP_DIR):
     # 确保BACKUP目录存在
     if not os.path.exists(dir_name):
         os.makedirs(dir_name)
+        print(f"Created backup directory: {dir_name}")
     
-    # 新的调用顺序 - 使用自定义分类
+    # 生成README
     add_md_header("README.md", repo_name)
     
-    # 按这个顺序显示
+    # 按这个顺序显示 - 删除重复的调用
     for func in [
         add_md_top,                 # 置顶文章
         add_md_recent,              # 最近更新
-        add_md_custom_categories,   # 自定义分类（替换原来的按标签显示）
-        add_md_firends,             # 友情链接
-        add_md_todo                 # TODO列表
+        add_md_custom_categories,   # 自定义分类
     ]:
         func(repo, "README.md", me)
 
     generate_rss_feed(repo, "feed.xml", me)
     
-    # 备份issues到BACKUP文件夹
+    # 备份issues到BACKUP文件夹（只保留这一个生成逻辑）
     to_generate_issues = get_to_generate_issues(repo, dir_name, issue_number)
     
     # 保存md文件到backup文件夹
@@ -373,15 +371,3 @@ def main(token, repo_name, issue_number=None, dir_name=BACKUP_DIR):
         save_issue(issue, me, dir_name)
     
     print("=== Script Completed ===")
-
-if __name__ == "__main__":
-    if not os.path.exists(BACKUP_DIR):
-        os.mkdir(BACKUP_DIR)
-    parser = argparse.ArgumentParser()
-    parser.add_argument("github_token", help="github_token")
-    parser.add_argument("repo_name", help="repo_name")
-    parser.add_argument(
-        "--issue_number", help="issue_number", default=None, required=False
-    )
-    options = parser.parse_args()
-    main(options.github_token, options.repo_name, options.issue_number)
