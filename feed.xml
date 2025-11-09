@@ -1,0 +1,1824 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://github.com/Zhonghe-zhao/DailyBlog</id><title>RSS feed of Zhonghe-zhao's DailyBlog</title><updated>2025-11-09T12:31:43.629157+00:00</updated><link href="https://github.com/Zhonghe-zhao/DailyBlog"/><link href="https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/master/feed.xml" rel="self"/><generator uri="https://lkiesow.github.io/python-feedgen" version="1.0.0">python-feedgen</generator><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/75</id><title>丢失更新</title><updated>2025-11-09T12:31:43.947125+00:00</updated><content type="html"><![CDATA[<h1>丢失更新</h1>
+<p>什么是丢失更新，我的理解一直是错误的</p>
+<p><strong>定义</strong> ：在并发系统中，丢失更新是指一个客户端的更新（基于旧数据计算）被另一个客户端的更新覆盖或忽略，导致最终状态丢失了某些更新的效果。</p>
+<p><strong>在我们的例子中</strong>：
+A和B都想扣款50，期望结果是 100 - 50 - 50 = 0（两次扣款都生效）。
+但实际结果是50：B的扣款意图（-50）被完全忽略，因为它的Put失败（version不匹配）。这意味着B的更新“丢失”了。
+<strong>为什么叫“丢失”</strong> ？不是数据损坏，而是系统中“应该发生”的状态变化（B的扣款）没发生。最终状态（50）不符合业务逻辑（两次扣款应得0）。
+<strong>关键点</strong>：
+version控制检测到冲突（B的Put失败），但没解决问题——B的意图被丢弃，客户端需要自己决定“接下来干嘛”（重试？放弃？）。如果B不重试，第二次扣款就“丢失”了。
+在分布式系统中，这种情况很危险，因为客户端可能认为“我的请求失败了，算了”，导致业务逻辑错误（e.g., 用户以为扣款没发生，但实际应该扣）。</p>
+<p><strong>问题在业务层：</strong></p>
+<p>由于B的Put失败，B的扣款没发生。如果B不重试（或重试逻辑错误），整个系统就丢失了B的更新（-50）。最终余额 50 ，只反映A的操作，B的意图被 “吞没“</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/75"/><published>2025-11-04T00:13:06+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/74</id><title>6.5840 Lab 2: Key/Value Server</title><updated>2025-11-09T12:31:44.087928+00:00</updated><content type="html"><![CDATA[<h1>Key/value server with reliable network</h1>
+<p>在一个可靠的网络下，我们不会丢失消息，实现键值存储的客户端和服务器端</p>
+<p>三个重点对象：</p>
+<p><code>Server</code> <code>Clerk</code> <code>RPC</code> </p>
+<p>只要 <code>Server</code> 运行我们发送的消息一定会被接收，实现的方法通过 <code>RPC</code> 发送请求 <code>Server</code> 端就会做相应的处理</p>
+<p><strong>注意的问题：</strong></p>
+<p>我对框架进行了修改， 我并不知道实验使用的自制的 <code>labrpc</code> 框架！ 与 <code>net/rpc</code> 包有一些差距的地方在于，我按照包的形式，修改了函数的返回值！</p>
+<pre><code class="language-shell">root@Zhonghe:~/6.824/6.5840/src/kvsrv1# go test -run Reliable
+One client and reliable Put (reliable network)...
+2025/10/25 20:59:06 labrpc.Service.dispatch(): unknown method Get in KVServer.Get; expecting one of []
+exit status 1
+FAIL    6.5840/kvsrv1   0.006s
+</code></pre>
+<p>导致框架无法注册我错误的函数签名！ 导致我无法进行通讯，这个问题我想了很久！ 于是我学习了 <code>labrpc</code> 学习 go 的反射机制。</p>
+<p><strong>对于 <code>get</code> 和  <code>put</code> 操作我们需要注意什么？</strong></p>
+<p>版本号控制 锁的互斥性访问 版本号控制 </p>
+<p><strong>思考：</strong></p>
+<p>锁的作用是什么？ 我们为什么要实现锁？ 版本控制的目的是什么？</p>
+<p><strong>加锁的核心职责：</strong></p>
+<p>确保服务器内部的并发安全，防止多个线程（goroutines）同时访问和修改共享数据结构</p>
+<p>本地化，局限在单个服务器实例的内存中。加锁解决的是 <strong>线程级并发</strong> 问题，与分布式系统的网络重试或 Raft 复制无关。</p>
+<p><strong>版本控制的核心职责：</strong></p>
+<p><em>幂等性</em>：  </p>
+<p>一个操作被称为幂等的，如果多次执行它产生的结果与单次执行相同，且不会引入额外的副作用。在数学或编程上下文中，这类似于函数 $ f(x) $ 满足  $ f(f(x)) = f(x) $。</p>
+<p>如果没有版本控制，重复的 Put 操作可能多次更新键值，导致数据错误（如意外覆盖值）。</p>
+<p>我对此的困惑是（如果我们不加版本控制 put操作也不会被重复的请求影响数据的正确性） 群里的以为老哥（根据业务场景，涉及到修改操作时我们必须考虑 <strong>幂等性</strong> ）一下示例可能会解决大家对此的困惑：</p>
+<p><strong>示例：</strong></p>
+<p>客户端 A 发送 Put(&quot;x&quot;, &quot;a&quot;)。服务器执行，设置 &quot;x&quot; = &quot;a&quot;，但响应因网络故障丢失。
+客户端 B 发送 Put(&quot;x&quot;, &quot;b&quot;)，服务器执行，更新 &quot;x&quot; = &quot;b&quot;（因为无版本控制，直接覆盖）。
+客户端 A 重试 Put(&quot;x&quot;, &quot;a&quot;)（相同请求），服务器再次执行，覆盖 &quot;x&quot; = &quot;a&quot;。</p>
+<p>加以控制：</p>
+<p>第 1 步：客户端 A 执行 Get（“x”），观察到版本 0 没有值（或为空）。
+第 2 步：客户端 A 发送 Put（“x”， “a”， version=0）。服务器检查：键不存在且 version==0，因此它创建了 version=1 的 “x” = “a”。由于网络故障而失去响应。
+第 3 步：客户端 B 执行 Get（“x”），观察到 “x” = “a” 且 version=1。
+第 4 步：客户端 B 发送 Put（“x”， “b”， version=1）。服务器检查：当前版本=1 与提供的版本=1 匹配，因此它将“x” = “b”更新为 version=2。
+第 5 步：客户端 A 不知道失败，重试 Put（“x”， “a”， version=0）。服务器检查：当前版本=2 与提供的版本=0 不匹配，因此它使用 ErrVersion 拒绝。不发生更新;“x”仍为“b”，版本=2。</p>
+<p>客户端 B 的更新将被保留</p>
+<h1>Implementing a lock using key/value clerk</h1>
+<p>构建分布式锁，我对分布式锁起初没有什么理解，但是核心思想是确保用户的操作协调对共享资源的访问。 我们在客户端通过每次操作对 <code>Clerk</code> 进行操作</p>
+<p><strong>问题：</strong></p>
+<p>我现在的困惑是 在分布式环境中 我们仅启动了一个kvServer 我们使用多个客户端访问这个KVServer 我们使用互斥锁可以达到共享资源的访问吧？ 为什么还要分布式锁？</p>
+<p>理解丢失更新 #75 </p>
+<p>示例：</p>
+<p>读 改 写 三个流程：</p>
+<p>如果只有一个客户端进行这三个操作，那没有任何问题，如果多个客户端同时进行，即使我们有本地锁(也就是互斥锁)的加持，我们无法保证发事务的完整性 !</p>
+<p>多个 <code>Get</code> 几乎是同时操作，我们加的本地锁，只能保证同一时间内，保证数据结构的安全，但是他不会让我们的逻辑变得更加合理</p>
+<p>多个客户端同时读到相同的值，最终多个put操作进行，看似我们有本地锁 + 版本控制， 实则 <code>Put</code> 操作，会使第二个操作的 <code>Put</code> 丢失更新 ， 第二个操作以及其他操作必须重试， 按照正常的逻辑， 有几个操作 我们的Put就会相应的做出变化， 实则其他的操作出现了丢失更新</p>
+<p>mutex不控制 <strong>客户端的行为</strong> 或 <strong>整个事务（读-改-写)</strong> , </p>
+<p>version检测到B的冲突，但只是“拒绝”B，没帮B“ 排队重试”到正确状态 </p>
+<p>我个人的认为这就是我们需要分布式锁的原因！</p>
+<p><strong>分布式锁的作用</strong>：锁强制“读-改-写”序列互斥执行：</p>
+<p>A获取锁(&quot;balance_lock&quot;)，完成Get(100, 5) -&gt; 计算50 -&gt; Put(50, 5)，释放锁。 B尝试获取锁，失败（A持有），循环重试直到A释放，B获取锁后，Get(50, 6) -&gt; 计算0 -&gt; Put(0, 6)，释放。A和B的更新都生效，没丢失。</p>
+<h1>Key/value server with dropped messages</h1>
+<p><strong>ErrMaybe：</strong></p>
+<p>因为网络的不可靠性， 客户端（Clerk）必须 自己重试 RPC 请求，否则请求可能永远无效。</p>
+<blockquote>
+<p>如果是回复丢了，而不是请求丢了，那么重试会让服务器执行两次。</p>
+</blockquote>
+<p><code>rpc.ErrMaybe</code> 结果不确定，可能已经写入，也可能没有,在不增加服务器复杂性的前提下，只靠客户端实现“尽力而为的可靠性”。</p>
+<p>通过不断尝试</p>
+<h1>Implementing a lock using key/value clerk and unreliable network</h1>
+<p>在不可靠网络 + 不确定状态下，如何安全地使用分布式存储接口（Put/Get）</p>
+<p><strong>死锁：</strong> 锁被卡在某个状态（已上锁），所有客户端都认为自己没拿到锁，也不能释放它。
+Put 成功了，但客户端没收到回复（说明了所以经被正常获取到了 但是回复的包丢失了 我们以为超时了！）所以锁被永久卡住了。</p>
+<p>客户端 A 拿到锁后挂了，锁状态没释放， 其他客户端永远拿不到锁，系统再次陷入死锁。</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/74"/><category term="Go"/><category term="Tech"/><category term="6.5840"/><published>2025-11-03T13:50:16+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/73</id><title>Fiber Channel( FC 协议)</title><updated>2025-11-09T12:31:44.193236+00:00</updated><content type="html"><![CDATA[<p>首先我们需要了解光纤！ 光纤的工作原理是什么？</p>
+<p>光是如何承载信息的 </p>
+<p><strong>光纤通道</strong> （<strong>FC</strong>） 是一种<em>高速数据传输协议</em>，提供有序、无损的原始块数据传输 也就是说：（<strong>Fibre Channel 不是单纯的光纤线</strong>，而是一整套<strong>通信协议 + 硬件标准</strong>）</p>
+<p>光纤通道主要用于将： </p>
+<p><strong>计算机数据存储连接到商业数据中心存储区域网络中的服务器</strong> （存储网络技术）</p>
+<p>FC 的目的就是 —— 让多个服务器能以极高速度<em>访问同一块共享存储</em>。 这正式两太服务器通信的关键？
+这个技术的传输介质是： [<em>光纤或铜缆</em>]</p>
+<pre><code>其实我还是不理解光纤通道这个词！ fiber channel 说它是个协议我不太懂，这个协议的载体是谁？ 光纤吗？ 如果是光纤 这个协议究竟预定了什么？ 这个协议在哪一层发挥作用？ 为什么？
+</code></pre>
+<p><strong>Fibre Channel (FC)</strong> 是一整套<strong>通信体系（protocol stack）</strong>， 定义了从<strong>物理线缆</strong>、<strong>信号编码</strong>到<strong>数据传输协议</strong>的所有层次。</p>
+<p>光纤是协议的 “载体” FC 协议是“说话的语言”， FC 设备（HBA、交换机、存储）是“说话的人”。</p>
+<blockquote>
+<p>“以光纤为媒介的、专门为服务器与存储设备通信设计的一整套协议栈。”</p>
+</blockquote>
+<p>承载的内容： 块数据</p>
+<p>协议规定了 ： </p>
+<p><strong>怎么在光纤上传输“01”信号</strong>（编码、速率、同步）；
+<strong>这些 01 怎么组成“帧”</strong>；
+<strong>帧中包含哪些字段</strong>（目标设备、数据负载、校验码）；
+<strong>怎么建立连接、确认传输、检测错误、重发数据</strong>。 </p>
+<h3>FC协议栈分层</h3>
+<pre><code>FC 其实定义了几层内容，从物理到协议： 为什么FC这个协议分了好多层？ 这是我非常不理解的地方！我们知道网络协议是分层的，但是仅仅一个FC协议为什么又分了好多层？ 对于FC协议我可以大致理解为它为光传播的能量进行了一些规范 以便光可以传输信息! 
+</code></pre>
+<h3>Fibre Channel 是一个完整的网络体系（Storage Network Stack）</h3>
+<p>FC-0（物理层）：对应 TCP/IP 的物理层，负责光纤、电缆、波长、激光功率、电气规范等。
+FC-1（编码层）：对应数据链路层的一部分，负责 8b/10b 编码、同步、错误检测和帧定界。
+FC-2（帧层）：对应数据链路层，定义帧格式、流控制以及交换机制（frame、sequence、exchange）。
+FC-3（公共服务层）：类似网络层或传输层，提供复用和高级功能，如 RAID、多播等。
+FC-4（协议映射层）：对应应用层，负责映射高层协议，例如 SCSI、IP、NVMe 等。</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/73"/><category term="ComputerNetwork"/><category term="Tech"/><category term="6.5840"/><published>2025-10-29T05:14:19+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/72</id><title>VM-FT</title><updated>2025-11-09T12:31:44.293362+00:00</updated><content type="html"><![CDATA[<h1>VM-FT</h1>
+<p>论文引出了什么内容？</p>
+<p><a href="https://medium.com/@princebmodi/fault-tolerance-for-virtual-machines-4a8bbb2b007b">很好的论文解读</a></p>
+<p><strong>VM-FT：</strong> 确保服务器 <strong>高可用</strong> 论文中采用了 <strong>主备虚拟机</strong>，如果备用服务器可以保证和主服务器的状态，那么当主服务器宕机的时候，备用服务器可以立刻接管流量将角色切换为主虚拟机，备用虚拟机必须做到同主虚拟机宕机时的状态一致，不能丢失请求，不能丢失内容， 这也就引出了一些列问题：</p>
+<ol>
+<li>备用服务器如何保证和主服务器的状态一致（这里的状态一致指的是什么？）</li>
+<li>我们有什么方法保证状态一致？</li>
+<li>备用服务器和主服务器之间的通信靠什么？</li>
+<li>备用服务器和主服务器的磁盘空间是共享还是各自存储？（如果）</li>
+</ol>
+<p><strong>一些概念：</strong></p>
+<p>状态</p>
+<p>中断处理</p>
+<p>磁盘共享</p>
+<p>光纤通道 在 #73 中做了简单的阐述</p>
+<p>阻塞/非阻塞</p>
+<p>日志通道</p>
+<p>顺序</p>
+<p>协议</p>
+<h3>全状态复制：</h3>
+<blockquote>
+<p>如果两台机器的CPU状态一致， 内存状态一致， I/O设备状态一致 那么两台机器就同步， 这种方法在论文中被称为 <strong>状态转移</strong></p>
+</blockquote>
+<pre><code>
+我很困惑的是，如果这种方法可以实现，究竟是怎么实现的呢？ CPU的寄存器如何全部转移给另一台机器？内存呢？ 如果一个运行中的程序，我觉得它的寄存器的变化是飞速的，我们需要什么样的同步能使不阻碍主机运行，并且让备用服务器接收指令并改变状态？内存的变化也是频繁的啊！ 所以我觉得这里有点超乎我的想象了
+
+</code></pre>
+<p><strong>可能的解决方案：</strong></p>
+<ol>
+<li>主备机同步执行每条指令</li>
+<li>要求两台机器硬件一致、时钟同步。</li>
+<li>每条指令执行后，主机和备机的寄存器、内存状态都必须一致。如果不一致，系统会触发容错机制。</li>
+</ol>
+<pre><code>(如果两个机器都启动了这个进程) 如果两台机器同时运行同一个进程他们的寄存器状态本身是就同步吗？如果不是，有将会造成什么影响？
+（答案是：否）
+</code></pre>
+<p><strong>不确定性事件的影响：</strong></p>
+<p>中断时机的不同：</p>
+<p>中断是异步事件（外部内部事件触发，而不是程序跳转），中断时机的不同，导致了某个正在运行的线程会被打断，如果中断处理涉及数据写入（如网络包处理），那么内存状态也会不同</p>
+<p>主机在第 100 条指令时收到网络包中断
+备机在第 102 条指令时收到同样的中断
+-&gt; 主机线程 A 被打断 | 备用机线程 B 被打断
+-&gt; 网络包由线程 A 处理| 网络包由线程 B 处理
+-&gt;写入内存位置 X | 写入内存位置 Y
+-&gt;寄存器状态变化 路径 A | 路径 B</p>
+<p>同理：
+网络包到达的顺序：
+磁盘读写完成：
+用户输入（键盘、鼠标）：</p>
+<p>这些事件是不可预测的！</p>
+<h3>复制状态机：</h3>
+<p>如何将不确定的状态变得确定？</p>
+<p>$S_{\text{初始}} + I_{\text{序列}} \Rightarrow S_{\text{最终}}$</p>
+<p>主从机器之间通过日志通道进行通信， 主机进行的操作将会按照顺序输出到日志通道中，从机将从通道中取出指令执行，这样相同的
+起始状态 + 相同的输入 = 相同的输出（也就保证了相同的状态！） <strong>明确这里的相同输入指的是什么？</strong></p>
+<p>复制状态机（RSM）中的 <strong>“操作”（Operation）</strong>，指的是业务逻辑层面的、高层次的、确定性的指令，而不是 CPU 寄存器层面的机器指令。</p>
+<p><strong>示例：</strong></p>
+<p>假设并且要求这些操作的执行是确定性的。这意味着，如果副本 A 和副本 B 从相同的业务状态开始，都执行了相同的操作 Transfer(A, B, 100)，那么它们必然得到相同的最终状态。</p>
+<p>这种不确定性究竟是怎么协调的？(共识协议)， 这个没有阅读到</p>
+<hr />
+<h2>困惑解答：</h2>
+<p><strong>日志通道 (Log Channel)：</strong> 一条高带宽、低延迟的通道，用于传输：1. Leader 遇到的非确定性事件日志 (中断、I/O 结果)。 2. 备用机的确认信息。
+<strong>共享存储 (Shared Storage)：</strong> 通常通过 光纤通道 (Fiber Channel) 或 iSCSI 等实现，主备机都连接到同一份虚拟磁盘文件（如 VMDK）。</p>
+<p><strong>中断时机协调：</strong> 指令计数同步：Leader 记录中断发生在第 N 条指令之后，并将 $N$ 和中断结果发送给 Follower。Follower 在执行到第 $N$ 条指令之前，强制阻塞等待 Leader 的结果，然后使用 Leader 的结果继续执行。 </p>
+<p><strong>确定性重放：</strong> </p>
+<p>Leader 虚拟机 正常运行，并记录所有非确定性事件的发生点和结果。
+Follower 虚拟机 紧跟 Leader 运行，执行相同的机器指令流。
+当 Leader 遇到一个非确定性事件（如中断、时钟读取）时，它将该事件的类型、发生时机（指令计数）和结果数据通过日志通道发送给 Follower。
+当 Follower 运行到 Leader 记录的同一指令计数时，它会阻塞并跳过本地的非确定性事件，而是使用 Leader 提供的确定性结果来更新自己的状态。</p>
+<p>只有在 I/O 操作（例如，网络包写入内存）时，Leader 才会将写入的数据通过日志通道发送给 Follower，确保它们写入相同的内容。</p>
+<blockquote>
+<p>有必要对内存要求写入到相同的位置吗？ 所谓的相同的位置指的是什么？ 两台不同的机器怎么会有相同的位置？ </p>
+</blockquote>
+<p>首先，这里的**“相同的位置”指的不是物理机器的内存地址，而是虚拟内存地址** 物理地址不同是可以的</p>
+<p><strong>示例：</strong></p>
+<p>主机 (Primary) 上的虚拟机执行一条指令，写入 虚拟地址 0x4000。
+主机 VM Monitor (VMM/Hypervisor) 将 0x4000 映射到 Host 的 物理地址 0x100000。
+备机 (Secondary) 上的虚拟机执行相同的指令，写入 虚拟地址 0x4000。
+备机 VMM 将 0x4000 映射到备机的 Host 物理地址 0x500000（注意：这个物理地址和主机不同）。</p>
+<p>为什么要保证虚拟地址的相同？</p>
+<p>一个程序可能有一个数据结构指针指向 0x100000。如果主机上这个地址存储的是用户数据 $A$，而备机上这个地址存储的是程序代码 $B$，那么当程序试图访问它时，两台机器的执行结果会立即分叉，导致备机无法接管主机。任何内存访问指令（如 Load、Store）的操作数都是虚拟地址。如果同一条指令在主备机上访问了不同的虚拟地址，即使是执行了相同的机器指令流，它们对内存状态的修改也会不同。</p>
+<p>究竟是为什么？ 虚拟地址不同和相同 最终不也都分配到了不同的地址空间吗 ？</p>
+<p>在 VM-FT 场景下，虚拟机（Guest）之所以不能完全自己控制 VA，是因为 Hypervisor 必须介入，并强制其采用确定的、与主机关联的 VA 布局，以服务于“确定性重放”的容错目标</p>
+<p>VA 必须同步，是 VM-FT Hypervisor 强制执行的一个约定。它接管了虚拟机的内存管理，确保主备机上虚拟机的内存分配器和加载器看到一个完全相同、且确定性的虚拟内存环境，从而消除了它们在执行相同程序时的内存布局差异。</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/72"/><category term="Go"/><category term="Tech"/><category term="6.5840"/><published>2025-10-29T05:05:04+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/71</id><title>6.5840 Lab 1: MapReduce</title><updated>2025-11-09T12:31:44.437869+00:00</updated><content type="html"><![CDATA[<h1>对于Lab1 MapReduce的思路总结</h1>
+<p>实验1 我们有三个部分需要实现 worker coordinator MapReduce rpc。 讲解一下具体的思路：</p>
+<ol>
+<li>实验的执行环境使用WSL2 ＋ git + vscode</li>
+<li>需要理解什么是RPC</li>
+<li>Map 和 Reduce的功能</li>
+<li>调度器怎么工作？</li>
+<li>Worker如何寻找任务</li>
+</ol>
+<p>首先我们需要在脑子里面构建出项目运行的真实场景是什么样的？我们才能设计相应的结构体。</p>
+<p>对于Go本身远程过程调用 使用 <code>net/rpc</code> ：</p>
+<p>net/rpc 包是一个轻量级 RPC（远程过程调用）框架，看起来像本地调用，其实底层通过 TCP/HTTP 序列化参数、发送、解码、执行。
+在实验中 实验为我们搭建了远程过程调用我们只需要按照框架 编写相应的函数！然后直接调用，因为我做的是在一台机器上 实际上我们启动了两个进程我们通过进程进行通信，  具体体现是<code>c, err := rpc.DialHTTP(&quot;unix&quot;, sockname)</code>    因为在同一台机器我们使用了 <strong>Unix域套接字的RPC客户端连接</strong>
+使用HTTP作为RPC的传输协议,但运行在Unix域套接字上，不是真正的网络HTTP</p>
+<p><strong>TOLEARN：</strong> Unix域套接字
+**TOLEARN: ** RPC</p>
+<h2>调度器的实现思路</h2>
+<p>首先 Worker 会不断向 Coordinator 请求任务， Coordinator 需要监听Worker的请求并返回响应 ， 而 Coordinator 需要初始化任务 MAP REDUCE 等待 Worker 取走他们 Worker怎么取？ 从哪里取？ 也就是通过 RPC 我们需要将 Coordinator 的<strong>函数注册</strong>到RPC中 这里的函数注册也需要理解一下， 我们需要将函数注册为RPC方法 必须满足的条件： 正确的参数 正确的函数名 正确的返回值 这样注册之后 Worker 传来的请求就会被正确的打入到 Coordinator 的方法中 反之也是一样！</p>
+<p>Coordinator 在 Worker 打入请求之后 Coordinator 需要遍历 MAP 任务寻找空闲的任务（任务的状态管理），我们需要在 Coordinator 中时刻保持正确的状态改变! 因为 Coordinator 才是最终管理任务的状态！ MAP 的核心任务在做什么？ 交给 Worker 我们在下面说 然后同理遍历空闲的 Reduce 任务 Reduce 是由我们决定的 他的数量是有我们初始化的 而Map的数量是由我们的输入多少个文件决定的， Reduce 就好像提前为我们规划出几个空间 Map 任务执行任务后的输出会被分配到 固定的 Reduce 中然后整合结果</p>
+<p>处理 Worker 传进的任务完成信号 在这里我们需要改变任务的状态，正确的更改任务的状态 我们才能正确的分配任务</p>
+<p>中间遇到了很多问题 通过 fmt.Println() 来找找代码到底在哪里出现了问题！ </p>
+<h2>工作者的实现思路</h2>
+<p>Worker 是真正处理 MAP和 REDUCE的工作者， 我们可以开启多个 Worker 也就是多个进程 在分布式中就是多个机器 Worker 处理从终端中获取需要处理的文件， 对于文件的操作： 打开文件 读取文件内容 交给实验给我们实现的 mapf() 函数 我们需要知道mapf 函数输出的结果是什么？对结果进行处理 是一个KeyValue类型的切片 我们将mapf产生的中间文件存储到正确的位置中， 我们通过将mapf的输出结果通过 hash 进行分组 等待Reduce 处理   然后reduce任务的处理</p>
+<p>Json包： 根据 reduce 数量进行分区 然后通过hash(key)之后 将 key value 序列化放进入到相应的 reduce 任务中 这个文件的名称我们必须让双方按照同样的约定写入和读取！按照事先约定的格式 打开文件 此时 map 已经写入了文件！ 然后对数据进行JSON反序列化提取 根据Key进行排序整合！（设计一点小算法很简单 但是我没有想出来）！</p>
+<p>然后 Worker 告诉 Coordinator 完成任务 Coordinator 进行真正的任务状态改变！</p>
+<hr />
+<p>容错机制： 这里我实现的并不好 但是大体的思路是： Coordinator 定期检查 任务的状态 如果任务超时那么我们将任务的状态更新等待重新 Worker 申请并分配</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/71"/><category term="Go"/><category term="Concurrency"/><category term="Tech"/><category term="6.5840"/><published>2025-10-23T13:12:05+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/70</id><title>重装c盘</title><updated>2025-11-09T12:31:44.550270+00:00</updated><content type="html"><![CDATA[<p>终究是为当年无知的自己买了单哈哈，c盘仅剩7个g，在使用windows自带的重置功能，重置后电脑就无法启动。</p>
+<p>使用u盘制作启动盘也出现了很多问题，在官网下载的镜像并不是官方镜像？</p>
+<p>启动的时候即使插上了网线，也无法识别到网络，我甚至怀疑我并没有有线网卡。</p>
+<p>重新更换方式下载镜像后，一切恢复平静，仅仅清理了c盘，d盘 e盘的数据还是存在！剩了很大的力气！</p>
+<p>感觉电脑就像我刚买回来的那一天一样，没有电脑的一天，我目前的知识都被聚集在计算机中，没有了它，我好像不知道该做什么了。</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/70"/><category term="Life"/><published>2025-10-18T15:50:11+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/69</id><title>瓶颈 - 近期总结</title><updated>2025-11-09T12:31:44.646780+00:00</updated><content type="html"><![CDATA[<p>谈谈我的近况吧， 开学至今的心态起伏非常大， 我不知道为什么究竟是什么愈发的变的混乱（急切的心）， 从开始可能信心满满， 学习的方法上也有了一些自己的学习模式， 有了一些自己的看法。也是作为我的一个总结吧， 也快到2025年的末尾了， 我人生的接近重要的一年</p>
+<p>首先在行动上：</p>
+<img width="2560" height="1540" alt="Image" src="https://github.com/user-attachments/assets/75ac1ada-ed79-4990-8ef1-d17bef594773" />
+<p>这是从8.23日开学起从家里来到学习开始用Obsidian开始记录知识的串联， 嗯看着很多， 但其实并没有那么多， 询问自己能记住的东西有多少呢？ 但是比以前好了， 很多知识的学习可以深入进去了， 不像之前非常浮于表面， 可能因为我想找实习的心太急迫了吧！</p>
+<p>我真的很想出去看看， 在学校里面每天的知识性学习真的给自己的反馈非常少， 我想出去走走看看， 但是现实还是给了我沉重的打击， 我发现自己不会的东西太多了， 每次打开招聘软件， 总是遇见自己不会的知识， 陷入焦虑， 一次循环， 我沉不下心了， 因为学历不是很好， 没有实习， 没有项目经历， 我很难想想一年后的秋招将是什么场景。</p>
+<p>我最近这两天，一直都在焦虑中前行， 我觉得这到了我的人生的这个阶段， 我必须面对它， 从大家的视角来看我肯定展现出了一种特别着急的状态， 但是我无法控制我的内心， 我试图慢下来，静下来， 但无济于事， 我选择接受它， 大家都在说， 你当下觉得重要的事可能以后看来真的是一件小事， 就从高考对于我的影响吧</p>
+<p>当我不如大学我才知道， 我高中为什么要努力， 原来进入一个好大学， 真的能改变你很多， 资源的不集中， 信息差， 真的对一个想要学习的人真的很有帮助， 可能在某些人看来不是， 因为学习终归要是靠自己的， 但是自己的力量总是小的！ 这一点我深刻体会， 从大一来就担心未来的我， 到如今还是， 哈哈哈哈， 会想起自己刚接触计算机的时候也是， 想学学这个想学学那个， 回想起我当时的状态， 我可能也会对自己说： 知识一定要扎实的学！ 虽然高考很平淡。 我还清晰的记得在高考出分数的那个晚上， 我的心好像停止了， 我没有太大的心里波动， 我觉得可以了， 我欣然接收， 家里也是， 忙忙碌碌的高中， 我真的不知道我当时在忙什么， 我不知道为什么要上大学， 甚至是高中， 来到了大学我的心虽然有些低落， 但是我还是能接受， 在通知书发下来的那一刻， 我知道我又该找到一个让自己奋斗的方向了！（虽然说高考很重要， 但是对于我来说没有方向才是让我最迷茫， 最不能接受的，现在回看我的高中目标没有， 但是我不知道我为什么每天都要跟着强迫自己学习 ） - 高考这个被大家称为转折点的地方到我这里也就结束了， 下一个转折- 工作 or 考研</p>
+<p>如果让我现在对高中的我可能会说：“希望自己有更多的探索精神吧， 对待一些事情， 你要有探索它的精神， 即使人生总是没有意义的， 自己也要强行赋予它意义， 让自己有一个前进的方向”</p>
+<p>其实对于现在我和高考时的我差不多， 我在高中时经常性的给自己列下很多计划  “往往是今天化学这道题，数学这道题” 我从没有想过我为什么要解决这道题， 这道题为什么要这么解决， 我总是按照答案走一遍过程， 我告诉我自己你懂了， 现在想想， 如果能慢慢的深入理解一些知识， 是不是会更好， 那时的我也是每天的焦虑真的和我现在差不多，那时的焦虑我应该怎么把这道题做会， 而不是去想为什么这么多，  在高中时这种感觉我向我的家人倾诉， 我得不到令我放松的回答， 我只能默默接受并努力着（没有方向感的前进）。</p>
+<p>到了大学， 我接受身边的一切， 因为这是我高考后的结果。 我没有一直走不出来， 我就开始了新的选择， 找到一个让自己在大学接着努力的目标， 对于考研的想法， 在开始的时候大家或多或少可能都会想， 经过高中的洗礼 + 如今的形式， 我将考研放到了后面的选择，我将工作作为了我的首选方向， 我不想将大量的时间放在读书上， 我想知道自己的价值。  我在24年5月之前， 一直在摸索着到底选择什么方向， 一个让我一直努力下去的方向， 我不断通过互联网询问， 最后确定了后端开发， 到目前为止， 我对计算机可以说， 我非常感谢它， 我接触到了很多知识通过计算机， 各种信息， 在网上对于一个不会的问题， 得到了解答帮助， 这真的令人兴奋！ 我至今的想法也是，我在大学想过参与开源等一些活动， 但是我总是做了一点就抛下了， 这可能也是我的最大的问题了吧，我总觉得时间越来越少， 我就越来越着急， 陷入了循环。</p>
+<p>又是一个转折点吗， 我不禁的发问自己，最近真的很困惑， 因为实习的事情， 我将这个事看作了我当下最重要的事， 对于当下我对时间的感受， 就像一个倒计时， 每过一天， 我离秋招进了一步， 而我目前没有做出令人激动的项目，有很多好的资源我知道但是我利用的一定是不好的， 可能真的和我急的性格有关， 我知道结果一定不是着急得来的， 但是我真的控制不住，我只好接受它， 带着这个急躁的性格， 慢慢学</p>
+<p>--- 写下这么多也是给我最近焦虑的心情一个交代，  我想记录下我近期的想法， 我非常喜欢记录自己， 回头看我留住了一些东西， 我喜欢这种感觉， 我知道目前的焦虑这在我将来并不是很重要的事情，即使我知道当下的焦虑也无济于事，  我想我写下它可能会让我自己静下来， 几年后的我回头看在大学四年的自己， 你会怎么评价现在的我呢？ 谁知道呢？</p>
+<p>-- 此文记录于 2025年10月14日 写给焦虑的自己</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/69"/><category term="Life"/><published>2025-10-14T08:41:36+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/57</id><title>时间</title><updated>2025-11-09T12:31:44.771799+00:00</updated><content type="html"><![CDATA[<p>不是我们抓住了这一刻，而是这一刻抓住了我们</p>
+<p>每一刻可能一直都在 在不同的观察者视角 观察的也就是事件发生的先后</p>
+<p>你只是沿着自己的时间轴在这个时空地形图上行进</p>
+<p>不同观察者有不同的“现在切片</p>
+<p>所以现在”只是你视角下的一种截面，而不是宇宙本身的绝对状态</p>
+<p>过去 未来 现在  如果我们能感受到四维时空 那里的一切可能都没变</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/57"/><category term="Life"/><published>2025-07-21T13:36:26+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/56</id><title>大二下半学期结束！</title><updated>2025-11-09T12:31:44.914559+00:00</updated><content type="html"><![CDATA[<h2>总结</h2>
+<p>在大二下学期开始的时候，主要的目标是 打好基础！！ 四大件，，虽然但是每个月的计划都很紧张，但是，任务却迟迟没有进行，被一个小问题困扰好几天，推行进度及其的缓慢，一个课后作业可能用了一周甚至更多，有的时候课程还是会反复的看，很难向下推进，就好像我一定要把这个章节完全的完成才能推进，课后作业的难度可能也超乎了我的想像，一直拖延反复的观看作业，尝试去做，导致无从下手，也导致任务的推行非常缓慢！！！这是一个很大的问题，可以总结为没有抓住重点？ 我有些困惑对于我的学习的态度，看似认真，实则一点效率没有，对于课上时间运用并不好，看书的时候没有带着问题去读！ 也浪费了很长时间在休闲上
+因为大二下最开始目标想要在暑假找一个实习，所以导致大部分时间用来修正简历和熟悉项目，来回折腾，导致时间管理的很乱，最后简历也没有修理好，时间也浪费了，可能还是心太急了！（我好像过于完美主义了）</p>
+<p>收获也有很多，使用issue发布自己的学习博文，收到了第一个面试！老姐又给过儿童节嘞， 与学哥学姐们的交流，使我的学习方法，思考方式也发生了巨大的改变，对于学习也有了很大的帮助！</p>
+<h2>一些可以采纳的方法</h2>
+<p>第一遍：快速过一遍，哪怕有 30% 不懂也先跳过。 第二遍：重点突破卡住的知识点。 第三遍：用项目或题目加固。
+<strong>确保 不被一个点卡死</strong></p>
+<p>问自己：每次学习都带着 3 个问题开始：“我想解决什么？我不会的是什么？我需要哪些资料？”</p>
+<p>抓住学习重点！ 才能让自己的困惑变得越来越少 先解决重点啊！ 不要逃避</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/56"/><category term="Life"/><published>2025-07-20T10:34:54+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/35</id><title>Things I like</title><updated>2025-11-09T12:31:45.030354+00:00</updated><content type="html"><![CDATA[<h2>运动</h2>
+<ul>
+<li>足球</li>
+<li>跑步</li>
+<li>篮球</li>
+<li>羽毛球</li>
+<li>乒乓球</li>
+</ul>
+<h2>书籍</h2>
+<ul>
+<li><a href="https://file.cz123.top/7Literature/CHINESE_LITERATURE/%E6%B4%BB%E7%9D%80%20%28%E4%BD%99%E5%8D%8E%29%20.pdf">《活着》</a></li>
+<li><a href="https://www.feiku6.com/read/s3-wencheng/18348550.html">《文成》</a></li>
+<li><a href="https://fanqienovel.com/reader/6925022762981395470?enter_from=reader">《病隙碎笔》</a></li>
+</ul>
+<h2>歌曲</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=_J-o8FpJ-XY&amp;list=RD_J-o8FpJ-XY&amp;start_radio=1">最佳损友</a></li>
+</ul>
+<h2>场景</h2>
+<ul>
+<li>冬天</li>
+<li>雨天</li>
+<li>自然</li>
+</ul>
+<p><strong>And 家</strong></p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/35"/><category term="Things"/><published>2025-06-28T06:05:50+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/34</id><title>About me</title><updated>2025-11-09T12:31:45.142904+00:00</updated><content type="html"><![CDATA[<p>简单介绍一下我自己，也算是看看对自己的了解能写出什么哈哈哈</p>
+<ul>
+<li>啊我的性格还是很好的，能和大家快速的融入到一起，很癫哈哈哈，有点直，略有些感性，有时莫名的急躁哈</li>
+<li>喜欢记录自己的生活，喜欢回忆往事</li>
+<li>喜欢下象棋，踢足球，游戏方面也几乎都涉猎过，长大了玩的也少了</li>
+<li>总是喜欢思考一些哲学问题哈哈，看似一些简单问题的背后会有很奇妙的东西</li>
+<li>不喜欢束缚自己的任何事物，那让我很不自在，我想做我喜欢的事情，即使有时候会错失什么</li>
+<li>喜欢海贼王！</li>
+<li>书籍方面就是，余华老师的一些作品</li>
+<li>虽然接触的编程时间很少，但是这个大家庭真的让我走不开了！</li>
+<li>大学之后真的成长了很多</li>
+<li>感谢一路上遇见的大家</li>
+</ul>
+<p>此记录时间： 2025/06/28</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/34"/><category term="About"/><published>2025-06-28T05:50:17+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/31</id><title>Kevin Kelly</title><updated>2025-11-09T12:31:45.254974+00:00</updated><content type="html"><![CDATA[<p><a href="https://kk.org/thetechnium/99-additional-bits-of-unsolicited-advice/">kk.org</a></p>
+<p>一些很好的建议！</p>
+<ol>
+<li>
+<blockquote>
+<p>“It’s not an apology if it comes with an excuse. It is not a compliment if it comes with a request. ”</p>
+</blockquote>
+</li>
+</ol>
+<p>如果道歉夹带理由或借口，本质上是在为自己开脱，而不是承担责任。真正的道歉应当是直面错误，不推卸、不辩解。</p>
+<p>如果夸奖后立刻提要求，这夸奖就成了手段，不是发自内心的赞赏。真诚的赞美不图回报，只是表达认可。</p>
+<ol start="2">
+<li>
+<blockquote>
+<p>&quot;Learn how to learn from those you disagree with, or even offend you. See if you can find the truth in what they believe. &quot;</p>
+</blockquote>
+</li>
+</ol>
+<p>放下成见，善于从不同或对立的观点中吸取智慧，这能拓宽你的认知边界。</p>
+<ol start="3">
+<li>
+<blockquote>
+<p>&quot;Always demand a deadline. A deadline weeds out the extraneous and the ordinary. It prevents you from trying to make it perfect, so you have to make it different. Different is better.&quot;</p>
+</blockquote>
+</li>
+</ol>
+<p>时间压力能激发创新，不要浪费时间在琐碎细节上。</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/31"/><category term="Think"/><published>2025-06-27T04:09:14+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/27</id><title>记忆不是复读机</title><updated>2025-11-09T12:31:45.378314+00:00</updated><content type="html"><![CDATA[<h1>理解类比</h1>
+<p><img src="https://github.com/user-attachments/assets/9909e7a1-4867-4ad1-b087-b1b432509271" alt="Image" /></p>
+<h2>类比思想：</h2>
+<p>类比思想是： <em>利用已知事物的特点理解新事物</em>，减少学习成本</p>
+<p>学习新知识时：</p>
+<p>可以这么去想，联系已知的概念，大体可以这么运用：</p>
+<p>学习电路时，将电流比作水流，电压比作水压</p>
+<p>理解原子结构时，用太阳系行星绕太阳运行来类比电子绕原子核运动</p>
+<h2>问题：</h2>
+<p>怎么知道自己的类比是否正确？ 或者得体？ 如果不恰当的类比并且有可能错误的类比会造成误会吧！</p>
+<h1>原始概念原则</h1>
+<p><img src="https://github.com/user-attachments/assets/b73092cf-030e-4c40-8f07-d6c7333197f0" alt="Image" /></p>
+<p>所有逻辑推导都建立在无需证明的&quot;公理&quot;（或原始概念）之上，就像盖房子需要地基。 越底层的概念越需要直接记忆并形成直觉反应（如看到&quot;+&quot;立刻想到&quot;相加&quot;）。高层定义（如极限）由底层符号（如∀、∃）组合而成，类似编程语言的&quot;从机器码到高级语法&quot;。</p>
+<p><strong>思考方向：</strong></p>
+<p>遇到新概念时追问：&quot;这个定义依赖哪些更基础的概念？&quot;
+（例如&quot;导数&quot;依赖&quot;极限&quot;，&quot;极限&quot;依赖&quot;∀∃&quot;）</p>
+<p><strong>但不应该：</strong></p>
+<p>试图把&quot;点&quot;再分解为&quot;更小的点&quot;（违反不可再分性），</p>
+<p><strong>总结为：</strong></p>
+<p>原始概念是思维的地基。理解任何领域时，先识别其最底层的&quot;逻辑字母表&quot;，通过刻意练习将其内化为直觉，才能高效构建知识大厦。这正是数学家希尔伯特所说的：&quot;数学的基础不是水泥，而是透明的晶体。&quot;</p>
+<h1>记忆的原始概念</h1>
+<p><img src="https://github.com/user-attachments/assets/070d780c-b5c8-4514-8fd2-9f72d8526d84" alt="Image" /></p>
+<p>构成人类逻辑思维基础的、最底层的记忆单位</p>
+<h2>记忆源于的分类和特征</h2>
+<ol>
+<li>对象记忆：</li>
+</ol>
+<blockquote>
+<p>可独立识别的逻辑个体</p>
+</blockquote>
+<p><strong>示例：</strong></p>
+<p>数学中的&quot;变量x&quot;</p>
+<p>语言中的&quot;单词apple&quot;</p>
+<ol start="2">
+<li>关系记忆</li>
+</ol>
+<blockquote>
+<p>对象间的逻辑关联</p>
+</blockquote>
+<p><strong>示例：</strong></p>
+<p>数学中的&quot;x &gt; y&quot;</p>
+<p>语言中的&quot;主语-谓语&quot;结构</p>
+<p><strong>&quot;约束规则&quot;</strong></p>
+<p>_强制性：_只要前提A→B和A为真，B必须为真，否则逻辑系统自相矛盾。</p>
+<p>_不可违反性：_这是逻辑推理的基石，类似数学中的&quot;1+1=2&quot;。</p>
+<p>_传递性：_通过A→B和B→C，可进一步推出A→C（假言三段论）。</p>
+<p><strong>给抽象概念赋予具体属性：</strong></p>
+<p>如将逻辑命题P想象成一个&quot;可开关的灯泡&quot;</p>
+<p><strong>但不应该：</strong></p>
+<p>试图用高层概念（如&quot;定理&quot;）解释原始对象（如&quot;变量&quot;），只背单词不练句法，导致无法实际应用</p>
+<h1>理解记忆法：</h1>
+<p><img src="https://github.com/user-attachments/assets/1664152e-7089-44b7-83c2-16412f3f399e" alt="Image" /></p>
+<p>若直接记忆极限的保序性定理（如公式所示），而不理解其底层逻辑（极限定义、量词含义等），会导致：</p>
+<p>记忆负担重（像背随机字符串）</p>
+<p>缺乏应用直觉（无法灵活推导）</p>
+<p>产生认知焦虑（总担心遗漏条件）</p>
+<blockquote>
+<p>&quot;如果对极限的理解全来源于定理而非源头含义，会陷入‘考虑不周全’的担忧。&quot;</p>
+</blockquote>
+<h2>解决：</h2>
+<p>分层拆解与逻辑构建</p>
+<p><strong>实际使用：</strong></p>
+<p>遇到新定理时，列出其中所有符号和关系：
+&quot;这个‘∃’是什么意思？‘→’如何作用？&quot;</p>
+<p>若发现未掌握的底层概念（如不懂极限定义），优先补足。</p>
+<p>尝试用底层逻辑重新推导定理，而非直接背诵。</p>
+<p><strong>注意避免：</strong></p>
+<p>以为“看懂了”就是“会用了”（需通过推导练习检验）</p>
+<p>试图将公理再分解（如追问“为什么1+1=2”）</p>
+<p>理解记忆法是通过知识网络化取代信息点状化</p>
+<p><strong>总结为：</strong></p>
+<p>理解记忆法是通过知识网络化取代信息点状化。如同建造金字塔——底层石块（原始概念）越稳固，上层结构（高阶定理）越容易搭建。这正是数学家庞加莱所言：“逻辑是证明的工具，直觉是发明的工具。”而理解记忆，正是二者的桥梁</p>
+<blockquote>
+<p>“记忆不是复读机，而是创造性的重构。”真正的学习，是让知识在你的大脑中活起来。</p>
+</blockquote>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/27"/><category term="Think"/><published>2025-06-23T09:14:47+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/25</id><title>good_first_issue</title><updated>2025-11-09T12:31:45.519026+00:00</updated><content type="html"><![CDATA[<h1>尝试解决人生的第一个issue</h1>
+<p><a href="https://github.com/rust-lang/rust-clippy/issues/3219">rust-clippy</a></p>
+<p>这个issue的由来大概是StackOverFlow中的一个人的疑惑</p>
+<p><a href="https://stackoverflow.com/questions/48361537/why-do-underscore-prefixed-variables-exist/48370313#48370313">Stackoverflow</a></p>
+<p>大概内容是：</p>
+<p>&quot;rust 现在变量名称的开头添加下划线将使编译器在未使用时不会发出警告， 未使用的变量可能是不受欢迎的！&quot;</p>
+<p>要解决的问题： 添加一个lint</p>
+<pre><code class="language-rust">fn main() {
+  used_underscore_but_unused(42);
+}
+
+// ⚠️ `_param` 没用，但以 `_` 开头（我们想让它被 lint 出来）
+fn used_underscore_but_unused(_param: i32) {
+  println!(&quot;just doing nothing with param&quot;);
+}
+
+</code></pre>
+<p>当前输出：</p>
+<pre><code class="language-shell">PS E:\rust-demo\src&gt; cargo clippy -- -W unused_variables -W clippy::used_underscore_binding -D warnings
+    Checking rust-demo v0.1.0 (E:\rust-demo)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.31s  
+</code></pre>
+<hr />
+<p>问题可能比想象的要复杂：</p>
+<p><img src="https://github.com/user-attachments/assets/acb302e2-221e-4746-a3b2-470de5808c01" alt="Image" /></p>
+<p>这是社区的回复，我可能要先释放这个issue了</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/25"/><category term="rust"/><category term="OpenSource"/><published>2025-06-21T08:39:28+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/20</id><title>一些前沿资料获取</title><updated>2025-11-09T12:31:45.644043+00:00</updated><content type="html"><![CDATA[<p>获取前沿资料</p>
+<ul>
+<li><a href="https://dl.acm.org/">ACM</a></li>
+<li><a href="https://www.nature.com/">Nature</a></li>
+<li><a href="https://blog.sigplan.org/">SIGPLAN编程语言博客</a></li>
+<li><a href="https://scholar.google.de/">Google学术搜索</a></li>
+<li><a href="https://arxiv.org/list/cs.PL/recent">arXiv编程语言文论</a></li>
+<li><a href="https://dev.golang.org/">Go官方文档</a></li>
+<li><a href="https://github.com/golang/go">Go语言Github</a></li>
+<li><a href="https://go-review.googlesource.com">Go代码审查</a></li>
+<li><a href="https://x.com/">Twitter/X平台</a></li>
+<li><a href="https://reddit/r/golang">Reddit Go社区</a></li>
+<li><a href="https://groups.google.com/g/golang-nuts">Go技术讨论组</a></li>
+<li><a href="https://groups.google.com/g/golang-dev">Go开发组</a></li>
+<li><a href="https://groups.google.com/g/golang-tools">Go工具组</a></li>
+</ul>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/20"/><category term="Resource"/><published>2025-06-12T07:13:07+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/18</id><title>与北邮老哥的交谈</title><updated>2025-11-09T12:31:45.781259+00:00</updated><content type="html"><![CDATA[<h1>模拟面试</h1>
+<p>2025-06-10日 老哥给我来了一个模拟面试，看到了自己的不足和欠缺</p>
+<p>没有面试过真的不知道，面试官主要问的是什么，怎么问！</p>
+<p>其实 <strong>简历是自己与面试官沟通的一个桥梁</strong> 根据简历，让面试官快速了解你，通过简历，能够知道问你什么知识！</p>
+<p>对于项目的整体架构，流程，模块，功能是怎么了解的！技术选型是为什么？ 你所回答的每一个问题，都会成为面试官下一步的追问点，对于每一步
+你应该有所准备有所了解！代码的编写能力，不能落下！ </p>
+<p>修改简历，为你真正能够回答的你所涉及的知识，而不是为了好看而去写上，但问你你却答不出来，反而成了减分项！</p>
+<p>基础不行（数据结构和算法 操作系统 计算机网络） 对于下一步如何正确的学习，老哥给了我一些方法和建议，我认为非常有帮助！</p>
+<hr />
+<pre><code>
+我说一个学习的方式：提问-&gt;解答-&gt;再提问的方式：
+首先提出一个问题，比如TCP是什么？
+
+TCP是传输层的一种可靠传输协议
+
+得到这个答案后，我自然想问：
+
+传输层是什么？可靠传输协议又是什么?
+
+传输层是OSI网络模型中，负责提供抽象通道的一层协议集
+可靠传输协议能够保证该抽象通道的数据能够从通道A端完整可靠地到达B端
+
+得到上面的解答后，我又能够提问：
+OSI网络模型是什么？可靠传输协议有哪些？可靠传输怎么实现的？
+
+OSI是一种将承担不同责任的基础设施分层，并按照不同层将各自的通信协议分类的模型
+可靠传输协议最常见的是TCP，其他的我暂时不关心
+可靠传输主要通过重传实现，也就是说如果数据没有发到，再发一次
+
+怎么知道数据有没有发到？
+
+如果B端接收到了A端的数据，会发送一个ack，表示收到
+
+</code></pre>
+<p>如何<strong>判断</strong>对某个知识你是否真的<strong>理解了</strong>？</p>
+<p>这真的很重要！</p>
+<p>我自己的感受就是很多知识学习了，会忘，那种感觉很难受，反反复复的看，总是记不住，时间花出去了但是没有收获到什么！ 在被问道的时候什么也回答不上来！</p>
+<p>也就是 <strong>有些东西你看懂了表面的行为，但是实际上并不理解本质</strong></p>
+<h2>从表层开始思考</h2>
+<p>比如鉴权系统需要知道用户信息，否则就无法执行后续逻辑，那就是流程上存在数据依赖，如果是两台服务器提供并发服务，那么就是全局上要求两者的数据一致，但是<strong>只看通信</strong>就很好理解：数据从A到B，所以理解了一个简单易懂的机制后，学会追问为什么要这么做</p>
+<p><strong>说到底，没有记住的东西，一般是缺乏思考了</strong> <em>多问问自己，为了达到目的，我应该做什么？</em></p>
+<h2>话题展开</h2>
+<p>老哥说了关于粒度 和 维度 这词语在IT届 公司中很常用的词语，但是我确实不太理解是什么意思</p>
+<p>什么是 &quot;切分数据“? 这是我从没有涉猎过的一个词语</p>
+<p>_事物本质往往更抽象</p>
+<p>具体的东西很好理解和学习，适合入门_</p>
+<p><strong>例如搜索：MVCC</strong></p>
+<p>你并不理解MVCC是什么！ 但是在网上搜索会有很多相关的文章， 实现大多是基于InnoDB，虽然你不知道是什么，但是<strong>文章中总是会将某个概念绑定到某个具体的实现</strong></p>
+<p>但实际上MVCC是一个抽象的概念它的作用是 ：要求多版本共存，事务隔离（引发思考：MVCC是什么？ 要达到什么要求？）为了实现这个要求，谁谁谁具体做了什么？</p>
+<p><strong>对于TCP：</strong></p>
+<p>传输是个抽象的概念，可靠的传输是个抽象的概念，落到TCP上就有了具体实现, 但是可靠传输不依赖TCP,所以写代码一般会先写接口</p>
+<p>先约定接口，然后实现，这是一种思考方式!（<strong>实现能力，代码能力</strong>）</p>
+<p>然后反过来，我们看到一个设计，反过来想为什么要这么设计，目的是什么(<strong>抽象能力</strong>)</p>
+<p>如果不懂某个概念应该去弄明白它的概念 ， 然后从AI给你的一堆：SQL中的切分、数学中的切分、数据工程中的切分等等中，找到具体事物的共性 </p>
+<p><strong>看了一段话，想一下为什么是这样，如果不是这样呢？</strong></p>
+<p><a href="https://go.dev/ref/meml">go从抽象的层面探讨并发编程的本质</a></p>
+<p>慢慢啃，然后理解为什么会有锁、条件变量、channel各种并发原语，能不能用一种唯一的机制实现他们，为什么不用唯一的机制实现它们，等等</p>
+<p><strong>结合一点能激活大脑兴奋的事情</strong> ，看书陷入困惑是容易放弃思考</p>
+<p><strong>需要的时候选合适的章节过一遍 把疑惑点选出来 再通过各种能激发思考途径解决</strong></p>
+<p>改正自己从头读到尾的看一本书 ，知识学不完的</p>
+<p>让自己的思维喜欢上思考！慢慢来</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/18"/><category term="Think"/><category term="TOP"/><published>2025-06-10T11:26:59+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/16</id><title>图片和视频的时空对话</title><updated>2025-11-09T12:31:45.904220+00:00</updated><content type="html"><![CDATA[<h1>有感而发</h1>
+<p>最近总是翻看相册中的图片和视频，引发了一些对过往记录的思考。</p>
+<p>我相信，当你按下快门的那一刻，你是开心的。你想记录这一瞬间，想永远拥有这个时刻——于是你按下快门。大家都不例外，毕竟，谁也不会把不喜欢的照片存放在手机里。</p>
+<p>但此刻，当我回看这些美好的影像，心里却五味杂陈。它们让我感慨时间的流逝，甚至渴望永远停留在某个瞬间——那种“再也回不去”的感觉愈发强烈。</p>
+<p>图片和视频的冲击力是极强的。即使时隔多年，再次观看时，它们仍能瞬间唤醒记忆，那些美好仿佛就在眼前……可奇怪的是，我总会感到一丝失落。因为我发现，自己很难完全回到当时的心境，重现彼时的思绪。这感觉就像——你明明看得见，却永远无法真正重返那个时刻。它们能保存视觉，却无法封存其他因素：比如当时“雪的温度，风的刺骨，暖阳的照射，或是那一刻心跳的节奏。</p>
+<p>影像既是记忆的钥匙，又是时间的证据——这种既亲近又疏离的张力，实在奇妙。</p>
+<p>—— 2025.06.08</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/16"/><category term="Life"/><published>2025-06-08T07:20:43+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/15</id><title>开源年会</title><updated>2025-11-09T12:31:45.998749+00:00</updated><content type="html"><![CDATA[<h1>一次说走就走的旅行</h1>
+<h2>开源社</h2>
+<p>在偶然一次发现中 开源社举办了第九届中国开源年会，我很是激动，心中迅速萌发了去北京参加的冲动并和小伙伴赵冰
+决定这周五来一次说走就走的旅行~~~ 时间也是非常紧迫 只有两天，从辽宁到北京！</p>
+<p><img src="https://github.com/user-attachments/assets/77ce0e61-2787-4368-ad5c-6f8cfa35cbd1" alt="Image" /></p>
+<h2>到达北京</h2>
+<p><img src="https://github.com/user-attachments/assets/13ce7fba-3abd-4694-abf7-9bc63516f000" alt="Image" /></p>
+<p>在周六的早上到达会场 扫了入场的码 领到了活动给的一些礼品 7点多我俩就到达了会场，刚开始觉得平平无奇，后来直到大会开始，陆陆续续的大家都来到了会场，开源社的老哥，老姐们开始了自己的演讲，我发现这真的不是一个普通大会，很多人报着开源的理念 一直维持着开源社，让开源社越来越大</p>
+<p><img src="https://github.com/user-attachments/assets/a61b6743-c8be-44cc-9cf2-726328d94074" alt="Image" /></p>
+<p><img src="https://github.com/user-attachments/assets/4cc41519-2abb-4844-a75b-4cdf91cb271b" alt="Image" /></p>
+<p><img src="https://github.com/user-attachments/assets/9a5f9ece-dab6-4614-9988-540bf3554641" alt="Image" /></p>
+<p><img src="https://github.com/user-attachments/assets/57e8dcb5-89c8-45f3-953d-6c857a7437a6" alt="Image" /></p>
+<p><img src="https://github.com/user-attachments/assets/1558d9c3-3b63-456d-bf30-eb75e4f1ba0a" alt="Image" /></p>
+<p>虽然是第一次参加，但是我对于这种氛围是非常的喜欢，各位有着自己想法的人都在开源社散发光辉，有为抗癌人士专门发布app的
+小胰宝等其他的产品，这令我深受触动，把科技真真正正的融合到了生活当中，使人们都能享受科技带来的便捷！大会中的每一个人的演讲都令我感到激动！但是对我印象的最深刻的就是<strong>yihong0618</strong>这个id，伊洪老师的演讲令我眼前一亮心里一跳哈哈哈哈
+简直太爽啦！！！</p>
+<h2>yihong0618</h2>
+<p>请大家自己去看伊洪老师的github，你真的能从中学到很多，在火车上我一直再看伊洪老师的github
+每一件事是写的那么的真诚，有很多我也感同身受，生活的迷茫原来真的不是自己才有，面临各种压力，各种抉择！做好自己。</p>
+<p>[github] <a href="https://github.com/yihong0618">https://github.com/yihong0618</a></p>
+<p>在伊洪老师的演讲中，令我觉得钦佩的是，每一天的记录自己，我太喜欢这种感觉了，发布到github上，我也便想向这么做
+在4日赶回来我便从网上学习搭建博客，坚持记录每一天</p>
+<h2>结语</h2>
+<p>这次旅程，说走就走，哈哈哈，这才是大学生嘛，遇见了开源社的大家，我希望从今的每一天，慢慢的融入到开源社这个大家庭</p>
+<p>-感谢冰哥陪我这次旅行</p>
+<pre><code>                                                                    2024年11.4日
+</code></pre>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/15"/><category term="Life"/><category term="2024"/><published>2025-06-07T12:56:15+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/14</id><title>编程的一些观念</title><updated>2025-11-09T12:31:46.138949+00:00</updated><content type="html"><![CDATA[<h1>编程学习的7个重要观念</h1>
+<p>观看了一个视频，视频中的要点，很多是我有过的困惑，希望大家能避免，不要追求完美！</p>
+<p><a href="https://www.bilibili.com/video/BV1W87qzuEzX?vd_source=4f3d528d84e2e77c1b7ceb97ba4ecab1">bilibili</a></p>
+<h2>1. 你不需要什么都知道</h2>
+<ul>
+<li><strong>要点</strong>：编程不是记忆语言，而是理解模式和查找答案。资深开发者也常用 Google 搜索。</li>
+<li><strong>重要性</strong>：消除“必须全知”的误解，减轻初学者压力，专注学习过程。</li>
+<li><strong>建议</strong>：使用 MDN、Stack Overflow 查资料，记录常用代码片段。<br />
+<strong>例子</strong>：搜索 <code>JavaScript get last array element</code> 得：<code>array[array.length - 1]</code></li>
+</ul>
+<hr />
+<h2>2. 学习如何学习</h2>
+<ul>
+<li><strong>要点</strong>：看教程不等于学会，动手实践是关键。建议 1 小时教程配 4 小时独立 coding。</li>
+<li><strong>重要性</strong>：实践巩固知识，过度依赖教程会导致“虚假进步”。</li>
+<li><strong>建议</strong>：做小项目（如待办事项列表），卡住时分解问题、搜索答案。<br />
+<strong>例子</strong>：写函数过滤数组偶数，搜索 <code>JavaScript filter</code></li>
+</ul>
+<hr />
+<h2>3. 完美是一个陷阱</h2>
+<ul>
+<li><strong>要点</strong>：追求完美代码会拖慢进度，完成的“丑陋”代码更有价值。资深开发者也写 bug。</li>
+<li><strong>重要性</strong>：避免因不完美而拖延，迭代才是提升代码质量的关键。</li>
+<li><strong>建议</strong>：先实现 MVP，用 Git 跟踪改进。<br />
+<strong>例子</strong>：别花 3 小时纠结变量名，用 <code>data</code> 继续写功能</li>
+</ul>
+<hr />
+<h2>4. 你永远不会感到准备就绪</h2>
+<ul>
+<li><strong>要点</strong>：自信来自行动，而非等待“准备好”。接受失败是成长的一部分。</li>
+<li><strong>重要性</strong>：拖延会错失机会，边做边学是正道。</li>
+<li><strong>建议</strong>：从克隆简单网页开始，勇敢申请工作或项目。<br />
+<strong>例子</strong>：彼得首个自由职业项目靠 Google 完成</li>
+</ul>
+<hr />
+<h2>5. 真正的技能是解决问题</h2>
+<ul>
+<li><strong>要点</strong>：编程核心是分解问题和调试，而非记语法。开发者像侦探，追踪线索。</li>
+<li><strong>重要性</strong>：调试是工作常态，培养逻辑思维比记代码更重要。</li>
+<li><strong>建议</strong>：将任务拆成小步，用 <code>console.log</code> 或调试器检查。<br />
+<strong>例子</strong>：页面不显示数据，查 API、数据格式或渲染逻辑</li>
+</ul>
+<hr />
+<h2>6. 没人在乎你的代码，他们关心它能做什么</h2>
+<ul>
+<li><strong>要点</strong>：用户/客户只关心功能（如按钮能否工作），不在乎代码优雅。</li>
+<li><strong>重要性</strong>：避免沉迷代码美学，优先交付实用产品。</li>
+<li><strong>建议</strong>：先确保功能实现，再优化代码。<br />
+<strong>例子</strong>：客户只想按钮变蓝色，不在乎你用没用 React Hook</li>
+</ul>
+<hr />
+<h2>7. 倦怠是真实存在的，保护你的能量</h2>
+<ul>
+<li><strong>要点</strong>：编程是马拉松，过度消耗会导致倦怠。休息和边界感确保可持续性。</li>
+<li><strong>重要性</strong>：倦怠让人怀疑能力，健康习惯提升效率。</li>
+<li><strong>建议</strong>：使用番茄工作法（25 分钟工作 + 5 分钟休息），保证睡眠，散步放松。<br />
+<strong>例子</strong>：彼得熬夜修 bug 得不偿失</li>
+</ul>
+<hr />
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/14"/><category term="Think"/><published>2025-06-06T04:05:21+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/13</id><title>儿童节</title><updated>2025-11-09T12:31:46.268808+00:00</updated><content type="html"><![CDATA[<hr />
+<p>Date: 2025-06-01</p>
+<hr />
+<p>啊一转眼都已经20了，对于儿童节已经跟自己无关了，但是还有老姐给我过儿童节哈哈，好开心，第二年咯</p>
+<p><img src="https://github.com/user-attachments/assets/8746b372-e565-4bfb-81a8-1552955c2d0d" alt="Image" /></p>
+<p><img src="https://github.com/user-attachments/assets/2674e8dc-b48f-47a0-8719-cdf1d3e24547" alt="Image" /></p>
+<p>一年前的今天</p>
+<p><img src="https://github.com/user-attachments/assets/2efff1aa-106e-4022-86bd-058b38b02137" alt="Image" /></p>
+<p><img src="https://github.com/user-attachments/assets/71c458c3-574c-46f5-b1d2-72f89d1968af" alt="Image" /></p>
+<p>好开心！</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/13"/><category term="Life"/><published>2025-06-01T14:46:50+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/9</id><title>定期分享</title><updated>2025-11-09T12:31:46.370369+00:00</updated><content type="html"><![CDATA[<h1>优质博文精选集</h1>
+<blockquote>
+<p>一个持续更新的高质量技术/设计/思维类博文索引库<br />
+「我们站在巨人的肩膀上，但需要知道肩膀在哪」</p>
+</blockquote>
+<hr />
+<h2>2025-08-12日推荐</h2>
+<p><a href="https://www.longluo.me/">优秀的博客</a></p>
+<p>&quot;数学和物理&quot;</p>
+<h2>2025-08-03日推荐</h2>
+<p><a href="https://nonint.com/2023/03/09/gpt-might-be-an-information-virus/">对于GPT的看法</a></p>
+<p>&quot;随着互联网“充斥”着无法被检测的 AI 生成内容，谷歌的搜索算法将无法可靠地运行。人们目前抱怨 ChatGPT 会给出自信却错误的答案，并说谷歌没有这个问题。这些人忽略了一个重要点：ChatGPT 的答案会被发布到网上。谷歌无法检测它们。因此，很快，谷歌也会充斥着这些自信却错误的答案，而且目前没有已知的技术可以过滤掉它们。&quot;</p>
+<p><a href="https://simonwillison.net/2025/Jul/24/recurse-center/">Developing our position on AI</a></p>
+<p>&quot;当你学习自己关心的事物时，你才能学到最好、最有效。只有当你为自己选择工作时，你的工作才会变得有意义，并让你感到自豪。这就是我们第二条自我指导原则是建立你的意志肌肉的原因。你的意志力是指你做决定并付诸行动的能力。为了设定自己的目标，选择自己的道路，并决定什么对你来说重要。就像身体肌肉一样，通过锻炼来建立你的意志肌肉，在这个过程中你可以增强你对可能性的感知&quot;</p>
+<h2>2025-07-12日推荐</h2>
+<p>看见一些很有帮助的博客 关于计算机知识和后端开发</p>
+<p><a href="https://unpurerationalist.github.io">arcsin2的博客</a></p>
+<h2>2025-07-11日推荐</h2>
+<p><a href="https://fortune.com/2025/06/20/hugging-face-thomas-wolf-ai-yes-men-on-servers-no-scientific-breakthroughs/">AI 不缺乏知识，它的问题是不会怀疑现有知识</a></p>
+<p>“在科学中，提出问题是困难的部分，找到答案并不难，一旦问题被提出，答案往往很明显，但真正困难的是提出问题，而模型在提出好问题方面非常糟糕。”</p>
+<p><a href="https://maalvika.substack.com/p/being-too-ambitious-is-a-clever-form">过于野心勃勃是一种聪明的自我毁灭形式</a></p>
+<p>&quot;做一百次，远比等一次完美重要。&quot;</p>
+<h2>2025-07-04日推荐</h2>
+<p><a href="https://halcy.de/blog/2025/06/27/transmitting-data-via-ultrasound-without-any-special-equipment/">超声波传输数据</a></p>
+<h2>2025-06-12日推荐</h2>
+<p>获取前沿资料</p>
+<ul>
+<li><a href="https://dl.acm.org/">ACM</a></li>
+<li><a href="https://www.nature.com/">Nature</a></li>
+<li><a href="https://blog.sigplan.org/">SIGPLAN编程语言博客</a></li>
+<li><a href="https://scholar.google.de/">Google学术搜索</a></li>
+<li><a href="https://arxiv.org/list/cs.PL/recent">arXiv编程语言文论</a></li>
+<li><a href="https://dev.golang.org/">Go官方文档</a></li>
+<li><a href="https://github.com/golang/go">Go语言Github</a></li>
+<li><a href="https://go-review.googlesource.com">Go代码审查</a></li>
+<li><a href="https://x.com/">Twitter/X平台</a></li>
+<li><a href="https://reddit/r/golang">Reddit Go社区</a></li>
+<li><a href="https://groups.google.com/g/golang-nuts">Go技术讨论组</a></li>
+<li><a href="https://groups.google.com/g/golang-dev">Go开发组</a></li>
+<li><a href="https://groups.google.com/g/golang-tools">Go工具组</a></li>
+</ul>
+<h2>2025-06-06日推荐</h2>
+<p><a href="https://terriblesoftware.org/2025/04/23/the-hidden-cost-of-ai-coding/">关于AI编码思考</a></p>
+<p>&quot;我们生命中最美好的时刻不是被动、接受、放松的时光......最好的时刻通常发生在一个人的身体或思想自愿努力完成困难和有价值的事情时。— 米哈利·西克森特米哈伊&quot;</p>
+<h2>2025-05-11日推荐</h2>
+<p><a href="https://cn.nytimes.com/obits/20210524/yuan-longping-dead/">讣告-袁隆平</a></p>
+<p>“这不是什么秘密，我的经历可以用四个词来概括：知识、汗水、灵感和机会，”袁隆平去年在一段鼓励中国年轻人投身科学的视频中说。他还在英语引用了科学家路易斯·巴斯德(Louis Pasteur)的话：“机会青睐有准备的头脑。” </p>
+<p>---袁隆平</p>
+<p>[低期望，多尝试]</p>
+<p>“我们应该做一个积极行动的悲观主义者，对未来低期望，但只要是值得的，就坚定去做。当一个有前途的新项目出现在你面前时，不妨认定它很难成功，但是如果你相信这个项目，即便赚不到钱你也想做，那么无论如此，你要去试一下。”</p>
+<h2>2025-04-16推荐</h2>
+<p><a href="https://www.dutchosintguy.com/post/the-slow-collapse-of-critical-thinking-in-osint-due-to-ai">AI导致批判性思维逐渐崩溃</a></p>
+<hr />
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/9"/><category term="Think"/><category term="TOP"/><published>2025-05-28T13:07:22+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/7</id><title>Reddit提问</title><updated>2025-11-09T12:31:46.479777+00:00</updated><content type="html"><![CDATA[<pre><code>hello everyone! Recently, while learning the concurrency model of Go language, I have been very interested in its idea of &quot;Do not communicate by sharing memory&quot; (instant, share memory by communication).The channel mechanism of Go replaces explicit locks with data transfer between goroutines, making concurrent programming safer and simpler. This makes me think: can similar ideas be used in operating system design? For example, replacing traditional IPC mechanisms such as shared memory and semaphore with channels?I would like to discuss the following points with everyone:The inter process/thread communication (IPC) of the operating system currently relies on shared memory, message queues, pipelines, and so on. What are the advantages and challenges of using a mechanism similar to Go channel?Will performance become a bottleneck (such as system call overhead)?Realistic case:Have any existing operating systems or research projects attempted this design? (For example, microkernel, Unikernel, or certain academic systems?)? ）Do you think the abstraction of channels is feasible at the OS level?  
+大家好！最近，我在学习 Go 语言的并发模型时，对它的 “Do not communicate by sharing memory” （instant， share memory by communication） 的思想非常感兴趣。Go 的通道机制用 goroutine 之间的数据传输取代了显式锁，使并发编程更安全、更简单。这让我思考：类似的思路可以用在作系统设计中吗？例如，用通道替换共享内存和信号量等传统 IPC 机制？我想和大家讨论以下几点：作系统的进程间 / 线程通信（IPC）目前依赖于共享内存、消息队列、管道等。使用类似于 Go 频道的机制有哪些优势和挑战？性能会不会成为瓶颈（如系统调用开销）？现实案例：是否有任何现有的作系统或研究项目尝试过这种设计？（例如，微内核、Unikernel 或某些学术系统？）您认为通道的抽象在 OS 级别是否可行？
+</code></pre>
+<p>这是我第一次重视reddit</p>
+<p>这是我的第一次提问在社区中，非常的难忘！社区中的大家是那么的热情，即使你们从未见过面！英文部分是我的想法用ai转换之后得来的，我的英语并不是很好哈哈</p>
+<p><a href="https://www.reddit.com/r/golang/comments/1krtd88/could_gos_share_memory_by_communicating/">很开心这么多人回复问题！</a></p>
+<h3>Understanding CSP</h3>
+<p><strong>CSP（Communicating Sequential Processes）</strong> 是一种并发模型，全称是 <strong>通信顺序进程</strong>，由计算机科学家 <strong>Tony Hoare</strong> 在 1978 年提出。</p>
+<blockquote>
+<p>CSP 的核心思想是：进程之间不共享内存，而是通过通信（消息传递）来协作</p>
+</blockquote>
+<p><a href="https://www.cnblogs.com/papering/p/9479496.html">CSP_blog</a></p>
+<pre><code class="language-go">func worker(ch chan int) {
+    val := &lt;-ch         // 接收数据
+    fmt.Println(val)
+}
+
+func main() {
+    ch := make(chan int)
+    go worker(ch)
+    ch &lt;- 42             // 发送数据
+}
+
+</code></pre>
+<p>这个例子就是标准的 CSP：</p>
+<ul>
+<li>
+<p>两个顺序进程（<code>main</code> 和 <code>worker</code>）</p>
+</li>
+<li>
+<p>通道 <code>ch</code> 是它们的通信桥梁</p>
+</li>
+<li>
+<p>没有共享内存，只靠通道通信</p>
+</li>
+<li>
+<p><strong>CSP</strong> 是一种并发编程理论，强调进程通过**事件（Event）**通信（而非共享内存）。</p>
+</li>
+<li>
+<p><strong>进程（Process）</strong>：代表一个独立的行为实体（如售货机或顾客），通过<strong>事件序列</strong>描述行为。</p>
+</li>
+<li>
+<p><strong>同步（Synchronization）</strong>：多个进程在特定事件上必须“同步执行”（如顾客投币和售货机接收硬币是同一个 <code>coin</code> 事件）。</p>
+</li>
+</ul>
+<h4><strong>1. 售货机进程</strong></h4>
+<p><strong>行为</strong>：</p>
+<pre><code>1. 等待 `coin` 事件（投币）。
+    
+2. 执行 `choc` 事件（发放巧克力）。
+    
+3. 终止（`STOP`）。
+    
+</code></pre>
+<ul>
+<li><strong>意义</strong>：售货机<strong>必须先收钱再给货</strong>。</li>
+</ul>
+<h4><strong>2. 顾客进程</strong></h4>
+<p>Person = (coin \rightarrow STOP) \square (card \rightarrow STOP)</p>
+<ul>
+<li>
+<p><strong>行为</strong>：</p>
+<ul>
+<li>
+<p><code>□</code> 表示<strong>外部选择</strong>（顾客可以选 <code>coin</code> 或 <code>card</code> 事件，但不会同时发生）。</p>
+</li>
+<li>
+<p>选择后终止（<code>STOP</code>）。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>意义</strong>：顾客有<strong>两种支付方式</strong>（硬币或刷卡），但每次只能选一种。</p>
+</li>
+</ul>
+<h4><strong>3. 如果售货机只同步 <code>coin</code></strong></h4>
+<p>VendingMachine ,|, [coin] ,|, Person</p>
+<ul>
+<li>
+<p><strong>结果</strong>：</p>
+<p>(coin \rightarrow choc \rightarrow STOP) \square (card \rightarrow STOP)</p>
+<ul>
+<li>
+<p>顾客选 <code>coin</code>：正常走售货机流程。</p>
+</li>
+<li>
+<p>顾客选 <code>card</code>：售货机不响应，顾客直接终止（<code>STOP</code>）。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4><strong>4. 隐藏事件</strong></h4>
+<p><strong>结果</strong>：外部只能看到 <code>choc</code> 或直接终止，表现为<strong>非确定性选择</strong>（<code>⊓</code>）：</p>
+<p>(choc \rightarrow STOP) \sqcap STOP</p>
+<ul>
+<li>
+<p>可能发放巧克力后停止，也可能直接停止（因为看不到顾客的支付选择）</p>
+</li>
+<li>
+<p><em><strong>同步约束：售货机和顾客必须就支付方式达成一致（如只支持现金时，刷卡会失败）。</strong></em></p>
+</li>
+<li>
+<p><em><strong>非确定性：隐藏内部事件后，系统行为对外部观察者变得不可预测（如同实际场景中，路人看不到顾客是否投币，只能看到巧克力是否出来）。</strong></em></p>
+</li>
+</ul>
+<p>CSP 的 <code>coin → choc → STOP</code> 类似 Go 中通过 channel 同步的两个 goroutine：</p>
+<ul>
+<li><strong>同步失败</strong>：如果 <code>vendingMachine</code> 只监听 <code>coin</code>，<code>card</code> 会阻塞。</li>
+</ul>
+<h3>操作系统为什么没用 CSP：</h3>
+<ol>
+<li><strong>性能优先：共享内存更快</strong></li>
+</ol>
+<p>操作系统关注 <strong>高性能调度与资源访问</strong>，**共享内存 + 同步机制（如锁、信号量）**可以做到：</p>
+<ul>
+<li>
+<p>最低延迟（不需要拷贝）</p>
+</li>
+<li>
+<p>高吞吐（直接访问同一块内存）</p>
+</li>
+</ul>
+<p>➡ 相比之下，<strong>CSP 的通信（尤其跨进程）要复制数据、上下文切换，代价更大</strong>。</p>
+<hr />
+<ol start="2">
+<li><strong>OS 中的“进程”不是 CSP 的“轻量进程”</strong></li>
+</ol>
+<p>CSP 模型适合的是 <strong>轻量并发实体（如 goroutine）</strong>，操作系统的：</p>
+<ul>
+<li>
+<p>线程：重量级，切换成本高</p>
+</li>
+<li>
+<p>进程：拥有独立内存空间，天然隔离</p>
+</li>
+</ul>
+<p>操作系统级别的“进程”之间<strong>不共享内存</strong>，但通信靠 IPC（管道、socket、共享内存）实现——和 CSP 很像，但远不如 goroutine 高效。</p>
+<h3>IPC 进程间通信</h3>
+<pre><code>IPC（Inter-Process Communication，进程间通信）是一种机制，允许操作系统中不同进程之间交换数据或信号。由于每个进程拥有独立的内存空间，它们无法直接访问彼此的数据，因此需要通过IPC来实现协作和资源共享。
+</code></pre>
+<h3>CSP的优劣势</h3>
+<p>原则： 如果违反 CSP 原则，<strong>通过 Channel 间接共享内存</strong>，仍需要锁：</p>
+<pre><code class="language-go">type Data struct{ X int }
+func main() {
+    ch := make(chan *Data)
+    d := &amp;Data{X: 1}
+    go func() { ch &lt;- d }() // 发送指针
+    go func() { d.X++ }()   // 竞态！违背 CSP
+}
+</code></pre>
+<p>channel 不是万能保险，传的是引用时就要小心。</p>
+<p>社区回答！</p>
+<pre><code>There are cases where CSP produces better performance and cases where the performance is worse. On the one hand, for code that does a lot of small multithreaded operations (like incrementing integers etc), converting all operations to happen via channels is going to be much less performant because channels involve more work per operation. On the other hand, the fact that memory isn&#x27;t concurrently shared means that you can write faster single threaded code because you don&#x27;t need to worry about mutexes and barriers etc for objects received from channels.
+
+</code></pre>
+<p><a href="https://go-benchmarks.com/synchronization-methods">同步方法测试</a></p>
+<p><a href="https://www.jtolio.com/2016/03/go-channels-are-bad-and-you-should-feel-bad/">一篇帖子的说明</a></p>
+<p><em>作者的吐槽点</em> ： “- <strong>channel 适合某些场景</strong>（如任务队列、事件通知、流水线模式）。</p>
+<ul>
+<li>
+<p><strong>mutex 适合另一些场景</strong>（如保护共享状态、简单临界区）。</p>
+</li>
+<li>
+<p><strong>&quot;channel of channels&quot; 确实可能增加复杂度</strong>，但 Go 的 select + channel 机制也能提供强大的并发控制能力。”</p>
+</li>
+</ul>
+<p>“作者的观点是 <strong>&quot;不要为了用 channel 而用 channel&quot;</strong>，应该根据实际情况选择最合适的同步机制（mutex 或 channel），而不是盲目遵循 Go 的 &quot;share memory by communicating&quot; 哲学。”</p>
+<p><a href="https://songlh.github.io/paper/go-study.pdf">一篇论文</a></p>
+<h4>一、CSP 的劣势场景（性能差）：</h4>
+<pre><code class="language-go">// 用 mutex 的方式做 ++ 操作
+mu.Lock()
+counter++
+mu.Unlock()
+
+// 用 channel 的方式做 ++ 操作
+counterChan &lt;- 1
+</code></pre>
+<ul>
+<li>
+<p><code>chan</code> 本质是有同步开销的（排队、调度、阻塞），一个简单的 <code>++</code> 操作搞成 channel 会变得很重。</p>
+</li>
+<li>
+<p>所以在高频、低开销场景，<strong>channel 性能不如原子操作 / 锁</strong>。</p>
+</li>
+</ul>
+<h4>CSP 的优势场景（性能好）：</h4>
+<p>“但另一方面，因为内存不是共享的，单线程处理收到的 channel 数据，不需要加锁，写起来更快、更简单。”</p>
+<p><strong>内存不是共享的”表述不严谨</strong>：</p>
+<ul>
+<li>
+<p>channel 的底层本质仍然是共享内存；</p>
+</li>
+<li>
+<p>它只是<strong>封装了共享细节，让你不直接共享</strong>；</p>
+</li>
+<li>
+<p>所以说准确表述应是：“你<strong>不需要直接访问共享内存</strong>”</p>
+</li>
+</ul>
+<pre><code class="language-go">// 一个 goroutine 独占处理任务队列
+go func() {
+  for task := range taskChan {
+    handle(task) // 不需要担心并发访问
+  }
+}()
+
+</code></pre>
+<h4>困惑</h4>
+<p>channel的内部也就是底层实现 不还是使用的内存共享+锁机制实现的吗，这里面真的会有性能差别吗？</p>
+<h4>核心回答！</h4>
+<p><code>你用不用锁，和系统/库替你加不加锁，是两回事。</code></p>
+<p>Go 的 <code>channel</code> 底层确实是用<strong>共享内存 + 加锁</strong>实现的：</p>
+<ul>
+<li>
+<p><code>chan</code> 的发送和接收涉及锁（<code>mutex</code>）、等待队列（<code>sudog</code>）、调度协程切换等。</p>
+</li>
+<li>
+<p>所以说 channel 本身也有“同步开销”。</p>
+</li>
+</ul>
+<p>那为什么说 “你写的代码没锁” 性能反而更好？</p>
+<h4><strong>关键是“封装” 和 “并发域最小化”</strong>：</h4>
+<blockquote>
+<p>channel 把“并发边界”控制在接口级别，而不是让你每个字段自己去加锁。</p>
+</blockquote>
+<p><strong>你写的处理函数</strong>只处理 <code>&lt;-chan</code> 接收的数据，不访问共享变量：</p>
+<ul>
+<li>
+<p>它是<strong>串行</strong>的，不涉及任何并发操作；</p>
+</li>
+<li>
+<p>所以<strong>你可以不用管加锁、原子操作、同步屏障</strong>；</p>
+</li>
+<li>
+<p>你的代码天然是“线程安全”的，这会<strong>减少脑力负担 + 提高可维护性 + 避免 bug</strong>。</p>
+</li>
+</ul>
+<p><strong>channel 是“通信安全”，不是“零成本”。</strong><br />
+真正的性能差异不在“是否用了内存共享”，而是<strong>谁来负责并发同步的复杂性</strong></p>
+<p><em>数据被携带着传输”这句，<strong>精准命中了 CSP 的核心思想</strong>，也正是 Go 在并发编程中推荐的思维方式。</em></p>
+<blockquote>
+<p><em><strong>不要通过共享内存来通信，而应该通过通信来共享内存。</strong>（Go 编程语言官方理念）</em></p>
+</blockquote>
+<h3><strong>Plan 9 from Bell Labs</strong></h3>
+<pre><code class="language-go">The OS itself also avoids sharing memory, and of course there are &quot;channels&quot; for communicating: file descriptors, which can be devices, pipes, network connections, etc. Like in Unix. But it goes beyond what traditional Unix does, because many userspace applications are file servers that provide a file descriptor that can be mounted onto the file system, and provide more such file descriptors, etc. It&#x27;s a very simple but powerful system.
+</code></pre>
+<p>plan9操作系统避免了共享内存, 那内部是什么样的呢 进程之间如何通信呢</p>
+<p>在Go SDK中 runtime包中含又 plan9的身影！</p>
+<p>Plan 9 <strong>避免传统的共享内存和多线程同步机制</strong>，鼓励进程之间用“文件通信”（如命名管道、9P 协议）：</p>
+<ul>
+<li>
+<p>类似 Go 的 Channel，但用的是文件协议。</p>
+</li>
+<li>
+<p>所有通信都可序列化，可远程传输。</p>
+</li>
+</ul>
+<blockquote>
+<p>难道操作文件就不是操作同一块内存了吗？</p>
+</blockquote>
+<p>示例：</p>
+<p>共享内存</p>
+<pre><code class="language-go">int *shared = mmap(...);  // 多个进程访问这个地址
+*shared = 42;             // 谁都能读写这块内存
+</code></pre>
+<p>文件通信</p>
+<pre><code>echo 42 &gt; /srv/somefile     # 写入
+cat /srv/somefile           # 另一个程序读
+</code></pre>
+<p>虽然最终数据可能写入页缓存或磁盘（确实会进内存），但你<strong>无法直接访问或共享那块内存</strong>，只能通过：</p>
+<ul>
+<li>
+<p>系统调用（read/write）</p>
+</li>
+<li>
+<p>Channel 抽象（Go）</p>
+</li>
+<li>
+<p>文件协议（Plan 9）</p>
+</li>
+</ul>
+<h4>疑问：</h4>
+<ol>
+<li>那xv6系统的内存的关于 前面所说的CSP理论和共享内存，xv6是偏向与什么？ 或者说linux系统都沿用了文件通信？</li>
+</ol>
+<blockquote>
+<p>xv6 和 Linux 都以“共享内存 + 文件通信”为基础，核心机制是“共享内存 + 加锁”，而不是 CSP 模型。</p>
+</blockquote>
+<ol start="2">
+<li>所以说文件通信和CSP之间的关系是什么？ 有联系吗 为什么前面你跟我说Plan 9 设计就是避免共享内存，强调文件通信 + 用户态协议 那既然文件通信是避免共享内存，那为什么不能说xv6等liunx操作系统不是CSP模型呢</li>
+</ol>
+<blockquote>
+<p>文件通信是一种实现机制，CSP 是一种并发模型。Plan 9 把文件通信机制用于实现类似 CSP 的并发风格；而 Linux 虽然也有文件通信，但仍然基于共享内存 + 锁，不符合 CSP 的并发语义。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Linux/xv6</th>
+<th>CSP (Plan 9 风格)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>默认通信方式</td>
+<td>共享内存 + 锁</td>
+<td>Channel / 消息</td>
+</tr>
+<tr>
+<td>文件通信</td>
+<td>有，但不普遍用作并发通信</td>
+<td>核心机制</td>
+</tr>
+<tr>
+<td>并发语义</td>
+<td>多线程共享状态</td>
+<td>顺序过程 + 通信</td>
+</tr>
+<tr>
+<td>并发控制</td>
+<td>mutex、atomic、lock</td>
+<td>通信即同步</td>
+</tr>
+<tr>
+<td>数据一致性</td>
+<td>程序员手动维护</td>
+<td>通信机制保证</td>
+</tr>
+</tbody></table><p>Plan 9 并没有在商业或主流社区中广泛流行，但它对<strong>现代操作系统的设计理念影响深远</strong>。许多重要思想被吸收进 Linux、Go 语言、Docker 等系统中。</p>
+<h2>mkfifo is OS's channel</h2>
+<ul>
+<li>
+<p><code>mkfifo</code> 是一个 Linux 系统调用（命令），用于<strong>创建一个命名管道（FIFO）</strong>。</p>
+</li>
+<li>
+<p>FIFO = First In, First Out，像文件一样存在于磁盘，但其实是一种特殊的**IPC（进程间通信）**手段。</p>
+</li>
+<li>
+<p>创建后，多个进程可以通过读写这个“文件”来通信。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Go 的 <code>chan</code></th>
+<th>OS 的 <code>mkfifo</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>语言级通道，只在 Go 中使用</td>
+<td>系统级别，多个进程/语言可用</td>
+</tr>
+<tr>
+<td>内存中的结构，速度快</td>
+<td>磁盘上的文件，效率低，但能跨进程</td>
+</tr>
+<tr>
+<td>用于 goroutine 间通信</td>
+<td>用于进程间通信（IPC）</td>
+</tr>
+<tr>
+<td>类型安全、阻塞/非阻塞控制强</td>
+<td>只能读字节流，无结构化信</td>
+</tr>
+</tbody></table><h2>线程池</h2>
+<h2><strong>批评 Go 语言在错误处理和一些特殊语法上的不一致性</strong></h2>
+<p><a href="https://bravenewgeek.com/go-is-unapologetically-flawed-heres-why-we-use-it/">另一篇</a></p>
+<pre><code>There are other peculiar idiosyncrasies. Error handling is generally done by returning error values. This is fine, and I can certainly see the motivation coming from the abomination of C++ exceptions, but there are cases where Go doesn’t follow its own rule. For example, map lookups return two values: the value itself (or zero-value/nil if it doesn’t exist) and a boolean indicating if the key was in the map. Interestingly, we can choose to ignore the boolean value altogether—a syntax reserved for certain blessed types in the standard library. Type assertions and channel receives have equally curious behavior.
+</code></pre>
+<pre><code class="language-go">file, err := os.Open(&quot;foo.txt&quot;)
+if err != nil {
+    return err
+}
+</code></pre>
+<ul>
+<li>这是 Go 的核心设计哲学之一：<strong>强制程序员显式处理错误</strong>，避免像 C++ 异常（exceptions）那样隐式传播。</li>
+</ul>
+<pre><code class="language-go">value, exists := myMap[&quot;key&quot;]  // 返回值和布尔值
+value = myMap[&quot;key&quot;]           // 可以忽略布尔值，直接取值
+</code></pre>
+<ul>
+<li>
+<p>但 Go 允许 <strong>直接忽略布尔值</strong>，这种语法是 <strong>标准库的 &quot;特权&quot;</strong>（&quot;blessed types&quot;），普通函数无法实现类似行为。</p>
+</li>
+<li>
+<p>这违背了 Go 的 &quot;显式处理&quot; 原则。</p>
+</li>
+</ul>
+<pre><code class="language-go">str, ok := x.(string)  // 安全写法，返回 (value, bool)
+str = x.(string)       // 如果失败，直接 panic（类似异常）
+</code></pre>
+<ul>
+<li>
+<p>第一种形式（返回 <code>bool</code>）符合 Go 的错误处理风格。</p>
+</li>
+<li>
+<p>第二种形式（直接 <code>panic</code>）却 <strong>退回到了异常机制</strong>，与 Go 的哲学矛盾。</p>
+</li>
+</ul>
+<pre><code class="language-go">val, ok := &lt;-ch  // 如果 channel 关闭，ok 为 false
+val = &lt;-ch       // 如果 channel 关闭，返回零值（无警告）
+</code></pre>
+<ul>
+<li>
+<p>第一种形式可以检测 channel 是否关闭。</p>
+</li>
+<li>
+<p>第二种形式 <strong>静默接受零值</strong>，可能导致隐蔽的 bug。</p>
+</li>
+<li>
+<p><em><strong>对开发者的启示：</strong></em></p>
+<ul>
+<li>
+<p><em><strong>需要警惕这些 &quot;语法糖&quot; 可能隐藏的问题。</strong></em></p>
+</li>
+<li>
+<p><em><strong>在关键代码中，始终使用完整形式（如 <code>val, ok := m[key]</code>）以避免 bug。</strong></em></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2>理解异常和错误</h2>
+<ol>
+<li>错误（<code>error</code>）——正常业务流程中的问题</li>
+</ol>
+<p>本质：</p>
+<ul>
+<li>
+<p>是一种<strong>值</strong>（<code>error</code> 接口类型），代表函数运行时出现的问题。</p>
+</li>
+<li>
+<p><strong>你需要主动检查和处理</strong>。</p>
+</li>
+</ul>
+<ol start="2">
+<li>异常（<code>panic</code>）——非正常流程，程序直接崩溃</li>
+</ol>
+<p>本质：</p>
+<ul>
+<li>
+<p>是 Go 用来表示<strong>程序出现严重问题时</strong>的机制。</p>
+</li>
+<li>
+<p>一旦 <code>panic</code> 被调用，当前函数就会停止执行，<strong>逐层向上退出栈帧</strong>，直到程序崩溃或被 <code>recover</code> 捕获</p>
+</li>
+</ul>
+<p>常用于：</p>
+<ul>
+<li>
+<p>数组越界</p>
+</li>
+<li>
+<p>nil 指针调用</p>
+</li>
+<li>
+<p>程序员写错逻辑时提示开发者修复</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>错误（error）是业务可恢复的问题，异常（panic）是不可恢复、必须终止或特殊处理的问题。</strong><br />
+在实际开发中，<strong>90% 的问题都用 error 返回，不要滥用 panic</strong></p>
+</blockquote>
+<p>Go 的理念之一是“通过交流分享记忆;不要通过共享内存来交流。这是标准库似乎经常打破的另一个规则。标准库中大约有 60 个通道，不包括测试。如果您浏览代码，您会发现互斥锁往往是首选，并且通常性能更好 — 稍后将对此进行详细介绍。</p>
+<h2>sync/atomic</h2>
+<pre><code>We want sync to be clearly documented and used when appropriate. We generally don’t want sync/atomic to be used at all…Experience has shown us again and again that very very few people are capable of writing correct code that uses atomic operations…If we had thought of internal packages when we added the sync/atomic package, perhaps we would have used that. Now we can’t remove the package because of the Go 1 guarantee.
+</code></pre>
+<ol>
+<li>
+<p><strong><code>sync</code> 包的定位</strong>：</p>
+<ul>
+<li>
+<p><code>sync</code> 包（如 <code>sync.Mutex</code>、<code>sync.WaitGroup</code>）是 <strong>官方推荐</strong> 的同步原语，应该被 <strong>清晰地文档化</strong> 并在合适的场景使用。</p>
+</li>
+<li>
+<p>这些高阶同步工具（如互斥锁、条件变量）已经封装了底层复杂性，普通开发者可以安全使用。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>sync/atomic</code> 包的定位</strong>：</p>
+<ul>
+<li>
+<p><code>sync/atomic</code>（提供原子操作，如 <code>atomic.AddInt32</code>）<strong>本应设计为内部包</strong>（<code>internal</code>），因为它的正确使用需要极深的并发编程经验。</p>
+</li>
+<li>
+<p>绝大多数开发者 <strong>无法写出正确的原子操作代码</strong>（即使是有经验的程序员也容易犯错）。</p>
+</li>
+<li>
+<p>但由于历史原因（Go 1 兼容性承诺），现在无法移除或隐藏该包。</p>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>
+<p><em><strong>Go 团队认为 原子操作是危险的，应该尽量避免使用，除非在极少数底层库（如运行时、标准库内部）中。</strong></em></p>
+</li>
+<li>
+<p><em><strong>普通业务代码应优先使用 <code>sync</code> 包提供的更安全的抽象（如 <code>Mutex</code>），而非直接操作 <code>atomic</code>。</strong></em></p>
+</li>
+</ul>
+<p><em>WHY？？？</em></p>
+<ul>
+<li>
+<p>原子操作的正确性依赖于 <strong>内存模型</strong>（memory model）和 <strong>CPU 指令顺序</strong>（memory ordering）。</p>
+</li>
+<li>
+<p>开发者需要理解 <strong>可见性</strong>（visibility）、<strong>重排序</strong>（reordering）、<strong>ABA 问题</strong> 等复杂概念，否则极易写出有 bug 的代码。</p>
+</li>
+<li>
+<p>基于原子操作的代码通常难以阅读和调试（例如无锁数据结构）。</p>
+</li>
+<li>
+<p>团队协作时，其他成员可能无法理解其背后的并发逻辑。</p>
+</li>
+</ul>
+<pre><code> Go 团队的历史决策反思
+1. `internal` 包的缺失：
+
+    - Go 早期没有 `internal` 包机制（限制某些包仅限标准库内部使用）。
+        
+    - 如果当时有，`sync/atomic` 可能会被标记为 `internal`，避免外部开发者误用。
+        
+2. Go 1 兼容性承诺：
+    
+    - Go 1 版本承诺不破坏向后兼容性，因此即使现在认识到 `atomic` 的问题，也无法移除或降级该包。
+</code></pre>
+<pre><code>Clearly, channels are not particularly great for workload throughput, and you’re typically better off using a lock-free ring buffer or even a synchronized queue. Channels as a unit of composition tend to [fall short](https://gist.github.com/kachayev/21e7fe149bc5ae0bd878) as well. Instead, they are better suited as a coordination pattern, a mechanism for signaling and timing-related code. Ultimately, you must use channels judiciously if you are sensitive to performance.
+</code></pre>
+<h3>原子操作和锁的区别</h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>原子操作（<code>atomic</code>）</th>
+<th>锁（<code>Mutex</code>）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>底层机制</strong></td>
+<td>直接使用 CPU 原子指令（如 <code>CAS</code>、<code>LL/SC</code>）</td>
+<td>基于操作系统调度（如 <code>futex</code>）</td>
+</tr>
+<tr>
+<td><strong>粒度</strong></td>
+<td>单变量级别（如 <code>int32</code>、<code>pointer</code>）</td>
+<td>代码块级别（保护一段逻辑）</td>
+</tr>
+<tr>
+<td><strong>是否阻塞</strong></td>
+<td>非阻塞（硬件级原子操作，无上下文切换）</td>
+<td>阻塞（竞争失败时，线程会休眠）</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>简单变量操作（计数器、标志位）</td>
+<td>复杂逻辑（需保护多个变量或代码段）</td>
+</tr>
+<tr>
+<td><strong>性能</strong></td>
+<td>极高（无锁，无线程切换）</td>
+<td>较低（锁竞争时有上下文切换开销）</td>
+</tr>
+<tr>
+<td><strong>正确性难度</strong></td>
+<td>高（需理解内存模型，易写出 bug）</td>
+<td>低（直接加锁，逻辑清晰）</td>
+</tr>
+</tbody></table><h2>共享内存和CSP</h2>
+<p>共享内存去并发，和csp理论去并发 为什么会有很大的差别，为什么csp貌似是对并发更好的模型</p>
+<p><strong>共享内存并发强调“状态共享”，而 CSP 并发强调“消息传递”</strong>。<br />
+<strong>CSP 更容易构建正确、安全、可组合的并发程序。</strong></p>
+<table>
+<thead>
+<tr>
+<th>方面</th>
+<th>共享内存 (Shared Memory)</th>
+<th>CSP（通信顺序进程）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>本质</td>
+<td>多个线程访问同一内存变量</td>
+<td>多个进程通过通道通信</td>
+</tr>
+<tr>
+<td>协作方式</td>
+<td>读写共享变量 + 加锁</td>
+<td>发送消息 + 阻塞等待</td>
+</tr>
+<tr>
+<td>错误风险</td>
+<td>数据竞争，死锁，难调试</td>
+<td>更可控，天然同步</td>
+</tr>
+<tr>
+<td>例子</td>
+<td>C/C++ 中的线程 + mutex</td>
+<td>Go 中的 goroutine + channel</td>
+</tr>
+</tbody></table><p><em>共享内存的问题！</em></p>
+<ul>
+<li>
+<p><strong>可见性问题</strong>：一个线程修改变量，另一个线程可能看不到（CPU 缓存、编译器优化等）</p>
+</li>
+<li>
+<p><strong>竞争条件（Race Condition）</strong>：线程读写冲突导致不一致</p>
+</li>
+<li>
+<p><strong>加锁非常脆弱</strong>：容易忘记加锁、锁顺序死锁、性能差、调试困难</p>
+</li>
+<li>
+<p><strong>状态耦合</strong>：多个线程对共享数据的意图难以区分</p>
+</li>
+</ul>
+<p><em>CSP 把“并发的核心问题”转化了：</em></p>
+<ul>
+<li>
+<p><strong>从“如何共享变量”转为“如何传递消息”</strong></p>
+</li>
+<li>
+<p><strong>通道通信是同步的，相当于自带锁机制</strong></p>
+</li>
+<li>
+<p><strong>goroutine 是轻量级的，天然适合大规模并发</strong></p>
+</li>
+</ul>
+<p><strong>CSP 不是性能最强的模型，但</strong>：</p>
+<ul>
+<li>
+<p>对“人类开发者”更友好；</p>
+</li>
+<li>
+<p>对复杂系统的“构建和演化”更稳定；</p>
+</li>
+<li>
+<p>也是构建现代高并发系统时的<strong>主流模型之一</strong>。</p>
+</li>
+</ul>
+<p><em><strong>！！！ 你不是去“抢”变量，而是“请求”那个管理它的 goroutine 来操作它。</strong></em></p>
+<h2>Plan9 &amp; Go</h2>
+<h3>设计思想的关联</h3>
+<table>
+<thead>
+<tr>
+<th>Plan 9 的设计思想</th>
+<th>Go 中的体现</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>一切皆文件</strong>（包括网络、图形等）</td>
+<td><code>io.Reader</code> / <code>io.Writer</code> 接口统一抽象</td>
+<td>所有输入输出都被看作流（stream），统一接口风格</td>
+</tr>
+<tr>
+<td><strong>简洁统一的接口设计</strong></td>
+<td>接口设计简洁、不需显式实现，强调组合</td>
+<td><code>interface</code> 不需要 <code>implements</code>，鼓励面向抽象编程</td>
+</tr>
+<tr>
+<td><strong>资源命名空间 per process</strong></td>
+<td>每个 <code>goroutine</code> 轻量、可独立使用 channel</td>
+<td>更细粒度的资源隔离感，goroutine 独立如 namespace</td>
+</tr>
+<tr>
+<td><strong>9P 协议：分布式资源像本地一样访问</strong></td>
+<td>Go 的网络库设计抽象化（如 <code>net.Conn</code>）</td>
+<td>可以轻松写出“远程等于本地”的通信程序</td>
+</tr>
+<tr>
+<td><strong>并发不是线程，是消息通信（管道）</strong></td>
+<td><code>goroutine</code> + <code>channel</code> 是核心特性</td>
+<td>正是 CSP 模型（通讯顺序进程），而非线程锁死等待</td>
+</tr>
+<tr>
+<td><strong>最小化系统复杂性</strong></td>
+<td>Go 排除继承、多重继承、异常机制</td>
+<td>简单就是力量，避免复杂性带来的维护成本</td>
+</tr>
+<tr>
+<td><strong>自举系统（compiler/runtime 用自己写）</strong></td>
+<td>Go 的工具链也是用 Go 写的（包括编译器、fmt 工具等）</td>
+<td>自洽、可控、统一体验</td>
+</tr>
+</tbody></table><p>从plan9中吸收的内容</p>
+<ul>
+<li>
+<p><strong>组合优于继承</strong>：Plan 9 没有传统面向对象；Go 同样用接口 + 组合结构体替代类继承；</p>
+</li>
+<li>
+<p><strong>消息通信代替共享内存</strong>：Plan 9 提倡“不要共享内存”；Go 鼓励用 channel 通信而非锁；</p>
+</li>
+<li>
+<p><strong>极简内核</strong>：Plan 9 内核极简但灵活；Go 工具链同样追求“一个命令搞定”的体验；</p>
+</li>
+<li>
+<p><strong>统一接口抽象</strong>：Plan 9 的资源访问统一为文件；Go 将几乎所有资源抽象成 <code>io.Reader</code>/<code>Writer</code>。</p>
+</li>
+</ul>
+<p>Plan 9 的几个核心哲学在 Go 中的体现</p>
+<hr />
+<h3>1. <strong>一切皆文件 / io.Reader + io.Writer 抽象</strong></h3>
+<pre><code class="language-go">package main
+
+import (
+	&quot;fmt&quot;
+	&quot;io&quot;
+	&quot;os&quot;
+	&quot;strings&quot;
+)
+
+func main() {
+	var r io.Reader = strings.NewReader(&quot;Hello Plan 9!&quot;)
+	io.Copy(os.Stdout, r) // 输出到标准输出：Hello Plan 9!
+}
+</code></pre>
+<blockquote>
+<p>无论是文件、字符串、网络连接，只要实现 <code>Reader</code> 接口，就能互换使用。</p>
+</blockquote>
+<hr />
+<h3>2. <strong>组合优于继承</strong></h3>
+<pre><code class="language-go">type Logger struct{}
+
+func (l Logger) Log(msg string) {
+	println(&quot;[LOG]&quot;, msg)
+}
+
+type Service struct {
+	Logger // 嵌入，而非继承
+}
+
+func main() {
+	s := Service{}
+	s.Log(&quot;Service started&quot;) // 调用嵌入字段的方法
+}
+</code></pre>
+<blockquote>
+<p>Go 不用继承，通过结构体组合来共享行为。</p>
+</blockquote>
+<h4>组合优于继承” 为什么在 Go 中是正确的？</h4>
+<pre><code class="language-go">type Logger struct{}
+func (l Logger) Log(msg string) { fmt.Println(&quot;[LOG]&quot;, msg) }
+
+type Service struct {
+	Logger // 组合，而不是继承
+}
+</code></pre>
+<p>继承带来耦合，组合带来解耦</p>
+<ul>
+<li>
+<p>灵活：只组合需要的行为</p>
+</li>
+<li>
+<p>解耦：Logger 改变不影响 Service</p>
+</li>
+<li>
+<p>模块化更强，符合现代微服务理念</p>
+</li>
+</ul>
+<hr />
+<h3>3. <strong>CSP 并发模型（goroutine + channel）</strong></h3>
+<pre><code class="language-go">func worker(ch chan string) {
+	for msg := range ch {
+		println(&quot;received:&quot;, msg)
+	}
+}
+
+func main() {
+	ch := make(chan string)
+	go worker(ch)
+
+	ch &lt;- &quot;task 1&quot;
+	ch &lt;- &quot;task 2&quot;
+	close(ch)
+}
+</code></pre>
+<blockquote>
+<p>goroutine 类似 Plan 9 的 lightweight process，channel 是通信通道，避免共享内存。</p>
+</blockquote>
+<hr />
+<h3>4. <strong>资源按命名空间抽象（net.Conn 抽象）</strong></h3>
+<pre><code class="language-go">package main
+
+import (
+	&quot;fmt&quot;
+	&quot;net&quot;
+)
+
+func main() {
+	conn, _ := net.Dial(&quot;tcp&quot;, &quot;example.com:80&quot;)
+	fmt.Fprintf(conn, &quot;GET / HTTP/1.0\r\n\r\n&quot;)
+	buf := make([]byte, 4096)
+	n, _ := conn.Read(buf)
+	fmt.Println(string(buf[:n]))
+}
+</code></pre>
+<blockquote>
+<p><code>net.Conn</code> 可以代表 TCP、Unix socket 等，是统一的“文件风格”资源访问。</p>
+</blockquote>
+<hr />
+<h3>5. <strong>自举 + 最小工具链：Go 编译器/工具就是用 Go 写的</strong></h3>
+<pre><code class="language-bash">go build main.go
+go fmt main.go
+go run main.go
+</code></pre>
+<blockquote>
+<p>没有 <code>make</code>，不需要配置，直接编译运行，体现极简主义。</p>
+</blockquote>
+<hr />
+<h3>总结</h3>
+<p>Go 语言很多地方直接体现了 Plan 9 的理念，尤其是：</p>
+<ul>
+<li>
+<p><strong>接口驱动的抽象</strong>：<code>io.Reader</code> / <code>net.Conn</code></p>
+</li>
+<li>
+<p><strong>并发设计</strong>：channel 通信优先于加锁</p>
+</li>
+<li>
+<p><strong>结构体组合</strong>：轻松构造可复用模块</p>
+</li>
+<li>
+<p><strong>极简工具链</strong>：从构建到部署尽可能统一</p>
+</li>
+</ul>
+<h2>系统资料</h2>
+<p><a href="https://lwn.net/Articles/250967/">Articles</a></p>
+<p><a href="https://go-proverbs.github.io/">Go 谚语</a></p>
+<p><a href="https://draven.co/golang/">Go语言设计与实现</a></p>
+<p><a href="https://luminousmen.com/">技术博客</a></p>
+<h2>pipe 和 channel</h2>
+<p><strong>channel 和管道（pipe）不是一个东西</strong>，虽然它们的用途都是“通信”，但它们<strong>作用范围、实现层级、性能、使用方式都不同</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Go <code>channel</code></th>
+<th>操作系统 <code>pipe</code>（管道）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>属于哪一层</td>
+<td><strong>用户态</strong>，Go runtime 提供</td>
+<td><strong>内核态</strong>，操作系统提供</td>
+</tr>
+<tr>
+<td>通信对象</td>
+<td><strong>Goroutine 之间通信（线程级）</strong></td>
+<td><strong>进程之间通信（进程级）</strong></td>
+</tr>
+<tr>
+<td>是否跨语言</td>
+<td>否（Go 专属）</td>
+<td>是（C、Python、Bash 等都能用）</td>
+</tr>
+<tr>
+<td>是否跨进程</td>
+<td>否</td>
+<td>是</td>
+</tr>
+<tr>
+<td>是否需要内核参与</td>
+<td>否（调度在用户态）</td>
+<td>是（需要系统调用）</td>
+</tr>
+<tr>
+<td>通信方式</td>
+<td><code>ch &lt;- val</code>, <code>&lt;- ch</code></td>
+<td><code>write(pipefd[1], ...)</code>, <code>read(...)</code></td>
+</tr>
+<tr>
+<td>性能</td>
+<td>高（上下文切换成本低）</td>
+<td>相对低（涉及内核上下文切换）</td>
+</tr>
+<tr>
+<td>线程安全</td>
+<td>是（channel 天然并发安全）</td>
+<td>是（由内核控制）</td>
+</tr>
+</tbody></table><p><strong>pipe 并不使用 CSP（通信顺序进程）思想</strong>。</p>
+<p>操作系统中的 <code>pipe</code> 本质上是<strong>两个进程通过共享内核缓冲区来读写数据</strong>：</p>
+<ul>
+<li>
+<p>写进程调用 <code>write()</code> 把数据写入 pipe（内核缓冲区）；</p>
+</li>
+<li>
+<p>读进程调用 <code>read()</code> 从 pipe 中读取数据；</p>
+</li>
+<li>
+<p>管道本质上是<strong>一个 FIFO（先进先出）缓冲区</strong>；</p>
+</li>
+<li>
+<p>多数是<strong>阻塞式</strong>的（读时无数据就阻塞，写时缓冲区满也阻塞）；</p>
+</li>
+<li>
+<p>是一种<strong>共享内存 + 同步机制</strong></p>
+</li>
+</ul>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/7"/><category term="reddit"/><category term="Book"/><category term="Tech"/><published>2025-05-28T12:31:52+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/6</id><title> 提问的智慧</title><updated>2025-11-09T12:31:46.640779+00:00</updated><content type="html"><![CDATA[<p>“好问题！”是诚挚的大力称赞</p>
+<p>你必须花费时间在问题上，而不是遇到问题什么也不付出的直接索取！那和强盗没什么区别！</p>
+<p><em>你并不是一个不劳而获且浪费别人的时间的提问者</em></p>
+<h2>在提问之前</h2>
+<p>在你准备要通过电子邮件、新闻群组或者聊天室提出技术问题前，请先做到以下事情：</p>
+<ol>
+<li>尝试在你准备提问的论坛的旧文章中搜索答案。</li>
+<li>尝试上网搜索以找到答案。</li>
+<li>尝试阅读手册以找到答案。</li>
+<li>尝试阅读常见问题文件（FAQ）以找到答案。</li>
+<li>尝试自己检查或试验以找到答案。</li>
+<li>向你身边的强者朋友打听以找到答案。</li>
+<li>如果你是程序开发者，请尝试阅读源代码以找到答案。</li>
+</ol>
+<p><em>不要将所有问题一股脑拋出，只因你的第一次搜索没有找到答案</em></p>
+<p><em>草率的发问只能得到草率的回答，或者根本得不到任何答案</em> </p>
+<p><em>你为解决问题所付出的努力，你越有可能得到实质性的帮助。</em></p>
+<h3>慎选提问的论坛</h3>
+<ul>
+<li>在与主题不合的论坛上贴出你的问题。</li>
+<li>在探讨进阶技术问题的论坛张贴非常初级的问题；反之亦然。</li>
+<li>在太多的不同新闻群组上重复转贴同样的问题（cross-post）。</li>
+<li>向既非熟人也没有义务解决你问题的人发送私人电邮。</li>
+</ul>
+<h3>Stack Overflow</h3>
+<p>搜索，_然后_在 Stack Exchange 问。</p>
+<p>近年来，Stack Exchange 社区已经成为回答技术及其他问题的主要渠道，尤其是那些开放源码的项目。</p>
+<p>Stack Exchange 已经成长到<a href="https://stackexchange.com/sites">超过一百个网站</a>，以下是最常用的几个站：</p>
+<ul>
+<li>Super User 是问一些通用的电脑问题，如果你的问题跟代码或是写程序无关，只是一些网络连线之类的，请到这里。</li>
+<li>Stack Overflow 是问写程序有关的问题。</li>
+<li>Server Fault 是问服务器和网管相关的问题。</li>
+</ul>
+<h3>网站和 IRC 论坛</h3>
+<p>在使用 IRC 的时候，首先最好不要发布很长的问题描述，有些人称之为频道洪水。最好通过一句话的问题描述来开始聊天</p>
+<p>RTFM（Read The Fucking Manual）</p>
+<p>STFW（Search The Fucking Web） </p>
+<p>如何知道你已完全搞砸了哈哈哈</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/6"/><category term="Think"/><published>2025-05-28T12:26:17+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/5</id><title>你的灯还亮着吗</title><updated>2025-11-09T12:31:46.761952+00:00</updated><content type="html"><![CDATA[<p>今天一下午的时间看了这本书，对我的感触很大，很有助于思考，对于一个问题的思考，一种问题不同的问法，产生不同的问题  </p>
+<p>文字游戏：一句话不同的停顿产生不同的问题  </p>
+<p>有些事情是不是简单的问题复杂化（这应该是普遍现象） 复杂的问题简单化（很少）  </p>
+<p>你是不是真的想要解决这问题？  </p>
+<p>追溯本源，从一个婴儿视角重新审视这个问题！  </p>
+<p>一生二，二生三，三生万物： 你对一个问题的解决（是否是真的解决？）一个问题的解决必然产生另一个问题的产生！  </p>
+<p>看看你是否能从一个问题的解决，来想到它产生了3个其他的问题？</p>
+<p>询问问题可能简单的一句话就可以起到很重要的作用！</p>
+<p>比如： 在隧道中提醒车辆：你的灯还亮着吗？（避免询问过长） 解决了因为客户要欣赏风景而不清楚他们的灯是否还亮着</p>
+<p>从多个角度思一个问题问题的产生，最有可能是由谁来解决，或者说有的问题已经给出了最佳的解决人选，你需要让他自身清楚他需要站出来解决问题</p>
+<p>有些问题需要从自身去思考，从而问题也就解决了</p>
+<p>鱼事最后一个见到水的：周围环境的影响！（经常思考自己身处的环境）有一些东西已经被固化了！处在一种模式下，你的思想可能也跟着这种思想牵着</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/5"/><category term="Think"/><category term="Life"/><published>2025-05-28T12:25:43+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/3</id><title> 我的2024</title><updated>2025-11-09T12:31:46.864229+00:00</updated><content type="html"><![CDATA[<h1>2024</h1>
+<hr />
+<p>date: 2024-10-28</p>
+<hr />
+<p>在散步的时候感概一年又过去了，问了问自己，大一的这一年都做了什么呢？哈哈哈我使劲的去想，好像没有留下什么</p>
+<p>我通过我接触github所创建的仓库，以及电脑中我记录的笔记，和图库等去回想自己在今年都留下了什么痕迹呢</p>
+<h2>Create repos</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>REPO</th>
+<th>START</th>
+<th>UPDATE</th>
+<th>LANGUAGE</th>
+<th>STARS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><a href="https://github.com/Whuichenggong/-typro-">-typro-</a></td>
+<td>2024-09-05</td>
+<td>2024-12-13</td>
+<td>None</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td><a href="https://github.com/Whuichenggong/2024">2024</a></td>
+<td>2024-12-27</td>
+<td>2024-12-27</td>
+<td>None</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3</td>
+<td><a href="https://github.com/Whuichenggong/6.S081os">6.S081os</a></td>
+<td>2024-11-30</td>
+<td>2024-12-01</td>
+<td>None</td>
+<td>0</td>
+</tr>
+<tr>
+<td>4</td>
+<td><a href="https://github.com/Whuichenggong/7days-golang">7days-golang</a></td>
+<td>2024-11-22</td>
+<td>2024-11-22</td>
+<td>None</td>
+<td>0</td>
+</tr>
+<tr>
+<td>5</td>
+<td><a href="https://github.com/Whuichenggong/codeforces-go">codeforces-go</a></td>
+<td>2024-05-19</td>
+<td>2024-05-19</td>
+<td>None</td>
+<td>0</td>
+</tr>
+<tr>
+<td>6</td>
+<td><a href="https://github.com/Whuichenggong/Go-Programming">Go-Programming</a></td>
+<td>2024-12-21</td>
+<td>2024-12-21</td>
+<td>Go</td>
+<td>0</td>
+</tr>
+<tr>
+<td>7</td>
+<td><a href="https://github.com/Whuichenggong/Gopher_training">Gopher_training</a></td>
+<td>2024-12-17</td>
+<td>2024-12-17</td>
+<td>Go</td>
+<td>1</td>
+</tr>
+<tr>
+<td>8</td>
+<td><a href="https://github.com/Whuichenggong/hello-algo">hello-algo</a></td>
+<td>2024-10-15</td>
+<td>2024-10-15</td>
+<td>None</td>
+<td>0</td>
+</tr>
+<tr>
+<td>9</td>
+<td><a href="https://github.com/Whuichenggong/Knowledge-network">Knowledge-network</a></td>
+<td>2024-12-20</td>
+<td>2024-12-20</td>
+<td>None</td>
+<td>0</td>
+</tr>
+<tr>
+<td>10</td>
+<td><a href="https://github.com/Whuichenggong/learning-Golang">learning-Golang</a></td>
+<td>2024-12-19</td>
+<td>2024-12-26</td>
+<td>Go</td>
+<td>0</td>
+</tr>
+<tr>
+<td>11</td>
+<td><a href="https://github.com/Whuichenggong/leetcode-master">leetcode-master</a></td>
+<td>2024-10-14</td>
+<td>2024-10-14</td>
+<td>None</td>
+<td>0</td>
+</tr>
+<tr>
+<td>12</td>
+<td><a href="https://github.com/Whuichenggong/project-based-learning">project-based-learning</a></td>
+<td>2024-12-27</td>
+<td>2024-12-27</td>
+<td>None</td>
+<td>0</td>
+</tr>
+<tr>
+<td>13</td>
+<td><a href="https://github.com/Whuichenggong/Simple_bank">Simple_bank</a></td>
+<td>2024-11-10</td>
+<td>2024-12-08</td>
+<td>Go</td>
+<td>0</td>
+</tr>
+<tr>
+<td>14</td>
+<td><a href="https://github.com/Whuichenggong/Study_Go">Study_Go</a></td>
+<td>2024-11-16</td>
+<td>2024-11-26</td>
+<td>Go</td>
+<td>0</td>
+</tr>
+<tr>
+<td>15</td>
+<td><a href="https://github.com/Whuichenggong/tongxun">tongxun</a></td>
+<td>2023-12-12</td>
+<td>2024-09-12</td>
+<td>C++</td>
+<td>0</td>
+</tr>
+<tr>
+<td>16</td>
+<td><a href="https://github.com/Whuichenggong/UDP_socket">UDP_socket</a></td>
+<td>2024-11-27</td>
+<td>2024-11-27</td>
+<td>Go</td>
+<td>0</td>
+</tr>
+<tr>
+<td>17</td>
+<td><a href="https://github.com/Whuichenggong/urlshortener">urlshortener</a></td>
+<td>2024-12-04</td>
+<td>2024-12-09</td>
+<td>Go</td>
+<td>0</td>
+</tr>
+<tr>
+<td>18</td>
+<td><a href="https://github.com/Whuichenggong/Whuichenggong">Whuichenggong</a></td>
+<td>2024-09-01</td>
+<td>2024-12-20</td>
+<td>None</td>
+<td>1</td>
+</tr>
+<tr>
+<td>19</td>
+<td><a href="https://github.com/Whuichenggong/Whuichenggong.github.io">Whuichenggong.github.io</a></td>
+<td>2024-11-04</td>
+<td>2024-12-25</td>
+<td>HTML</td>
+<td>0</td>
+</tr>
+</tbody></table><p>emm发现创建的仓库都是在近期创建的，感觉是2024年末端感觉才正式步入后端学习的正轨，重视计算机基础学习，重视语言基础的学习</p>
+<h2>2023. 9~12月</h2>
+<p>看了看 git  c++ 等</p>
+<p>我清楚地记得在大学刚入学的时候，在图书馆中学习了b站的数据结构课程，看了b站的马士兵的算法，好几天都沉浸在算法中的学习</p>
+<p>可能那个时候也没有目标吧，跟着学校学习课程，在课余时间，学习了一些计算机的工具，简单看了看计算机基础，我那个时候觉得</p>
+<p>计算机基础确实是很重要的，但是那个时候学习可能也就是死学吧！不讲究效率和技巧。</p>
+<p>当时研究了很多数据结构，啊第一次学真的理解的很难哈哈哈，现在重新回来看看有的代码也懂了！</p>
+<p>还去图书馆看了较教员的书哈哈：感觉真的很有意义在图书馆看书，而不是复习！</p>
+<p>也了解了一些关于计算机的形式，焦虑的很！各种在网上查，目前来说想法也确实有很多变化！</p>
+<p>也度过了大学的第一个生日与室友们非常开心!</p>
+<p><img src="https://github.com/user-attachments/assets/e253da76-bfc0-4387-b06c-d6a4ef58cc5b" alt="Image" /></p>
+<p>大一上可能就这么过去了吧！</p>
+<h2>寒假</h2>
+<p>在寒假的时候，与小时候经常在一起玩的小弟，又见面了，也是好几年没见了，感觉和小的时候不一样，感情更加浓厚了！小时候可能</p>
+<p>因为小的事去吵架，现在不会了，都长大了哈哈！</p>
+<p>家里的饭永远是最香的</p>
+<h2>2024.5~7月份</h2>
+<p>加入了学校的实验室！因为没有了自习室，我必须找到一个可以自己学习的地方，我加入了学校实验室！最正确的决定</p>
+<p>认识了各有各志向的学长们！</p>
+<p>在这个阶段我还是停留在学习go语言基础和计算机基础的一些事情</p>
+<p>中间还有一条时间线就是！在加入一些微信群之后，认识的一些工作的老哥们给我指了一些方向，我也听从了并到今天</p>
+<p>让我在我的后端语言中选择了Go，至今为止，Go也是我的第一个深入学习的语言</p>
+<p>“你弄懂源码，会做项目了，同时计算机原理也大致清楚了，（有疑问的地方自己再补）。你只弄计算机原理，既枯燥记不住，最后还是什么都不会。”</p>
+<p>-感谢老哥的建议我也有了一些方向！</p>
+<p>在2024年9月我真正的了解到了后端的一些技术，并且跟进的去学习一些工具</p>
+<p>我的启蒙项目：</p>
+<p>simplebank </p>
+<p>至今也在跟着做！这真正的带我走进了后端的大门！</p>
+<h2>2024年暑假</h2>
+<p>最难忘的暑假先是和姐姐在辽宁，玩了半个月非常开心，已经快10年没有相见了哈！</p>
+<p>我大姑领着小妹从日本飞了过来，小妹只是在刚出生来中国呆了一段时间!我们一起玩了游戏！</p>
+<p>《我的世界》，感觉她非常喜欢玩这个游戏哈哈，非常的听话，很难忘的一个假期</p>
+<h2>2024年近些日子</h2>
+<p>最能触动我的可能就是周六周日和同学一起去北京参加 开源社的开源年会吧！说走就走的旅程真的很帅！遇见了</p>
+<p>伊洪老师等优秀的人！</p>
+<p>-人不出去走走，真的被困在这个小世界中</p>
+<p>还创建了自己的博客，记录自己的生活，学习</p>
+<p>在此期间遇见了一些帮助我的老哥老姐们！互联网真的有一些素未谋面的人会去帮助你，他们不求什么！</p>
+<h2>总结</h2>
+<p>短短几段文字，是我尽可能串联起我的大学的这段日子，还有很多，没有必要全部列出来，只是在12.27日的今天，我想回忆一下我的过去，尽管他没有意义！时间过得很快，你想自己成为什么呢？你可以没有目的的向前走！中途的风景都是你人生中绚烂的一笔！</p>
+<p>-感谢我遇见的所有人！</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/3"/><category term="Life"/><category term="2024"/><published>2025-05-28T11:56:29+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/1</id><title>使用issue创建第一个博客</title><updated>2025-11-09T12:31:46.985500+00:00</updated><content type="html"><![CDATA[<h2>新博客创建</h2>
+<p>非常喜欢使用issue来和博客建立关系！受yihong老师博客的影响，自己也创建了！并且购买了属于自己的域名</p>
+<p><a href="blog.zhaozhonghe.me">我的博客</a></p>
+<p>链接</p>
+<p><a href="https://github.com/yihong0618/gitblog">yihong老师博客</a></p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/1"/><category term="Life"/><published>2025-05-28T08:53:41+00:00</published></entry></feed>

@@ -1,74 +1,49 @@
-# DailyBlog
+## [DailyBlog](https://Zhonghe-zhao.github.io/DailyBlog/)
+My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34))
+[Things I like](https://github.com/Zhonghe-zhao/DailyBlog/issues/35)
+![image](https://github.com/user-attachments/assets/a168bf11-661e-4566-b042-7fc9544de528)
+[RSS Feed](https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/master/feed.xml)
 
-[欢迎来到我的博客！](https://blog.zhaozhonghe.me)
+## 🚀 置顶文章
+- [与北邮老哥的交谈](https://github.com/Zhonghe-zhao/DailyBlog/issues/18)--2025-06-10
+- [定期分享](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)--2025-05-28
+## 📖 最近更新
+- [丢失更新](https://github.com/Zhonghe-zhao/DailyBlog/issues/75)--2025-11-04
+- [6.5840 Lab 2: Key/Value Server](https://github.com/Zhonghe-zhao/DailyBlog/issues/74)--2025-11-03
+- [Fiber Channel( FC 协议)](https://github.com/Zhonghe-zhao/DailyBlog/issues/73)--2025-10-29
+- [VM-FT](https://github.com/Zhonghe-zhao/DailyBlog/issues/72)--2025-10-29
+- [6.5840 Lab 1: MapReduce](https://github.com/Zhonghe-zhao/DailyBlog/issues/71)--2025-10-23
+- [重装c盘](https://github.com/Zhonghe-zhao/DailyBlog/issues/70)--2025-10-18
+- [瓶颈 - 近期总结](https://github.com/Zhonghe-zhao/DailyBlog/issues/69)--2025-10-14
+- [时间](https://github.com/Zhonghe-zhao/DailyBlog/issues/57)--2025-07-21
+- [大二下半学期结束！](https://github.com/Zhonghe-zhao/DailyBlog/issues/56)--2025-07-20
+- [Things I like](https://github.com/Zhonghe-zhao/DailyBlog/issues/35)--2025-06-28
+## 🚀 置顶文章
 
----
+- [与北邮老哥的交谈](https://github.com/Zhonghe-zhao/DailyBlog/issues/18) - 2025-06-10
+- [定期分享](https://github.com/Zhonghe-zhao/DailyBlog/issues/9) - 2025-05-28
 
-> 时间总会一直陪在你的身边
+## 🔧 开发技术
 
-## Top
+- [6.5840 Lab 2: Key/Value Server](https://github.com/Zhonghe-zhao/DailyBlog/issues/74) - 2025-11-03
+- [Fiber Channel( FC 协议)](https://github.com/Zhonghe-zhao/DailyBlog/issues/73) - 2025-10-29
+- [VM-FT](https://github.com/Zhonghe-zhao/DailyBlog/issues/72) - 2025-10-29
+- [6.5840 Lab 1: MapReduce](https://github.com/Zhonghe-zhao/DailyBlog/issues/71) - 2025-10-23
+- [Reddit提问](https://github.com/Zhonghe-zhao/DailyBlog/issues/7) - 2025-05-28
 
-- [Reddit 提问](https://github.com/Zhonghe-zhao/DailyBlog/issues/7)--2025-05-26
-- [文章推荐](https://github.com/Zhonghe-zhao/DailyBlog/issues/9) Weekly
-- [记忆不是复读机](https://github.com/Zhonghe-zhao/DailyBlog/issues/27)--2025-06-23
+## 🌱 生活随笔
 
-## Technological Learning
+- [重装c盘](https://github.com/Zhonghe-zhao/DailyBlog/issues/70) - 2025-10-18
+- [瓶颈 - 近期总结](https://github.com/Zhonghe-zhao/DailyBlog/issues/69) - 2025-10-14
+- [时间](https://github.com/Zhonghe-zhao/DailyBlog/issues/57) - 2025-07-21
+- [大二下半学期结束！](https://github.com/Zhonghe-zhao/DailyBlog/issues/56) - 2025-07-20
+- [图片和视频的时空对话](https://github.com/Zhonghe-zhao/DailyBlog/issues/16) - 2025-06-08
+<details><summary>显示更多</summary>
 
-### ComputerScience
+- [开源年会](https://github.com/Zhonghe-zhao/DailyBlog/issues/15) - 2025-06-07
+- [儿童节](https://github.com/Zhonghe-zhao/DailyBlog/issues/13) - 2025-06-01
+- [你的灯还亮着吗](https://github.com/Zhonghe-zhao/DailyBlog/issues/5) - 2025-05-28
+- [ 我的2024](https://github.com/Zhonghe-zhao/DailyBlog/issues/3) - 2025-05-28
+- [使用issue创建第一个博客](https://github.com/Zhonghe-zhao/DailyBlog/issues/1) - 2025-05-28
+</details>
 
-- [6.s081](https://blog.zhaozhonghe.me/issue-8/)--2025-03
-- [Concurrency](https://github.com/Zhonghe-zhao/DailyBlog/issues/12)--2025-06-01
-- [NetWork](https://github.com/Zhonghe-zhao/DailyBlog/issues/28)--2025-06-25
-- [cmu15445](https://github.com/Zhonghe-zhao/DailyBlog/issues/10)
-
-### Golang
-
-- [Golang In Deep](https://github.com/Zhonghe-zhao/DailyBlog/issues/12)--2025-06-14
-- [Go By Mistakes](https://github.com/Zhonghe-zhao/DailyBlog/issues/11)--2025-05
-
-### Backend
-
-- [char **argv](https://github.com/Zhonghe-zhao/DailyBlog/issues/26)--2025-06-21
-
-## Keep thinking
-
-- [提问的智慧](https://github.com/Zhonghe-zhao/DailyBlog/issues/6)--2025-03-16
-
-- [你的灯还亮着吗](https://github.com/Zhonghe-zhao/DailyBlog/issues/5)--2024-12-30
-
-- [博文推荐](https://github.com/Zhonghe-zhao/DailyBlog/issues/9) Weekly
-
-## 2024
-
-- [我的2024](https://github.com/Zhonghe-zhao/DailyBlog/issues/3)--2024-10-28
-
-## Record Life
-
-- [儿童节](https://github.com/Zhonghe-zhao/DailyBlog/issues/13)--2025-06-01
-- [我的2024](https://github.com/Zhonghe-zhao/DailyBlog/issues/3)--2024-10-28
-- [图片与时空的对话](https://github.com/Zhonghe-zhao/DailyBlog/issues/16)--2025-06-10
-- [开源年会](https://github.com/Zhonghe-zhao/DailyBlog/issues/15)--2024-11-04
-
-## TODO
-
-### Jobs in progress (7)
-- [ >] 6.s081
-- [ >] cmu-15445
-- [ >] 并发编程
-- [ >] 深入学习Go
-- [ >] 微服务学习
-- [ >] 坚持跑步
-- [ >] 坚持看书
-- [ >] Redis
-- [ >] Kafka
-- [ >] RPC
-
-### Jobs to do (2)
-
-- [ ] 6.824
-- [ ] 分布式学习
-- [ ] 我的第一份实习
-
-### Jobs done ()
-
-No!
