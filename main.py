@@ -23,6 +23,28 @@ TODO_ISSUES_LABELS = ["TODO"]
 FRIENDS_LABELS = ["Friends"]
 ABOUT_LABELS = ["About"]
 THINGS_LABELS = ["Things"]
+
+CUSTOM_CATEGORIES = {
+    "置顶文章": ["top"],
+    "计算机基础": [
+        # 操作系统
+        "os", "os-linux", "os-windows", "os-kernel", "os-memory", "os-network",
+        # 数据库
+        "db", "db-sql", "db-nosql", "db-optimization", "db-design", "db-transaction",
+        # 网络
+        "network", "network-protocol", "tcp-ip", "http", "network-security",
+        # 算法
+        "algorithm", "data-structure", "leetcode", "coding-interview"
+    ],
+    "开发技术": [
+        "tech", "programming", "python", "java", "javascript",
+        "web-dev", "frontend", "backend", 
+        "tools", "ide", "productivity",
+        "devops", "docker", "kubernetes", "ci-cd"
+    ],
+    "生活随笔": ["life", "daily-life", "thoughts", "reading", "travel", "photography"]
+}
+
 IGNORE_LABELS = (
     FRIENDS_LABELS
     + TOP_ISSUES_LABELS
@@ -208,58 +230,63 @@ def add_md_header(md, repo_name):
         md.write("\n")
 
 
-def add_md_label(repo, md, me):
-    labels = get_repo_labels(repo)
-
-    # sort lables by description info if it exists, otherwise sort by name,
-    # for example, we can let the description start with a number (1#Java, 2#Docker, 3#K8s, etc.)
-    labels = sorted(
-        labels,
-        key=lambda x: (
-            x.description is None,
-            x.description == "",
-            x.description,
-            x.name,
-        ),
-    )
-
-    with open(md, "a+", encoding="utf-8") as md:
-        for label in labels:
-            # we don't need add top label again
-            if label.name in IGNORE_LABELS:
-                continue
-
-            issues = get_issues_from_label(repo, label)
-            issues = list(sorted(issues, key=lambda x: x.created_at, reverse=True))
-            if len(issues) != 0:
-                md.write("## " + label.name + "\n\n")
-            i = 0
-            for issue in issues:
-                if not issue:
+def add_md_custom_categories(repo, md, me):
+    """使用自定义分类显示文章"""
+    with open(md, "a+", encoding="utf-8") as md_file:
+        for category_name, labels in CUSTOM_CATEGORIES.items():
+            # 获取该分类下的所有issues
+            category_issues = []
+            for label_name in labels:
+                try:
+                    label_issues = list(repo.get_issues(labels=[label_name]))
+                    for issue in label_issues:
+                        if is_me(issue, me) and issue not in category_issues:
+                            category_issues.append(issue)
+                except Exception as e:
+                    print(f"Error getting issues for label {label_name}: {e}")
                     continue
-                if is_me(issue, me):
-                    if i == ANCHOR_NUMBER:
-                        md.write("<details><summary>显示更多</summary>\n")
-                        md.write("\n")
-                    add_issue_info(issue, md)
-                    i += 1
-            if i > ANCHOR_NUMBER:
-                md.write("</details>\n")
-                md.write("\n")
+            
+            # 按创建时间排序
+            category_issues.sort(key=lambda x: x.created_at, reverse=True)
+            
+            if category_issues:
+                md_file.write(f"## {category_name}\n\n")
+                
+                # 显示文章，超过5篇时折叠
+                for i, issue in enumerate(category_issues):
+                    if i == 5:  # 只显示5篇，更多内容折叠
+                        md_file.write("<details><summary>显示更多</summary>\n\n")
+                    
+                    time = format_time(issue.created_at)
+                    md_file.write(f"- [{issue.title}]({issue.html_url}) - {time}\n")
+                
+                if len(category_issues) > 5:
+                    md_file.write("</details>\n")
+                
+                md_file.write("\n")
 
 
 def get_to_generate_issues(repo, dir_name, issue_number=None):
-    md_files = os.listdir(dir_name)
+    # 如果指定了issue_number，优先处理这个issue
+    if issue_number:
+        return [repo.get_issue(int(issue_number))]
+    
+    # 获取BACKUP中已有的文件
+    if not os.path.exists(dir_name):
+        os.makedirs(dir_name)
+    
+    md_files = os.listdir(dir_name) if os.path.exists(dir_name) else []
     generated_issues_numbers = [
         int(i.split("_")[0]) for i in md_files if i.split("_")[0].isdigit()
     ]
+    
+    # 获取所有issues，过滤掉已经备份的
     to_generate_issues = [
         i
         for i in list(repo.get_issues())
         if int(i.number) not in generated_issues_numbers
     ]
-    if issue_number:
-        to_generate_issues.append(repo.get_issue(int(issue_number)))
+    
     return to_generate_issues
 
 
@@ -291,27 +318,68 @@ def generate_rss_feed(repo, filename, me):
 
 
 def main(token, repo_name, issue_number=None, dir_name=BACKUP_DIR):
+    """主函数"""
+    print("=== Script Started ===")
+    print(f"Repo: {repo_name}")
+    print(f"Issue Number: {issue_number}")
+    
     user = login(token)
     me = get_me(user)
     repo = get_repo(user, repo_name)
-    # add to readme one by one, change order here
+    
+    print(f"Me: {me}")
+    print(f"Repo full name: {repo.full_name}")
+    
+    # 确保BACKUP目录存在
+    if not os.path.exists(dir_name):
+        os.makedirs(dir_name)
+    
+    # 新的调用顺序 - 使用自定义分类
     add_md_header("README.md", repo_name)
-    for func in [add_md_firends, add_md_top, add_md_recent, add_md_label, add_md_todo]:
+    
+    # 按这个顺序显示
+    for func in [
+        add_md_top,                 # 置顶文章
+        add_md_recent,              # 最近更新
+        add_md_custom_categories,   # 自定义分类（替换原来的按标签显示）
+        add_md_firends,             # 友情链接
+        add_md_todo                 # TODO列表
+    ]:
         func(repo, "README.md", me)
 
     generate_rss_feed(repo, "feed.xml", me)
+    
+    # 备份issues到BACKUP文件夹
     to_generate_issues = get_to_generate_issues(repo, dir_name, issue_number)
-
-    # save md files to backup folder
+    
+    # 保存md文件到backup文件夹
     for issue in to_generate_issues:
+        print(f"Processing issue #{issue.number}: {issue.title}")
         save_issue(issue, me, dir_name)
+    
+    print("=== Script Completed ===")
 
+if __name__ == "__main__":
+    if not os.path.exists(BACKUP_DIR):
+        os.mkdir(BACKUP_DIR)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("github_token", help="github_token")
+    parser.add_argument("repo_name", help="repo_name")
+    parser.add_argument(
+        "--issue_number", help="issue_number", default=None, required=False
+    )
+    options = parser.parse_args()
+    main(options.github_token, options.repo_name, options.issue_number)
 
 def save_issue(issue, me, dir_name=BACKUP_DIR):
-    md_name = os.path.join(
-        dir_name, f"{issue.number}_{issue.title.replace('/', '-').replace(' ', '.')}.md"
-    )
-    with open(md_name, "w") as f:
+    """保存issue到BACKUP文件夹"""
+    # 清理文件名中的非法字符
+    safe_title = re.sub(r'[<>:"/\\|?*]', '-', issue.title)
+    md_name = os.path.join(dir_name, f"{issue.number}_{safe_title}.md")
+    
+    print(f"Saving issue #{issue.number} to {md_name}")
+    
+    with open(md_name, "w", encoding="utf-8") as f:
         f.write(f"# [{issue.title}]({issue.html_url})\n\n")
         f.write(issue.body or "")
         if issue.comments:
