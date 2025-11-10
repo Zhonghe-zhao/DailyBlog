@@ -9,6 +9,7 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 - [与北邮老哥的交谈](https://github.com/Zhonghe-zhao/DailyBlog/issues/18)--2025-06-10
 - [定期分享](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)--2025-05-28
 ## 📖 最近更新
+- [友链](https://github.com/Zhonghe-zhao/DailyBlog/issues/78)--2025-11-10
 - [成长计划(随时改变😆)](https://github.com/Zhonghe-zhao/DailyBlog/issues/77)--2025-11-09
 - [Blog完全体](https://github.com/Zhonghe-zhao/DailyBlog/issues/76)--2025-11-09
 - [丢失更新](https://github.com/Zhonghe-zhao/DailyBlog/issues/75)--2025-11-04
@@ -18,7 +19,6 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 - [6.5840 Lab 1: MapReduce](https://github.com/Zhonghe-zhao/DailyBlog/issues/71)--2025-10-23
 - [重装c盘](https://github.com/Zhonghe-zhao/DailyBlog/issues/70)--2025-10-18
 - [瓶颈 - 近期总结](https://github.com/Zhonghe-zhao/DailyBlog/issues/69)--2025-10-14
-- [时间](https://github.com/Zhonghe-zhao/DailyBlog/issues/57)--2025-07-21
 ## TODO
 TODO list from [成长计划(随时改变😆)](https://github.com/Zhonghe-zhao/DailyBlog/issues/77)--3 jobs to do--4 jobs done
 - [x] 坚持跑步 
@@ -28,6 +28,26 @@ TODO list from [成长计划(随时改变😆)](https://github.com/Zhonghe-zhao/
 - [ ] 出国旅游 
 - [ ] 坚持学习外语 
 - [ ] 第一份实习 - 下学期找
+
+## [友情链接](https://github.com/Zhonghe-zhao/DailyBlog/issues/78)
+<details><summary>显示</summary>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Link</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></details>
+
 
 ## 🤓 计算机基础
 
