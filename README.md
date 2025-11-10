@@ -19,16 +19,6 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 - [6.5840 Lab 1: MapReduce](https://github.com/Zhonghe-zhao/DailyBlog/issues/71)--2025-10-23
 - [重装c盘](https://github.com/Zhonghe-zhao/DailyBlog/issues/70)--2025-10-18
 - [瓶颈 - 近期总结](https://github.com/Zhonghe-zhao/DailyBlog/issues/69)--2025-10-14
-## TODO
-TODO list from [成长计划(随时改变😆)](https://github.com/Zhonghe-zhao/DailyBlog/issues/77)--3 jobs to do--4 jobs done
-- [x] 坚持跑步 
-- [x] 保持学习 
-- [x] 保持思考 
-- [x] 笔记输出
-- [ ] 出国旅游 
-- [ ] 坚持学习外语 
-- [ ] 第一份实习 - 下学期找
-
 ## [友情链接](https://github.com/Zhonghe-zhao/DailyBlog/issues/78)
 <details><summary>显示</summary>
 <table>
@@ -87,4 +77,14 @@ TODO list from [成长计划(随时改变😆)](https://github.com/Zhonghe-zhao/
 - [ 我的2024](https://github.com/Zhonghe-zhao/DailyBlog/issues/3) - 2025-05-28
 - [使用issue创建第一个博客](https://github.com/Zhonghe-zhao/DailyBlog/issues/1) - 2025-05-28
 </details>
+
+## TODO
+TODO list from [成长计划(随时改变😆)](https://github.com/Zhonghe-zhao/DailyBlog/issues/77)--3 jobs to do--4 jobs done
+- [x] 坚持跑步 
+- [x] 保持学习 
+- [x] 保持思考 
+- [x] 笔记输出
+- [ ] 出国旅游 
+- [ ] 坚持学习外语 
+- [ ] 第一份实习 - 下学期找
 
