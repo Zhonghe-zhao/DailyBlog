@@ -379,7 +379,7 @@ def main(token, repo_name, issue_number=None, dir_name=BACKUP_DIR):
     add_md_header("README.md", repo_name)
     
     # 按这个顺序显示
-    for func in [add_md_top, add_md_recent, add_md_todo, add_md_firends, add_md_custom_categories]:
+    for func in [add_md_top, add_md_recent, add_md_firends, add_md_custom_categories,add_md_todo]:
         func(repo, "README.md", me)
 
     generate_rss_feed(repo, "feed.xml", me)
