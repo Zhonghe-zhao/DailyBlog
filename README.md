@@ -80,12 +80,11 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 </details>
 
 ## TODO
-TODO list from [成长计划(随时改变😆)](https://github.com/Zhonghe-zhao/DailyBlog/issues/77)--3 jobs to do--4 jobs done
+TODO list from [成长计划(随时改变😆)](https://github.com/Zhonghe-zhao/DailyBlog/issues/77)--2 jobs to do--4 jobs done
 - [x] 坚持跑步 
 - [x] 保持学习 
 - [x] 保持思考 
 - [x] 笔记输出
-- [ ] 出国旅游 
-- [ ] 坚持学习外语 
-- [ ] 第一份实习 - 下学期找
+- [ ] 出国旅游
+- [ ] 第一份实习
 
