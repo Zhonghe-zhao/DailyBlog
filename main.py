@@ -21,10 +21,11 @@ ANCHOR_NUMBER = 5
 
 # 新的标签配置
 TOP_ISSUES_LABELS = ["Top"]
-TODO_ISSUES_LABELS = ["TODO"]
+RECOMMEND_LABELS = ["recommendations"]
 FRIENDS_LABELS = ["Friends"]
 ABOUT_LABELS = ["About"]
 THINGS_LABELS = ["Things"]
+TODO_ISSUES_LABELS = ["TODO"]
 
 # 自定义分类 - 方案A平铺展示
 CUSTOM_CATEGORIES = {
@@ -228,6 +229,73 @@ def add_md_header(md, repo_name):
         md.write(MD_HEAD.format(repo_name=repo_name))
         md.write("\n")
 
+def add_md_daily_recommendations(repo, md, me):
+    """从单一issue中提取推荐内容"""
+
+    recommend_issues = list(repo.get_issues(labels=RECOMMEND_LABELS))
+    if not recommend_issues:
+        return
+        
+    recommend_issue = recommend_issues[0]
+    
+    with open(md, "a+", encoding="utf-8") as md_file:
+        md_file.write("## 推荐阅读\n\n")
+        md_file.write("> 精选优质技术文章与深度思考\n\n")
+        md_file.write("<details>\n<summary><b>展开推荐列表</b></summary>\n\n")
+        
+      
+        recommendations = parse_recommendations(recommend_issue.body or "")
+        
+        for date, title, content, link in recommendations[:5]:  
+            md_file.write(f"**{date}** - [{title}]({link})\n")
+            preview = content[:100] + "..." if len(content) > 100 else content
+            md_file.write(f"> {preview}\n\n")
+        
+        md_file.write(f"</details>\n\n")
+        md_file.write(f"*[管理推荐...]({recommend_issue.html_url})*\n\n")
+
+def parse_recommendations(content):
+    """从issue内容中解析推荐条目 - 修正格式理解"""
+    recommendations = []
+    
+    lines = content.split('\n')
+    current_date = ""
+    
+    for i, line in enumerate(lines):
+        line = line.strip()
+        
+        # 检测日期标题 (必须严格符合 ## YYYY-MM-DD 格式)
+        if line.startswith('## ') and re.match(r'^## \d{4}-\d{2}-\d{2}$', line):
+            current_date = line[3:].strip()
+            
+        # 检测标题行 (直接检测 [标题](链接) 格式)
+        elif line.startswith('[') and current_date:
+            # 匹配 [标题](链接) 格式
+            match = re.match(r'^\[(.+?)\]\((https?://[^\s)]+)\)$', line)
+            if match:
+                current_title = match.group(1)
+                current_link = match.group(2)
+                current_content = []
+                
+                # 收集后续内容，直到遇到下一个标题或日期
+                idx = i + 1
+                while idx < len(lines):
+                    next_line = lines[idx].strip()
+                    # 遇到新的日期、标题或空行停止
+                    if (re.match(r'^## \d{4}-\d{2}-\d{2}$', next_line) or 
+                        next_line.startswith('[') or 
+                        next_line == ''):
+                        break
+                    if next_line and not next_line.startswith('#'):
+                        current_content.append(next_line)
+                    idx += 1
+                
+                content_text = ' '.join(current_content).strip()
+                recommendations.append((current_date, current_title, content_text, current_link))
+    
+    # 按日期倒序排列
+    recommendations.sort(key=lambda x: x[0], reverse=True)
+    return recommendations
 
 def add_md_custom_categories(repo, md, me):
     """使用自定义分类显示文章"""
@@ -379,7 +447,7 @@ def main(token, repo_name, issue_number=None, dir_name=BACKUP_DIR):
     add_md_header("README.md", repo_name)
     
     # 按这个顺序显示
-    for func in [add_md_top, add_md_recent, add_md_firends, add_md_custom_categories,add_md_todo]:
+    for func in [add_md_top, add_md_weekly_recommendations, add_md_recent, add_md_firends, add_md_custom_categories,add_md_todo]:
         func(repo, "README.md", me)
 
     generate_rss_feed(repo, "feed.xml", me)
