@@ -7,6 +7,17 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 ## 🦄 置顶文章
 - [Blog完全体](https://github.com/Zhonghe-zhao/DailyBlog/issues/76)--2025-11-09
 - [与北邮老哥的交谈](https://github.com/Zhonghe-zhao/DailyBlog/issues/18)--2025-06-10
+## 推荐阅读
+
+> 精选优质技术文章与深度思考
+
+<details>
+<summary><b>展开推荐列表</b></summary>
+
+</details>
+
+*[管理推荐...](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)*
+
 ## 📖 最近更新
 - [《用 算法与数据结构 重新拆解 Raft：共识的本质不是状态，而是日志》](https://github.com/Zhonghe-zhao/DailyBlog/issues/81)--2025-11-15
 - [稳态🤯](https://github.com/Zhonghe-zhao/DailyBlog/issues/80)--2025-11-14
