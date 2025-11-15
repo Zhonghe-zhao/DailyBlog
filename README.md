@@ -14,6 +14,9 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 <details>
 <summary><b>展开推荐列表</b></summary>
 
+**2025-11-15** - [Bill_Gates](https://www.goodreads.com/author/quotes/23470.Bill_Gates)
+> "比尔盖茨说过的一些话"
+
 **2025-11-15** - [Your data model is your destiny](https://notes.mtb.xyz/p/your-data-model-is-your-destiny)
 > "你把用户关系建成 “一维数组”，你永远写不出 Facebook 那种“图关系推荐”。 你把文章存成 “纯文本文件”，你就做不出知乎那种实时全文搜索。 你把银行交易存成 “可覆盖字段”，你永远无法实现...
 
@@ -25,9 +28,6 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 
 **2025-08-03** - [对于GPT的看法](https://nonint.com/2023/03/09/gpt-might-be-an-information-virus/)
 > "随着互联网“充斥”着无法被检测的 AI 生成内容，谷歌的搜索算法将无法可靠地运行。人们目前抱怨 ChatGPT 会给出自信却错误的答案，并说谷歌没有这个问题。这些人忽略了一个重要点：ChatGPT ...
-
-**2025-08-03** - [Developing our position on AI](https://simonwillison.net/2025/Jul/24/recurse-center/)
-> "当你学习自己关心的事物时，你才能学到最好、最有效。只有当你为自己选择工作时，你的工作才会变得有意义，并让你感到自豪。这就是我们第二条自我指导原则是建立你的意志肌肉的原因。你的意志力是指你做决定并付诸...
 
 </details>
 
