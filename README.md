@@ -7,7 +7,6 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 ## 🦄 置顶文章
 - [Blog完全体](https://github.com/Zhonghe-zhao/DailyBlog/issues/76)--2025-11-09
 - [与北邮老哥的交谈](https://github.com/Zhonghe-zhao/DailyBlog/issues/18)--2025-06-10
-- [定期分享](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)--2025-05-28
 ## 📖 最近更新
 - [《用 算法与数据结构 重新拆解 Raft：共识的本质不是状态，而是日志》](https://github.com/Zhonghe-zhao/DailyBlog/issues/81)--2025-11-15
 - [稳态🤯](https://github.com/Zhonghe-zhao/DailyBlog/issues/80)--2025-11-14
@@ -41,11 +40,15 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 
 ## 🤓 计算机基础
 
+- [《用 算法与数据结构 重新拆解 Raft：共识的本质不是状态，而是日志》](https://github.com/Zhonghe-zhao/DailyBlog/issues/81) - 2025-11-15
 - [丢失更新](https://github.com/Zhonghe-zhao/DailyBlog/issues/75) - 2025-11-04
 - [6.5840 Lab 2: Key/Value Server](https://github.com/Zhonghe-zhao/DailyBlog/issues/74) - 2025-11-03
 - [Fiber Channel( FC 协议)](https://github.com/Zhonghe-zhao/DailyBlog/issues/73) - 2025-10-29
 - [VM-FT](https://github.com/Zhonghe-zhao/DailyBlog/issues/72) - 2025-10-29
+<details><summary>显示更多</summary>
+
 - [6.5840 Lab 1: MapReduce](https://github.com/Zhonghe-zhao/DailyBlog/issues/71) - 2025-10-23
+</details>
 
 ## 🎭 开发技术
 
@@ -77,7 +80,6 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 - [开源年会](https://github.com/Zhonghe-zhao/DailyBlog/issues/15) - 2025-06-07
 - [编程的一些观念](https://github.com/Zhonghe-zhao/DailyBlog/issues/14) - 2025-06-06
 - [儿童节](https://github.com/Zhonghe-zhao/DailyBlog/issues/13) - 2025-06-01
-- [定期分享](https://github.com/Zhonghe-zhao/DailyBlog/issues/9) - 2025-05-28
 - [ 提问的智慧](https://github.com/Zhonghe-zhao/DailyBlog/issues/6) - 2025-05-28
 - [你的灯还亮着吗](https://github.com/Zhonghe-zhao/DailyBlog/issues/5) - 2025-05-28
 - [ 我的2024](https://github.com/Zhonghe-zhao/DailyBlog/issues/3) - 2025-05-28

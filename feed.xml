@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://github.com/Zhonghe-zhao/DailyBlog</id><title>RSS feed of Zhonghe-zhao's DailyBlog</title><updated>2025-11-15T06:14:52.734841+00:00</updated><link href="https://github.com/Zhonghe-zhao/DailyBlog"/><link href="https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/master/feed.xml" rel="self"/><generator uri="https://lkiesow.github.io/python-feedgen" version="1.0.0">python-feedgen</generator><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/81</id><title>《用 算法与数据结构 重新拆解 Raft：共识的本质不是状态，而是日志》</title><updated>2025-11-15T06:14:53.165293+00:00</updated><content type="html"><![CDATA[<p>看到 ruanyf 老师的每周更新产生的思考， 我们常说算法 数据结构，但是是否真正的想过什么是算法？ 什么是数据结构？ 二者的联系是什么？ </p>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://github.com/Zhonghe-zhao/DailyBlog</id><title>RSS feed of Zhonghe-zhao's DailyBlog</title><updated>2025-11-15T07:47:36.719162+00:00</updated><link href="https://github.com/Zhonghe-zhao/DailyBlog"/><link href="https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/master/feed.xml" rel="self"/><generator uri="https://lkiesow.github.io/python-feedgen" version="1.0.0">python-feedgen</generator><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/81</id><title>《用 算法与数据结构 重新拆解 Raft：共识的本质不是状态，而是日志》</title><updated>2025-11-15T07:47:37.411557+00:00</updated><content type="html"><![CDATA[<p>看到 ruanyf 老师的每周更新产生的思考， 我们常说算法 数据结构，但是是否真正的想过什么是算法？ 什么是数据结构？ 二者的联系是什么？ </p>
 <h2><strong>算法：</strong></h2>
 <p>程序的逻辑核心 算法是一组定义 <strong>明确的操作步骤</strong> ，用于 <strong>解决特定问题或完成特定任务</strong>。它是程序的“灵魂”，决定了<em>如何处理输入数据</em>以<em>产生期望的输出</em>。</p>
 <p>例如，排序算法（如快速排序）描述了如何将一组无序数据排列为有序序列。算法的效率直接影响程序的性能。</p>
@@ -75,20 +75,20 @@ Raft 的职责是保证每个节点收到相同的“操作序列”。</p>
 </code></pre>
 <p>日志是 Raft 负责的数据结构
 状态机是 业务负责的数据结构</p>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/81"/><category term="Tech"/><category term="Study"/><published>2025-11-15T04:45:57+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/80</id><title>稳态🤯</title><updated>2025-11-15T06:14:53.361237+00:00</updated><content type="html"><![CDATA[<p>发烧的一天，身体好像着火了一样，内部的器官也向外面喷火，根本睡不着觉。</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/81"/><category term="Tech"/><category term="Study"/><category term="Distributed-System"/><published>2025-11-15T04:45:57+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/80</id><title>稳态🤯</title><updated>2025-11-15T07:47:37.618111+00:00</updated><content type="html"><![CDATA[<p>发烧的一天，身体好像着火了一样，内部的器官也向外面喷火，根本睡不着觉。</p>
 <p>身体健康太重要了，没有健康的身体，不能谈论其他事情</p>
 <p>究竟是什么让我难受？意识难受？还是细胞整体对外表显的难受？</p>
 <p>身体的细胞通过神经给大脑传送信号，大脑是不是接受一切指令，并下令去做东西的呢？</p>
 <p>正常的身体总在维持一个稳态的过程，如果稳态稳态被打破，身体就会由大脑发布指令，积极将身体调回到稳态状态，如果一个病特别严重，身体真的不能自己调回到稳态吗？看样子可能就是了，要不然大家的病都会随着时间，慢慢变好</p>
 <p>疼痛的是这个过程，过程好像就是从左向右，不可逆的一种表述</p>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/80"/><category term="Thoughts"/><published>2025-11-14T00:25:53+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/79</id><title>月亮没了</title><updated>2025-11-15T06:14:53.490976+00:00</updated><content type="html"><![CDATA[<p>第一次注意到空中没有月亮哈哈，之前可能也有，但是第一次注意到呢，洞察力变强了呢😄😄</p>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/79"/><category term="Life"/><published>2025-11-11T14:48:38+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/78</id><title>友链</title><updated>2025-11-15T06:14:53.595562+00:00</updated><content type="html"><![CDATA[<h2>欢迎交换友链！请在评论区按照以下格式留言，我会定期审核添加：</h2>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/80"/><category term="Thoughts"/><published>2025-11-14T00:25:53+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/79</id><title>月亮没了</title><updated>2025-11-15T07:47:37.810726+00:00</updated><content type="html"><![CDATA[<p>第一次注意到空中没有月亮哈哈，之前可能也有，但是第一次注意到呢，洞察力变强了呢😄😄</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/79"/><category term="Life"/><published>2025-11-11T14:48:38+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/78</id><title>友链</title><updated>2025-11-15T07:47:37.993503+00:00</updated><content type="html"><![CDATA[<h2>欢迎交换友链！请在评论区按照以下格式留言，我会定期审核添加：</h2>
 <p><strong>示例：</strong></p>
 <p>名字：张三的技术笔记
 链接：<a href="https://zhangsan.github.io">https://zhangsan.github.io</a>
 描述：记录学习过程中的点点滴滴</p>
 <p>格式要正确：评论必须包含&quot;名字&quot;、&quot;链接&quot;、&quot;描述&quot;三个字段，用中文冒号分隔</p>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/78"/><category term="Friends"/><published>2025-11-10T04:56:37+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/77</id><title>成长计划(随时改变😆)</title><updated>2025-11-15T06:14:53.720986+00:00</updated><content type="html"><![CDATA[<h2>🏃‍♂️ 我的成长计划</h2>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/78"/><category term="Friends"/><published>2025-11-10T04:56:37+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/77</id><title>成长计划(随时改变😆)</title><updated>2025-11-15T07:47:38.162929+00:00</updated><content type="html"><![CDATA[<h2>🏃‍♂️ 我的成长计划</h2>
 <h3>有一些想法</h3>
 <ul>
 <li><input disabled="" type="checkbox"> 出国旅游</li>
@@ -103,9 +103,9 @@ Raft 的职责是保证每个节点收到相同的“操作序列”。</p>
 </ul>
 <h3>其他想法</h3>
 <p>。。。</p>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/77"/><category term="TODO"/><published>2025-11-09T14:55:29+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/76</id><title>Blog完全体</title><updated>2025-11-15T06:14:53.835200+00:00</updated><content type="html"><![CDATA[<p>完全使用 python 来管理issue的修改，并且同步到仓库中！ 真的太方便了</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/77"/><category term="TODO"/><published>2025-11-09T14:55:29+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/76</id><title>Blog完全体</title><updated>2025-11-15T07:47:38.347265+00:00</updated><content type="html"><![CDATA[<p>完全使用 python 来管理issue的修改，并且同步到仓库中！ 真的太方便了</p>
 <p>--- 向yihong老师学习</p>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/76"/><category term="Life"/><category term="TOP"/><published>2025-11-09T13:09:33+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/75</id><title>丢失更新</title><updated>2025-11-15T06:14:53.965291+00:00</updated><content type="html"><![CDATA[<h1>丢失更新</h1>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/76"/><category term="Life"/><category term="TOP"/><published>2025-11-09T13:09:33+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/75</id><title>丢失更新</title><updated>2025-11-15T07:47:38.539259+00:00</updated><content type="html"><![CDATA[<h1>丢失更新</h1>
 <p>什么是丢失更新，我的理解一直是错误的</p>
 <p><strong>定义</strong> ：在并发系统中，丢失更新是指一个客户端的更新（基于旧数据计算）被另一个客户端的更新覆盖或忽略，导致最终状态丢失了某些更新的效果。</p>
 <p><strong>在我们的例子中</strong>：
@@ -117,7 +117,7 @@ version控制检测到冲突（B的Put失败），但没解决问题——B的�
 在分布式系统中，这种情况很危险，因为客户端可能认为“我的请求失败了，算了”，导致业务逻辑错误（e.g., 用户以为扣款没发生，但实际应该扣）。</p>
 <p><strong>问题在业务层：</strong></p>
 <p>由于B的Put失败，B的扣款没发生。如果B不重试（或重试逻辑错误），整个系统就丢失了B的更新（-50）。最终余额 50 ，只反映A的操作，B的意图被 “吞没“</p>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/75"/><category term="DB"/><category term="Distributed-System"/><published>2025-11-04T00:13:06+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/74</id><title>6.5840 Lab 2: Key/Value Server</title><updated>2025-11-15T06:14:54.083610+00:00</updated><content type="html"><![CDATA[<h1>Key/value server with reliable network</h1>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/75"/><category term="DB"/><category term="Distributed-System"/><published>2025-11-04T00:13:06+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/74</id><title>6.5840 Lab 2: Key/Value Server</title><updated>2025-11-15T07:47:38.725992+00:00</updated><content type="html"><![CDATA[<h1>Key/value server with reliable network</h1>
 <p>在一个可靠的网络下，我们不会丢失消息，实现键值存储的客户端和服务器端</p>
 <p>三个重点对象：</p>
 <p><code>Server</code> <code>Clerk</code> <code>RPC</code> </p>
@@ -182,7 +182,7 @@ FAIL    6.5840/kvsrv1   0.006s
 <p><strong>死锁：</strong> 锁被卡在某个状态（已上锁），所有客户端都认为自己没拿到锁，也不能释放它。
 Put 成功了，但客户端没收到回复（说明了所以经被正常获取到了 但是回复的包丢失了 我们以为超时了！）所以锁被永久卡住了。</p>
 <p>客户端 A 拿到锁后挂了，锁状态没释放， 其他客户端永远拿不到锁，系统再次陷入死锁。</p>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/74"/><category term="Go"/><category term="Tech"/><category term="6.5840"/><category term="Distributed-System"/><published>2025-11-03T13:50:16+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/73</id><title>Fiber Channel( FC 协议)</title><updated>2025-11-15T06:14:54.205750+00:00</updated><content type="html"><![CDATA[<p>首先我们需要了解光纤！ 光纤的工作原理是什么？</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/74"/><category term="Go"/><category term="Tech"/><category term="6.5840"/><category term="Distributed-System"/><published>2025-11-03T13:50:16+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/73</id><title>Fiber Channel( FC 协议)</title><updated>2025-11-15T07:47:38.944524+00:00</updated><content type="html"><![CDATA[<p>首先我们需要了解光纤！ 光纤的工作原理是什么？</p>
 <p>光是如何承载信息的 </p>
 <p><strong>光纤通道</strong> （<strong>FC</strong>） 是一种<em>高速数据传输协议</em>，提供有序、无损的原始块数据传输 也就是说：（<strong>Fibre Channel 不是单纯的光纤线</strong>，而是一整套<strong>通信协议 + 硬件标准</strong>）</p>
 <p>光纤通道主要用于将： </p>
@@ -211,7 +211,7 @@ FC-1（编码层）：对应数据链路层的一部分，负责 8b/10b 编码�
 FC-2（帧层）：对应数据链路层，定义帧格式、流控制以及交换机制（frame、sequence、exchange）。
 FC-3（公共服务层）：类似网络层或传输层，提供复用和高级功能，如 RAID、多播等。
 FC-4（协议映射层）：对应应用层，负责映射高层协议，例如 SCSI、IP、NVMe 等。</p>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/73"/><category term="network"/><category term="Tech"/><category term="6.5840"/><category term="network-protocol"/><published>2025-10-29T05:14:19+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/72</id><title>VM-FT</title><updated>2025-11-15T06:14:54.398633+00:00</updated><content type="html"><![CDATA[<h1>VM-FT</h1>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/73"/><category term="network"/><category term="Tech"/><category term="6.5840"/><category term="network-protocol"/><published>2025-10-29T05:14:19+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/72</id><title>VM-FT</title><updated>2025-11-15T07:47:39.109619+00:00</updated><content type="html"><![CDATA[<h1>VM-FT</h1>
 <p>论文引出了什么内容？</p>
 <p><a href="https://medium.com/@princebmodi/fault-tolerance-for-virtual-machines-4a8bbb2b007b">很好的论文解读</a></p>
 <p><strong>VM-FT：</strong> 确保服务器 <strong>高可用</strong> 论文中采用了 <strong>主备虚拟机</strong>，如果备用服务器可以保证和主服务器的状态，那么当主服务器宕机的时候，备用服务器可以立刻接管流量将角色切换为主虚拟机，备用虚拟机必须做到同主虚拟机宕机时的状态一致，不能丢失请求，不能丢失内容， 这也就引出了一些列问题：</p>
@@ -295,7 +295,7 @@ Follower 虚拟机 紧跟 Leader 运行，执行相同的机器指令流。
 <p>究竟是为什么？ 虚拟地址不同和相同 最终不也都分配到了不同的地址空间吗 ？</p>
 <p>在 VM-FT 场景下，虚拟机（Guest）之所以不能完全自己控制 VA，是因为 Hypervisor 必须介入，并强制其采用确定的、与主机关联的 VA 布局，以服务于“确定性重放”的容错目标</p>
 <p>VA 必须同步，是 VM-FT Hypervisor 强制执行的一个约定。它接管了虚拟机的内存管理，确保主备机上虚拟机的内存分配器和加载器看到一个完全相同、且确定性的虚拟内存环境，从而消除了它们在执行相同程序时的内存布局差异。</p>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/72"/><category term="Go"/><category term="Tech"/><category term="6.5840"/><category term="Distributed-System"/><published>2025-10-29T05:05:04+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/71</id><title>6.5840 Lab 1: MapReduce</title><updated>2025-11-15T06:14:54.526163+00:00</updated><content type="html"><![CDATA[<h1>对于Lab1 MapReduce的思路总结</h1>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/72"/><category term="Go"/><category term="Tech"/><category term="6.5840"/><category term="Distributed-System"/><published>2025-10-29T05:05:04+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/71</id><title>6.5840 Lab 1: MapReduce</title><updated>2025-11-15T07:47:39.287113+00:00</updated><content type="html"><![CDATA[<h1>对于Lab1 MapReduce的思路总结</h1>
 <p>实验1 我们有三个部分需要实现 worker coordinator MapReduce rpc。 讲解一下具体的思路：</p>
 <ol>
 <li>实验的执行环境使用WSL2 ＋ git + vscode</li>
@@ -322,12 +322,12 @@ Follower 虚拟机 紧跟 Leader 运行，执行相同的机器指令流。
 <p>然后 Worker 告诉 Coordinator 完成任务 Coordinator 进行真正的任务状态改变！</p>
 <hr />
 <p>容错机制： 这里我实现的并不好 但是大体的思路是： Coordinator 定期检查 任务的状态 如果任务超时那么我们将任务的状态更新等待重新 Worker 申请并分配</p>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/71"/><category term="Go"/><category term="Concurrency"/><category term="Tech"/><category term="6.5840"/><category term="Distributed-System"/><published>2025-10-23T13:12:05+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/70</id><title>重装c盘</title><updated>2025-11-15T06:14:54.645347+00:00</updated><content type="html"><![CDATA[<p>终究是为当年无知的自己买了单哈哈，c盘仅剩7个g，在使用windows自带的重置功能，重置后电脑就无法启动。</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/71"/><category term="Go"/><category term="Concurrency"/><category term="Tech"/><category term="6.5840"/><category term="Distributed-System"/><published>2025-10-23T13:12:05+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/70</id><title>重装c盘</title><updated>2025-11-15T07:47:39.446850+00:00</updated><content type="html"><![CDATA[<p>终究是为当年无知的自己买了单哈哈，c盘仅剩7个g，在使用windows自带的重置功能，重置后电脑就无法启动。</p>
 <p>使用u盘制作启动盘也出现了很多问题，在官网下载的镜像并不是官方镜像？</p>
 <p>启动的时候即使插上了网线，也无法识别到网络，我甚至怀疑我并没有有线网卡。</p>
 <p>重新更换方式下载镜像后，一切恢复平静，仅仅清理了c盘，d盘 e盘的数据还是存在！剩了很大的力气！</p>
 <p>感觉电脑就像我刚买回来的那一天一样，没有电脑的一天，我目前的知识都被聚集在计算机中，没有了它，我好像不知道该做什么了。</p>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/70"/><category term="Life"/><published>2025-10-18T15:50:11+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/69</id><title>瓶颈 - 近期总结</title><updated>2025-11-15T06:14:54.756545+00:00</updated><content type="html"><![CDATA[<p>谈谈我的近况吧， 开学至今的心态起伏非常大， 我不知道为什么究竟是什么愈发的变的混乱（急切的心）， 从开始可能信心满满， 学习的方法上也有了一些自己的学习模式， 有了一些自己的看法。也是作为我的一个总结吧， 也快到2025年的末尾了， 我人生的接近重要的一年</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/70"/><category term="Life"/><published>2025-10-18T15:50:11+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/69</id><title>瓶颈 - 近期总结</title><updated>2025-11-15T07:47:39.658240+00:00</updated><content type="html"><![CDATA[<p>谈谈我的近况吧， 开学至今的心态起伏非常大， 我不知道为什么究竟是什么愈发的变的混乱（急切的心）， 从开始可能信心满满， 学习的方法上也有了一些自己的学习模式， 有了一些自己的看法。也是作为我的一个总结吧， 也快到2025年的末尾了， 我人生的接近重要的一年</p>
 <p>首先在行动上：</p>
 <img width="2560" height="1540" alt="Image" src="https://github.com/user-attachments/assets/75ac1ada-ed79-4990-8ef1-d17bef594773" />
 <p>这是从8.23日开学起从家里来到学习开始用Obsidian开始记录知识的串联， 嗯看着很多， 但其实并没有那么多， 询问自己能记住的东西有多少呢？ 但是比以前好了， 很多知识的学习可以深入进去了， 不像之前非常浮于表面， 可能因为我想找实习的心太急迫了吧！</p>
@@ -340,13 +340,13 @@ Follower 虚拟机 紧跟 Leader 运行，执行相同的机器指令流。
 <p>又是一个转折点吗， 我不禁的发问自己，最近真的很困惑， 因为实习的事情， 我将这个事看作了我当下最重要的事， 对于当下我对时间的感受， 就像一个倒计时， 每过一天， 我离秋招进了一步， 而我目前没有做出令人激动的项目，有很多好的资源我知道但是我利用的一定是不好的， 可能真的和我急的性格有关， 我知道结果一定不是着急得来的， 但是我真的控制不住，我只好接受它， 带着这个急躁的性格， 慢慢学</p>
 <p>--- 写下这么多也是给我最近焦虑的心情一个交代，  我想记录下我近期的想法， 我非常喜欢记录自己， 回头看我留住了一些东西， 我喜欢这种感觉， 我知道目前的焦虑这在我将来并不是很重要的事情，即使我知道当下的焦虑也无济于事，  我想我写下它可能会让我自己静下来， 几年后的我回头看在大学四年的自己， 你会怎么评价现在的我呢？ 谁知道呢？</p>
 <p>-- 此文记录于 2025年10月14日 写给焦虑的自己</p>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/69"/><category term="Life"/><published>2025-10-14T08:41:36+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/57</id><title>时间</title><updated>2025-11-15T06:14:54.875060+00:00</updated><content type="html"><![CDATA[<p>不是我们抓住了这一刻，而是这一刻抓住了我们</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/69"/><category term="Life"/><published>2025-10-14T08:41:36+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/57</id><title>时间</title><updated>2025-11-15T07:47:39.839395+00:00</updated><content type="html"><![CDATA[<p>不是我们抓住了这一刻，而是这一刻抓住了我们</p>
 <p>每一刻可能一直都在 在不同的观察者视角 观察的也就是事件发生的先后</p>
 <p>你只是沿着自己的时间轴在这个时空地形图上行进</p>
 <p>不同观察者有不同的“现在切片</p>
 <p>所以现在”只是你视角下的一种截面，而不是宇宙本身的绝对状态</p>
 <p>过去 未来 现在  如果我们能感受到四维时空 那里的一切可能都没变</p>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/57"/><category term="Life"/><published>2025-07-21T13:36:26+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/56</id><title>大二下半学期结束！</title><updated>2025-11-15T06:14:55.106952+00:00</updated><content type="html"><![CDATA[<h2>总结</h2>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/57"/><category term="Life"/><published>2025-07-21T13:36:26+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/56</id><title>大二下半学期结束！</title><updated>2025-11-15T07:47:40.008764+00:00</updated><content type="html"><![CDATA[<h2>总结</h2>
 <p>在大二下学期开始的时候，主要的目标是 打好基础！！ 四大件，，虽然但是每个月的计划都很紧张，但是，任务却迟迟没有进行，被一个小问题困扰好几天，推行进度及其的缓慢，一个课后作业可能用了一周甚至更多，有的时候课程还是会反复的看，很难向下推进，就好像我一定要把这个章节完全的完成才能推进，课后作业的难度可能也超乎了我的想像，一直拖延反复的观看作业，尝试去做，导致无从下手，也导致任务的推行非常缓慢！！！这是一个很大的问题，可以总结为没有抓住重点？ 我有些困惑对于我的学习的态度，看似认真，实则一点效率没有，对于课上时间运用并不好，看书的时候没有带着问题去读！ 也浪费了很长时间在休闲上
 因为大二下最开始目标想要在暑假找一个实习，所以导致大部分时间用来修正简历和熟悉项目，来回折腾，导致时间管理的很乱，最后简历也没有修理好，时间也浪费了，可能还是心太急了！（我好像过于完美主义了）</p>
 <p>收获也有很多，使用issue发布自己的学习博文，收到了第一个面试！老姐又给过儿童节嘞， 与学哥学姐们的交流，使我的学习方法，思考方式也发生了巨大的改变，对于学习也有了很大的帮助！</p>
@@ -355,7 +355,7 @@ Follower 虚拟机 紧跟 Leader 运行，执行相同的机器指令流。
 <strong>确保 不被一个点卡死</strong></p>
 <p>问自己：每次学习都带着 3 个问题开始：“我想解决什么？我不会的是什么？我需要哪些资料？”</p>
 <p>抓住学习重点！ 才能让自己的困惑变得越来越少 先解决重点啊！ 不要逃避</p>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/56"/><category term="Life"/><published>2025-07-20T10:34:54+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/35</id><title>Things I like</title><updated>2025-11-15T06:14:55.228464+00:00</updated><content type="html"><![CDATA[<h2>运动</h2>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/56"/><category term="Life"/><published>2025-07-20T10:34:54+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/35</id><title>Things I like</title><updated>2025-11-15T07:47:40.191871+00:00</updated><content type="html"><![CDATA[<h2>运动</h2>
 <ul>
 <li>足球</li>
 <li>跑步</li>
@@ -380,7 +380,7 @@ Follower 虚拟机 紧跟 Leader 运行，执行相同的机器指令流。
 <li>自然</li>
 </ul>
 <p><strong>And 家</strong></p>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/35"/><category term="Things"/><published>2025-06-28T06:05:50+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/34</id><title>About me</title><updated>2025-11-15T06:14:55.352598+00:00</updated><content type="html"><![CDATA[<p>简单介绍一下我自己，也算是看看对自己的了解能写出什么哈哈哈</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/35"/><category term="Things"/><published>2025-06-28T06:05:50+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/34</id><title>About me</title><updated>2025-11-15T07:47:40.375066+00:00</updated><content type="html"><![CDATA[<p>简单介绍一下我自己，也算是看看对自己的了解能写出什么哈哈哈</p>
 <ul>
 <li>啊我的性格还是很好的，能和大家快速的融入到一起，很癫哈哈哈，有点直，略有些感性，有时莫名的急躁哈</li>
 <li>喜欢记录自己的生活，喜欢回忆往事</li>
@@ -394,7 +394,7 @@ Follower 虚拟机 紧跟 Leader 运行，执行相同的机器指令流。
 <li>感谢一路上遇见的大家</li>
 </ul>
 <p>此记录时间： 2025/06/28</p>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/34"/><category term="About"/><published>2025-06-28T05:50:17+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/31</id><title>Kevin Kelly</title><updated>2025-11-15T06:14:55.528810+00:00</updated><content type="html"><![CDATA[<p><a href="https://kk.org/thetechnium/99-additional-bits-of-unsolicited-advice/">kk.org</a></p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/34"/><category term="About"/><published>2025-06-28T05:50:17+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/31</id><title>Kevin Kelly</title><updated>2025-11-15T07:47:40.580423+00:00</updated><content type="html"><![CDATA[<p><a href="https://kk.org/thetechnium/99-additional-bits-of-unsolicited-advice/">kk.org</a></p>
 <p>一些很好的建议！</p>
 <ol>
 <li>
@@ -421,7 +421,7 @@ Follower 虚拟机 紧跟 Leader 运行，执行相同的机器指令流。
 </li>
 </ol>
 <p>时间压力能激发创新，不要浪费时间在琐碎细节上。</p>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/31"/><category term="Thoughts"/><published>2025-06-27T04:09:14+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/27</id><title>记忆不是复读机</title><updated>2025-11-15T06:14:55.662553+00:00</updated><content type="html"><![CDATA[<h1>理解类比</h1>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/31"/><category term="Thoughts"/><published>2025-06-27T04:09:14+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/27</id><title>记忆不是复读机</title><updated>2025-11-15T07:47:40.764621+00:00</updated><content type="html"><![CDATA[<h1>理解类比</h1>
 <p><img src="https://github.com/user-attachments/assets/9909e7a1-4867-4ad1-b087-b1b432509271" alt="Image" /></p>
 <h2>类比思想：</h2>
 <p>类比思想是： <em>利用已知事物的特点理解新事物</em>，减少学习成本</p>
@@ -496,7 +496,7 @@ Follower 虚拟机 紧跟 Leader 运行，执行相同的机器指令流。
 <blockquote>
 <p>“记忆不是复读机，而是创造性的重构。”真正的学习，是让知识在你的大脑中活起来。</p>
 </blockquote>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/27"/><category term="Thoughts"/><published>2025-06-23T09:14:47+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/25</id><title>good_first_issue</title><updated>2025-11-15T06:14:55.801883+00:00</updated><content type="html"><![CDATA[<h1>尝试解决人生的第一个issue</h1>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/27"/><category term="Thoughts"/><published>2025-06-23T09:14:47+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/25</id><title>good_first_issue</title><updated>2025-11-15T07:47:40.931842+00:00</updated><content type="html"><![CDATA[<h1>尝试解决人生的第一个issue</h1>
 <p><a href="https://github.com/rust-lang/rust-clippy/issues/3219">rust-clippy</a></p>
 <p>这个issue的由来大概是StackOverFlow中的一个人的疑惑</p>
 <p><a href="https://stackoverflow.com/questions/48361537/why-do-underscore-prefixed-variables-exist/48370313#48370313">Stackoverflow</a></p>
@@ -522,7 +522,7 @@ fn used_underscore_but_unused(_param: i32) {
 <p>问题可能比想象的要复杂：</p>
 <p><img src="https://github.com/user-attachments/assets/acb302e2-221e-4746-a3b2-470de5808c01" alt="Image" /></p>
 <p>这是社区的回复，我可能要先释放这个issue了</p>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/25"/><category term="rust"/><category term="OpenSource"/><published>2025-06-21T08:39:28+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/20</id><title>一些前沿资料获取</title><updated>2025-11-15T06:14:55.912350+00:00</updated><content type="html"><![CDATA[<p>获取前沿资料</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/25"/><category term="rust"/><category term="OpenSource"/><published>2025-06-21T08:39:28+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/20</id><title>一些前沿资料获取</title><updated>2025-11-15T07:47:41.095274+00:00</updated><content type="html"><![CDATA[<p>获取前沿资料</p>
 <ul>
 <li><a href="https://dl.acm.org/">ACM</a></li>
 <li><a href="https://www.nature.com/">Nature</a></li>
@@ -538,7 +538,7 @@ fn used_underscore_but_unused(_param: i32) {
 <li><a href="https://groups.google.com/g/golang-dev">Go开发组</a></li>
 <li><a href="https://groups.google.com/g/golang-tools">Go工具组</a></li>
 </ul>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/20"/><category term="Resource"/><published>2025-06-12T07:13:07+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/18</id><title>与北邮老哥的交谈</title><updated>2025-11-15T06:14:56.039007+00:00</updated><content type="html"><![CDATA[<h1>模拟面试</h1>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/20"/><category term="Resource"/><published>2025-06-12T07:13:07+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/18</id><title>与北邮老哥的交谈</title><updated>2025-11-15T07:47:41.283135+00:00</updated><content type="html"><![CDATA[<h1>模拟面试</h1>
 <p>2025-06-10日 老哥给我来了一个模拟面试，看到了自己的不足和欠缺</p>
 <p>没有面试过真的不知道，面试官主要问的是什么，怎么问！</p>
 <p>其实 <strong>简历是自己与面试官沟通的一个桥梁</strong> 根据简历，让面试官快速了解你，通过简历，能够知道问你什么知识！</p>
@@ -599,14 +599,14 @@ OSI是一种将承担不同责任的基础设施分层，并按照不同层将�
 <p><strong>需要的时候选合适的章节过一遍 把疑惑点选出来 再通过各种能激发思考途径解决</strong></p>
 <p>改正自己从头读到尾的看一本书 ，知识学不完的</p>
 <p>让自己的思维喜欢上思考！慢慢来</p>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/18"/><category term="Thoughts"/><category term="TOP"/><published>2025-06-10T11:26:59+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/16</id><title>图片和视频的时空对话</title><updated>2025-11-15T06:14:56.166609+00:00</updated><content type="html"><![CDATA[<h1>有感而发</h1>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/18"/><category term="Thoughts"/><category term="TOP"/><published>2025-06-10T11:26:59+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/16</id><title>图片和视频的时空对话</title><updated>2025-11-15T07:47:41.478189+00:00</updated><content type="html"><![CDATA[<h1>有感而发</h1>
 <p>最近总是翻看相册中的图片和视频，引发了一些对过往记录的思考。</p>
 <p>我相信，当你按下快门的那一刻，你是开心的。你想记录这一瞬间，想永远拥有这个时刻——于是你按下快门。大家都不例外，毕竟，谁也不会把不喜欢的照片存放在手机里。</p>
 <p>但此刻，当我回看这些美好的影像，心里却五味杂陈。它们让我感慨时间的流逝，甚至渴望永远停留在某个瞬间——那种“再也回不去”的感觉愈发强烈。</p>
 <p>图片和视频的冲击力是极强的。即使时隔多年，再次观看时，它们仍能瞬间唤醒记忆，那些美好仿佛就在眼前……可奇怪的是，我总会感到一丝失落。因为我发现，自己很难完全回到当时的心境，重现彼时的思绪。这感觉就像——你明明看得见，却永远无法真正重返那个时刻。它们能保存视觉，却无法封存其他因素：比如当时“雪的温度，风的刺骨，暖阳的照射，或是那一刻心跳的节奏。</p>
 <p>影像既是记忆的钥匙，又是时间的证据——这种既亲近又疏离的张力，实在奇妙。</p>
 <p>—— 2025.06.08</p>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/16"/><category term="Life"/><published>2025-06-08T07:20:43+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/15</id><title>开源年会</title><updated>2025-11-15T06:14:56.286659+00:00</updated><content type="html"><![CDATA[<h1>一次说走就走的旅行</h1>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/16"/><category term="Life"/><published>2025-06-08T07:20:43+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/15</id><title>开源年会</title><updated>2025-11-15T07:47:41.655574+00:00</updated><content type="html"><![CDATA[<h1>一次说走就走的旅行</h1>
 <h2>开源社</h2>
 <p>在偶然一次发现中 开源社举办了第九届中国开源年会，我很是激动，心中迅速萌发了去北京参加的冲动并和小伙伴赵冰
 决定这周五来一次说走就走的旅行~~~ 时间也是非常紧迫 只有两天，从辽宁到北京！</p>
@@ -633,7 +633,7 @@ OSI是一种将承担不同责任的基础设施分层，并按照不同层将�
 <p>-感谢冰哥陪我这次旅行</p>
 <pre><code>                                                                    2024年11.4日
 </code></pre>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/15"/><category term="Life"/><category term="2024"/><published>2025-06-07T12:56:15+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/14</id><title>编程的一些观念</title><updated>2025-11-15T06:14:56.414810+00:00</updated><content type="html"><![CDATA[<h1>编程学习的7个重要观念</h1>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/15"/><category term="Life"/><category term="2024"/><published>2025-06-07T12:56:15+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/14</id><title>编程的一些观念</title><updated>2025-11-15T07:47:41.874224+00:00</updated><content type="html"><![CDATA[<h1>编程学习的7个重要观念</h1>
 <p>观看了一个视频，视频中的要点，很多是我有过的困惑，希望大家能避免，不要追求完美！</p>
 <p><a href="https://www.bilibili.com/video/BV1W87qzuEzX?vd_source=4f3d528d84e2e77c1b7ceb97ba4ecab1">bilibili</a></p>
 <h2>1. 你不需要什么都知道</h2>
@@ -692,7 +692,7 @@ OSI是一种将承担不同责任的基础设施分层，并按照不同层将�
 <strong>例子</strong>：彼得熬夜修 bug 得不偿失</li>
 </ul>
 <hr />
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/14"/><category term="Thoughts"/><published>2025-06-06T04:05:21+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/13</id><title>儿童节</title><updated>2025-11-15T06:14:56.534082+00:00</updated><content type="html"><![CDATA[<hr />
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/14"/><category term="Thoughts"/><published>2025-06-06T04:05:21+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/13</id><title>儿童节</title><updated>2025-11-15T07:47:42.055168+00:00</updated><content type="html"><![CDATA[<hr />
 <p>Date: 2025-06-01</p>
 <hr />
 <p>啊一转眼都已经20了，对于儿童节已经跟自己无关了，但是还有老姐给我过儿童节哈哈，好开心，第二年咯</p>
@@ -702,28 +702,22 @@ OSI是一种将承担不同责任的基础设施分层，并按照不同层将�
 <p><img src="https://github.com/user-attachments/assets/2efff1aa-106e-4022-86bd-058b38b02137" alt="Image" /></p>
 <p><img src="https://github.com/user-attachments/assets/71c458c3-574c-46f5-b1d2-72f89d1968af" alt="Image" /></p>
 <p>好开心！</p>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/13"/><category term="Life"/><published>2025-06-01T14:46:50+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/9</id><title>定期分享</title><updated>2025-11-15T06:14:56.659979+00:00</updated><content type="html"><![CDATA[<h1>优质博文精选集</h1>
-<blockquote>
-<p>一个持续更新的高质量技术/设计/思维类博文索引库<br />
-「我们站在巨人的肩膀上，但需要知道肩膀在哪」</p>
-</blockquote>
-<hr />
-<h2>2025-08-12日推荐</h2>
-<p><a href="https://www.longluo.me/">优秀的博客</a></p>
-<p>&quot;数学和物理&quot;</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/13"/><category term="Life"/><published>2025-06-01T14:46:50+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/9</id><title>定期分享</title><updated>2025-11-15T07:47:42.228235+00:00</updated><content type="html"><![CDATA[<h2>2025-08-12日推荐</h2>
+<p><a href="https://www.longluo.me/">优秀的博客</a>
+&quot;数学和物理&quot;</p>
 <h2>2025-08-03日推荐</h2>
-<p><a href="https://nonint.com/2023/03/09/gpt-might-be-an-information-virus/">对于GPT的看法</a></p>
-<p>&quot;随着互联网“充斥”着无法被检测的 AI 生成内容，谷歌的搜索算法将无法可靠地运行。人们目前抱怨 ChatGPT 会给出自信却错误的答案，并说谷歌没有这个问题。这些人忽略了一个重要点：ChatGPT 的答案会被发布到网上。谷歌无法检测它们。因此，很快，谷歌也会充斥着这些自信却错误的答案，而且目前没有已知的技术可以过滤掉它们。&quot;</p>
-<p><a href="https://simonwillison.net/2025/Jul/24/recurse-center/">Developing our position on AI</a></p>
-<p>&quot;当你学习自己关心的事物时，你才能学到最好、最有效。只有当你为自己选择工作时，你的工作才会变得有意义，并让你感到自豪。这就是我们第二条自我指导原则是建立你的意志肌肉的原因。你的意志力是指你做决定并付诸行动的能力。为了设定自己的目标，选择自己的道路，并决定什么对你来说重要。就像身体肌肉一样，通过锻炼来建立你的意志肌肉，在这个过程中你可以增强你对可能性的感知&quot;</p>
+<p><a href="https://nonint.com/2023/03/09/gpt-might-be-an-information-virus/">对于GPT的看法</a>
+&quot;随着互联网“充斥”着无法被检测的 AI 生成内容，谷歌的搜索算法将无法可靠地运行。人们目前抱怨 ChatGPT 会给出自信却错误的答案，并说谷歌没有这个问题。这些人忽略了一个重要点：ChatGPT 的答案会被发布到网上。谷歌无法检测它们。因此，很快，谷歌也会充斥着这些自信却错误的答案，而且目前没有已知的技术可以过滤掉它们。&quot;</p>
+<p><a href="https://simonwillison.net/2025/Jul/24/recurse-center/">Developing our position on AI</a>
+&quot;当你学习自己关心的事物时，你才能学到最好、最有效。只有当你为自己选择工作时，你的工作才会变得有意义，并让你感到自豪。这就是我们第二条自我指导原则是建立你的意志肌肉的原因。你的意志力是指你做决定并付诸行动的能力。为了设定自己的目标，选择自己的道路，并决定什么对你来说重要。就像身体肌肉一样，通过锻炼来建立你的意志肌肉，在这个过程中你可以增强你对可能性的感知&quot;</p>
 <h2>2025-07-12日推荐</h2>
-<p>看见一些很有帮助的博客 关于计算机知识和后端开发</p>
-<p><a href="https://unpurerationalist.github.io">arcsin2的博客</a></p>
+<p><a href="https://unpurerationalist.github.io">arcsin2的博客</a>
+看见一些很有帮助的博客 关于计算机知识和后端开发</p>
 <h2>2025-07-11日推荐</h2>
-<p><a href="https://fortune.com/2025/06/20/hugging-face-thomas-wolf-ai-yes-men-on-servers-no-scientific-breakthroughs/">AI 不缺乏知识，它的问题是不会怀疑现有知识</a></p>
-<p>“在科学中，提出问题是困难的部分，找到答案并不难，一旦问题被提出，答案往往很明显，但真正困难的是提出问题，而模型在提出好问题方面非常糟糕。”</p>
-<p><a href="https://maalvika.substack.com/p/being-too-ambitious-is-a-clever-form">过于野心勃勃是一种聪明的自我毁灭形式</a></p>
-<p>&quot;做一百次，远比等一次完美重要。&quot;</p>
+<p><a href="https://fortune.com/2025/06/20/hugging-face-thomas-wolf-ai-yes-men-on-servers-no-scientific-breakthroughs/">AI 不缺乏知识，它的问题是不会怀疑现有知识</a>
+“在科学中，提出问题是困难的部分，找到答案并不难，一旦问题被提出，答案往往很明显，但真正困难的是提出问题，而模型在提出好问题方面非常糟糕。”</p>
+<p><a href="https://maalvika.substack.com/p/being-too-ambitious-is-a-clever-form">过于野心勃勃是一种聪明的自我毁灭形式</a>
+&quot;做一百次，远比等一次完美重要。&quot;</p>
 <h2>2025-07-04日推荐</h2>
 <p><a href="https://halcy.de/blog/2025/06/27/transmitting-data-via-ultrasound-without-any-special-equipment/">超声波传输数据</a></p>
 <h2>2025-06-12日推荐</h2>
@@ -755,7 +749,7 @@ OSI是一种将承担不同责任的基础设施分层，并按照不同层将�
 <h2>2025-04-16推荐</h2>
 <p><a href="https://www.dutchosintguy.com/post/the-slow-collapse-of-critical-thinking-in-osint-due-to-ai">AI导致批判性思维逐渐崩溃</a></p>
 <hr />
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/9"/><category term="Thoughts"/><category term="TOP"/><published>2025-05-28T13:07:22+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/7</id><title>Reddit提问</title><updated>2025-11-15T06:14:56.793943+00:00</updated><content type="html"><![CDATA[<pre><code>hello everyone! Recently, while learning the concurrency model of Go language, I have been very interested in its idea of &quot;Do not communicate by sharing memory&quot; (instant, share memory by communication).The channel mechanism of Go replaces explicit locks with data transfer between goroutines, making concurrent programming safer and simpler. This makes me think: can similar ideas be used in operating system design? For example, replacing traditional IPC mechanisms such as shared memory and semaphore with channels?I would like to discuss the following points with everyone:The inter process/thread communication (IPC) of the operating system currently relies on shared memory, message queues, pipelines, and so on. What are the advantages and challenges of using a mechanism similar to Go channel?Will performance become a bottleneck (such as system call overhead)?Realistic case:Have any existing operating systems or research projects attempted this design? (For example, microkernel, Unikernel, or certain academic systems?)? ）Do you think the abstraction of channels is feasible at the OS level?  
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/9"/><category term="Recommendations"/><published>2025-05-28T13:07:22+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/7</id><title>Reddit提问</title><updated>2025-11-15T07:47:42.465170+00:00</updated><content type="html"><![CDATA[<pre><code>hello everyone! Recently, while learning the concurrency model of Go language, I have been very interested in its idea of &quot;Do not communicate by sharing memory&quot; (instant, share memory by communication).The channel mechanism of Go replaces explicit locks with data transfer between goroutines, making concurrent programming safer and simpler. This makes me think: can similar ideas be used in operating system design? For example, replacing traditional IPC mechanisms such as shared memory and semaphore with channels?I would like to discuss the following points with everyone:The inter process/thread communication (IPC) of the operating system currently relies on shared memory, message queues, pipelines, and so on. What are the advantages and challenges of using a mechanism similar to Go channel?Will performance become a bottleneck (such as system call overhead)?Realistic case:Have any existing operating systems or research projects attempted this design? (For example, microkernel, Unikernel, or certain academic systems?)? ）Do you think the abstraction of channels is feasible at the OS level?  
 大家好！最近，我在学习 Go 语言的并发模型时，对它的 “Do not communicate by sharing memory” （instant， share memory by communication） 的思想非常感兴趣。Go 的通道机制用 goroutine 之间的数据传输取代了显式锁，使并发编程更安全、更简单。这让我思考：类似的思路可以用在作系统设计中吗？例如，用通道替换共享内存和信号量等传统 IPC 机制？我想和大家讨论以下几点：作系统的进程间 / 线程通信（IPC）目前依赖于共享内存、消息队列、管道等。使用类似于 Go 频道的机制有哪些优势和挑战？性能会不会成为瓶颈（如系统调用开销）？现实案例：是否有任何现有的作系统或研究项目尝试过这种设计？（例如，微内核、Unikernel 或某些学术系统？）您认为通道的抽象在 OS 级别是否可行？
 </code></pre>
 <p>这是我第一次重视reddit</p>
@@ -1660,7 +1654,7 @@ go run main.go
 <p>是一种<strong>共享内存 + 同步机制</strong></p>
 </li>
 </ul>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/7"/><category term="reddit"/><category term="Tech"/><published>2025-05-28T12:31:52+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/6</id><title> 提问的智慧</title><updated>2025-11-15T06:14:56.971090+00:00</updated><content type="html"><![CDATA[<p>“好问题！”是诚挚的大力称赞</p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/7"/><category term="reddit"/><category term="Tech"/><published>2025-05-28T12:31:52+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/6</id><title> 提问的智慧</title><updated>2025-11-15T07:47:42.724495+00:00</updated><content type="html"><![CDATA[<p>“好问题！”是诚挚的大力称赞</p>
 <p>你必须花费时间在问题上，而不是遇到问题什么也不付出的直接索取！那和强盗没什么区别！</p>
 <p><em>你并不是一个不劳而获且浪费别人的时间的提问者</em></p>
 <h2>在提问之前</h2>
@@ -1698,7 +1692,7 @@ go run main.go
 <p>RTFM（Read The Fucking Manual）</p>
 <p>STFW（Search The Fucking Web） </p>
 <p>如何知道你已完全搞砸了哈哈哈</p>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/6"/><category term="Thoughts"/><category term="Reading"/><published>2025-05-28T12:26:17+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/5</id><title>你的灯还亮着吗</title><updated>2025-11-15T06:14:57.113422+00:00</updated><content type="html"><![CDATA[<p>今天一下午的时间看了这本书，对我的感触很大，很有助于思考，对于一个问题的思考，一种问题不同的问法，产生不同的问题  </p>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/6"/><category term="Thoughts"/><category term="Reading"/><published>2025-05-28T12:26:17+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/5</id><title>你的灯还亮着吗</title><updated>2025-11-15T07:47:42.920520+00:00</updated><content type="html"><![CDATA[<p>今天一下午的时间看了这本书，对我的感触很大，很有助于思考，对于一个问题的思考，一种问题不同的问法，产生不同的问题  </p>
 <p>文字游戏：一句话不同的停顿产生不同的问题  </p>
 <p>有些事情是不是简单的问题复杂化（这应该是普遍现象） 复杂的问题简单化（很少）  </p>
 <p>你是不是真的想要解决这问题？  </p>
@@ -1710,7 +1704,7 @@ go run main.go
 <p>从多个角度思一个问题问题的产生，最有可能是由谁来解决，或者说有的问题已经给出了最佳的解决人选，你需要让他自身清楚他需要站出来解决问题</p>
 <p>有些问题需要从自身去思考，从而问题也就解决了</p>
 <p>鱼事最后一个见到水的：周围环境的影响！（经常思考自己身处的环境）有一些东西已经被固化了！处在一种模式下，你的思想可能也跟着这种思想牵着</p>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/5"/><category term="Thoughts"/><category term="Life"/><category term="Reading"/><published>2025-05-28T12:25:43+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/3</id><title> 我的2024</title><updated>2025-11-15T06:14:57.455701+00:00</updated><content type="html"><![CDATA[<h1>2024</h1>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/5"/><category term="Thoughts"/><category term="Life"/><category term="Reading"/><published>2025-05-28T12:25:43+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/3</id><title> 我的2024</title><updated>2025-11-15T07:47:43.366964+00:00</updated><content type="html"><![CDATA[<h1>2024</h1>
 <hr />
 <p>date: 2024-10-28</p>
 <hr />
@@ -1922,7 +1916,7 @@ go run main.go
 <h2>总结</h2>
 <p>短短几段文字，是我尽可能串联起我的大学的这段日子，还有很多，没有必要全部列出来，只是在12.27日的今天，我想回忆一下我的过去，尽管他没有意义！时间过得很快，你想自己成为什么呢？你可以没有目的的向前走！中途的风景都是你人生中绚烂的一笔！</p>
 <p>-感谢我遇见的所有人！</p>
-]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/3"/><category term="Life"/><category term="2024"/><published>2025-05-28T11:56:29+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/1</id><title>使用issue创建第一个博客</title><updated>2025-11-15T06:14:57.612798+00:00</updated><content type="html"><![CDATA[<h2>新博客创建</h2>
+]]></content><link href="https://github.com/Zhonghe-zhao/DailyBlog/issues/3"/><category term="Life"/><category term="2024"/><published>2025-05-28T11:56:29+00:00</published></entry><entry><id>https://github.com/Zhonghe-zhao/DailyBlog/issues/1</id><title>使用issue创建第一个博客</title><updated>2025-11-15T07:47:43.559503+00:00</updated><content type="html"><![CDATA[<h2>新博客创建</h2>
 <p>非常喜欢使用issue来和博客建立关系！受yihong老师博客的影响，自己也创建了！并且购买了属于自己的域名</p>
 <p><a href="blog.zhaozhonghe.me">我的博客</a></p>
 <p>链接</p>
