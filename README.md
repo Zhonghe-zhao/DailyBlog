@@ -14,6 +14,21 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 <details>
 <summary><b>展开推荐列表</b></summary>
 
+**2025-08-12** - [优秀的博客](https://www.longluo.me/)
+> "数学和物理"
+
+**2025-08-03** - [对于GPT的看法](https://nonint.com/2023/03/09/gpt-might-be-an-information-virus/)
+> "随着互联网“充斥”着无法被检测的 AI 生成内容，谷歌的搜索算法将无法可靠地运行。人们目前抱怨 ChatGPT 会给出自信却错误的答案，并说谷歌没有这个问题。这些人忽略了一个重要点：ChatGPT ...
+
+**2025-08-03** - [Developing our position on AI](https://simonwillison.net/2025/Jul/24/recurse-center/)
+> "当你学习自己关心的事物时，你才能学到最好、最有效。只有当你为自己选择工作时，你的工作才会变得有意义，并让你感到自豪。这就是我们第二条自我指导原则是建立你的意志肌肉的原因。你的意志力是指你做决定并付诸...
+
+**2025-07-12** - [arcsin2的博客](https://unpurerationalist.github.io)
+> 看见一些很有帮助的博客 关于计算机知识和后端开发
+
+**2025-07-11** - [AI 不缺乏知识，它的问题是不会怀疑现有知识](https://fortune.com/2025/06/20/hugging-face-thomas-wolf-ai-yes-men-on-servers-no-scientific-breakthroughs/)
+> “在科学中，提出问题是困难的部分，找到答案并不难，一旦问题被提出，答案往往很明显，但真正困难的是提出问题，而模型在提出好问题方面非常糟糕。”
+
 </details>
 
 *[直达issue](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)*
