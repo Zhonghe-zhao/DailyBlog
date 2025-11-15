@@ -21,33 +21,32 @@ ANCHOR_NUMBER = 5
 
 # 新的标签配置
 TOP_ISSUES_LABELS = ["Top"]
-RECOMMEND_LABELS = ["recommendations"]
+RECOMMEND_LABELS = ["Recommendations"]
 FRIENDS_LABELS = ["Friends"]
 ABOUT_LABELS = ["About"]
 THINGS_LABELS = ["Things"]
 TODO_ISSUES_LABELS = ["TODO"]
 
-# 自定义分类 - 方案A平铺展示
 CUSTOM_CATEGORIES = {
     "🤓 计算机基础": [
         # 操作系统
-        "os", "os-linux", "os-memory", "os-network",
+        "OS", "OS-Linux", "OS-Memory", "OS-Network",
         # 数据库
-        "db", "db-sql", "db-nosql", "db-optimization", "db-design", "db-transaction",
+        "DB", "DB-SQL", "DB-NoSQL", "DB-Optimization", "DB-Design", "DB-Transaction",
         # 分布式系统
-        "distributed-system", "distributed-consensus", "cloud-native",
+        "Distributed-System", "Distributed-Consensus", "Cloud-Native",
         # 网络
-        "network", "network-protocol",
+        "Network", "Network-Protocol",
         # 数据结构和算法
-        "algorithm", "data-structure", "leetcode", "coding-interview"
+        "Algorithm", "Data-Structure", "LeetCode", "Coding-Interview"
     ],
     "🎭 开发技术": [
-        "tech", "programming", "go", "Python", "c",
-        "web-dev", "backend", 
-        "tools", "ide", "productivity",
-        "devops", "docker", "kubernetes", "ci-cd"
+        "Tech", "Programming", "Go", "Python", "C",
+        "Web-Dev", "Backend", 
+        "Tools", "IDE", "Productivity",
+        "DevOps", "Docker", "Kubernetes", "CI-CD"
     ],
-    "🧭 生活随笔": ["life", "daily-life", "thoughts", "reading", "travel", "photography"]
+    "🧭 生活随笔": ["Life", "Daily-Life", "Thoughts", "Reading", "Travel", "Photography"]
 }
 
 IGNORE_LABELS = (
@@ -239,7 +238,7 @@ def add_md_weekly_recommendations(repo, md, me):
     recommend_issue = recommend_issues[0]
     
     with open(md, "a+", encoding="utf-8") as md_file:
-        md_file.write("## 推荐阅读\n\n")
+        md_file.write("## 📰 推荐阅读\n\n")
         md_file.write("> 精选优质技术文章与深度思考\n\n")
         md_file.write("<details>\n<summary><b>展开推荐列表</b></summary>\n\n")
         
@@ -252,7 +251,7 @@ def add_md_weekly_recommendations(repo, md, me):
             md_file.write(f"> {preview}\n\n")
         
         md_file.write(f"</details>\n\n")
-        md_file.write(f"*[管理推荐...]({recommend_issue.html_url})*\n\n")
+        md_file.write(f"*[直达issue]({recommend_issue.html_url})*\n\n")
 
 def parse_recommendations(content):
     """从issue内容中解析推荐条目 - 修正格式理解"""
