@@ -9,7 +9,7 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 - [与北邮老哥的交谈](https://github.com/Zhonghe-zhao/DailyBlog/issues/18)--2025-06-10
 - [定期分享](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)--2025-05-28
 ## 📖 最近更新
-- [算法+数据结构=程序](https://github.com/Zhonghe-zhao/DailyBlog/issues/81)--2025-11-15
+- [《用 算法与数据结构 重新拆解 Raft：共识的本质不是状态，而是日志》](https://github.com/Zhonghe-zhao/DailyBlog/issues/81)--2025-11-15
 - [稳态🤯](https://github.com/Zhonghe-zhao/DailyBlog/issues/80)--2025-11-14
 - [月亮没了](https://github.com/Zhonghe-zhao/DailyBlog/issues/79)--2025-11-11
 - [友链](https://github.com/Zhonghe-zhao/DailyBlog/issues/78)--2025-11-10
@@ -49,7 +49,7 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 
 ## 🎭 开发技术
 
-- [算法+数据结构=程序](https://github.com/Zhonghe-zhao/DailyBlog/issues/81) - 2025-11-15
+- [《用 算法与数据结构 重新拆解 Raft：共识的本质不是状态，而是日志》](https://github.com/Zhonghe-zhao/DailyBlog/issues/81) - 2025-11-15
 - [6.5840 Lab 2: Key/Value Server](https://github.com/Zhonghe-zhao/DailyBlog/issues/74) - 2025-11-03
 - [Fiber Channel( FC 协议)](https://github.com/Zhonghe-zhao/DailyBlog/issues/73) - 2025-10-29
 - [VM-FT](https://github.com/Zhonghe-zhao/DailyBlog/issues/72) - 2025-10-29
