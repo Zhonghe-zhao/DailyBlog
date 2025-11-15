@@ -229,7 +229,7 @@ def add_md_header(md, repo_name):
         md.write(MD_HEAD.format(repo_name=repo_name))
         md.write("\n")
 
-def add_md_daily_recommendations(repo, md, me):
+def add_md_weekly_recommendations(repo, md, me):
     """从单一issue中提取推荐内容"""
 
     recommend_issues = list(repo.get_issues(labels=RECOMMEND_LABELS))
