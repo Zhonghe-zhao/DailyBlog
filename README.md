@@ -34,6 +34,7 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 *[直达issue](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)*
 
 ## 📖 最近更新
+- [为什么AI时代的面试还是八股文](https://github.com/Zhonghe-zhao/DailyBlog/issues/83)--2025-11-21
 - [第二次面试总结](https://github.com/Zhonghe-zhao/DailyBlog/issues/82)--2025-11-20
 - [《用 算法与数据结构 重新拆解 Raft：共识的本质不是状态，而是日志》](https://github.com/Zhonghe-zhao/DailyBlog/issues/81)--2025-11-15
 - [稳态🤯](https://github.com/Zhonghe-zhao/DailyBlog/issues/80)--2025-11-14
@@ -43,7 +44,6 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 - [Blog完全体](https://github.com/Zhonghe-zhao/DailyBlog/issues/76)--2025-11-09
 - [丢失更新](https://github.com/Zhonghe-zhao/DailyBlog/issues/75)--2025-11-04
 - [6.5840 Lab 2: Key/Value Server](https://github.com/Zhonghe-zhao/DailyBlog/issues/74)--2025-11-03
-- [Fiber Channel( FC 协议)](https://github.com/Zhonghe-zhao/DailyBlog/issues/73)--2025-10-29
 ## [友情链接](https://github.com/Zhonghe-zhao/DailyBlog/issues/78)
 <details><summary>显示</summary>
 <table>
@@ -90,13 +90,14 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 
 ## 🧭 生活随笔
 
+- [为什么AI时代的面试还是八股文](https://github.com/Zhonghe-zhao/DailyBlog/issues/83) - 2025-11-21
 - [稳态🤯](https://github.com/Zhonghe-zhao/DailyBlog/issues/80) - 2025-11-14
 - [月亮没了](https://github.com/Zhonghe-zhao/DailyBlog/issues/79) - 2025-11-11
 - [Blog完全体](https://github.com/Zhonghe-zhao/DailyBlog/issues/76) - 2025-11-09
 - [重装c盘](https://github.com/Zhonghe-zhao/DailyBlog/issues/70) - 2025-10-18
-- [瓶颈 - 近期总结](https://github.com/Zhonghe-zhao/DailyBlog/issues/69) - 2025-10-14
 <details><summary>显示更多</summary>
 
+- [瓶颈 - 近期总结](https://github.com/Zhonghe-zhao/DailyBlog/issues/69) - 2025-10-14
 - [时间](https://github.com/Zhonghe-zhao/DailyBlog/issues/57) - 2025-07-21
 - [大二下半学期结束！](https://github.com/Zhonghe-zhao/DailyBlog/issues/56) - 2025-07-20
 - [Kevin Kelly](https://github.com/Zhonghe-zhao/DailyBlog/issues/31) - 2025-06-27
