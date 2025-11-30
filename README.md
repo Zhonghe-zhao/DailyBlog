@@ -35,7 +35,7 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 
 ## 📖 最近更新
 - [北京第三天](https://github.com/Zhonghe-zhao/DailyBlog/issues/87)--2025-11-30
-- [北京第二日](https://github.com/Zhonghe-zhao/DailyBlog/issues/86)--2025-11-29
+- [北京第二天](https://github.com/Zhonghe-zhao/DailyBlog/issues/86)--2025-11-29
 - [实习](https://github.com/Zhonghe-zhao/DailyBlog/issues/85)--2025-11-27
 - [为什么AI时代的面试还是八股文](https://github.com/Zhonghe-zhao/DailyBlog/issues/83)--2025-11-21
 - [《用 算法与数据结构 重新拆解 Raft：共识的本质不是状态，而是日志》](https://github.com/Zhonghe-zhao/DailyBlog/issues/81)--2025-11-15
