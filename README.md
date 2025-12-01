@@ -34,6 +34,7 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 *[直达issue](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)*
 
 ## 📖 最近更新
+- [北京第四天(入职第一天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/88)--2025-12-01
 - [北京第三天](https://github.com/Zhonghe-zhao/DailyBlog/issues/87)--2025-11-30
 - [北京第二天](https://github.com/Zhonghe-zhao/DailyBlog/issues/86)--2025-11-29
 - [实习](https://github.com/Zhonghe-zhao/DailyBlog/issues/85)--2025-11-27
@@ -43,7 +44,6 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 - [月亮没了](https://github.com/Zhonghe-zhao/DailyBlog/issues/79)--2025-11-11
 - [友链](https://github.com/Zhonghe-zhao/DailyBlog/issues/78)--2025-11-10
 - [成长计划(随时改变😆)](https://github.com/Zhonghe-zhao/DailyBlog/issues/77)--2025-11-09
-- [Blog完全体](https://github.com/Zhonghe-zhao/DailyBlog/issues/76)--2025-11-09
 ## [友情链接](https://github.com/Zhonghe-zhao/DailyBlog/issues/78)
 <details><summary>显示</summary>
 <table>
