@@ -34,6 +34,7 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 *[直达issue](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)*
 
 ## 📖 最近更新
+- [北京第六天(入职第三天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/90)--2025-12-03
 - [北京第五天(入职第二天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/89)--2025-12-02
 - [北京第四天(入职第一天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/88)--2025-12-01
 - [北京第三天](https://github.com/Zhonghe-zhao/DailyBlog/issues/87)--2025-11-30
@@ -43,7 +44,6 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 - [《用 算法与数据结构 重新拆解 Raft：共识的本质不是状态，而是日志》](https://github.com/Zhonghe-zhao/DailyBlog/issues/81)--2025-11-15
 - [稳态🤯](https://github.com/Zhonghe-zhao/DailyBlog/issues/80)--2025-11-14
 - [月亮没了](https://github.com/Zhonghe-zhao/DailyBlog/issues/79)--2025-11-11
-- [友链](https://github.com/Zhonghe-zhao/DailyBlog/issues/78)--2025-11-10
 ## [友情链接](https://github.com/Zhonghe-zhao/DailyBlog/issues/78)
 <details><summary>显示</summary>
 <table>
