@@ -119,11 +119,13 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 </details>
 
 ## TODO
-TODO list from [成长计划(随时改变😆)](https://github.com/Zhonghe-zhao/DailyBlog/issues/77)--2 jobs to do--4 jobs done
+TODO list from [成长计划(随时改变😆)](https://github.com/Zhonghe-zhao/DailyBlog/issues/77)--2 jobs to do--6 jobs done
+- [x] 第一份实习 (2024.12.1日已实现)
 - [x] 坚持跑步 
 - [x] 保持学习 
 - [x] 保持思考 
 - [x] 笔记输出
+- [x]  面对到来的一切
 - [ ] 出国旅游
-- [ ] 第一份实习
+- [ ] 大厂工作
 
