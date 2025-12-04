@@ -121,7 +121,7 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 ## TODO
 TODO list from [成长计划(随时改变😆)](https://github.com/Zhonghe-zhao/DailyBlog/issues/77)--2 jobs to do--6 jobs done
 - [x] 第一份实习 (2024.12.1日已实现)
-- [x] 坚持跑步 
+- [x] 坚持跑步 (改为每天步行 骑车 都可以哈哈)
 - [x] 保持学习 
 - [x] 保持思考 
 - [x] 笔记输出
