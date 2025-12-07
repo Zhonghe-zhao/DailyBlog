@@ -5,6 +5,8 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 [RSS Feed](https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/master/feed.xml)
 
 ## 🦄 置顶文章
+- [与祥凯老哥见面了](https://github.com/Zhonghe-zhao/DailyBlog/issues/93)--2025-12-07
+- [21岁生日(2025 总结) (北京第七天) (入职第四天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/91)--2025-12-04
 - [Blog完全体](https://github.com/Zhonghe-zhao/DailyBlog/issues/76)--2025-11-09
 - [与北邮老哥的交谈](https://github.com/Zhonghe-zhao/DailyBlog/issues/18)--2025-06-10
 ## 📰 推荐阅读
@@ -34,6 +36,7 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 *[直达issue](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)*
 
 ## 📖 最近更新
+- [与祥凯老哥见面了](https://github.com/Zhonghe-zhao/DailyBlog/issues/93)--2025-12-07
 - [北京第八天(迎来第一个假期)](https://github.com/Zhonghe-zhao/DailyBlog/issues/92)--2025-12-05
 - [21岁生日(2025 总结) (北京第七天) (入职第四天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/91)--2025-12-04
 - [北京第六天(入职第三天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/90)--2025-12-03
@@ -43,7 +46,6 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 - [北京第二天](https://github.com/Zhonghe-zhao/DailyBlog/issues/86)--2025-11-29
 - [实习](https://github.com/Zhonghe-zhao/DailyBlog/issues/85)--2025-11-27
 - [为什么AI时代的面试还是八股文](https://github.com/Zhonghe-zhao/DailyBlog/issues/83)--2025-11-21
-- [《用 算法与数据结构 重新拆解 Raft：共识的本质不是状态，而是日志》](https://github.com/Zhonghe-zhao/DailyBlog/issues/81)--2025-11-15
 ## [友情链接](https://github.com/Zhonghe-zhao/DailyBlog/issues/78)
 <details><summary>显示</summary>
 <table>
