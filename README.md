@@ -16,20 +16,20 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 <details>
 <summary><b>展开推荐列表</b></summary>
 
+**2025-12-12** - [快一点不是一件坏事](https://lemire.me/blog/2025/12/05/why-speed-matters/)
+> “文章讲述了,我们应该保持一种快速的学习方式, 我不知道大家是怎么想的, 适度的紧张也写确实也很有帮助”
+
+**2025-12-12** - [工业发明家](https://www.bedelstein.com/post/mcmaster-carr)
+> "如果一件东西100%实用，它就一定是漂亮的，比如没有丑陋的钉子或丑陋的锤子。但是，有很多丑陋的汽车，因为汽车并不是所有部分都实用。"
+
+**2025-12-12** - [[对每一个要求“一点点”时间的人说不](https://thoughtcatalog.com/ryan-holiday/2017/01/to-everyone-who-asks-for-just-a-little-of-your-time/)](https://thoughtcatalog.com/ryan-holiday/2017/01/to-everyone-who-asks-for-just-a-little-of-your-time/)
+> "时间是我们最不可替代的资产——我们无法购买更多的时间。我们一秒钟都无法收回失去的时间。我们只能希望尽可能少地浪费。"
+
 **2025-11-15** - [Bill_Gates](https://www.goodreads.com/author/quotes/23470.Bill_Gates)
 > "比尔盖茨说过的一些话"
 
 **2025-11-15** - [Your data model is your destiny](https://notes.mtb.xyz/p/your-data-model-is-your-destiny)
 > "你把用户关系建成 “一维数组”，你永远写不出 Facebook 那种“图关系推荐”。 你把文章存成 “纯文本文件”，你就做不出知乎那种实时全文搜索。 你把银行交易存成 “可覆盖字段”，你永远无法实现...
-
-**2025-11-15** - [语言无关的编程](https://joaquimrocha.com/2025/08/31/language-agnostic-programming-why-you-may-still-need-code/)
-> ”如果 AI 能将我们的与语言翻译成可编译代码，那么我们还需要学习编程吗？“
-
-**2025-08-12** - [优秀的博客](https://www.longluo.me/)
-> "数学和物理"
-
-**2025-08-03** - [对于GPT的看法](https://nonint.com/2023/03/09/gpt-might-be-an-information-virus/)
-> "随着互联网“充斥”着无法被检测的 AI 生成内容，谷歌的搜索算法将无法可靠地运行。人们目前抱怨 ChatGPT 会给出自信却错误的答案，并说谷歌没有这个问题。这些人忽略了一个重要点：ChatGPT ...
 
 </details>
 
