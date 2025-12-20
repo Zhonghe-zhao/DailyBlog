@@ -36,6 +36,7 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 *[直达issue](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)*
 
 ## 📖 最近更新
+- [学习的能力](https://github.com/Zhonghe-zhao/DailyBlog/issues/96)--2025-12-20
 - [近期工作思考](https://github.com/Zhonghe-zhao/DailyBlog/issues/95)--2025-12-17
 - [北京第二周小总结](https://github.com/Zhonghe-zhao/DailyBlog/issues/94)--2025-12-13
 - [与祥凯老哥见面了](https://github.com/Zhonghe-zhao/DailyBlog/issues/93)--2025-12-07
@@ -45,7 +46,6 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 - [北京第五天(入职第二天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/89)--2025-12-02
 - [北京第四天(入职第一天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/88)--2025-12-01
 - [北京第三天](https://github.com/Zhonghe-zhao/DailyBlog/issues/87)--2025-11-30
-- [北京第二天](https://github.com/Zhonghe-zhao/DailyBlog/issues/86)--2025-11-29
 ## [友情链接](https://github.com/Zhonghe-zhao/DailyBlog/issues/78)
 <details><summary>显示</summary>
 <table>
@@ -80,13 +80,14 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 
 ## 🎭 开发技术
 
+- [学习的能力](https://github.com/Zhonghe-zhao/DailyBlog/issues/96) - 2025-12-20
 - [近期工作思考](https://github.com/Zhonghe-zhao/DailyBlog/issues/95) - 2025-12-17
 - [《用 算法与数据结构 重新拆解 Raft：共识的本质不是状态，而是日志》](https://github.com/Zhonghe-zhao/DailyBlog/issues/81) - 2025-11-15
 - [6.5840 Lab 2: Key/Value Server](https://github.com/Zhonghe-zhao/DailyBlog/issues/74) - 2025-11-03
 - [Fiber Channel( FC 协议)](https://github.com/Zhonghe-zhao/DailyBlog/issues/73) - 2025-10-29
-- [VM-FT](https://github.com/Zhonghe-zhao/DailyBlog/issues/72) - 2025-10-29
 <details><summary>显示更多</summary>
 
+- [VM-FT](https://github.com/Zhonghe-zhao/DailyBlog/issues/72) - 2025-10-29
 - [6.5840 Lab 1: MapReduce](https://github.com/Zhonghe-zhao/DailyBlog/issues/71) - 2025-10-23
 - [Reddit提问](https://github.com/Zhonghe-zhao/DailyBlog/issues/7) - 2025-05-28
 </details>
