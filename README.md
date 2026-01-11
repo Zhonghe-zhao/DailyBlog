@@ -36,6 +36,7 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 *[直达issue](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)*
 
 ## 📖 最近更新
+- [游戏：《奇异人生》](https://github.com/Zhonghe-zhao/DailyBlog/issues/98)--2026-01-11
 - [概念](https://github.com/Zhonghe-zhao/DailyBlog/issues/97)--2025-12-22
 - [学习的能力](https://github.com/Zhonghe-zhao/DailyBlog/issues/96)--2025-12-20
 - [近期工作思考](https://github.com/Zhonghe-zhao/DailyBlog/issues/95)--2025-12-17
@@ -45,7 +46,6 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 - [21岁生日(2025 总结) (北京第七天) (入职第四天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/91)--2025-12-04
 - [北京第六天(入职第三天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/90)--2025-12-03
 - [北京第五天(入职第二天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/89)--2025-12-02
-- [北京第四天(入职第一天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/88)--2025-12-01
 ## [友情链接](https://github.com/Zhonghe-zhao/DailyBlog/issues/78)
 <details><summary>显示</summary>
 <table>
@@ -94,13 +94,14 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 
 ## 🧭 生活随笔
 
+- [游戏：《奇异人生》](https://github.com/Zhonghe-zhao/DailyBlog/issues/98) - 2026-01-11
 - [概念](https://github.com/Zhonghe-zhao/DailyBlog/issues/97) - 2025-12-22
 - [北京第二周小总结](https://github.com/Zhonghe-zhao/DailyBlog/issues/94) - 2025-12-13
 - [北京第八天(迎来第一个假期)](https://github.com/Zhonghe-zhao/DailyBlog/issues/92) - 2025-12-05
 - [21岁生日(2025 总结) (北京第七天) (入职第四天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/91) - 2025-12-04
-- [北京第五天(入职第二天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/89) - 2025-12-02
 <details><summary>显示更多</summary>
 
+- [北京第五天(入职第二天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/89) - 2025-12-02
 - [北京第三天](https://github.com/Zhonghe-zhao/DailyBlog/issues/87) - 2025-11-30
 - [北京第二天](https://github.com/Zhonghe-zhao/DailyBlog/issues/86) - 2025-11-29
 - [实习](https://github.com/Zhonghe-zhao/DailyBlog/issues/85) - 2025-11-27
