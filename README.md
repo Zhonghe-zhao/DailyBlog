@@ -16,6 +16,12 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 <details>
 <summary><b>展开推荐列表</b></summary>
 
+**2025-12-26** - [别关闭你的大脑](https://computingeducationthings.substack.com/p/22-dont-turn-your-brain-off)
+> “文章讲述了一位工程师对待AI的看法应该如何使用AI,什么能力才是真正重要的”
+
+**2025-12-26** - [没有什么是必然的](https://blog.mathieui.net/this-is-not-the-future.html)
+> 
+
 **2025-12-12** - [快一点不是一件坏事](https://lemire.me/blog/2025/12/05/why-speed-matters/)
 > “文章讲述了,我们应该保持一种快速的学习方式, 我不知道大家是怎么想的, 适度的紧张也写确实也很有帮助”
 
@@ -24,12 +30,6 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 
 **2025-12-12** - [[对每一个要求“一点点”时间的人说不](https://thoughtcatalog.com/ryan-holiday/2017/01/to-everyone-who-asks-for-just-a-little-of-your-time/)](https://thoughtcatalog.com/ryan-holiday/2017/01/to-everyone-who-asks-for-just-a-little-of-your-time/)
 > "时间是我们最不可替代的资产——我们无法购买更多的时间。我们一秒钟都无法收回失去的时间。我们只能希望尽可能少地浪费。"
-
-**2025-11-15** - [Bill_Gates](https://www.goodreads.com/author/quotes/23470.Bill_Gates)
-> "比尔盖茨说过的一些话"
-
-**2025-11-15** - [Your data model is your destiny](https://notes.mtb.xyz/p/your-data-model-is-your-destiny)
-> "你把用户关系建成 “一维数组”，你永远写不出 Facebook 那种“图关系推荐”。 你把文章存成 “纯文本文件”，你就做不出知乎那种实时全文搜索。 你把银行交易存成 “可覆盖字段”，你永远无法实现...
 
 </details>
 
