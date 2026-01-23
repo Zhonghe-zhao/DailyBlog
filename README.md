@@ -28,7 +28,7 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 **2025-12-12** - [工业发明家](https://www.bedelstein.com/post/mcmaster-carr)
 > "如果一件东西100%实用，它就一定是漂亮的，比如没有丑陋的钉子或丑陋的锤子。但是，有很多丑陋的汽车，因为汽车并不是所有部分都实用。"
 
-**2025-12-12** - [[对每一个要求“一点点”时间的人说不](https://thoughtcatalog.com/ryan-holiday/2017/01/to-everyone-who-asks-for-just-a-little-of-your-time/)](https://thoughtcatalog.com/ryan-holiday/2017/01/to-everyone-who-asks-for-just-a-little-of-your-time/)
+**2025-12-12** - [[对每一个要求“一点点”时间的人说不](https://thoughtcatalog.com/ryan-holiday/2017/01/to-everyone-who-asks-for-just-a-little-of-your-time/)
 > "时间是我们最不可替代的资产——我们无法购买更多的时间。我们一秒钟都无法收回失去的时间。我们只能希望尽可能少地浪费。"
 
 </details>
