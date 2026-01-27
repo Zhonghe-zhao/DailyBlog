@@ -36,6 +36,7 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 *[直达issue](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)*
 
 ## 📖 最近更新
+- [2026: 玩过的游戏](https://github.com/Zhonghe-zhao/DailyBlog/issues/99)--2026-01-27
 - [游戏：《奇异人生》](https://github.com/Zhonghe-zhao/DailyBlog/issues/98)--2026-01-11
 - [概念](https://github.com/Zhonghe-zhao/DailyBlog/issues/97)--2025-12-22
 - [学习的能力](https://github.com/Zhonghe-zhao/DailyBlog/issues/96)--2025-12-20
@@ -45,7 +46,6 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 - [北京第八天(迎来第一个假期)](https://github.com/Zhonghe-zhao/DailyBlog/issues/92)--2025-12-05
 - [21岁生日(2025 总结) (北京第七天) (入职第四天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/91)--2025-12-04
 - [北京第六天(入职第三天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/90)--2025-12-03
-- [北京第五天(入职第二天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/89)--2025-12-02
 ## [友情链接](https://github.com/Zhonghe-zhao/DailyBlog/issues/78)
 <details><summary>显示</summary>
 <table>
@@ -68,40 +68,35 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 
 ## 🤓 计算机基础
 
-- [《用 算法与数据结构 重新拆解 Raft：共识的本质不是状态，而是日志》](https://github.com/Zhonghe-zhao/DailyBlog/issues/81) - 2025-11-15
 - [丢失更新](https://github.com/Zhonghe-zhao/DailyBlog/issues/75) - 2025-11-04
 - [6.5840 Lab 2: Key/Value Server](https://github.com/Zhonghe-zhao/DailyBlog/issues/74) - 2025-11-03
 - [Fiber Channel( FC 协议)](https://github.com/Zhonghe-zhao/DailyBlog/issues/73) - 2025-10-29
 - [VM-FT](https://github.com/Zhonghe-zhao/DailyBlog/issues/72) - 2025-10-29
-<details><summary>显示更多</summary>
-
 - [6.5840 Lab 1: MapReduce](https://github.com/Zhonghe-zhao/DailyBlog/issues/71) - 2025-10-23
-</details>
 
 ## 🎭 开发技术
 
 - [学习的能力](https://github.com/Zhonghe-zhao/DailyBlog/issues/96) - 2025-12-20
 - [近期工作思考](https://github.com/Zhonghe-zhao/DailyBlog/issues/95) - 2025-12-17
-- [《用 算法与数据结构 重新拆解 Raft：共识的本质不是状态，而是日志》](https://github.com/Zhonghe-zhao/DailyBlog/issues/81) - 2025-11-15
 - [6.5840 Lab 2: Key/Value Server](https://github.com/Zhonghe-zhao/DailyBlog/issues/74) - 2025-11-03
 - [Fiber Channel( FC 协议)](https://github.com/Zhonghe-zhao/DailyBlog/issues/73) - 2025-10-29
+- [VM-FT](https://github.com/Zhonghe-zhao/DailyBlog/issues/72) - 2025-10-29
 <details><summary>显示更多</summary>
 
-- [VM-FT](https://github.com/Zhonghe-zhao/DailyBlog/issues/72) - 2025-10-29
 - [6.5840 Lab 1: MapReduce](https://github.com/Zhonghe-zhao/DailyBlog/issues/71) - 2025-10-23
 - [Reddit提问](https://github.com/Zhonghe-zhao/DailyBlog/issues/7) - 2025-05-28
 </details>
 
 ## 🧭 生活随笔
 
+- [2026: 玩过的游戏](https://github.com/Zhonghe-zhao/DailyBlog/issues/99) - 2026-01-27
 - [游戏：《奇异人生》](https://github.com/Zhonghe-zhao/DailyBlog/issues/98) - 2026-01-11
 - [概念](https://github.com/Zhonghe-zhao/DailyBlog/issues/97) - 2025-12-22
 - [北京第二周小总结](https://github.com/Zhonghe-zhao/DailyBlog/issues/94) - 2025-12-13
 - [北京第八天(迎来第一个假期)](https://github.com/Zhonghe-zhao/DailyBlog/issues/92) - 2025-12-05
-- [21岁生日(2025 总结) (北京第七天) (入职第四天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/91) - 2025-12-04
 <details><summary>显示更多</summary>
 
-- [北京第五天(入职第二天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/89) - 2025-12-02
+- [21岁生日(2025 总结) (北京第七天) (入职第四天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/91) - 2025-12-04
 - [北京第三天](https://github.com/Zhonghe-zhao/DailyBlog/issues/87) - 2025-11-30
 - [北京第二天](https://github.com/Zhonghe-zhao/DailyBlog/issues/86) - 2025-11-29
 - [实习](https://github.com/Zhonghe-zhao/DailyBlog/issues/85) - 2025-11-27
