@@ -36,6 +36,7 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 *[直达issue](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)*
 
 ## 📖 最近更新
+- [真正意义上我的第一部手机](https://github.com/Zhonghe-zhao/DailyBlog/issues/102)--2026-02-01
 - [用户需求--->产品产出](https://github.com/Zhonghe-zhao/DailyBlog/issues/101)--2026-01-30
 - [总结近期的实习内容](https://github.com/Zhonghe-zhao/DailyBlog/issues/100)--2026-01-30
 - [2026: 玩过的游戏](https://github.com/Zhonghe-zhao/DailyBlog/issues/99)--2026-01-27
@@ -45,7 +46,6 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 - [近期工作思考](https://github.com/Zhonghe-zhao/DailyBlog/issues/95)--2025-12-17
 - [北京第二周小总结](https://github.com/Zhonghe-zhao/DailyBlog/issues/94)--2025-12-13
 - [与祥凯老哥见面了](https://github.com/Zhonghe-zhao/DailyBlog/issues/93)--2025-12-07
-- [北京第八天(迎来第一个假期)](https://github.com/Zhonghe-zhao/DailyBlog/issues/92)--2025-12-05
 ## [友情链接](https://github.com/Zhonghe-zhao/DailyBlog/issues/78)
 <details><summary>显示</summary>
 <table>
@@ -89,13 +89,14 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 
 ## 🧭 生活随笔
 
+- [真正意义上我的第一部手机](https://github.com/Zhonghe-zhao/DailyBlog/issues/102) - 2026-02-01
 - [用户需求--->产品产出](https://github.com/Zhonghe-zhao/DailyBlog/issues/101) - 2026-01-30
 - [2026: 玩过的游戏](https://github.com/Zhonghe-zhao/DailyBlog/issues/99) - 2026-01-27
 - [游戏：《奇异人生》](https://github.com/Zhonghe-zhao/DailyBlog/issues/98) - 2026-01-11
 - [概念](https://github.com/Zhonghe-zhao/DailyBlog/issues/97) - 2025-12-22
-- [北京第二周小总结](https://github.com/Zhonghe-zhao/DailyBlog/issues/94) - 2025-12-13
 <details><summary>显示更多</summary>
 
+- [北京第二周小总结](https://github.com/Zhonghe-zhao/DailyBlog/issues/94) - 2025-12-13
 - [北京第八天(迎来第一个假期)](https://github.com/Zhonghe-zhao/DailyBlog/issues/92) - 2025-12-05
 - [21岁生日(2025 总结) (北京第七天) (入职第四天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/91) - 2025-12-04
 - [北京第三天](https://github.com/Zhonghe-zhao/DailyBlog/issues/87) - 2025-11-30
