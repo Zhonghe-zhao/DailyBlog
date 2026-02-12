@@ -36,6 +36,7 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 *[直达issue](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)*
 
 ## 📖 最近更新
+- [以现在的视角看待大模型](https://github.com/Zhonghe-zhao/DailyBlog/issues/105)--2026-02-12
 - [公司的产品到底是怎么产出的？](https://github.com/Zhonghe-zhao/DailyBlog/issues/104)--2026-02-06
 - [电子政务微服务系统问题排查](https://github.com/Zhonghe-zhao/DailyBlog/issues/103)--2026-02-06
 - [真正意义上我的第一部手机](https://github.com/Zhonghe-zhao/DailyBlog/issues/102)--2026-02-01
@@ -45,7 +46,6 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 - [游戏：《奇异人生》](https://github.com/Zhonghe-zhao/DailyBlog/issues/98)--2026-01-11
 - [概念](https://github.com/Zhonghe-zhao/DailyBlog/issues/97)--2025-12-22
 - [学习的能力](https://github.com/Zhonghe-zhao/DailyBlog/issues/96)--2025-12-20
-- [近期工作思考](https://github.com/Zhonghe-zhao/DailyBlog/issues/95)--2025-12-17
 ## [友情链接](https://github.com/Zhonghe-zhao/DailyBlog/issues/78)
 <details><summary>显示</summary>
 <table>
@@ -76,13 +76,14 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 
 ## 🎭 开发技术
 
+- [以现在的视角看待大模型](https://github.com/Zhonghe-zhao/DailyBlog/issues/105) - 2026-02-12
 - [学习的能力](https://github.com/Zhonghe-zhao/DailyBlog/issues/96) - 2025-12-20
 - [近期工作思考](https://github.com/Zhonghe-zhao/DailyBlog/issues/95) - 2025-12-17
 - [6.5840 Lab 2: Key/Value Server](https://github.com/Zhonghe-zhao/DailyBlog/issues/74) - 2025-11-03
 - [Fiber Channel( FC 协议)](https://github.com/Zhonghe-zhao/DailyBlog/issues/73) - 2025-10-29
-- [VM-FT](https://github.com/Zhonghe-zhao/DailyBlog/issues/72) - 2025-10-29
 <details><summary>显示更多</summary>
 
+- [VM-FT](https://github.com/Zhonghe-zhao/DailyBlog/issues/72) - 2025-10-29
 - [6.5840 Lab 1: MapReduce](https://github.com/Zhonghe-zhao/DailyBlog/issues/71) - 2025-10-23
 - [Reddit提问](https://github.com/Zhonghe-zhao/DailyBlog/issues/7) - 2025-05-28
 </details>
