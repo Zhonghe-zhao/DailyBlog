@@ -36,6 +36,7 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 *[直达issue](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)*
 
 ## 📖 最近更新
+- [游戏: 《地铁 离去》](https://github.com/Zhonghe-zhao/DailyBlog/issues/106)--2026-02-16
 - [以现在的视角看待大模型](https://github.com/Zhonghe-zhao/DailyBlog/issues/105)--2026-02-12
 - [公司的产品到底是怎么产出的？](https://github.com/Zhonghe-zhao/DailyBlog/issues/104)--2026-02-06
 - [电子政务微服务系统问题排查](https://github.com/Zhonghe-zhao/DailyBlog/issues/103)--2026-02-06
@@ -45,7 +46,6 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 - [2026: 玩过的游戏](https://github.com/Zhonghe-zhao/DailyBlog/issues/99)--2026-01-27
 - [游戏：《奇异人生》](https://github.com/Zhonghe-zhao/DailyBlog/issues/98)--2026-01-11
 - [概念](https://github.com/Zhonghe-zhao/DailyBlog/issues/97)--2025-12-22
-- [学习的能力](https://github.com/Zhonghe-zhao/DailyBlog/issues/96)--2025-12-20
 ## [友情链接](https://github.com/Zhonghe-zhao/DailyBlog/issues/78)
 <details><summary>显示</summary>
 <table>
@@ -90,13 +90,14 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 
 ## 🧭 生活随笔
 
+- [游戏: 《地铁 离去》](https://github.com/Zhonghe-zhao/DailyBlog/issues/106) - 2026-02-16
 - [真正意义上我的第一部手机](https://github.com/Zhonghe-zhao/DailyBlog/issues/102) - 2026-02-01
 - [用户需求--->产品产出](https://github.com/Zhonghe-zhao/DailyBlog/issues/101) - 2026-01-30
 - [2026: 玩过的游戏](https://github.com/Zhonghe-zhao/DailyBlog/issues/99) - 2026-01-27
 - [游戏：《奇异人生》](https://github.com/Zhonghe-zhao/DailyBlog/issues/98) - 2026-01-11
-- [概念](https://github.com/Zhonghe-zhao/DailyBlog/issues/97) - 2025-12-22
 <details><summary>显示更多</summary>
 
+- [概念](https://github.com/Zhonghe-zhao/DailyBlog/issues/97) - 2025-12-22
 - [北京第二周小总结](https://github.com/Zhonghe-zhao/DailyBlog/issues/94) - 2025-12-13
 - [北京第八天(迎来第一个假期)](https://github.com/Zhonghe-zhao/DailyBlog/issues/92) - 2025-12-05
 - [21岁生日(2025 总结) (北京第七天) (入职第四天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/91) - 2025-12-04
