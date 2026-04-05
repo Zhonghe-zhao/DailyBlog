@@ -36,6 +36,7 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 *[直达issue](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)*
 
 ## 📖 最近更新
+- [初见北京总结](https://github.com/Zhonghe-zhao/DailyBlog/issues/110)--2026-04-05
 - [实习总结 (在公司封存)](https://github.com/Zhonghe-zhao/DailyBlog/issues/109)--2026-04-03
 - [一次网络问题的排查](https://github.com/Zhonghe-zhao/DailyBlog/issues/108)--2026-03-13
 - [2026 年后的一些想法和感悟](https://github.com/Zhonghe-zhao/DailyBlog/issues/107)--2026-03-13
@@ -45,7 +46,6 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 - [电子政务微服务系统问题排查](https://github.com/Zhonghe-zhao/DailyBlog/issues/103)--2026-02-06
 - [真正意义上我的第一部手机](https://github.com/Zhonghe-zhao/DailyBlog/issues/102)--2026-02-01
 - [用户需求--->产品产出](https://github.com/Zhonghe-zhao/DailyBlog/issues/101)--2026-01-30
-- [总结近期的实习内容](https://github.com/Zhonghe-zhao/DailyBlog/issues/100)--2026-01-30
 ## [友情链接](https://github.com/Zhonghe-zhao/DailyBlog/issues/78)
 <details><summary>显示</summary>
 <table>
