@@ -36,6 +36,7 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 *[直达issue](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)*
 
 ## 📖 最近更新
+- [Codex最佳订阅方法(仅限Apple)](https://github.com/Zhonghe-zhao/DailyBlog/issues/114)--2026-06-20
 - [切断网络的一天](https://github.com/Zhonghe-zhao/DailyBlog/issues/113)--2026-05-31
 - [博客一周年](https://github.com/Zhonghe-zhao/DailyBlog/issues/112)--2026-05-28
 - [我的简历(持续更新)](https://github.com/Zhonghe-zhao/DailyBlog/issues/111)--2026-04-18
@@ -45,7 +46,6 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 - [2026 年后的一些想法和感悟](https://github.com/Zhonghe-zhao/DailyBlog/issues/107)--2026-03-13
 - [游戏: 《地铁 离去》](https://github.com/Zhonghe-zhao/DailyBlog/issues/106)--2026-02-16
 - [以现在的视角看待大模型](https://github.com/Zhonghe-zhao/DailyBlog/issues/105)--2026-02-12
-- [公司的产品到底是怎么产出的？](https://github.com/Zhonghe-zhao/DailyBlog/issues/104)--2026-02-06
 ## [友情链接](https://github.com/Zhonghe-zhao/DailyBlog/issues/78)
 <details><summary>显示</summary>
 <table>
