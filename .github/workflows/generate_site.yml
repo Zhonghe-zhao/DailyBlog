@@ -21,6 +21,7 @@ on:
     paths:
       - config.toml
       - site_overrides/**
+      - scripts/**
       - .github/workflows/generate_site.yml
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
@@ -64,7 +65,8 @@ jobs:
           mkdir -p output/templates output/static output/content
           cp -R site_overrides/templates/. output/templates/
           cp -R site_overrides/static/. output/static/
-          cp site_overrides/content/_index.md output/content/_index.md
+          cp -R site_overrides/content/. output/content/
+          python3 scripts/prepare_site.py output
           gh release download $ZOLA_VERSION --repo getzola/zola -p '*x86_64-unknown-linux*' -O- | tar -xz -C /tmp
           mv /tmp/zola /usr/local/bin
           cd output && zola check --skip-external-links && zola build --base-url "$BASE_URL"

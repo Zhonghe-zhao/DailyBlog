@@ -1,4 +1,6 @@
 {% macro title(page) %}
+<header class="article-head"><div class="article-head__index"><span>FIELD NOTE</span><strong>{{ page.date | date(format="%y%m%d") }}</strong></div><div class="article-head__main"><p class="ui-label">PUBLISHED {{ page.date | date(format="%Y.%m.%d") }}</p><h1>{{ page.title }}</h1><div class="article-meta"><span>{{ page.reading_time }} 分钟阅读</span><span>{{ page.word_count }} 字</span>{% if page.extra.issue_url %}<a href="{{ page.extra.issue_url }}">GITHUB ISSUE ↗</a>{% endif %}</div></div></header>
+{# OLD MACRO
 <header class="post__header">
   <p class="post__kicker">FIELD NOTE · {{ page.date | date(format="%Y.%m.%d") }}</p>
   <h1 class="post__title"><a href="{{ page.permalink }}">{{ page.title }}</a></h1>
@@ -10,4 +12,5 @@
     {% endif %}
   </div>
 </header>
+#}
 {% endmacro title %}

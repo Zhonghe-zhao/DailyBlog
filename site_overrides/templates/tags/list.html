@@ -1,0 +1,15 @@
+{% extends "index.html" %}
+
+{% block title %}索引 · {{ config.extra.even_title }}{% endblock title %}
+
+{% block content %}
+<section class="index-head">
+  <p class="ui-label">CONTENT INDEX / 内容索引</p>
+  <h1>沿着关键词，<br>重新进入这些记录。</h1>
+</section>
+<section class="tag-cloud" aria-label="全部标签">
+  {% for term in terms %}
+  <a href="{{ term.permalink }}"><span>{{ term.name }}</span><sup>{{ term.pages | length }}</sup></a>
+  {% endfor %}
+</section>
+{% endblock content %}

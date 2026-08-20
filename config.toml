@@ -1,4 +1,4 @@
-title = "Zhonghe's Time Archive"
+title = "Zhonghe · Digital Field Notes"
 description = "记录技术如何被理解，也记录一个人如何慢慢发生变化。"
 base_url = "https://blog.zhaozhonghe.me/"
 default_language = "zh"
@@ -27,8 +27,8 @@ even_title = "Zhonghe"
 author = "Zhonghe-zhao"
 repository = "Zhonghe-zhao/DailyBlog"
 repository_branch = "main"
-hero_eyebrow = "A LIFE IN PROGRESS"
-hero_title = "把时间留下来"
+hero_eyebrow = "DIGITAL FIELD NOTES / 进行中的个人档案"
+hero_title = "在变化里持续记录"
 hero_subtitle = "这里既是技术实验室，也是生活的切片。记录那些被理解的知识，也记录一个人缓慢发生的变化。"
 motto = "Time has always been with me."
 github_url = "https://github.com/Zhonghe-zhao"
@@ -36,9 +36,9 @@ since_year = 2025
 katex_enable = true
 katex_auto_render = true
 even_menu = [
-    {url = "$BASE_URL", name = "记录"},
-    {url = "$BASE_URL/tags/", name = "时间线"},
+    {url = "$BASE_URL", name = "首页"},
+    {url = "$BASE_URL/tags/", name = "索引"},
+    {url = "$BASE_URL/gallery/", name = "影像"},
     {url = "$BASE_URL/tags/tech/", name = "技术"},
-    {url = "$BASE_URL/tags/life/", name = "生活"},
     {url = "$BASE_URL/issue-34/", name = "关于"},
 ]

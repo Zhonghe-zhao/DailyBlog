@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+
+{% block title %}影像 · {{ config.extra.even_title }}{% endblock title %}
+
+{% block content %}
+<section class="gallery-head">
+  <p class="ui-label">VISUAL ARCHIVE / 影像档案</p>
+  <h1>文字之外，<br>我也把看见的留下。</h1>
+  <div class="gallery-head__meta">
+    <p>这里自动收录博客文章中的图片。每一张都保留着它所属的文章与时间。</p>
+    <span class="gallery-count" aria-live="polite">正在整理影像…</span>
+  </div>
+</section>
+
+<section class="gallery-grid" data-gallery data-source="{{ get_url(path='gallery.json') }}" aria-label="文章图片集合"></section>
+<p class="gallery-empty" hidden>还没有可展示的图片。</p>
+
+<dialog class="lightbox" aria-label="图片预览">
+  <button type="button" class="lightbox__close" aria-label="关闭预览">×</button>
+  <figure>
+    <img alt="">
+    <figcaption><strong></strong><span></span><a>阅读原文 ↗</a></figcaption>
+  </figure>
+</dialog>
+{% endblock content %}

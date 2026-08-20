@@ -1,0 +1,21 @@
+{% extends "index.html" %}
+
+{% block title %}{{ term.name }} · {{ config.extra.even_title }}{% endblock title %}
+
+{% block content %}
+<section class="term-head">
+  <a href="{{ get_url(path='tags') }}">← 返回索引</a>
+  <p class="ui-label">TOPIC / 主题</p>
+  <h1>{{ term.name }}</h1>
+  <span>{{ term.pages | length }} 篇记录</span>
+</section>
+<section class="archive-list">
+  {% for page in term.pages %}
+  <article>
+    <time>{{ page.date | date(format="%Y.%m.%d") }}</time>
+    <h2><a href="{{ page.permalink }}">{{ page.title }}</a></h2>
+    <span>{{ page.reading_time }} MIN ↗</span>
+  </article>
+  {% endfor %}
+</section>
+{% endblock content %}

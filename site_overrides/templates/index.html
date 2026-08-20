@@ -1,3 +1,42 @@
+{% import "og_macros.html" as og %}
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{ config.description }}"><meta name="theme-color" content="#0b0d10">
+  {{ og::opengraph() }}<title>{% block title %}{{ config.title }}{% endblock title %}</title>
+  {% if config.generate_feeds %}{% for feed in config.feed_filenames %}<link rel="alternate" type="application/rss+xml" title="RSS" href="{{ get_url(path=feed) | safe }}">{% endfor %}{% endif %}
+  <script>document.documentElement.dataset.theme=localStorage.getItem("blog-theme")||"dark";</script>
+  <link rel="stylesheet" href="{{ get_url(path="site.css", trailing_slash=false) }}"><link rel="stylesheet" href="{{ get_url(path="custom.css", trailing_slash=false) }}"><link rel="stylesheet" href="{{ get_url(path="redesign.css", trailing_slash=false) }}">
+  {% block extra_head %}{% endblock extra_head %}
+</head>
+<body>
+  <div class="reading-progress" aria-hidden="true"><span></span></div><div class="site-grid" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="brand" href="{{ config.base_url }}"><span class="brand-mark">ZH</span><span class="brand-copy"><strong>{{ config.extra.even_title }}</strong><small>DIGITAL FIELD NOTES</small></span></a>
+    <button class="menu-toggle" type="button" aria-label="打开导航">菜单</button>
+    <nav class="site-nav" aria-label="主导航">{% for item in config.extra.even_menu %}<a href="{{ item.url | replace(from="$BASE_URL", to=config.base_url) }}">{{ item.name }}</a>{% endfor %}</nav>
+    <button class="theme-toggle" type="button" aria-label="切换颜色主题">◑</button>
+  </header>
+  <main id="main-content">{% block content %}
+    {% if paginator.current_index == 1 %}
+    <section class="home-hero">
+      <div class="home-hero__intro"><p class="ui-label"><span></span>{{ config.extra.hero_eyebrow }}</p><h1>在变化里<br><em>持续记录。</em></h1><p>{{ config.extra.hero_subtitle }}</p><div class="hero-actions"><a href="#latest">开始阅读 <span>↘</span></a><a href="{{ get_url(path='gallery') }}">浏览影像 <span>↗</span></a></div></div>
+      <div class="home-hero__signal" aria-hidden="true"><div class="signal-orbit"><span>WRITE</span><span>BUILD</span><span>LIVE</span></div><strong>Z</strong><p>NOW<br>{{ config.extra.since_year }}—{{ now() | date(format="%Y") }}</p></div>
+      <div class="home-hero__foot"><span>ISSUES → STATIC WEB</span><span>{{ config.extra.motto }}</span><span>SCROLL TO EXPLORE ↓</span></div>
+    </section>
+    <section class="latest" id="latest"><header class="section-title"><p class="ui-label">LATEST ENTRY / 最新记录</p><span>01</span></header>
+      {% for page in paginator.pages %}{% if loop.first %}<article class="featured-card{% if page.extra.cover == '' %} featured-card--text{% endif %}">{% if page.extra.cover != '' %}<a class="featured-card__media" href="{{ page.permalink }}"><img src="{{ page.extra.cover }}" alt="" loading="eager"></a>{% endif %}<div class="featured-card__body"><div class="entry-meta"><time>{{ page.date | date(format="%Y.%m.%d") }}</time><span>{{ page.reading_time }} MIN READ</span></div><h2><a href="{{ page.permalink }}">{{ page.title }}</a></h2><div class="entry-excerpt">{{ page.content | striptags | truncate(length=180) }}</div><div class="entry-foot"><div>{% if page.taxonomies.tags %}{% for tag in page.taxonomies.tags | slice(end=2) %}<a href="{{ get_taxonomy_url(kind='tags', name=tag) }}">#{{ tag }}</a>{% endfor %}{% endif %}</div><a class="round-link" href="{{ page.permalink }}">↗</a></div></div></article>{% endif %}{% endfor %}
+    </section>{% endif %}
+    <section class="all-entries"><header class="section-title"><p class="ui-label">ALL ENTRIES / 全部记录</p><span>LOG</span></header><div class="entry-grid">
+      {% for page in paginator.pages %}{% if paginator.current_index > 1 or not loop.first %}<article class="entry-card{% if page.extra.cover != '' %} entry-card--visual{% endif %}">{% if page.extra.cover != '' %}<a class="entry-card__media" href="{{ page.permalink }}"><img src="{{ page.extra.cover }}" alt="" loading="lazy"></a>{% endif %}<div class="entry-card__body"><div class="entry-meta"><time>{{ page.date | date(format="%Y.%m.%d") }}</time><span>{{ page.reading_time }} MIN</span></div><h2><a href="{{ page.permalink }}">{{ page.title }}</a></h2><p>{{ page.content | striptags | truncate(length=108) }}</p><div class="entry-foot"><span>{% if page.taxonomies.tags %}#{{ page.taxonomies.tags | first }}{% else %}#NOTE{% endif %}</span><a href="{{ page.permalink }}">READ ↗</a></div></div></article>{% endif %}{% endfor %}
+    </div></section>
+    <nav class="pagination">{% if paginator.previous %}<a href="{{ paginator.previous }}">← NEWER</a>{% else %}<span></span>{% endif %}<span>{{ paginator.current_index }} / {{ paginator.total_pages }}</span>{% if paginator.next %}<a href="{{ paginator.next }}">OLDER →</a>{% endif %}</nav>
+  {% endblock content %}</main>
+  {% block footer %}<footer class="site-footer"><div><p>记录还在发生。</p><span>{{ config.extra.motto }}</span></div><nav><a href="{{ config.extra.github_url }}">GITHUB ↗</a><a href="{{ get_url(path='rss.xml') }}">RSS ↗</a><span>© {{ config.extra.since_year }}—NOW ZHONGHE</span></nav></footer>{% endblock footer %}
+  <script src="{{ get_url(path="custom.js", trailing_slash=false) }}"></script><script src="{{ get_url(path="redesign.js", trailing_slash=false) }}"></script>{% block js_body %}{% endblock js_body %}
+</body></html>
+{# OLD TEMPLATE
 {% import "post_macros.html" as post_macros %}
 {% import "og_macros.html" as og %}
 
@@ -100,3 +139,4 @@
   {% block js_body %}{% endblock js_body %}
 </body>
 </html>
+#}
