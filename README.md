@@ -1,4 +1,4 @@
-## [Zhonghe's Time Archive](https://blog.zhaozhonghe.me/)
+## [Zhonghe · Digital Field Notes](https://blog.zhaozhonghe.me/)
 > Time has always been with me.
 
 [About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34) · [Things I like](https://github.com/Zhonghe-zhao/DailyBlog/issues/35) · [RSS Feed](https://blog.zhaozhonghe.me/rss.xml)
