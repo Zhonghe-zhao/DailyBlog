@@ -1,8 +1,7 @@
-## [DailyBlog](https://Zhonghe-zhao.github.io/DailyBlog/)
-My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34))
-[Things I like](https://github.com/Zhonghe-zhao/DailyBlog/issues/35)
-![image](https://github.com/user-attachments/assets/a168bf11-661e-4566-b042-7fc9544de528)
-[RSS Feed](https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/master/feed.xml)
+## [Zhonghe's Time Archive](https://blog.zhaozhonghe.me/)
+> Time has always been with me.
+
+[About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34) · [Things I like](https://github.com/Zhonghe-zhao/DailyBlog/issues/35) · [RSS Feed](https://blog.zhaozhonghe.me/rss.xml)
 
 ## 🦄 置顶文章
 - [与祥凯老哥见面了](https://github.com/Zhonghe-zhao/DailyBlog/issues/93)--2025-12-07
@@ -26,51 +25,30 @@ My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34)
 > “文章讲述了,我们应该保持一种快速的学习方式, 我不知道大家是怎么想的, 适度的紧张也写确实也很有帮助”
 
 **2025-12-12** - [工业发明家](https://www.bedelstein.com/post/mcmaster-carr)
-> "如果一件东西100%实用，它就一定是漂亮的，比如没有丑陋的钉子或丑陋的锤子。但是，有很多丑陋的汽车，因为汽车并不是所有部分都实用。"
+> 如果一件东西100%实用，它就一定是漂亮的，比如没有丑陋的钉子或丑陋的锤子。但是，有很多丑陋的汽车，因为汽车并不是所有部分都实用。
 
 **2025-12-12** - [[对每一个要求“一点点”时间的人说不](https://thoughtcatalog.com/ryan-holiday/2017/01/to-everyone-who-asks-for-just-a-little-of-your-time/)
-> "时间是我们最不可替代的资产——我们无法购买更多的时间。我们一秒钟都无法收回失去的时间。我们只能希望尽可能少地浪费。"
+> 时间是我们最不可替代的资产——我们无法购买更多的时间。我们一秒钟都无法收回失去的时间。我们只能希望尽可能少地浪费。
 
 </details>
 
 *[直达issue](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)*
 
 ## 📖 最近更新
+- [初见北京总结](https://github.com/Zhonghe-zhao/DailyBlog/issues/110)--2026-04-05
 - [Codex最佳订阅方法(仅限Apple)](https://github.com/Zhonghe-zhao/DailyBlog/issues/114)--2026-06-20
+- [实习总结 (在公司封存)](https://github.com/Zhonghe-zhao/DailyBlog/issues/109)--2026-04-03
 - [切断网络的一天](https://github.com/Zhonghe-zhao/DailyBlog/issues/113)--2026-05-31
 - [博客一周年](https://github.com/Zhonghe-zhao/DailyBlog/issues/112)--2026-05-28
 - [我的简历(持续更新)](https://github.com/Zhonghe-zhao/DailyBlog/issues/111)--2026-04-18
-- [初见北京总结](https://github.com/Zhonghe-zhao/DailyBlog/issues/110)--2026-04-05
-- [实习总结 (在公司封存)](https://github.com/Zhonghe-zhao/DailyBlog/issues/109)--2026-04-03
-- [一次网络问题的排查](https://github.com/Zhonghe-zhao/DailyBlog/issues/108)--2026-03-13
 - [2026 年后的一些想法和感悟](https://github.com/Zhonghe-zhao/DailyBlog/issues/107)--2026-03-13
+- [一次网络问题的排查](https://github.com/Zhonghe-zhao/DailyBlog/issues/108)--2026-03-13
 - [游戏: 《地铁 离去》](https://github.com/Zhonghe-zhao/DailyBlog/issues/106)--2026-02-16
 - [以现在的视角看待大模型](https://github.com/Zhonghe-zhao/DailyBlog/issues/105)--2026-02-12
-## [友情链接](https://github.com/Zhonghe-zhao/DailyBlog/issues/78)
-<details><summary>显示</summary>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Link</th>
-<th>Desc</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table></details>
-
-
 ## 🤓 计算机基础
 
 - [丢失更新](https://github.com/Zhonghe-zhao/DailyBlog/issues/75) - 2025-11-04
 - [6.5840 Lab 2: Key/Value Server](https://github.com/Zhonghe-zhao/DailyBlog/issues/74) - 2025-11-03
-- [Fiber Channel( FC 协议)](https://github.com/Zhonghe-zhao/DailyBlog/issues/73) - 2025-10-29
 - [VM-FT](https://github.com/Zhonghe-zhao/DailyBlog/issues/72) - 2025-10-29
 - [6.5840 Lab 1: MapReduce](https://github.com/Zhonghe-zhao/DailyBlog/issues/71) - 2025-10-23
 
