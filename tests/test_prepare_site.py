@@ -27,7 +27,9 @@ text
         )
 
     def test_build_adds_cover_and_gallery_json(self):
-        source = '''+++
+        # isite v0.2.6 emits a leading newline before the TOML delimiter.
+        source = '''
++++
 title = "一篇文章"
 date = 2026-08-21
 [extra]

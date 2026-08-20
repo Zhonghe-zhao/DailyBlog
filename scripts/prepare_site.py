@@ -43,7 +43,12 @@ def extract_images(markdown: str) -> list[dict[str, str]]:
 
 
 def split_front_matter(text: str) -> tuple[str, str]:
-    match = re.match(r"\A\+\+\+\r?\n(?P<front>.*?)\r?\n\+\+\+\r?\n?", text, re.S)
+    # isite's Zola template starts with a newline before the opening delimiter.
+    match = re.match(
+        r"\A(?:\ufeff)?[ \t\r\n]*\+\+\+\r?\n(?P<front>.*?)\r?\n\+\+\+\r?\n?",
+        text,
+        re.S,
+    )
     if not match:
         raise ValueError("content does not start with TOML front matter")
     return match.group("front"), text[match.end():]
