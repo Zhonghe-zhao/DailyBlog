@@ -2,6 +2,8 @@
 import argparse
 import os
 import re
+import tomllib
+from pathlib import Path
 
 import markdown
 from feedgen.feed import FeedGenerator
@@ -9,14 +11,8 @@ from github import Github
 from lxml.etree import CDATA
 from marko.ext.gfm import gfm as marko
 
-MD_HEAD = """## [DailyBlog](https://Zhonghe-zhao.github.io/DailyBlog/)
-My personal blog([About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34))
-[Things I like](https://github.com/Zhonghe-zhao/DailyBlog/issues/35)
-![image](https://github.com/user-attachments/assets/a168bf11-661e-4566-b042-7fc9544de528)
-[RSS Feed](https://raw.githubusercontent.com/{repo_name}/master/feed.xml)
-"""
-
 BACKUP_DIR = "BACKUP"
+CONFIG_FILE = "config.toml"
 ANCHOR_NUMBER = 5
 
 # 新的标签配置
@@ -52,6 +48,7 @@ CUSTOM_CATEGORIES = {
 IGNORE_LABELS = (
     FRIENDS_LABELS
     + TOP_ISSUES_LABELS
+    + RECOMMEND_LABELS
     + TODO_ISSUES_LABELS
     + ABOUT_LABELS
     + THINGS_LABELS
@@ -64,6 +61,59 @@ FRIENDS_INFO_DICT = {
     "链接": "",
     "描述": "",
 }
+
+
+def load_site_config(filename=CONFIG_FILE):
+    """Load the shared Zola/blog configuration with safe local defaults."""
+    defaults = {
+        "title": "DailyBlog",
+        "description": "My personal blog",
+        "base_url": "https://zhonghe-zhao.github.io/DailyBlog/",
+        "author": "Zhonghe-zhao",
+        "repository": "Zhonghe-zhao/DailyBlog",
+        "repository_branch": "main",
+        "motto": "Time has always been with me.",
+    }
+    path = Path(filename)
+    if not path.exists():
+        return defaults
+
+    with path.open("rb") as config_file:
+        raw = tomllib.load(config_file)
+
+    extra = raw.get("extra", {})
+    return {
+        **defaults,
+        "title": raw.get("title", defaults["title"]),
+        "description": raw.get("description", defaults["description"]),
+        "base_url": raw.get("base_url", defaults["base_url"]).rstrip("/") + "/",
+        "author": extra.get("author", defaults["author"]),
+        "repository": extra.get("repository", defaults["repository"]),
+        "repository_branch": extra.get(
+            "repository_branch", defaults["repository_branch"]
+        ),
+        "motto": extra.get("motto", defaults["motto"]),
+    }
+
+
+def build_md_header(repo_name, config):
+    base_url = config["base_url"]
+    return (
+        f"## [{config['title']}]({base_url})\n"
+        f"> {config['motto']}\n\n"
+        f"[About Me](https://github.com/{repo_name}/issues/34) · "
+        f"[Things I like](https://github.com/{repo_name}/issues/35) · "
+        f"[RSS Feed]({base_url}rss.xml)\n"
+    )
+
+
+def issue_label_names(issue):
+    return {label.name for label in issue.labels}
+
+
+def is_regular_post(issue):
+    """Exclude Issues used as site data rather than published articles."""
+    return not issue_label_names(issue).intersection(IGNORE_LABELS)
 
 
 def get_me(user):
@@ -124,9 +174,9 @@ def get_repo(user: Github, repo: str):
 
 
 def parse_TODO(issue):
-    body = issue.body.splitlines()
-    todo_undone = [l for l in body if l.startswith("- [ ] ")]
-    todo_done = [l for l in body if l.startswith("- [x] ")]
+    body = (issue.body or "").splitlines()
+    todo_undone = [line for line in body if re.match(r"^- \[ \] ", line)]
+    todo_done = [line for line in body if re.match(r"^- \[[xX]\] ", line)]
     if not todo_undone:
         return f"[{issue.title}]({issue.html_url}) all done", []
     return (
@@ -182,7 +232,7 @@ def add_md_top(repo, md, me):
                 add_issue_info(issue, md)
 
 
-def add_md_firends(repo, md, me):
+def add_md_friends(repo, md, me):
     s = FRIENDS_TABLE_HEAD
     friends_issues = list(repo.get_issues(labels=FRIENDS_LABELS))
     if not FRIENDS_LABELS or not friends_issues:
@@ -196,6 +246,9 @@ def add_md_firends(repo, md, me):
                 except Exception as e:
                     print(str(e))
                     pass
+    # Avoid rendering a misleading empty row when no friend has been approved yet.
+    if s == FRIENDS_TABLE_HEAD:
+        return
     s = markdown.markdown(s, output_format="html", extensions=["extra"])
     with open(md, "a+", encoding="utf-8") as md:
         md.write(
@@ -213,8 +266,12 @@ def add_md_recent(repo, md, me, limit=10):
     with open(md, "a+", encoding="utf-8") as md:
         md.write("## 📖 最近更新\n")
         try:
-            for issue in repo.get_issues(sort="created", direction="desc"):
-                if is_me(issue, me):
+            for issue in repo.get_issues(sort="updated", direction="desc"):
+                if (
+                    is_me(issue, me)
+                    and not issue.pull_request
+                    and is_regular_post(issue)
+                ):
                     add_issue_info(issue, md)
                     count += 1
                     if count >= limit:
@@ -223,9 +280,9 @@ def add_md_recent(repo, md, me, limit=10):
             print(str(e))
 
 
-def add_md_header(md, repo_name):
+def add_md_header(md, repo_name, config):
     with open(md, "w", encoding="utf-8") as md:
-        md.write(MD_HEAD.format(repo_name=repo_name))
+        md.write(build_md_header(repo_name, config))
         md.write("\n")
 
 def add_md_weekly_recommendations(repo, md, me):
@@ -254,67 +311,69 @@ def add_md_weekly_recommendations(repo, md, me):
         md_file.write(f"*[直达issue]({recommend_issue.html_url})*\n\n")
 
 def parse_recommendations(content):
-    """从issue内容中解析推荐条目 - 修正格式理解"""
+    """Parse both current and legacy recommendation heading formats."""
     recommendations = []
-    
-    lines = content.split('\n')
+    lines = content.splitlines()
     current_date = ""
-    
+
+    date_pattern = re.compile(r"^##\s+(\d{4}-\d{2}-\d{2})(?:\s*日?推荐)?\s*$")
+    link_pattern = re.compile(r"^\[(.+?)\]\((https?://[^\s)]+)\)\s*$")
+
     for i, line in enumerate(lines):
         line = line.strip()
-        
-        # 检测日期标题 (必须严格符合 ## YYYY-MM-DD 格式)
-        if line.startswith('## ') and re.match(r'^## \d{4}-\d{2}-\d{2}$', line):
-            current_date = line[3:].strip()
-            
-        # 检测标题行 (直接检测 [标题](链接) 格式)
-        elif line.startswith('[') and current_date:
-            # 匹配 [标题](链接) 格式
-            match = re.match(r'^\[(.+?)\]\((https?://[^\s)]+)\)$', line)
-            if match:
-                current_title = match.group(1)
-                current_link = match.group(2)
-                current_content = []
-                
-                # 收集后续内容，直到遇到下一个标题或日期
-                idx = i + 1
-                while idx < len(lines):
-                    next_line = lines[idx].strip()
-                    # 遇到新的日期、标题或空行停止
-                    if (re.match(r'^## \d{4}-\d{2}-\d{2}$', next_line) or 
-                        next_line.startswith('[') or 
-                        next_line == ''):
-                        break
-                    if next_line and not next_line.startswith('#'):
-                        current_content.append(next_line)
-                    idx += 1
-                
-                content_text = ' '.join(current_content).strip()
-                recommendations.append((current_date, current_title, content_text, current_link))
-    
-    # 按日期倒序排列
+
+        date_match = date_pattern.match(line)
+        if date_match:
+            current_date = date_match.group(1)
+            continue
+
+        link_match = link_pattern.match(line)
+        if not (link_match and current_date):
+            continue
+
+        current_content = []
+        idx = i + 1
+        while idx < len(lines):
+            next_line = lines[idx].strip()
+            if date_pattern.match(next_line) or link_pattern.match(next_line):
+                break
+            if next_line and not next_line.startswith("#"):
+                current_content.append(next_line.removeprefix("> ").strip('"'))
+            idx += 1
+
+        recommendations.append(
+            (
+                current_date,
+                link_match.group(1),
+                " ".join(current_content).strip(),
+                link_match.group(2),
+            )
+        )
+
     recommendations.sort(key=lambda x: x[0], reverse=True)
     return recommendations
 
+
 def add_md_custom_categories(repo, md, me):
     """使用自定义分类显示文章"""
+    try:
+        owned_issues = [
+            issue
+            for issue in repo.get_issues(sort="created", direction="desc")
+            if is_me(issue, me) and not issue.pull_request and is_regular_post(issue)
+        ]
+    except Exception as error:
+        print(f"Error getting issues for categories: {error}")
+        return
+
     with open(md, "a+", encoding="utf-8") as md:
         for category_name, labels in CUSTOM_CATEGORIES.items():
-            if category_name == "🦄 置顶文章":
-                continue
-            # 获取该分类下的所有issues
-            category_issues = []
-            for label_name in labels:
-                try:
-                    label_issues = list(repo.get_issues(labels=[label_name]))
-                    for issue in label_issues:
-                        if is_me(issue, me) and issue not in category_issues:
-                            category_issues.append(issue)
-                except Exception as e:
-                    print(f"Error getting issues for label {label_name}: {e}")
-                    continue
-            
-            # 按创建时间排序
+            label_set = set(labels)
+            category_issues = [
+                issue
+                for issue in owned_issues
+                if issue_label_names(issue).intersection(label_set)
+            ]
             category_issues.sort(key=lambda x: x.created_at, reverse=True)
             
             if category_issues:
@@ -350,71 +409,80 @@ def get_to_generate_issues(repo, dir_name, issue_number=None):
     if not os.path.exists(dir_name):
         os.makedirs(dir_name)
         print(f"Created backup directory: {dir_name}")
-    
-    # 获取已备份的issues
-    md_files = os.listdir(dir_name) if os.path.exists(dir_name) else []
-    print(f"Existing backup files: {len(md_files)}")
-    
-    generated_issues_numbers = []
-    for filename in md_files:
-        try:
-            if '_' in filename and filename.split('_')[0].isdigit():
-                generated_issues_numbers.append(int(filename.split('_')[0]))
-        except:
-            continue
-    
-    print(f"Already backed up issues: {generated_issues_numbers}")
-    
-    # 获取所有issues
+
+    # A manual run is a full reconciliation, so edits and deleted comments are
+    # reflected even when a previous event did not complete successfully.
     all_issues = list(repo.get_issues())
     print(f"Total issues in repo: {len(all_issues)}")
-    
-    # 过滤出需要生成的issues
-    to_generate_issues = [
-        issue for issue in all_issues 
-        if issue.number not in generated_issues_numbers
-    ]
-    
-    print(f"Issues to generate: {len(to_generate_issues)}")
-    return to_generate_issues
+
+    print(f"Issues to generate: {len(all_issues)}")
+    return all_issues
 
 
-def generate_rss_feed(repo, filename, me):
+def generate_rss_feed(repo, filename, me, config):
     generator = FeedGenerator()
-    generator.id(repo.html_url)
-    generator.title(f"RSS feed of {repo.owner.login}'s {repo.name}")
+    generator.id(config["base_url"])
+    generator.title(config["title"])
+    generator.description(config["description"])
     generator.author(
-        {"name": os.getenv("GITHUB_NAME"), "email": os.getenv("GITHUB_EMAIL")}
+        {
+            "name": os.getenv("GITHUB_NAME", config["author"]),
+            "email": os.getenv("GITHUB_EMAIL", "noreply@github.com"),
+        }
     )
-    generator.link(href=repo.html_url)
+    generator.link(href=config["base_url"])
     generator.link(
-        href=f"https://raw.githubusercontent.com/{repo.full_name}/master/{filename}",
+        href=(
+            f"https://raw.githubusercontent.com/{repo.full_name}/"
+            f"{config['repository_branch']}/{filename}"
+        ),
         rel="self",
     )
-    for issue in repo.get_issues():
-        if not issue.body or not is_me(issue, me) or issue.pull_request:
+    for issue in repo.get_issues(sort="updated", direction="desc"):
+        if (
+            not issue.body
+            or not is_me(issue, me)
+            or issue.pull_request
+            or not is_regular_post(issue)
+        ):
             continue
         item = generator.add_entry(order="append")
         item.id(issue.html_url)
         item.link(href=issue.html_url)
         item.title(issue.title)
         item.published(issue.created_at.strftime("%Y-%m-%dT%H:%M:%SZ"))
+        item.updated(issue.updated_at.strftime("%Y-%m-%dT%H:%M:%SZ"))
         for label in issue.labels:
             item.category({"term": label.name})
         body = "".join(c for c in issue.body if _valid_xml_char_ordinal(c))
         item.content(CDATA(marko.convert(body)), type="html")
-    generator.atom_file(filename)
+    generator.rss_file(filename)
 
 
 def save_issue(issue, me, dir_name=BACKUP_DIR):
     """保存issue到BACKUP文件夹"""
+    os.makedirs(dir_name, exist_ok=True)
     # 清理文件名中的非法字符
-    safe_title = re.sub(r'[<>:"/\\|?*]', '-', issue.title)
+    safe_title = re.sub(r'[<>:"/\\|?*]', "-", issue.title).strip().rstrip(".")
+    safe_title = safe_title[:120] or "untitled"
     md_name = os.path.join(dir_name, f"{issue.number}_{safe_title}.md")
-    
+
     print(f"Saving issue #{issue.number} to {md_name}")
-    
-    with open(md_name, "w", encoding="utf-8") as f:
+
+    # The Issue number is stable while its title is editable. Remove obsolete
+    # files for the same number to prevent duplicate posts after a rename.
+    prefix = f"{issue.number}_"
+    for old_name in os.listdir(dir_name):
+        old_path = os.path.join(dir_name, old_name)
+        if (
+            old_name.startswith(prefix)
+            and old_path != md_name
+            and os.path.isfile(old_path)
+        ):
+            os.remove(old_path)
+
+    temp_name = f"{md_name}.tmp"
+    with open(temp_name, "w", encoding="utf-8") as f:
         f.write(f"# [{issue.title}]({issue.html_url})\n\n")
         f.write(issue.body or "")
         if issue.comments:
@@ -422,6 +490,7 @@ def save_issue(issue, me, dir_name=BACKUP_DIR):
                 if is_me(c, me):
                     f.write("\n\n---\n\n")
                     f.write(c.body or "")
+    os.replace(temp_name, md_name)
 
 
 def main(token, repo_name, issue_number=None, dir_name=BACKUP_DIR):
@@ -433,6 +502,7 @@ def main(token, repo_name, issue_number=None, dir_name=BACKUP_DIR):
     user = login(token)
     me = get_me(user)
     repo = get_repo(user, repo_name)
+    config = load_site_config()
     
     print(f"Me: {me}")
     print(f"Repo full name: {repo.full_name}")
@@ -443,17 +513,25 @@ def main(token, repo_name, issue_number=None, dir_name=BACKUP_DIR):
         print(f"Created backup directory: {dir_name}")
     
     # 生成README
-    add_md_header("README.md", repo_name)
+    add_md_header("README.md", repo_name, config)
     
     # 按这个顺序显示
-    for func in [add_md_top, add_md_weekly_recommendations, add_md_recent, add_md_firends, add_md_custom_categories,add_md_todo]:
+    readme_sections = [
+        add_md_top,
+        add_md_weekly_recommendations,
+        add_md_recent,
+        add_md_friends,
+        add_md_custom_categories,
+        add_md_todo,
+    ]
+    for func in readme_sections:
         func(repo, "README.md", me)
 
-    generate_rss_feed(repo, "feed.xml", me)
-    
+    generate_rss_feed(repo, "feed.xml", me, config)
+
     # 备份issues到BACKUP文件夹
     to_generate_issues = get_to_generate_issues(repo, dir_name, issue_number)
-    
+
     # 保存md文件到backup文件夹
     for issue in to_generate_issues:
         print(f"Processing issue #{issue.number}: {issue.title}")

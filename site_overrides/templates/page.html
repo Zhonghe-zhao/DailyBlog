@@ -1,0 +1,72 @@
+{% extends "index.html" %}
+{% import "post_macros.html" as post_macros %}
+
+{% block title %}{{ page.title }} · {{ config.extra.even_title }}{% endblock title %}
+
+{% block content %}
+<div class="article-layout">
+  {% if page.toc %}
+  <aside class="article-toc" aria-label="文章目录">
+    <p>ON THIS PAGE</p>
+    <nav>
+      {% for h1 in page.toc %}
+      <a href="{{ h1.permalink | safe }}">{{ h1.title }}</a>
+        {% for h2 in h1.children %}<a class="toc-child" href="{{ h2.permalink | safe }}">{{ h2.title }}</a>{% endfor %}
+      {% endfor %}
+    </nav>
+  </aside>
+  {% endif %}
+
+  <article class="post article">
+    {{ post_macros::title(page=page) }}
+
+    {% if page.taxonomies.tags %}
+    <div class="article__tags">
+      {% for tag in page.taxonomies.tags %}
+      <a href="{{ get_taxonomy_url(kind="tags", name=tag) }}"># {{ tag }}</a>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="post-content">{{ page.content | safe }}</div>
+
+    {% set emoji_names = ["thumbs_up", "thumbs_down", "laugh", "heart", "hooray", "confused", "rocket", "eyes"] %}
+    {% set emojis = ["👍", "👎", "😄", "❤️", "🙌", "😕", "🚀", "👀"] %}
+    <div class="post-reactions" aria-label="文章反应">
+      {% for emoji in emoji_names %}
+        {% if page.extra.reactions[emoji] > 0 %}
+        <span>{{ emojis[loop.index0] }}{% if page.extra.reactions[emoji] > 1 %} {{ page.extra.reactions[emoji] }}{% endif %}</span>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <section class="article-end">
+      <p>THE END</p>
+      <h2>谢谢你读到这里。</h2>
+      <a href="{{ page.extra.issue_url }}">在 GitHub Issue 中交流 ↗</a>
+    </section>
+
+    {% if page.extra.comments %}
+    <section class="post-comments">
+      <div class="comments-heading"><p>CONVERSATIONS</p><h2>{{ page.extra.comments | length }} 条留言</h2></div>
+      {% for comment in page.extra.comments %}
+      <article class="comment-item">
+        <a class="comment-author" href="{{ comment.url }}">
+          <img src="{{ comment.author_avatar }}" alt="{{ comment.author_name }} 的头像" loading="lazy">
+        </a>
+        <div class="comment-body">
+          <div><strong>{{ comment.author_name }}</strong><time>{{ comment.updated_at | date(format="%Y-%m-%d") }}</time></div>
+          <div class="comment-content">{{ comment.content }}</div>
+        </div>
+      </article>
+      {% endfor %}
+    </section>
+    {% endif %}
+
+    <nav class="post-nav" aria-label="相邻文章">
+      {% if page.lower %}<a class="previous" href="{{ page.lower.permalink }}"><small>上一篇</small><span>← {{ page.lower.title }}</span></a>{% endif %}
+      {% if page.higher %}<a class="next" href="{{ page.higher.permalink }}"><small>下一篇</small><span>{{ page.higher.title }} →</span></a>{% endif %}
+    </nav>
+  </article>
+</div>
+{% endblock content %}

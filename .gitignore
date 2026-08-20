@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+.venv/
+output/
+public/
+isite
+isite.exe
+*.tar.gz

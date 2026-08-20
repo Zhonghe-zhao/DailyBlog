@@ -1,0 +1,202 @@
+:root {
+  --paper: #f4efe5;
+  --paper-raised: #fbf8f1;
+  --ink: #202622;
+  --muted: #687069;
+  --line: #d8d1c4;
+  --accent: #c45132;
+  --accent-soft: #ead1c5;
+  --moss: #3e6751;
+  --shadow: 0 22px 60px rgba(55, 46, 35, 0.08);
+}
+
+html[data-theme="dark"] {
+  --paper: #171a18;
+  --paper-raised: #202521;
+  --ink: #e7e2d8;
+  --muted: #a9aea8;
+  --line: #343b36;
+  --accent: #e27d5d;
+  --accent-soft: #4b3028;
+  --moss: #91b69f;
+  --shadow: 0 22px 60px rgba(0, 0, 0, 0.2);
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  html[data-theme="auto"] {
+    --paper: #171a18;
+    --paper-raised: #202521;
+    --ink: #e7e2d8;
+    --muted: #a9aea8;
+    --line: #343b36;
+    --accent: #e27d5d;
+    --accent-soft: #4b3028;
+    --moss: #91b69f;
+    --shadow: 0 22px 60px rgba(0, 0, 0, 0.2);
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 8% 0%, color-mix(in srgb, var(--accent-soft) 55%, transparent), transparent 26rem),
+    var(--paper);
+  font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+  transition: color .25s ease, background-color .25s ease;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font: inherit; }
+.container { max-width: none; margin: 0; }
+#header, #mobile-navbar, #mobile-menu { display: none !important; }
+.site-shell { width: min(1180px, calc(100% - 48px)); margin: 0 auto; }
+
+.site-header {
+  min-height: 92px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+}
+.brand { display: inline-flex; align-items: center; gap: 12px; width: max-content; font-weight: 700; letter-spacing: .04em; }
+.brand-mark {
+  width: 34px; height: 34px; display: grid; place-items: center;
+  color: var(--paper-raised); background: var(--ink); border-radius: 50%;
+  font-family: Georgia, serif; font-style: italic;
+}
+.site-nav { display: flex; align-items: center; gap: 32px; font-size: 14px; color: var(--muted); }
+.site-nav a { position: relative; padding: 8px 0; }
+.site-nav a::after { content: ""; position: absolute; right: 0; bottom: 2px; left: 0; height: 1px; background: var(--accent); transform: scaleX(0); transition: transform .2s ease; }
+.site-nav a:hover { color: var(--ink); }
+.site-nav a:hover::after { transform: scaleX(1); }
+.theme-toggle, .random-post {
+  border: 1px solid var(--line); color: var(--ink); background: transparent; cursor: pointer;
+  transition: border-color .2s ease, transform .2s ease, background .2s ease;
+}
+.theme-toggle { justify-self: end; width: 38px; height: 38px; border-radius: 50%; }
+.theme-toggle:hover, .random-post:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+.hero { min-height: 540px; padding: 112px 7% 54px; display: flex; flex-direction: column; border-bottom: 1px solid var(--line); }
+.hero__eyebrow, .section-heading__eyebrow, .post__kicker, .article-toc > p, .comments-heading > p, .article-end > p {
+  margin: 0; color: var(--accent); font-size: 11px; font-weight: 800; letter-spacing: .2em;
+}
+.hero h1 { max-width: 780px; margin: 22px 0 26px; font-family: Georgia, "Songti SC", serif; font-size: clamp(58px, 9vw, 112px); font-weight: 500; line-height: .98; letter-spacing: -.055em; }
+.hero__subtitle { max-width: 600px; margin: 0; color: var(--muted); font-size: clamp(17px, 2.1vw, 21px); line-height: 1.8; }
+.hero__footer { margin-top: auto; padding-top: 72px; display: flex; justify-content: space-between; align-items: end; gap: 24px; }
+.hero__motto { font-family: Georgia, "Songti SC", serif; font-style: italic; color: var(--moss); }
+.hero__count { color: var(--muted); font-size: 13px; }
+
+.section-heading { padding: 76px 0 32px; display: flex; justify-content: space-between; align-items: end; }
+.section-heading h2 { margin: 5px 0 0; font-family: Georgia, "Songti SC", serif; font-size: 36px; font-weight: 500; }
+.random-post { padding: 10px 16px; border-radius: 999px; font-size: 13px; }
+.post-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.post-card { min-height: 310px; position: relative; padding: 34px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--paper-raised) 40%, transparent); transition: background .25s ease; }
+.post-card:hover { background: var(--paper-raised); }
+.post-card__topline { display: flex; justify-content: space-between; color: var(--muted); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 11px; letter-spacing: .08em; }
+.post-card h2 { max-width: 88%; margin: 34px 0 18px; font-family: Georgia, "Songti SC", serif; font-size: clamp(23px, 3vw, 32px); font-weight: 500; line-height: 1.35; }
+.post-card h2 a { color: var(--ink); }
+.post-card__summary { max-height: 5.4em; overflow: hidden; color: var(--muted); font-size: 14px; }
+.post-card__summary > * { margin: 0; }
+.post-card__tags { position: absolute; right: 72px; bottom: 28px; left: 34px; display: flex; gap: 8px; flex-wrap: wrap; }
+.post-card__tags a { padding: 3px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: 11px; }
+.post-card__arrow { position: absolute; right: 32px; bottom: 26px; color: var(--accent); font-size: 22px; transition: transform .2s ease; }
+.post-card:hover .post-card__arrow { transform: translate(3px, -3px); }
+
+.pagination { min-height: 120px; margin: 0; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; color: var(--muted); font-size: 13px; }
+.pagination .next { justify-self: end; }
+.pagination a { color: var(--ink); font-size: 15px; font-weight: 600; }
+.site-footer { margin-top: 72px; padding: 38px 0 46px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+.site-footer > p { margin: 0 0 20px; color: var(--ink); font-family: Georgia, serif; font-size: 20px; font-style: italic; }
+.site-footer > div { display: flex; gap: 22px; }
+.site-footer a:hover { color: var(--accent); }
+
+.reading-progress { position: fixed; z-index: 100; top: 0; right: 0; left: 0; height: 2px; }
+.reading-progress span { display: block; width: 0; height: 100%; background: var(--accent); }
+.article-layout { width: min(1080px, 100%); margin: 0 auto; display: grid; grid-template-columns: 190px minmax(0, 720px); gap: 76px; align-items: start; padding: 90px 0; }
+.article-toc { position: sticky; top: 34px; padding-top: 120px; }
+.article-toc nav { margin-top: 18px; display: flex; flex-direction: column; gap: 9px; }
+.article-toc a { padding-left: 12px; border-left: 1px solid var(--line); color: var(--muted); font-size: 12px; line-height: 1.5; }
+.article-toc a:hover { border-color: var(--accent); color: var(--ink); }
+.article-toc .toc-child { padding-left: 22px; }
+.article { min-width: 0; padding: 0; }
+.post__header { padding-bottom: 34px; border-bottom: 1px solid var(--line); }
+.post__title { margin: 20px 0 24px !important; font-family: Georgia, "Songti SC", serif !important; font-size: clamp(38px, 6vw, 64px) !important; font-weight: 500 !important; line-height: 1.18; letter-spacing: -.035em; }
+.post__title a { color: var(--ink) !important; }
+.post__meta { display: flex; align-items: center; gap: 18px; color: var(--muted) !important; font-size: 12px !important; }
+.post__source { margin-left: auto; padding: 0 !important; color: var(--accent); }
+.article__tags { margin: 24px 0 -6px; display: flex; flex-wrap: wrap; gap: 14px; }
+.article__tags a { color: var(--moss); font-size: 12px; }
+.post-content { padding: 42px 0 24px; font-family: Georgia, "Songti SC", "Noto Serif CJK SC", serif; font-size: 18px; line-height: 2; }
+.post-content h1, .post-content h2, .post-content h3 { scroll-margin-top: 28px; color: var(--ink); font-family: ui-sans-serif, "PingFang SC", sans-serif; font-weight: 650; line-height: 1.45; }
+.post-content h2 { margin-top: 2.6em; font-size: 27px; }
+.post-content h3 { margin-top: 2.2em; font-size: 21px; }
+.post-content a { color: var(--accent) !important; border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); }
+.post-content img { display: block; max-width: min(100%, 920px); height: auto; margin: 34px auto; border-radius: 6px; box-shadow: var(--shadow); }
+.post-content blockquote { margin: 2em 0 !important; padding: 18px 24px !important; color: var(--muted) !important; background: var(--paper-raised) !important; border: 0 !important; border-left: 3px solid var(--accent) !important; box-shadow: none !important; }
+.post-content pre { position: relative; margin: 28px 0; padding: 22px !important; overflow: auto; border: 1px solid var(--line); border-radius: 6px; background: #202521 !important; color: #e9e5dc; font-size: 13px; line-height: 1.7; }
+.copy-code { position: absolute; top: 8px; right: 8px; padding: 3px 8px; border: 1px solid #4a514b; border-radius: 4px; color: #c7ccc7; background: #292f2a; cursor: pointer; font-size: 11px; }
+.post-content :not(pre) > code { padding: 2px 5px !important; color: var(--accent) !important; background: var(--accent-soft) !important; }
+.post-content table { display: block; overflow-x: auto; box-shadow: none !important; }
+.post-reactions { margin: 26px 0 !important; display: flex; gap: 8px; }
+.post-reactions span { padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper-raised); font-size: 13px; }
+.article-end { margin: 70px 0; padding: 42px; text-align: center; background: var(--paper-raised); box-shadow: var(--shadow); }
+.article-end h2 { margin: 8px 0 12px; font-family: Georgia, "Songti SC", serif; font-size: 28px; font-weight: 500; }
+.article-end a { color: var(--accent); font-size: 13px; }
+.post-comments { margin: 70px 0 0 !important; overflow: visible !important; border: 0 !important; }
+.comments-heading { margin-bottom: 30px; }
+.comments-heading h2 { margin: 6px 0 0; font-size: 25px; }
+.comment-item { margin: 0 !important; padding: 24px 0; display: grid !important; grid-template-columns: 46px 1fr; gap: 16px; border-top: 1px solid var(--line); }
+.comment-author img { width: 46px !important; height: 46px; border-radius: 50%; }
+.comment-body { min-width: 0; }
+.comment-body > div:first-child { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; }
+.comment-body strong { color: var(--ink); }
+.comment-content { margin: 10px 0 0 !important; padding: 0 !important; border: 0 !important; box-shadow: none !important; white-space: pre-wrap; }
+.comment-content > *:first-child { margin-top: 0; }
+.post-nav { margin: 70px 0 0 !important; padding-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; border-top: 1px solid var(--line); }
+.post-nav a { display: flex; flex-direction: column; color: var(--ink); font-size: 14px !important; }
+.post-nav .next { text-align: right; }
+.post-nav small { color: var(--muted); font-weight: 400; }
+.post-nav span { margin-top: 6px; }
+
+@media (max-width: 900px) {
+  .site-shell { width: min(100% - 32px, 720px); }
+  .site-header { grid-template-columns: 1fr auto; }
+  .site-nav { grid-column: 1 / -1; grid-row: 2; padding: 0 0 18px; justify-content: flex-start; gap: 22px; overflow-x: auto; }
+  .theme-toggle { grid-column: 2; grid-row: 1; }
+  .hero { min-height: 480px; padding: 84px 0 42px; }
+  .post-grid { grid-template-columns: 1fr; }
+  .article-layout { display: block; padding: 62px 0; }
+  .article-toc { display: none; }
+}
+
+@media (max-width: 560px) {
+  .site-shell { width: calc(100% - 24px); }
+  .site-header { min-height: 78px; }
+  .site-nav { gap: 18px; font-size: 13px; }
+  .hero { min-height: 430px; }
+  .hero h1 { font-size: 52px; }
+  .hero__footer { display: block; padding-top: 54px; }
+  .hero__count { display: block; margin-top: 12px; }
+  .section-heading { padding-top: 54px; }
+  .post-card { min-height: 290px; padding: 26px; }
+  .post-card__tags { left: 26px; }
+  .post__title { font-size: 38px !important; }
+  .post__meta { flex-wrap: wrap; gap: 8px 14px; }
+  .post__source { width: 100%; margin: 0; }
+  .post-content { font-size: 17px; }
+  .article-end { padding: 32px 20px; }
+  .post-nav { grid-template-columns: 1fr; }
+  .post-nav .next { text-align: left; }
+  .site-footer > div { flex-wrap: wrap; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+}

@@ -3,14 +3,17 @@ name: Generate GitBlog README
 on:
   workflow_dispatch:
   issues:
-    types: [opened, edited]
+    types: [opened, edited, closed, reopened, labeled, unlabeled]
   issue_comment:
-    types: [created, edited]
+    types: [created, edited, deleted]
   push:
     branches:
       - main
     paths:
       - main.py
+      - config.toml
+      - requirements.txt
+      - .github/workflows/generate_readme.yml
 
 permissions:
   contents: write
@@ -19,12 +22,10 @@ jobs:
   sync:
     name: Generate README
     runs-on: ubuntu-latest
-    if: github.repository_owner_id == github.event.issue.user.id || github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.repository_owner_id == github.event.issue.user.id
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.G_T }}
           
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -37,15 +38,25 @@ jobs:
         run: |
           pip install -r requirements.txt
 
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -v
+
       - name: Generate new md
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
         run: |
-          python main.py ${{ secrets.G_T }} ${{ github.repository }} --issue_number '${{ github.event.issue.number }}'
+          python main.py "$GITHUB_TOKEN" "${{ github.repository }}" --issue_number "$ISSUE_NUMBER"
 
       - name: Push README
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           mkdir -p BACKUP
-          git add README.md feed.xml BACKUP/  # 添加BACKUP文件夹
-          git commit -m 'update new blog' || echo "nothing to commit"
-          git push || echo "nothing to push"
+          git add README.md feed.xml BACKUP/
+          if git diff --cached --quiet; then
+            echo "nothing to commit"
+          else
+            git commit -m 'chore: sync blog content'
+            git push
+          fi

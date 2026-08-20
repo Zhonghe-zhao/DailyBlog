@@ -1,0 +1,13 @@
+{% macro title(page) %}
+<header class="post__header">
+  <p class="post__kicker">FIELD NOTE · {{ page.date | date(format="%Y.%m.%d") }}</p>
+  <h1 class="post__title"><a href="{{ page.permalink }}">{{ page.title }}</a></h1>
+  <div class="post__meta">
+    <span>{{ page.reading_time }} 分钟阅读</span>
+    <span>{{ page.word_count }} 字</span>
+    {% if page.extra.issue_url %}
+    <a class="post__source" href="{{ page.extra.issue_url }}">查看 GitHub 原文 ↗</a>
+    {% endif %}
+  </div>
+</header>
+{% endmacro title %}
