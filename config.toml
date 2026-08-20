@@ -38,7 +38,6 @@ katex_auto_render = true
 even_menu = [
     {url = "$BASE_URL", name = "首页"},
     {url = "$BASE_URL/tags/", name = "索引"},
-    {url = "$BASE_URL/gallery/", name = "影像"},
     {url = "$BASE_URL/tags/tech/", name = "技术"},
     {url = "$BASE_URL/issue-34/", name = "关于"},
 ]

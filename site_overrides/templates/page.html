@@ -4,8 +4,7 @@
 {% block content %}
 <article class="article">
   {{ post_macros::title(page=page) }}
-  {% if page.extra.cover != '' %}<figure class="article-cover"><img src="{{ page.extra.cover }}" alt="{{ page.title }} 的题图"></figure>{% endif %}
-  <div class="article-stage">
+  <div class="article-stage{% if not page.toc %} article-stage--solo{% endif %}">
     {% if page.toc %}<aside class="article-toc"><p class="ui-label">ON THIS PAGE</p><nav>{% for h1 in page.toc %}<a href="{{ h1.permalink | safe }}">{{ h1.title }}</a>{% for h2 in h1.children %}<a class="toc-child" href="{{ h2.permalink | safe }}">{{ h2.title }}</a>{% endfor %}{% endfor %}</nav></aside>{% endif %}
     <div class="article-column">
       {% if page.taxonomies.tags %}<div class="article-tags">{% for tag in page.taxonomies.tags %}<a href="{{ get_taxonomy_url(kind='tags', name=tag) }}"># {{ tag }}</a>{% endfor %}</div>{% endif %}
