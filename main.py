@@ -116,10 +116,6 @@ def is_regular_post(issue):
     return not issue_label_names(issue).intersection(IGNORE_LABELS)
 
 
-def get_me(user):
-    return user.get_user().login
-
-
 def is_me(issue, me):
     return issue.user.login == me
 
@@ -500,8 +496,11 @@ def main(token, repo_name, issue_number=None, dir_name=BACKUP_DIR):
     print(f"Issue Number: {issue_number}")
     
     user = login(token)
-    me = get_me(user)
     repo = get_repo(user, repo_name)
+    # GitHub Actions' installation token can read the repository but cannot
+    # call the personal `/user` endpoint. The repository owner is also the
+    # publishing identity used by this blog.
+    me = repo_name.split("/", maxsplit=1)[0]
     config = load_site_config()
     
     print(f"Me: {me}")
