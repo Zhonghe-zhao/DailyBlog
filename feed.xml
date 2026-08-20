@@ -1,5 +1,35 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Zhonghe · 后端工程师与生活记录</title><link>https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml</link><description>记录技术如何被理解，也记录一个人如何慢慢发生变化。</description><atom:link href="https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml" rel="self"/><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><lastBuildDate>Thu, 20 Aug 2026 21:40:16 +0000</lastBuildDate><item><title>初见北京总结</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/110</link><description><![CDATA[<p>25年的11月份 在这段时间之前 在学校处于特别焦虑 方向的迷失 特别想要出去实习看看外面的真实情况  在11月份不断的投递实习面了3次吧都挂了 挂的原因大体是 对于知识掌握的不熟悉 这里的不熟悉指的是 自己没有真的理解 自己做过的东西都没法清晰的讲出 对技术的学习不应该这样 可是那个时候我真的不知道该怎么做 但是第四次面试也就是绿盟科技 我的导师给了我这个机会 </p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Zhonghe · 后端工程师与生活记录</title><link>https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml</link><description>记录技术如何被理解，也记录一个人如何慢慢发生变化。</description><atom:link href="https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml" rel="self"/><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><lastBuildDate>Thu, 20 Aug 2026 22:05:07 +0000</lastBuildDate><item><title>我的简历(持续更新)</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/111</link><description><![CDATA[<h1>赵忠赫 | 后端开发实习生</h1>
+<p>📧 <a href="mailto:zhaozhonghe40@gmail.com">zhaozhonghe40@gmail.com</a> | 📱 18545032297
+🔗 <a href="https://github.com/Zhonghe-zhao">GitHub</a> | 🌐 <a href="https://blog.zhaozhonghe.me">Blog</a></p>
+<hr />
+<h2>教育背景  <strong>(2023.09 - 2027.06)</strong></h2>
+<p><strong>沈阳工业大学</strong> | 电子与计算机工程  | 全日制本科</p>
+<hr />
+<h2>实习经历  <strong>(2025.12.01-2026.04.03)</strong></h2>
+<p><strong>绿盟科技｜星云实验室 | 实习研发工程师</strong></p>
+<p>参与 Coogo 云原生安全执行框架研发，主要负责执行框架轻量化拆分、PoC 扫描核心构建、AI Agent 靶场能力接入与跨环境执行验证等工作。</p>
+<hr />
+<p><strong>Coogo 云原生安全执行框架轻量化重构｜Go</strong></p>
+<ul>
+<li>基于原 Module 接口中的 CanI() 检测链路与 Run() 执行链路，参与将单体 Coogo 框架拆分为 poc-shell-core 与 exp-shell-core 两类执行核心，分别承载轻量扫描与能力执行场景。</li>
+<li>分析 Go package 编译机制、init() 自注册模式与模块依赖树，定位 modules/escape 全量导入导致扫描产物携带 Kubernetes SDK、containerd、embed payload 等重依赖的问题；通过独立 Scanner 入口、Build Tags、Stub 替身与公共依赖轻量化改造，产出约 2.5MB 的 PoC 扫描核心。</li>
+<li>基于公司 Coogo 能力表设计扫描结果优先级模型，将能力划分为 T0 配置类、T1 组件类、T2 内核类与 Info 类，并结合 CanI() 返回状态进行分层排序，优化原 Yes/Unknown/No 无序输出，提升靶场环境下漏洞验证路径选择效率。</li>
+</ul>
+<p><strong>AI Agent 靶场能力接入与调用链路封装｜Go / Qwen-Agent / Gradio</strong></p>
+<ul>
+<li>参与云 AI 攻防靶场中 Qwen-Agent Code Interpreter 能力接入，梳理 LLM 服务、Gradio 前端、Agent 执行逻辑与 Code Interpreter 后端/沙箱之间的调用边界。</li>
+<li>通过抓包分析 Gradio WebUI 工具调用流程，明确 predict、queue/join、session_hash、history 与流式返回数据结构，并在 Coogo 中新增 exec-qwen-agent 模块，将原本依赖页面交互的 Agent 执行能力封装为 CLI 可调用能力。</li>
+<li>基于 Go 实现 Qwen-Agent headless 调用链路，构造 Gradio 请求 payload，兼容不同接口路径，解析 SSE/队列响应，并从嵌套 JSON 与 Observation 输出中提取执行结果；在本地与靶场环境中验证调用稳定性。</li>
+</ul>
+<p><strong>云和AI靶场环境构建与场景交付</strong></p>
+<ul>
+<li>参与 Dify、Qwen-Agent、MCP、goose、LiteLLM 等 AI 靶场组件调研与环境验证，完成测试环境部署、镜像制作、连通性验证与实验文档编写。</li>
+<li>参与靶场场景材料维护，补充攻击验证流程、防御流程与实验手册，完成部分基础镜像与组件镜像制作，支撑靶场场景交付与复现。</li>
+</ul>
+<hr />
+<h2>项目经历</h2>
+]]></description><guid isPermaLink="false">https://github.com/Zhonghe-zhao/DailyBlog/issues/111</guid><category>Career</category><category>TOP</category><pubDate>Sat, 18 Apr 2026 13:45:02 +0000</pubDate></item><item><title>初见北京总结</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/110</link><description><![CDATA[<p>25年的11月份 在这段时间之前 在学校处于特别焦虑 方向的迷失 特别想要出去实习看看外面的真实情况  在11月份不断的投递实习面了3次吧都挂了 挂的原因大体是 对于知识掌握的不熟悉 这里的不熟悉指的是 自己没有真的理解 自己做过的东西都没法清晰的讲出 对技术的学习不应该这样 可是那个时候我真的不知道该怎么做 但是第四次面试也就是绿盟科技 我的导师给了我这个机会 </p>
 <p>我不敢相信迎来了我的人生第一次实习 我的心情特别激动 无法言说 好在学校这里并没有什么事情 我踏上了去北京的路 提前了3天到了北京 因为要对自己的租房 以及北京的路线进行熟悉 第一天去拖着行李箱 房子找的民宿 房子第一天就把我难住了 环境太差了 而且价钱还很贵 我的心里落差非常的大 好在有一个稳定的工作地点 不如果没有目的去北京 该怎么办唉 好在两天内找到了一个好中介 让我顺利的找了一个可以接受的房子 这次考虑我并没考虑通勤时间 因为太合适的通勤时间意味着钱肯定要多花 我决定舍弃一下通勤 我那时认为1个小时的通勤我也可以接受 … 后来不敢想了哈哈哈哈哈</p>
 <p>12月1日 第一天入职我怀着激动的心情来到公司 提前半个小时到了公司 公司人员给我们讲了入职事项 发了工牌 领取了设备 见到了我的导师 面试我的哥 第一天聊天就得知 哥是清华硕士还是保研去的 我真的无法想到 有一天可以和学历这么高的前辈们进行一起学习 也非常感谢计算机能让我接触到这么多厉害的前辈 第一天准备了公司的一些前置任务 熟悉了一下任务 我导师说我可能是北京这边我们组很长时间第一个实习生 </p>
 <p>工作前两个月 在任务刚开始我尽力的完成导师给我的每一个任务 我想证明我自己  事实证明 有了ai的加持 对完成任务给我带来了很大的帮助 我每一天认真对待每一个任务 思考每一个任务 我发现回到家心里感觉到特别疲惫 公司很好 没有加班 都是看自己  回到家我无法在进行其他学习 家里的环境也没有一个合适的桌子🫠 😑 感觉很多时间也被我自己浪费了</p>
@@ -53,37 +83,7 @@
 ]]></description><guid isPermaLink="false">https://github.com/Zhonghe-zhao/DailyBlog/issues/113</guid><category>Life</category><pubDate>Sun, 31 May 2026 17:14:22 +0000</pubDate></item><item><title>博客一周年</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/112</link><description><![CDATA[<p>博客创建已经一周年了 在这一年内记录了一些生活 以及 学习 收获很多 也非常开心自己能养成写博客的习惯 不期望能有人看到 而能作为自己活过的痕迹</p>
 <p>一年的时间很快 现在回顾当时的自己又感觉到不一样了 即使是一年 我觉得我也有了很大的成长 甚至我认为这一年在技术上可能入门了 遇到了很多帮助自己的人 感谢大家</p>
 <p>接下来的一年首先还是希望自己能找到一个好的工作 即使不是那么好 但我也对我自己很满意了！ 希望自己能一直保持对世界的好奇心 坦然的面对生命中迎来的一切</p>
-]]></description><guid isPermaLink="false">https://github.com/Zhonghe-zhao/DailyBlog/issues/112</guid><category>Life</category><pubDate>Thu, 28 May 2026 15:23:43 +0000</pubDate></item><item><title>我的简历(持续更新)</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/111</link><description><![CDATA[<h1>赵忠赫 | 后端开发实习生</h1>
-<p>📧 <a href="mailto:zhaozhonghe40@gmail.com">zhaozhonghe40@gmail.com</a> | 📱 18545032297
-🔗 <a href="https://github.com/Zhonghe-zhao">GitHub</a> | 🌐 <a href="https://blog.zhaozhonghe.me">Blog</a></p>
-<hr />
-<h2>教育背景  <strong>(2023.09 - 2027.06)</strong></h2>
-<p><strong>沈阳工业大学</strong> | 电子与计算机工程  | 全日制本科</p>
-<hr />
-<h2>实习经历  <strong>(2025.12.01-2026.04.03)</strong></h2>
-<p><strong>绿盟科技｜星云实验室 | 实习研发工程师</strong></p>
-<p>参与 Coogo 云原生安全执行框架研发，主要负责执行框架轻量化拆分、PoC 扫描核心构建、AI Agent 靶场能力接入与跨环境执行验证等工作。</p>
-<hr />
-<p><strong>Coogo 云原生安全执行框架轻量化重构｜Go</strong></p>
-<ul>
-<li>基于原 Module 接口中的 CanI() 检测链路与 Run() 执行链路，参与将单体 Coogo 框架拆分为 poc-shell-core 与 exp-shell-core 两类执行核心，分别承载轻量扫描与能力执行场景。</li>
-<li>分析 Go package 编译机制、init() 自注册模式与模块依赖树，定位 modules/escape 全量导入导致扫描产物携带 Kubernetes SDK、containerd、embed payload 等重依赖的问题；通过独立 Scanner 入口、Build Tags、Stub 替身与公共依赖轻量化改造，产出约 2.5MB 的 PoC 扫描核心。</li>
-<li>基于公司 Coogo 能力表设计扫描结果优先级模型，将能力划分为 T0 配置类、T1 组件类、T2 内核类与 Info 类，并结合 CanI() 返回状态进行分层排序，优化原 Yes/Unknown/No 无序输出，提升靶场环境下漏洞验证路径选择效率。</li>
-</ul>
-<p><strong>AI Agent 靶场能力接入与调用链路封装｜Go / Qwen-Agent / Gradio</strong></p>
-<ul>
-<li>参与云 AI 攻防靶场中 Qwen-Agent Code Interpreter 能力接入，梳理 LLM 服务、Gradio 前端、Agent 执行逻辑与 Code Interpreter 后端/沙箱之间的调用边界。</li>
-<li>通过抓包分析 Gradio WebUI 工具调用流程，明确 predict、queue/join、session_hash、history 与流式返回数据结构，并在 Coogo 中新增 exec-qwen-agent 模块，将原本依赖页面交互的 Agent 执行能力封装为 CLI 可调用能力。</li>
-<li>基于 Go 实现 Qwen-Agent headless 调用链路，构造 Gradio 请求 payload，兼容不同接口路径，解析 SSE/队列响应，并从嵌套 JSON 与 Observation 输出中提取执行结果；在本地与靶场环境中验证调用稳定性。</li>
-</ul>
-<p><strong>云和AI靶场环境构建与场景交付</strong></p>
-<ul>
-<li>参与 Dify、Qwen-Agent、MCP、goose、LiteLLM 等 AI 靶场组件调研与环境验证，完成测试环境部署、镜像制作、连通性验证与实验文档编写。</li>
-<li>参与靶场场景材料维护，补充攻击验证流程、防御流程与实验手册，完成部分基础镜像与组件镜像制作，支撑靶场场景交付与复现。</li>
-</ul>
-<hr />
-<h2>项目经历</h2>
-]]></description><guid isPermaLink="false">https://github.com/Zhonghe-zhao/DailyBlog/issues/111</guid><pubDate>Sat, 18 Apr 2026 13:45:02 +0000</pubDate></item><item><title>2026 年后的一些想法和感悟</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/107</link><description><![CDATA[<h2>回到实习offer那天</h2>
+]]></description><guid isPermaLink="false">https://github.com/Zhonghe-zhao/DailyBlog/issues/112</guid><category>Life</category><pubDate>Thu, 28 May 2026 15:23:43 +0000</pubDate></item><item><title>2026 年后的一些想法和感悟</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/107</link><description><![CDATA[<h2>回到实习offer那天</h2>
 <p>收到实习offer的那一天 我不敢相信 特别激动  在学校的那段时间我总想出去实习 我不知道为什么 可能就是想证明自己 学的东西真的能被用上 那时我的一切心思都投入到了找实习中 迈出第一步一直投递简历 如愿以偿 我认为我真的运气很好 我真的很想证明自己  </p>
 <h2>初进公司</h2>
 <p>我如愿以偿的进入了公司 刚开始我比较害怕 我害怕我无法完成公司给我的任务 导师给我的第一个主要的任务 我心想一定要尽力完成在一定的时间内 证明我有价值 在AI的时代 我们可以完成看着很难对于我们自己目前储备的知识无法完成的事情  它就像我们的知识库 我们不断的通过问答 不断尝试 在问答中不断了解任务的构成 来解决任务 我对公司的一切充满了好奇心 一切的一切 甚至第一天的文档任务 我相尽办法把它做到最好 还有调查一些网上资源 我也很开心 终于不像是在学校那样调查一些没用的东西了 这样的开心的心态我持续了很久</p>

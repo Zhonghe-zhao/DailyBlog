@@ -4,6 +4,7 @@
 [About Me](https://github.com/Zhonghe-zhao/DailyBlog/issues/34) · [Things I like](https://github.com/Zhonghe-zhao/DailyBlog/issues/35) · [RSS Feed](https://blog.zhaozhonghe.me/rss.xml)
 
 ## 🦄 置顶文章
+- [我的简历(持续更新)](https://github.com/Zhonghe-zhao/DailyBlog/issues/111)--2026-04-18
 - [与祥凯老哥见面了](https://github.com/Zhonghe-zhao/DailyBlog/issues/93)--2025-12-07
 - [21岁生日(2025 总结) (北京第七天) (入职第四天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/91)--2025-12-04
 - [Blog完全体](https://github.com/Zhonghe-zhao/DailyBlog/issues/76)--2025-11-09
@@ -35,12 +36,12 @@
 *[直达issue](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)*
 
 ## 📖 最近更新
+- [我的简历(持续更新)](https://github.com/Zhonghe-zhao/DailyBlog/issues/111)--2026-04-18
 - [初见北京总结](https://github.com/Zhonghe-zhao/DailyBlog/issues/110)--2026-04-05
 - [Codex最佳订阅方法(仅限Apple)](https://github.com/Zhonghe-zhao/DailyBlog/issues/114)--2026-06-20
 - [实习总结 (在公司封存)](https://github.com/Zhonghe-zhao/DailyBlog/issues/109)--2026-04-03
 - [切断网络的一天](https://github.com/Zhonghe-zhao/DailyBlog/issues/113)--2026-05-31
 - [博客一周年](https://github.com/Zhonghe-zhao/DailyBlog/issues/112)--2026-05-28
-- [我的简历(持续更新)](https://github.com/Zhonghe-zhao/DailyBlog/issues/111)--2026-04-18
 - [2026 年后的一些想法和感悟](https://github.com/Zhonghe-zhao/DailyBlog/issues/107)--2026-03-13
 - [一次网络问题的排查](https://github.com/Zhonghe-zhao/DailyBlog/issues/108)--2026-03-13
 - [游戏: 《地铁 离去》](https://github.com/Zhonghe-zhao/DailyBlog/issues/106)--2026-02-16
