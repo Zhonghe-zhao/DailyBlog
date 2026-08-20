@@ -1,0 +1,19 @@
+{% extends "index.html" %}
+
+{% block title %}简历 · 赵忠赫{% endblock title %}
+
+{% block content %}
+{% set resume_source = get_page(path="issue-111.md") %}
+<article class="resume resume--synced">
+  <header class="resume-hero resume-hero--compact">
+    <div><h1>赵忠赫</h1><p>后端开发工程师</p></div>
+    <img src="{{ get_url(path='avatar.jpg') }}" alt="赵忠赫的头像">
+    <nav><a href="https://github.com/Zhonghe-zhao">GitHub ↗</a><a href="mailto:zhaozhonghe40@gmail.com">Email ↗</a><a href="{{ resume_source.extra.issue_url }}">编辑源 Issue ↗</a></nav>
+  </header>
+
+  <section class="resume-source">
+    {{ resume_source.content | replace(from="18545032297", to="手机号暂不公开") | safe }}
+  </section>
+
+</article>
+{% endblock content %}

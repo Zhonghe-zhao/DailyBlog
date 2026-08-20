@@ -1,0 +1,24 @@
+{% extends "index.html" %}
+
+{% block title %}所有文章 · {{ config.extra.even_title }}{% endblock title %}
+
+{% block content %}
+{% set journal = get_section(path="_index.md") %}
+<section class="posts-page">
+  <header class="posts-page__head">
+    <h1>文章</h1>
+  </header>
+  <div class="posts-list">
+    {% for page in journal.pages %}
+    {% if page.slug != "issue-111" %}
+    <article class="posts-row">
+      <time>{{ page.date | date(format="%Y.%m.%d", timezone="Asia/Shanghai") }}</time>
+      <div class="posts-row__main"><h2><a href="{{ page.permalink }}">{{ page.title }}</a></h2><p class="posts-row__excerpt">{{ page.content | striptags | truncate(length=110) }}</p></div>
+      <div class="posts-row__meta"><span>约 {{ page.reading_time }} 分钟</span>{% if page.taxonomies.tags %}<span>#{{ page.taxonomies.tags | first }}</span>{% endif %}</div>
+      <a class="posts-row__arrow" href="{{ page.permalink }}" aria-label="阅读《{{ page.title }}》">↗</a>
+    </article>
+    {% endif %}
+    {% endfor %}
+  </div>
+</section>
+{% endblock content %}

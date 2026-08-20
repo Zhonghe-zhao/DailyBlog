@@ -66,6 +66,10 @@ jobs:
           cp -R site_overrides/templates/. output/templates/
           cp -R site_overrides/static/. output/static/
           cp site_overrides/content/_index.md output/content/_index.md
+          mkdir -p output/content/posts
+          cp site_overrides/content/posts/_index.md output/content/posts/_index.md
+          mkdir -p output/content/resume
+          cp site_overrides/content/resume/_index.md output/content/resume/_index.md
           gh release download $ZOLA_VERSION --repo getzola/zola -p '*x86_64-unknown-linux*' -O- | tar -xz -C /tmp
           mv /tmp/zola /usr/local/bin
           cd output && zola check --skip-external-links && zola build --base-url "$BASE_URL"

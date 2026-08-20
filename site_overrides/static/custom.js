@@ -1,18 +1,18 @@
 (() => {
   const root = document.documentElement;
   const toggle = document.querySelector(".theme-toggle");
-  const modes = ["auto", "light", "dark"];
+  const modes = ["light", "dark"];
 
   if (toggle) {
-    const labels = { auto: "跟随系统", light: "浅色", dark: "深色" };
+    const labels = { light: "浅色", dark: "深色" };
     const refreshLabel = () => {
-      const mode = root.dataset.theme || "auto";
+      const mode = root.dataset.theme === "dark" ? "dark" : "light";
       toggle.title = `当前：${labels[mode]}；点击切换`;
       toggle.setAttribute("aria-label", toggle.title);
     };
     refreshLabel();
     toggle.addEventListener("click", () => {
-      const current = root.dataset.theme || "auto";
+      const current = root.dataset.theme === "dark" ? "dark" : "light";
       const next = modes[(modes.indexOf(current) + 1) % modes.length];
       root.dataset.theme = next;
       localStorage.setItem("blog-theme", next);
