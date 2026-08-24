@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Zhonghe · 后端工程师与生活记录</title><link>https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml</link><description>记录技术如何被理解，也记录一个人如何慢慢发生变化。</description><atom:link href="https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml" rel="self"/><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><lastBuildDate>Mon, 24 Aug 2026 08:00:22 +0000</lastBuildDate><item><title>我的简历(持续更新)</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/111</link><description><![CDATA[<h1>赵忠赫 | 后端开发工程师</h1>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Zhonghe · 后端工程师与生活记录</title><link>https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml</link><description>记录技术如何被理解，也记录一个人如何慢慢发生变化。</description><atom:link href="https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml" rel="self"/><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><lastBuildDate>Mon, 24 Aug 2026 08:02:52 +0000</lastBuildDate><item><title>我的简历(持续更新)</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/111</link><description><![CDATA[<h1>赵忠赫 | 后端开发工程师</h1>
 <p>📧 <a href="mailto:zhaozhonghe40@gmail.com">zhaozhonghe40@gmail.com</a> | 📱 18545032297
 🔗 <a href="https://github.com/Zhonghe-zhao">GitHub</a> | 🌐 <a href="https://blog.zhaozhonghe.me">Blog</a></p>
 <hr />
@@ -23,7 +23,7 @@
 <li>针对不同模型在工具调用、安全策略和输出格式上的行为差异，开展候选模型兼容性与场景稳定性验证，筛选可稳定支撑场景的 Qwen 模型并部署至 Ollama，通过 LiteLLM 提供统一模型服务入口，解决不同模型行为差异导致的场景复现不稳定问题。 最终打通攻击机、Qwen-Agent、LiteLLM 与公司 Ollama 服务之间的端到端链路，支持通过 Coogo CLI 自动触发授权靶场场景并获取执行结果，完成预设代码执行与受控回连验证。</li>
 <li>基于 QEMU 制作并调试 Qwen-Agent 受害机镜像，完成代码执行环境、LiteLLM/Ollama 模型链路及靶场内外网接入；针对迁移后攻击机、受害机与模型服务无法通信的问题，逐层排查虚拟机双网卡、DHCP 地址获取、默认路由、服务监听及平台访问策略，协同平台人员定位受限宿主节点并完成迁移。</li>
 </ul>
-<p>** Docker/Kubernetes 安全能力集成与靶场验证｜Go / Docker / Kubernetes / QEMU**</p>
+<p><strong>Docker/Kubernetes 安全能力集成与靶场验证｜Go / Docker / Kubernetes / QEMU</strong></p>
 <ul>
 <li>参与云原生攻防靶场能力建设，基于内部能力清单与实验环境，将 Docker 危险挂载、containerd、LXCFS 及 Kubernetes 组件相关检测/验证逻辑接入 Coogo，按照 Module 规范补充能力元数据、CanI() 前置条件检测与 Run() 执行入口。</li>
 <li>在 Qwen-Agent 场景迁移测试中定位 Coogo 环境信息收集缺陷：框架通过 UDP Dial 触发路由选择获取本机出站源 IP，却将其作为容器 IP 使用，且连接失败后仍继续操作空连接；分析无默认路由及网络命名空间变化导致的错误环境判断与运行时崩溃问题。</li>
