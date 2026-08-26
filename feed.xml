@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Zhonghe · 后端工程师与生活记录</title><link>https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml</link><description>记录技术如何被理解，也记录一个人如何慢慢发生变化。</description><atom:link href="https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml" rel="self"/><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><lastBuildDate>Wed, 26 Aug 2026 08:13:46 +0000</lastBuildDate><item><title>我的简历(持续更新)</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/111</link><description><![CDATA[<h1>赵忠赫｜后端开发工程师</h1>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Zhonghe · 后端工程师与生活记录</title><link>https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml</link><description>记录技术如何被理解，也记录一个人如何慢慢发生变化。</description><atom:link href="https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml" rel="self"/><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><lastBuildDate>Wed, 26 Aug 2026 08:17:58 +0000</lastBuildDate><item><title>我的简历(持续更新)</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/111</link><description><![CDATA[<h1>赵忠赫｜后端开发工程师</h1>
 <p>18545032297｜<a href="mailto:zhaozhonghe40@gmail.com">zhaozhonghe40@gmail.com</a>｜[<a href="https://github.com/Zhonghe-zhao">GitHub</a>](https://github.com/Zhonghe-zhao)｜[<a href="https://blog.zhaozhonghe.me/">Blog</a>](https://blog.zhaozhonghe.me)</p>
 <h2>教育背景</h2>
 <p><strong>沈阳工业大学｜电子与计算机工程｜全日制本科| 2023.09—2027.06</strong></p>
@@ -33,7 +33,7 @@
 <li>将用户主动关联的工作资料与主题知识库动态召回片段共同构造成问答上下文，支持仅资料、协作回答和开放探索三种回答模式；LLM 返回后由服务端校验引用资料 ID 与原文，证据不足时仅资料模式拒绝作答，并明确标记模型知识补充。</li>
 <li>设计面向网页版大模型的组合交付包，以确认理解、未决问题和下一步作为权威状态，并从关联主题召回开发记录和代码证据，经去重与上下文预算裁剪生成 Markdown/JSON，已通过 DeepSeek 网页版验证跨会话恢复效果。</li>
 </ul>
-<h3><strong>TaskPulse｜基于租约机制的可靠异步任务执行引擎2026.05—至今</strong></h3>
+<h3><strong>TaskPulse｜基于租约机制的可靠异步任务执行引擎 | 2026.05—至今</strong></h3>
 <blockquote>
 <p>TaskPulse 是面向长耗时后台任务的可靠异步执行引擎，统一管理任务从创建、领取、执行、重试到终态的生命周期，并通过租约机制处理 Worker 失联、任务接管和旧执行者写回问题。</p>
 </blockquote>
