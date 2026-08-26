@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Zhonghe · 后端工程师与生活记录</title><link>https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml</link><description>记录技术如何被理解，也记录一个人如何慢慢发生变化。</description><atom:link href="https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml" rel="self"/><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><lastBuildDate>Wed, 26 Aug 2026 08:17:58 +0000</lastBuildDate><item><title>我的简历(持续更新)</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/111</link><description><![CDATA[<h1>赵忠赫｜后端开发工程师</h1>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Zhonghe · 后端工程师与生活记录</title><link>https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml</link><description>记录技术如何被理解，也记录一个人如何慢慢发生变化。</description><atom:link href="https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml" rel="self"/><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><lastBuildDate>Wed, 26 Aug 2026 08:18:50 +0000</lastBuildDate><item><title>我的简历(持续更新)</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/111</link><description><![CDATA[<h1>赵忠赫｜后端开发工程师</h1>
 <p>18545032297｜<a href="mailto:zhaozhonghe40@gmail.com">zhaozhonghe40@gmail.com</a>｜[<a href="https://github.com/Zhonghe-zhao">GitHub</a>](https://github.com/Zhonghe-zhao)｜[<a href="https://blog.zhaozhonghe.me/">Blog</a>](https://blog.zhaozhonghe.me)</p>
 <h2>教育背景</h2>
 <p><strong>沈阳工业大学｜电子与计算机工程｜全日制本科| 2023.09—2027.06</strong></p>
@@ -24,7 +24,7 @@
 <h2>项目经历</h2>
 <h3><strong>MemoBridge｜本地知识理解与状态交付工作台 | 2026.01—至今</strong></h3>
 <blockquote>
-<p>面向长期学习中资料、AI 回答与用户理解混杂，以及切换会话后难以恢复推进状态的问题，将资料事实、AI 建议、用户确认理解、未决问题与下一步分离建模，构建从资料捕获、证据召回、辅助问答、理解确认到跨会话交付的本地知识工作台。</p>
+<p>面向长期学习与项目研究中资料、模型建议与用户理解混杂，以及任务难以持续推进、切换 AI 会话后状态难以恢复的问题，将资料证据、模型候选建议、用户确认理解、未决问题与下一步分离建模，构建覆盖资料捕获、证据调查、Agent 分步推进、理解确认与跨会话交付的本地认知工作台。</p>
 </blockquote>
 <ul>
 <li>将长期研究过程建模为“长期主题—推进问题—资料证据—用户确认理解”，区分外部资料、模型建议与用户正式状态；AI 问答链路仅返回候选建议，不自动覆盖当前理解，用户显式提交后形成包含当前结论、不确定点和下一步的状态快照，并保留修订历史与证据引用。</li>
