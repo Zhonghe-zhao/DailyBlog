@@ -1,49 +1,53 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Zhonghe · 后端工程师与生活记录</title><link>https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml</link><description>记录技术如何被理解，也记录一个人如何慢慢发生变化。</description><atom:link href="https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml" rel="self"/><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><lastBuildDate>Tue, 25 Aug 2026 01:58:07 +0000</lastBuildDate><item><title>我的简历(持续更新)</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/111</link><description><![CDATA[<h1>赵忠赫｜后端开发工程师</h1>
-<p>📧 <a href="mailto:zhaozhonghe40@gmail.com">zhaozhonghe40@gmail.com</a> ｜ 📱 18545032297<br />
-🔗 <a href="https://github.com/Zhonghe-zhao">GitHub</a> ｜ 🌐 <a href="https://blog.zhaozhonghe.me">Blog</a></p>
-<hr />
-<h2>教育背景　<code>2023.09—2027.06</code></h2>
-<p><strong>沈阳工业大学</strong>｜电子与计算机工程｜全日制本科</p>
-<hr />
-<h2>实习经历　<code>2025.12.01—2026.04.03</code></h2>
-<p><strong>绿盟科技｜星云实验室｜实习研发工程师</strong></p>
-<h3>Coogo 云原生安全执行框架轻量化重构｜Go</h3>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Zhonghe · 后端工程师与生活记录</title><link>https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml</link><description>记录技术如何被理解，也记录一个人如何慢慢发生变化。</description><atom:link href="https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml" rel="self"/><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><lastBuildDate>Wed, 26 Aug 2026 08:13:46 +0000</lastBuildDate><item><title>我的简历(持续更新)</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/111</link><description><![CDATA[<h1>赵忠赫｜后端开发工程师</h1>
+<p>18545032297｜<a href="mailto:zhaozhonghe40@gmail.com">zhaozhonghe40@gmail.com</a>｜[<a href="https://github.com/Zhonghe-zhao">GitHub</a>](https://github.com/Zhonghe-zhao)｜[<a href="https://blog.zhaozhonghe.me/">Blog</a>](https://blog.zhaozhonghe.me)</p>
+<h2>教育背景</h2>
+<p><strong>沈阳工业大学｜电子与计算机工程｜全日制本科| 2023.09—2027.06</strong></p>
+<h2>实习经历</h2>
+<h3><strong>绿盟科技｜星云实验室｜实习研发工程师 | 2025.12—2026.04</strong></h3>
+<blockquote>
+<p>参与云原生与 AI 攻防靶场研发，负责 Go 执行框架重构、场景调用链路封装、模型服务及虚拟化环境部署，并参与跨环境网络与运行问题排查。</p>
+</blockquote>
+<h3>Coogo 轻量化重构</h3>
 <ul>
-<li>面向核心 PoC 能力独立运行和轻量交付需求，使用 goweight、控制变量构建及 Go 依赖图分析二进制组成，定位 Kubernetes SDK、containerd 与 <code>go:embed</code> 资源等主要体积来源；将完整工具从约 80 MB 压缩至 17 MB，并验证仅依赖链接参数与 UPX 无法达到几 MB 级独立扫描目标。</li>
-<li>基于原 Module 接口中 <code>CanI()</code> 检测与 <code>Run()</code> 执行的职责边界，引入独立 Scanner 入口、Build Tags、Stub 及公共依赖裁剪，将框架拆分为 <code>poc-shell-core</code> 与 <code>exp-shell-core</code>，产出约 <strong>2.5 MB（UPX 后）</strong> 的独立 PoC 扫描核心。</li>
-<li>基于内部能力分级设计 T0/T1/T2/Info 与 Yes/Unknown/No 相结合的扫描优先级；排查并修复表格组件二次排序覆盖上游权重结果的问题，使扫描结果能够直接指导后续验证顺序。</li>
-<li>为 <code>exp-shell-core</code> 实现指定能力构建流程，根据能力名称生成执行入口，完成编译、签名衔接与临时产物清理，生成可独立下发的目标能力二进制，支持靶场按能力调用和产物管理。</li>
+<li>面向核心 PoC 能力独立运行和轻量交付需求，负责 Coogo 二进制体积分析；通过 <code>goweight</code>、控制变量构建及 Go 依赖树排查，定位 Kubernetes SDK、containerd 和 <code>go:embed</code> payload 等主要体积来源，结合符号裁剪与 UPX 将完整工具由约 <strong>80 MB 压缩至 17 MB</strong>，并确认构建参数优化无法满足数 MB 级独立扫描需求。</li>
+<li>基于原 <code>Module</code> 接口中 <code>CanI()</code> 检测与 <code>Run()</code> 执行的职责边界，将 Coogo 拆分为可独立编译和运行的 <code>poc-shell-core</code> 与 <code>exp-shell-core</code>：PoC 侧承载单能力/批量检测及结果排序，Exp 侧保留利用执行与重型 SDK、payload 等依赖，最终产出约 **2.5 MB(UPX 后)的独立 PoC 扫描核心。</li>
+<li>针对原 Coogo 扫描结果仅展示 <code>Yes/Unknown/No</code>、候选能力顺序无法指导后续验证的问题，基于内部能力表构建 T0 配置类、T1 组件类、T2 内核类与 Info 类优先级模型，结合目标环境的 <code>CanI()</code> 检测结果生成有序候选列表；并为 <code>exp-shell-core</code> 实现指定能力入口生成与独立构建流程，支持靶场按能力调用和产物管理。</li>
 </ul>
-<h3>AI Agent 靶场场景建设与自动化接入｜Go / Qwen-Agent / Gradio / LiteLLM</h3>
+<h3>云原生与 AI 攻防靶场能力建设及自动化接入</h3>
 <ul>
-<li>面向 Qwen-Agent Code Interpreter 依赖 Gradio WebUI、无法被 Coogo 自动调用的问题，通过场景源码分析与浏览器抓包梳理任务提交、会话关联、HTTP/SSE 队列监听及嵌套结果解析流程，使用 Go 实现无浏览器依赖的 Headless 客户端并封装为 Coogo Module。</li>
-<li>针对不同模型在工具调用、安全策略和输出结构上的行为差异，完成候选模型兼容性与场景稳定性验证，部署 Ollama 模型并通过 LiteLLM 统一服务入口；打通攻击机、Qwen-Agent、LiteLLM 与公司模型服务的端到端链路，支持 Coogo CLI 在授权靶场中自动触发场景并获取执行结果。</li>
-<li>基于 QEMU 制作并调试 Qwen-Agent 受害机镜像，完成代码执行环境、模型链路和靶场内外网接入；针对迁移后多节点无法通信的问题，逐层排查双网卡、DHCP、默认路由、服务监听及平台访问策略，协同定位受限宿主节点并完成迁移。</li>
+<li>针对 Qwen-Agent Code Interpreter 依赖 Gradio WebUI、无法被自动调用的问题，通过源码分析与抓包梳理任务提交、会话关联及 HTTP/SSE 队列协议，使用 Go 实现 Headless 客户端并封装为 Coogo Module。</li>
+<li>针对不同模型在工具调用、安全策略及输出格式上的行为差异，完成候选模型兼容性与场景稳定性验证，筛选 Qwen 模型部署至 Ollama，并通过 LiteLLM 提供统一服务入口；基于 QEMU 制作 Qwen-Agent、LiteLLM、Ollama 靶场镜像，在靶场平台排查双网卡、DHCP、默认路由、服务监听及平台访问策略问题，最终打通 Coogo、Qwen-Agent、LiteLLM 与 Ollama 的端到端自动验证链路。</li>
+<li>参与 Coogo 云原生安全能力建设，围绕危险挂载、容器运行时与 Kubernetes 组件场景，对 <code>mount-containerd</code>、<code>lxcfs-escape</code>、<code>mount-var-log</code>、<code>CVE-2021-25748</code> 等能力进行模块化适配，按照 <code>Module</code> 规范完善元数据注册、参数处理、<code>CanI()</code> 前置条件检测与 <code>Run()</code> 执行入口。</li>
+<li>参与 MCP 安全场景建设，使用 Goose、Continue 与 FastMCP Server 验证工具描述和参数传递风险，排查 SSE 路径、服务监听与容器网络问题，并完成 Windows QEMU 基础镜像和 Goose 环境适配。</li>
 </ul>
-<h3>Docker/Kubernetes 安全能力集成与靶场验证｜Go / Docker / Kubernetes / QEMU</h3>
-<ul>
-<li>将 Docker 危险挂载、containerd、LXCFS 及 Kubernetes 组件相关检测与验证逻辑接入 Coogo，按照 Module 协议实现能力元数据、<code>CanI()</code> 前置条件检测与 <code>Run()</code> 执行入口，并在本地、QEMU 镜像及授权靶场环境完成验证。</li>
-<li>定位 Coogo 网络环境识别异常：框架通过 UDP Dial 触发路由选择获得出站源 IP 后误将其作为容器 IP，并在连接失败后继续操作空连接；分析无默认路由及网络命名空间差异导致的错误环境判断与运行时崩溃问题。</li>
-</ul>
-<hr />
 <h2>项目经历</h2>
-<h3>MemoBridge｜本地知识理解与状态交付工作台｜个人项目　<code>2026.01—至今</code></h3>
-<p>面向长期学习中资料分散、思考状态难以延续以及切换 AI 会话需要重复交代上下文的问题，以长期主题和持续推进问题组织工作边界，将资料事实、AI 建议与用户确认状态分离，形成从资料捕获、证据召回、AI 辅助到理解确认及跨会话交付的闭环。</p>
+<h3><strong>MemoBridge｜本地知识理解与状态交付工作台 | 2026.01—至今</strong></h3>
+<blockquote>
+<p>面向长期学习中资料、AI 回答与用户理解混杂，以及切换会话后难以恢复推进状态的问题，将资料事实、AI 建议、用户确认理解、未决问题与下一步分离建模，构建从资料捕获、证据召回、辅助问答、理解确认到跨会话交付的本地知识工作台。</p>
+</blockquote>
 <ul>
-<li>设计文本、链接、附件及文件夹的统一捕获管线，将原始文件身份 <code>Asset</code> 与可参与探究的业务资料 <code>SourceItem</code> 分离；通过内容去重、批次幂等键和事务化 Promote，保证并发重试下同一 Capture 只生成一份正式资料，并支持原子创建推进线及资料关系。</li>
-<li>针对资料措辞与用户查询不一致导致的漏召回，基于 PostgreSQL <code>pg_trgm</code>、pgvector 与本地 bge-m3 构建词法和向量双路召回，通过确定性切片、内容 Hash 失效和 RRF 融合异构排名；在 12 条人工查询集上将 Recall@10 从 29.17% 提升至 68.06%、MRR 从 21.88% 提升至 32.62%，并在向量服务异常时降级保留非向量结果。</li>
-<li>设计受控 RAG 问答链路，将用户主动组织的工作资料与主题知识库动态召回的精确片段结合，提供仅资料、协作回答和开放探索三种证据边界；模型返回后由服务端根据证据白名单校验资料 ID、引用原文及来源通道，过滤越界或伪造引用，并显式标记模型知识使用。</li>
-<li>将模型交互持久化为有状态 Turn，通过 <code>conversation_id + client_request_id</code> 实现重试幂等，记录执行状态、Provider、模型、Token、延迟及上下文/检索快照；提供无模型调用的上下文预览与问题级诊断，并在请求取消或模型失败后可靠收口状态。</li>
-<li>设计面向网页版大模型的 Composite Handoff，以当前主题的确认理解、未决问题和下一步作为权威状态，再从关联主题中混合召回相关开发记录和代码证据，经去重与上下文预算裁剪后生成 Markdown/JSON，使新 AI 会话能够恢复任务断点；已通过 DeepSeek 网页版验证恢复效果。</li>
+<li>将长期研究过程建模为“长期主题—推进问题—资料证据—用户确认理解”，区分外部资料、模型建议与用户正式状态；AI 问答链路仅返回候选建议，不自动覆盖当前理解，用户显式提交后形成包含当前结论、不确定点和下一步的状态快照，并保留修订历史与证据引用。</li>
+<li>设计并实现面向长期学习与项目研究的有状态理解推进 Agent：根据用户目标和当前认知状态，按需调查主题资料与本地工作区代码，生成包含推进方法、相关证据和验收标准的分步计划；持续依据用户输出在 <code>retry / advance / replan / propose_patch</code> 间决策，并由用户确认后写入正式理解，实现从目标设定、逐步学习到认知沉淀的闭环。</li>
+<li>基于 PostgreSQL <code>pg_trgm</code>、pgvector 与本地 bge-m3 构建词法和向量双路召回，通过确定性切片、内容 Hash 识别派生索引失效，并以 RRF 融合异构排名；在 12 条人工查询集上将 Recall@10 由 29.17% 提升至 68.06%、MRR 由 21.88% 提升至 32.62%，向量异常时降级保留非向量结果。</li>
+<li>将用户主动关联的工作资料与主题知识库动态召回片段共同构造成问答上下文，支持仅资料、协作回答和开放探索三种回答模式；LLM 返回后由服务端校验引用资料 ID 与原文，证据不足时仅资料模式拒绝作答，并明确标记模型知识补充。</li>
+<li>设计面向网页版大模型的组合交付包，以确认理解、未决问题和下一步作为权威状态，并从关联主题召回开发记录和代码证据，经去重与上下文预算裁剪生成 Markdown/JSON，已通过 DeepSeek 网页版验证跨会话恢复效果。</li>
 </ul>
-<h3>TaskPulse｜可靠异步任务调度与执行引擎｜个人项目　<code>2026.05—至今</code></h3>
-<p>针对长耗时任务在业务进程内执行时难以追踪、服务重启后丢失及重复执行难以收敛的问题，设计以 MySQL 为状态真相源、控制面与业务 Worker 分离的可靠异步任务运行时。</p>
+<h3><strong>TaskPulse｜基于租约机制的可靠异步任务执行引擎2026.05—至今</strong></h3>
+<blockquote>
+<p>TaskPulse 是面向长耗时后台任务的可靠异步执行引擎，统一管理任务从创建、领取、执行、重试到终态的生命周期，并通过租约机制处理 Worker 失联、任务接管和旧执行者写回问题。</p>
+</blockquote>
 <ul>
-<li>将任务状态、执行事件和重试信息持久化，通过 MySQL 事务与 <code>SELECT ... FOR UPDATE SKIP LOCKED</code> 实现多 Worker 并发领取，使任务能够水平消费，并保证领取结果与审计事件原子一致。</li>
-<li>设计基于租约的执行权管理机制，由 Worker 心跳续租，租约过期后恢复任务，并通过 Lease Token 与 Version Fencing 拒绝旧 Worker 的延迟写回；正常停机时主动 Release，缩短任务交接时间且不消耗业务重试预算。</li>
-<li>区分控制面网络重试与业务执行重试，结合错误分类、指数退避、重试预算、执行超时和取消机制处理外部服务故障；对终态提交提供幂等重放，并明确业务侧仍需处理 At-least-once 语义下的重复执行。</li>
-<li>抽象 Workflow/Executor 与 Go Worker Runtime，统一封装任务领取、续租、进度、完成、失败及优雅退出；接入 MemoBridge 的语义档案和向量索引任务，并通过供应商异常、Worker 崩溃、优雅交接及终态响应丢失实验验证恢复能力。</li>
+<li>基于 MySQL 事务及 <code>SELECT ... FOR UPDATE SKIP LOCKED</code> 实现多 Worker 并发 Claim，在同一事务内完成任务状态转换、租约建立和 <code>task_started</code> 事件写入，避免同一任务被并发领取，并保证任务状态与审计事件原子一致。</li>
+<li>设计 Lease、Heartbeat、Lease Token 与 Version Fencing 执行权协议，支持 Worker 崩溃后的租约过期接管，并拒绝旧 Worker 的进度与终态写回；正常停机时主动 Release，缩短任务交接时间且不消耗业务重试预算。</li>
+<li>区分业务执行失败与控制面不确定结果：对可恢复错误采用错误分类、指数退避与重试预算，对 Complete 响应丢失支持相同 Fencing 凭证下的终态幂等重放；明确提供 At-least-once 执行语义，并要求业务侧保证幂等写回。</li>
+<li>抽象 Workflow/Executor 与 Go Worker Runtime，统一封装 Claim、续租、进度、失败、终态上报及优雅退出；接入 MemoBridge 语义档案与向量索引任务，并通过 Provider 异常、Worker/Pod 崩溃、优雅交接及 Complete 重放实验验证任务重试、接管与终态收敛。</li>
+</ul>
+<h2>专业技能</h2>
+<ul>
+<li><strong>编程语言：</strong> 熟悉 Go，掌握 Goroutine、Channel、Context、接口与错误处理，了解 GMP 调度、内存管理及 GC 基本原理。</li>
+<li><strong>数据库：</strong> 熟悉 MySQL、PostgreSQL，掌握事务、索引、锁机制</li>
+<li><strong>工程实践：</strong> 熟悉 Linux 与 Docker 基本使用，具有 Kubernetes 部署、日志分析及网络排障实践。</li>
 </ul>
 ]]></description><guid isPermaLink="false">https://github.com/Zhonghe-zhao/DailyBlog/issues/111</guid><category>Career</category><category>TOP</category><pubDate>Sat, 18 Apr 2026 13:45:02 +0000</pubDate></item><item><title>初见北京总结</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/110</link><description><![CDATA[<p>25年的11月份 在这段时间之前 在学校处于特别焦虑 方向的迷失 特别想要出去实习看看外面的真实情况  在11月份不断的投递实习面了3次吧都挂了 挂的原因大体是 对于知识掌握的不熟悉 这里的不熟悉指的是 自己没有真的理解 自己做过的东西都没法清晰的讲出 对技术的学习不应该这样 可是那个时候我真的不知道该怎么做 但是第四次面试也就是绿盟科技 我的导师给了我这个机会 </p>
 <p>我不敢相信迎来了我的人生第一次实习 我的心情特别激动 无法言说 好在学校这里并没有什么事情 我踏上了去北京的路 提前了3天到了北京 因为要对自己的租房 以及北京的路线进行熟悉 第一天去拖着行李箱 房子找的民宿 房子第一天就把我难住了 环境太差了 而且价钱还很贵 我的心里落差非常的大 好在有一个稳定的工作地点 不如果没有目的去北京 该怎么办唉 好在两天内找到了一个好中介 让我顺利的找了一个可以接受的房子 这次考虑我并没考虑通勤时间 因为太合适的通勤时间意味着钱肯定要多花 我决定舍弃一下通勤 我那时认为1个小时的通勤我也可以接受 … 后来不敢想了哈哈哈哈哈</p>
