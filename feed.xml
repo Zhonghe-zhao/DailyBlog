@@ -1,5 +1,16 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Zhonghe · 后端工程师与生活记录</title><link>https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml</link><description>记录技术如何被理解，也记录一个人如何慢慢发生变化。</description><atom:link href="https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml" rel="self"/><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><lastBuildDate>Wed, 26 Aug 2026 08:18:50 +0000</lastBuildDate><item><title>我的简历(持续更新)</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/111</link><description><![CDATA[<h1>赵忠赫｜后端开发工程师</h1>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Zhonghe · 后端工程师与生活记录</title><link>https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml</link><description>记录技术如何被理解，也记录一个人如何慢慢发生变化。</description><atom:link href="https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml" rel="self"/><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><lastBuildDate>Thu, 27 Aug 2026 00:10:31 +0000</lastBuildDate><item><title>北京第四天(入职第一天)</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/88</link><description><![CDATA[<p>首先就是出发去公司报道, 感受到北京早高峰地铁, 还是得早点起, 通勤这块一天 来回都要三个小时了！ </p>
+<p>实习的第一天签了实习协议, 发了公司的电脑, 领到了工牌,然后开始配置内网环境</p>
+<p>午餐真的很棒！ </p>
+<p><img src="https://github.com/user-attachments/assets/75ab6ffe-e94b-4955-81d0-e1bcaaa5b2db" alt="Image" /></p>
+<p><img src="https://github.com/user-attachments/assets/e0e03c73-728b-4445-922a-d7afd0367d2e" alt="Image" /></p>
+<p>然后就是第一天写了调研文档, 瓜关于LLM组件的部署 -&gt; 引出思考 “我需要掌握所有的组件吗？”</p>
+<p>我的导师说：“摒弃学生思维, 不是学完所有东西才开始干，公司没有这么多时间, 而是有目标, 根据目标去实现”</p>
+<p>知道实习的内容是什么： 云原生靶场的搭建 将py编写的东西转换成go语言 EXP , 怎么产出？ 是否和之前的学习有一些偏差？ 二者的相通之处是什么, 怎么将技术结合在一起？ 应该思考, 而不是埋头苦学</p>
+<p>“ 如何 将这个课题 云原生靶场搭建  LLM组件的部署 和 后端 等结合起来 也可以说他们本身就是联系起来的？” </p>
+<hr />
+<p>这是一次提升自己的机会， 真正的从应用层 走到基础设施层，真正的使用go语言写出来的工具来进行</p>
+]]></description><guid isPermaLink="false">https://github.com/Zhonghe-zhao/DailyBlog/issues/88</guid><pubDate>Mon, 01 Dec 2025 13:53:41 +0000</pubDate></item><item><title>我的简历(持续更新)</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/111</link><description><![CDATA[<h1>赵忠赫｜后端开发工程师</h1>
 <p>18545032297｜<a href="mailto:zhaozhonghe40@gmail.com">zhaozhonghe40@gmail.com</a>｜[<a href="https://github.com/Zhonghe-zhao">GitHub</a>](https://github.com/Zhonghe-zhao)｜[<a href="https://blog.zhaozhonghe.me/">Blog</a>](https://blog.zhaozhonghe.me)</p>
 <h2>教育背景</h2>
 <p><strong>沈阳工业大学｜电子与计算机工程｜全日制本科| 2023.09—2027.06</strong></p>
@@ -283,19 +294,7 @@
 <p><strong>今天虽然没有蛋糕没有蜡烛, 还是许一个生日愿望吧：“balabalabalba”</strong></p>
 ]]></description><guid isPermaLink="false">https://github.com/Zhonghe-zhao/DailyBlog/issues/91</guid><category>Life</category><category>TOP</category><pubDate>Thu, 04 Dec 2025 14:28:46 +0000</pubDate></item><item><title>北京第八天(迎来第一个假期)</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/92</link><description><![CDATA[<p>已经有点疲惫了哈哈, 中午睡了真的很困</p>
 <p>今天完成了哥 给的第二个任务, 居然可以提交我的代码, 那我还是规范代码后再提交吧！, 又学到了一个知识, 反弹shell</p>
-]]></description><guid isPermaLink="false">https://github.com/Zhonghe-zhao/DailyBlog/issues/92</guid><category>Life</category><pubDate>Fri, 05 Dec 2025 14:03:46 +0000</pubDate></item><item><title>北京第四天(入职第一天)</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/88</link><description><![CDATA[<p>首先就是出发去公司报道, 感受到北京早高峰地铁, 还是得早点起, 通勤这块一天 来回都要三个小时了！ </p>
-<p>实习的第一天签了实习协议, 发了公司的电脑, 领到了工牌,然后开始配置内网环境, 然后可以带自己的电脑 都无所谓的</p>
-<p><img src="https://github.com/user-attachments/assets/81468dec-b3ae-4bc1-b50c-c65f4026457b" alt="Image" /></p>
-<p>午餐真的很棒！ </p>
-<p><img src="https://github.com/user-attachments/assets/75ab6ffe-e94b-4955-81d0-e1bcaaa5b2db" alt="Image" /></p>
-<p><img src="https://github.com/user-attachments/assets/e0e03c73-728b-4445-922a-d7afd0367d2e" alt="Image" /></p>
-<p>然后就是第一天写了调研文档, 瓜关于LLM组件的部署 -&gt; 引出思考 “我需要掌握所有的组件吗？”</p>
-<p>我的导师说：“摒弃学生思维, 不是学完所有东西才开始干，公司没有这么多时间, 而是有目标, 根据目标去实现”</p>
-<p>知道实习的内容是什么： 云原生靶场的搭建 将py编写的东西转换成go语言 EXP , 怎么产出？ 是否和之前的学习有一些偏差？ 二者的相通之处是什么, 怎么将技术结合在一起？ 应该思考, 而不是埋头苦学</p>
-<p>“ 如何 将这个课题 云原生靶场搭建  LLM组件的部署 和 后端 等结合起来 也可以说他们本身就是联系起来的？” </p>
-<hr />
-<p>这是一次提升自己的机会， 真正的从应用层 走到基础设施层，真正的使用go语言写出来的工具来进行</p>
-]]></description><guid isPermaLink="false">https://github.com/Zhonghe-zhao/DailyBlog/issues/88</guid><pubDate>Mon, 01 Dec 2025 13:53:41 +0000</pubDate></item><item><title>北京第三天</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/87</link><description><![CDATA[<p>已经入住到新租的房子了，整体还是不错的，有窗户, 有衣柜, 可以看到窗外心情还是好很多的。</p>
+]]></description><guid isPermaLink="false">https://github.com/Zhonghe-zhao/DailyBlog/issues/92</guid><category>Life</category><pubDate>Fri, 05 Dec 2025 14:03:46 +0000</pubDate></item><item><title>北京第三天</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/87</link><description><![CDATA[<p>已经入住到新租的房子了，整体还是不错的，有窗户, 有衣柜, 可以看到窗外心情还是好很多的。</p>
 <p>然后就是置办生活用品, 必须用到的一些东西, 还买了小锅, 可以自己做做饭什么的, 一切都很顺利, 无论是房子还是什么, 都很满意。 还是一句话， 目前的每一步都是没有经历过的, 很享受这个过程</p>
 <p>明天就会上班了, 还没有体验过哈哈哈, 也很开心, 可能会遇到一些问题吧！ 冷静下来积极去面对就好嘞, 目前这两天开销很大呜呜。 </p>
 <p><img src="https://github.com/user-attachments/assets/b314f066-628d-41c1-9c45-b8904cb1f6c5" alt="Image" /></p>

@@ -36,6 +36,7 @@
 *[直达issue](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)*
 
 ## 📖 最近更新
+- [北京第四天(入职第一天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/88)--2025-12-01
 - [我的简历(持续更新)](https://github.com/Zhonghe-zhao/DailyBlog/issues/111)--2026-04-18
 - [初见北京总结](https://github.com/Zhonghe-zhao/DailyBlog/issues/110)--2026-04-05
 - [Codex最佳订阅方法(仅限Apple)](https://github.com/Zhonghe-zhao/DailyBlog/issues/114)--2026-06-20
@@ -45,7 +46,6 @@
 - [2026 年后的一些想法和感悟](https://github.com/Zhonghe-zhao/DailyBlog/issues/107)--2026-03-13
 - [一次网络问题的排查](https://github.com/Zhonghe-zhao/DailyBlog/issues/108)--2026-03-13
 - [游戏: 《地铁 离去》](https://github.com/Zhonghe-zhao/DailyBlog/issues/106)--2026-02-16
-- [以现在的视角看待大模型](https://github.com/Zhonghe-zhao/DailyBlog/issues/105)--2026-02-12
 ## 🤓 计算机基础
 
 - [丢失更新](https://github.com/Zhonghe-zhao/DailyBlog/issues/75) - 2025-11-04
