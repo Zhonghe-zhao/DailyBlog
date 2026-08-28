@@ -1,10 +1,17 @@
 (() => {
   const menu = document.querySelector(".menu-toggle");
   const nav = document.querySelector(".site-nav");
+  menu?.setAttribute("aria-expanded", "false");
   menu?.addEventListener("click", () => {
     const open = nav.classList.toggle("is-open");
     menu.textContent = open ? "关闭" : "菜单";
     menu.setAttribute("aria-expanded", String(open));
+  });
+  nav?.addEventListener("click", (event) => {
+    if (!event.target.closest("a")) return;
+    nav.classList.remove("is-open");
+    menu.textContent = "菜单";
+    menu.setAttribute("aria-expanded", "false");
   });
 
   const gallery = document.querySelector("[data-gallery]");
