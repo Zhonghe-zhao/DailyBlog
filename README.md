@@ -36,6 +36,7 @@
 *[直达issue](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)*
 
 ## 📖 最近更新
+- [一集博客貌似解答了现在的我对小时候的我困惑](https://github.com/Zhonghe-zhao/DailyBlog/issues/115)--2026-09-17
 - [北京第四天(入职第一天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/88)--2025-12-01
 - [我的简历(持续更新)](https://github.com/Zhonghe-zhao/DailyBlog/issues/111)--2026-04-18
 - [初见北京总结](https://github.com/Zhonghe-zhao/DailyBlog/issues/110)--2026-04-05
@@ -45,7 +46,6 @@
 - [博客一周年](https://github.com/Zhonghe-zhao/DailyBlog/issues/112)--2026-05-28
 - [2026 年后的一些想法和感悟](https://github.com/Zhonghe-zhao/DailyBlog/issues/107)--2026-03-13
 - [一次网络问题的排查](https://github.com/Zhonghe-zhao/DailyBlog/issues/108)--2026-03-13
-- [游戏: 《地铁 离去》](https://github.com/Zhonghe-zhao/DailyBlog/issues/106)--2026-02-16
 ## 🤓 计算机基础
 
 - [丢失更新](https://github.com/Zhonghe-zhao/DailyBlog/issues/75) - 2025-11-04
@@ -69,13 +69,14 @@
 
 ## 🧭 生活随笔
 
+- [一集博客貌似解答了现在的我对小时候的我困惑](https://github.com/Zhonghe-zhao/DailyBlog/issues/115) - 2026-09-17
 - [切断网络的一天](https://github.com/Zhonghe-zhao/DailyBlog/issues/113) - 2026-05-31
 - [博客一周年](https://github.com/Zhonghe-zhao/DailyBlog/issues/112) - 2026-05-28
 - [初见北京总结](https://github.com/Zhonghe-zhao/DailyBlog/issues/110) - 2026-04-05
 - [实习总结 (在公司封存)](https://github.com/Zhonghe-zhao/DailyBlog/issues/109) - 2026-04-03
-- [2026 年后的一些想法和感悟](https://github.com/Zhonghe-zhao/DailyBlog/issues/107) - 2026-03-13
 <details><summary>显示更多</summary>
 
+- [2026 年后的一些想法和感悟](https://github.com/Zhonghe-zhao/DailyBlog/issues/107) - 2026-03-13
 - [游戏: 《地铁 离去》](https://github.com/Zhonghe-zhao/DailyBlog/issues/106) - 2026-02-16
 - [用户需求--->产品产出](https://github.com/Zhonghe-zhao/DailyBlog/issues/101) - 2026-01-30
 - [2026: 玩过的游戏](https://github.com/Zhonghe-zhao/DailyBlog/issues/99) - 2026-01-27
