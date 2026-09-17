@@ -485,3 +485,92 @@
   buildScene();
   start();
 })();
+
+(() => {
+  const list = document.querySelector(".posts-list[data-page-size]");
+  const pagination = document.querySelector(".posts-pagination");
+  if (!list || !pagination) return;
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const rows = [...list.querySelectorAll(".posts-row")];
+  const pageSize = Math.max(1, Number.parseInt(list.dataset.pageSize || "8", 10));
+  const totalPages = Math.max(1, Math.ceil(rows.length / pageSize));
+  const previous = pagination.querySelector(".posts-pagination__previous");
+  const next = pagination.querySelector(".posts-pagination__next");
+  const pages = pagination.querySelector(".posts-pagination__pages");
+  if (!previous || !next || !pages || totalPages <= 1) return;
+
+  const pageHref = (page) => {
+    const url = new URL(window.location.href);
+    if (page <= 1) url.searchParams.delete("page");
+    else url.searchParams.set("page", String(page));
+    return `${url.pathname}${url.search}${url.hash}`;
+  };
+
+  const requestedPage = () => {
+    const value = Number.parseInt(new URL(window.location.href).searchParams.get("page") || "1", 10);
+    return Math.min(totalPages, Math.max(1, Number.isFinite(value) ? value : 1));
+  };
+
+  const pageItems = (current) => {
+    if (totalPages <= 7) return Array.from({ length: totalPages }, (_, index) => index + 1);
+    const items = [1];
+    const start = Math.max(2, current - 1);
+    const end = Math.min(totalPages - 1, current + 1);
+    if (start > 2) items.push("ellipsis-start");
+    for (let page = start; page <= end; page += 1) items.push(page);
+    if (end < totalPages - 1) items.push("ellipsis-end");
+    items.push(totalPages);
+    return items;
+  };
+
+  const updateControl = (control, targetPage, disabled) => {
+    control.href = pageHref(targetPage);
+    control.dataset.page = String(targetPage);
+    control.setAttribute("aria-disabled", disabled ? "true" : "false");
+    control.tabIndex = disabled ? -1 : 0;
+  };
+
+  const render = (current, updateHistory = false, shouldScroll = false) => {
+    const page = Math.min(totalPages, Math.max(1, current));
+    const first = (page - 1) * pageSize;
+    rows.forEach((row, index) => { row.hidden = index < first || index >= first + pageSize; });
+    pages.replaceChildren();
+    for (const item of pageItems(page)) {
+      if (typeof item !== "number") {
+        const ellipsis = document.createElement("span");
+        ellipsis.className = "posts-pagination__ellipsis";
+        ellipsis.textContent = "…";
+        ellipsis.setAttribute("aria-hidden", "true");
+        pages.append(ellipsis);
+        continue;
+      }
+      const node = document.createElement(item === page ? "span" : "a");
+      node.textContent = String(item);
+      if (item === page) node.setAttribute("aria-current", "page");
+      else {
+        node.href = pageHref(item);
+        node.dataset.page = String(item);
+        node.setAttribute("aria-label", `第 ${item} 页`);
+      }
+      pages.append(node);
+    }
+    updateControl(previous, page - 1, page === 1);
+    updateControl(next, page + 1, page === totalPages);
+    pagination.hidden = false;
+    if (updateHistory) window.history.pushState({ postsPage: page }, "", pageHref(page));
+    if (shouldScroll) {
+      const headerHeight = document.querySelector(".site-header")?.offsetHeight || 0;
+      window.scrollTo({ top: list.getBoundingClientRect().top + window.scrollY - headerHeight - 18, behavior: reducedMotion.matches ? "auto" : "smooth" });
+    }
+  };
+
+  pagination.addEventListener("click", (event) => {
+    const link = event.target.closest("a[data-page]");
+    if (!link || link.getAttribute("aria-disabled") === "true") return;
+    event.preventDefault();
+    render(Number.parseInt(link.dataset.page, 10), true, true);
+  });
+  window.addEventListener("popstate", () => render(requestedPage()));
+  render(requestedPage());
+})();

@@ -8,7 +8,7 @@
   <header class="posts-page__head">
     <h1>文章</h1>
   </header>
-  <div class="posts-list">
+  <div class="posts-list" data-page-size="8">
     {% for page in journal.pages %}
     {% if page.slug != "issue-111" %}
     <article class="posts-row">
@@ -20,5 +20,10 @@
     {% endif %}
     {% endfor %}
   </div>
+  <nav class="posts-pagination" aria-label="文章分页" hidden>
+    <a class="posts-pagination__previous" href="#" rel="prev">← 上一页</a>
+    <div class="posts-pagination__pages" aria-label="页码"></div>
+    <a class="posts-pagination__next" href="#" rel="next">下一页 →</a>
+  </nav>
 </section>
 {% endblock content %}
