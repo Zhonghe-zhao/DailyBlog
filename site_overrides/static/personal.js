@@ -20,7 +20,7 @@
   let particles = [];
   let streams = [];
   let trail = [];
-  let cuts = [];
+  let currents = [];
   let startedAt = performance.now();
   let animationFrame = 0;
   let lastFrame = 0;
@@ -132,8 +132,10 @@
       sparkle: Math.random(),
       luminosity: Math.pow(Math.random(), 8.5),
       flare: Math.random() > .997,
-      cutX: 0,
-      cutY: 0,
+      pushX: 0,
+      pushY: 0,
+      pushVelocityX: 0,
+      pushVelocityY: 0,
     }));
 
     const streamCount = width < 620 ? 92 : 280;
@@ -165,10 +167,14 @@
         luminosity: Math.pow(Math.random(), 7),
         phase: Math.random() * Math.PI * 2,
         drift: 4 + Math.random() * 13,
+        pushX: 0,
+        pushY: 0,
+        pushVelocityX: 0,
+        pushVelocityY: 0,
       };
     });
     trail = [];
-    cuts = [];
+    currents = [];
     startedAt = performance.now();
   }
 
@@ -181,8 +187,50 @@
     const nearestY = segment.ay + dy * amount;
     return {
       distance: Math.hypot(x - nearestX, y - nearestY),
-      signedDistance: (x - nearestX) * segment.normalX + (y - nearestY) * segment.normalY,
+      offsetX: x - nearestX,
+      offsetY: y - nearestY,
     };
+  }
+
+  function pressureAt(x, y) {
+    let fieldX = 0;
+    let fieldY = 0;
+    for (const current of currents) {
+      const hit = distanceToSegment(x, y, current);
+      if (hit.distance >= current.radius) continue;
+      const normalized = hit.distance / current.radius;
+      const edge = clamp((1 - normalized) / .42);
+      const falloff = normalized <= .58 ? 1 : edge * edge * (3 - 2 * edge);
+      const life = current.life * current.life * (3 - 2 * current.life);
+      const pressure = (10 + Math.min(current.speed, 30) * 1.08) * falloff * life;
+      fieldX += current.tangentX * pressure;
+      fieldY += current.tangentY * pressure;
+    }
+    const length = Math.hypot(fieldX, fieldY);
+    if (length > 46) {
+      fieldX = fieldX / length * 46;
+      fieldY = fieldY / length * 46;
+    }
+    return { x: fieldX, y: fieldY, strength: Math.min(length, 46) };
+  }
+
+  function updatePush(body, field, delta) {
+    const active = field.strength > .02;
+    const stiffness = active ? 30 : 7.5;
+    const damping = active ? 10.6 : 5.6;
+    body.pushVelocityX += (field.x - body.pushX) * stiffness * delta;
+    body.pushVelocityY += (field.y - body.pushY) * stiffness * delta;
+    const drag = Math.exp(-damping * delta);
+    body.pushVelocityX *= drag;
+    body.pushVelocityY *= drag;
+    body.pushX += body.pushVelocityX * delta;
+    body.pushY += body.pushVelocityY * delta;
+    if (!active && Math.abs(body.pushX) + Math.abs(body.pushY) < .025 && Math.abs(body.pushVelocityX) + Math.abs(body.pushVelocityY) < .025) {
+      body.pushX = 0;
+      body.pushY = 0;
+      body.pushVelocityX = 0;
+      body.pushVelocityY = 0;
+    }
   }
 
   function interactionAt(x, y) {
@@ -217,35 +265,10 @@
     let x = sceneCenterX + xzX * scale + parallaxX * particle.depth;
     let y = sceneCenterY + yzY * scale + parallaxY * particle.depth;
 
-    let fieldX = 0;
-    let fieldY = 0;
-    if (!dragging) {
-      for (const cut of cuts) {
-        const hit = distanceToSegment(x, y, cut);
-        const radius = width < 620 ? 54 : 72;
-        if (hit.distance >= radius) continue;
-        const normalized = hit.distance / radius;
-        const influence = Math.exp(-normalized * normalized * 3.6) * cut.life;
-        const side = Math.tanh(hit.signedDistance / 3.5)
-          || Math.sin(particle.phase) * .24;
-        const texture = .82 + Math.sin(particle.phase * 2.1) * .18;
-        const force = Math.min(cut.speed, 34) * influence * texture;
-        fieldX += (cut.normalX * side * .62 + cut.tangentX * .09) * force;
-        fieldY += (cut.normalY * side * .62 + cut.tangentY * .09) * force;
-      }
-    }
-
-    const fieldLength = Math.hypot(fieldX, fieldY);
-    if (fieldLength > 42) {
-      fieldX = fieldX / fieldLength * 42;
-      fieldY = fieldY / fieldLength * 42;
-    }
-    const fieldResponse = 1 - Math.exp(-delta * (fieldLength > 0 ? 26 : 7));
-    particle.cutX += (fieldX - particle.cutX) * fieldResponse;
-    particle.cutY += (fieldY - particle.cutY) * fieldResponse;
-
-    x += particle.cutX;
-    y += particle.cutY;
+    const field = dragging ? { x: 0, y: 0, strength: 0 } : pressureAt(x, y);
+    updatePush(particle, field, delta);
+    x += particle.pushX;
+    y += particle.pushY;
     const interaction = interactionAt(x, y);
     const twinkle = .86 + Math.sin(elapsed * (.00075 + particle.sparkle * .0008) + particle.phase) * .14;
     const darkMode = isDark();
@@ -285,12 +308,16 @@
     }
   }
 
-  function drawStream(stream, cycleTime) {
+  function drawStream(stream, cycleTime, delta) {
     const darkMode = isDark();
     const originX = darkMode ? stream.x : stream.lightX;
     const originY = darkMode ? stream.y : stream.lightY;
-    const x = originX + Math.sin(cycleTime * .00023 + stream.phase) * stream.drift + parallaxX * stream.depth * .55;
-    const y = originY + Math.cos(cycleTime * .00019 + stream.phase) * stream.drift * .7 + parallaxY * stream.depth * .55;
+    let x = originX + Math.sin(cycleTime * .00023 + stream.phase) * stream.drift + parallaxX * stream.depth * .55;
+    let y = originY + Math.cos(cycleTime * .00019 + stream.phase) * stream.drift * .7 + parallaxY * stream.depth * .55;
+    const field = dragging ? { x: 0, y: 0, strength: 0 } : pressureAt(x, y);
+    updatePush(stream, field, delta);
+    x += stream.pushX;
+    y += stream.pushY;
     const interaction = interactionAt(x, y);
     const alpha = stream.alpha + interaction * .18;
     const color = darkMode ? stream.color : stream.lightColor;
@@ -375,16 +402,16 @@
     const pitch = rotationX + hoverRotationX + (reducedMotion.matches ? 0 : Math.cos(elapsed * .00007) * .005);
     drawSpaceHaze();
     drawTrailGlow();
-    streams.forEach((stream) => drawStream(stream, elapsed));
+    streams.forEach((stream) => drawStream(stream, elapsed, delta));
     particles.forEach((particle) => drawParticle(particle, elapsed, delta, yaw, pitch));
     compositeGlow();
 
     trail = trail
       .map((point) => ({ ...point, life: point.life - delta * 1.35 }))
       .filter((point) => point.life > 0);
-    cuts = cuts
-      .map((cut) => ({ ...cut, life: cut.life - delta * 1.8 }))
-      .filter((cut) => cut.life > 0);
+    currents = currents
+      .map((current) => ({ ...current, life: current.life - delta * .92 }))
+      .filter((current) => current.life > 0);
 
     if (!reducedMotion.matches && !document.hidden && heroVisible) animationFrame = requestAnimationFrame(render);
   }
@@ -420,8 +447,8 @@
         const velocityY = point.y - previousPoint.y;
         const duration = Math.max(8, point.time - previousPoint.time);
         const speed = Math.hypot(velocityX, velocityY) / duration * 16.67;
-        if (speed > .55) {
-          cuts.push({
+        if (speed > .08) {
+          currents.push({
             ax: previousPoint.x,
             ay: previousPoint.y,
             bx: point.x,
@@ -431,9 +458,10 @@
             tangentX: velocityX / distance,
             tangentY: velocityY / distance,
             speed,
+            radius: (width < 620 ? 44 : 58) + Math.min(distance, 30) * .28,
             life: 1,
           });
-          if (cuts.length > 36) cuts.shift();
+          if (currents.length > 46) currents.shift();
         }
       }
       point.radius = 94 + Math.min(distance, 42) * .45;
@@ -462,7 +490,6 @@
   hero.addEventListener("pointercancel", stopDragging);
   hero.addEventListener("pointerleave", () => {
     previousPoint = null;
-    cuts = [];
     pointerX = 0;
     pointerY = 0;
     hoverTargetX = 0;
