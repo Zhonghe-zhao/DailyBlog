@@ -11,12 +11,20 @@
       toggle.setAttribute("aria-label", toggle.title);
     };
     refreshLabel();
-    toggle.addEventListener("click", () => {
-      const current = root.dataset.theme === "dark" ? "dark" : "light";
-      const next = modes[(modes.indexOf(current) + 1) % modes.length];
+    const applyTheme = (next) => {
       root.dataset.theme = next;
       localStorage.setItem("blog-theme", next);
       refreshLabel();
+    };
+    toggle.addEventListener("click", () => {
+      const current = root.dataset.theme === "dark" ? "dark" : "light";
+      const next = modes[(modes.indexOf(current) + 1) % modes.length];
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!reduce && !document.querySelector(".letter-flow") && document.startViewTransition) {
+        document.startViewTransition(() => applyTheme(next));
+        return;
+      }
+      applyTheme(next);
     });
   }
 

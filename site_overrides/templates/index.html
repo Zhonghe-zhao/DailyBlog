@@ -13,7 +13,7 @@
 <body>
   <div class="reading-progress" aria-hidden="true"><span></span></div><div class="site-grid" aria-hidden="true"></div>
   <header class="site-header">
-    <a class="brand" href="{{ config.base_url }}"><img class="brand-avatar" src="{{ get_url(path='avatar.jpg') }}" alt=""><span class="brand-copy"><strong>{{ config.extra.even_title }}</strong><small>BACKEND · NOTES · LIFE</small></span></a>
+    <a class="brand" href="{{ config.base_url }}"><span class="brand-copy"><strong>Zhonghe’s Blog</strong></span></a>
     <button class="menu-toggle" type="button" aria-label="打开导航">菜单</button>
     <nav class="site-nav" aria-label="主导航">{% for item in config.extra.even_menu %}<a href="{{ item.url | replace(from="$BASE_URL", to=config.base_url) }}">{{ item.name }}</a>{% endfor %}</nav>
     <button class="theme-toggle" type="button" aria-label="切换颜色主题">◑</button>
@@ -23,15 +23,14 @@
       <canvas class="letter-flow" aria-hidden="true"></canvas>
       <div class="personal-hero__center">
         <div class="avatar-orbit"><img src="{{ get_url(path='avatar.jpg') }}" alt="Zhonghe 的头像"></div>
-        <p class="personal-role">赵忠赫 · BACKEND ENGINEER</p>
         <h1>时间伴我成长</h1>
         <p class="personal-intro">只要你想，黑盒总有一天会被打开</p>
-        <nav class="personal-links" aria-label="个人链接"><a href="{{ config.extra.github_url }}">GitHub <span>↗</span></a><a href="{{ get_url(path='posts') }}">文章 <span>→</span></a><a href="{{ get_url(path='resume') }}">简历 <span>↗</span></a></nav>
+        <nav class="personal-links" aria-label="个人链接"><a href="{{ config.extra.github_url }}">GitHub <span>↗</span></a></nav>
       </div>
     </section>
   {% endblock content %}</main>
   {% block footer %}{% endblock footer %}
-  <script src="{{ get_url(path="custom.js", trailing_slash=false) }}"></script><script src="{{ get_url(path="redesign.js", trailing_slash=false) }}"></script><script src="{{ get_url(path="personal.js", trailing_slash=false) }}"></script>{% block js_body %}{% endblock js_body %}
+  <script src="{{ get_url(path="custom.js", trailing_slash=false) }}"></script><script src="{{ get_url(path="redesign.js", trailing_slash=false) }}"></script><script src="{{ get_url(path="personal.js", trailing_slash=false) }}"></script><script src="{{ get_url(path="sky.js", trailing_slash=false) }}"></script>{% block js_body %}{% endblock js_body %}
 </body></html>
 {# OLD TEMPLATE
 {% import "post_macros.html" as post_macros %}

@@ -9,6 +9,8 @@
   if (!canvas || !hero || !context || !glowContext || !bloomContext) return;
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const processorCount = navigator.hardwareConcurrency || 4;
+  const lowPowerDevice = processorCount <= 4 || window.innerWidth < 720;
   const stellarTones = ["255,255,255", "232,239,244", "205,216,224", "244,246,247"];
   const daylightNeutrals = ["69,85,103", "87,102,118", "105,116,128"];
   let width = 0;
@@ -68,7 +70,9 @@
     sceneCenterX = avatarBounds ? avatarBounds.left - heroBounds.left + avatarBounds.width / 2 : width / 2;
     sceneCenterY = avatarBounds ? avatarBounds.top - heroBounds.top + avatarBounds.height / 2 : height * .32;
     const avatarRadius = avatarBounds ? avatarBounds.width / 2 : compact ? 72 : 95;
-    const count = compact ? 780 : 2700;
+    // Preserve the shape while avoiding thousands of mostly invisible points
+    // on smaller or lower-core devices.
+    const count = compact ? 480 : (lowPowerDevice ? 1450 : 2100);
     const radiusX = compact
       ? Math.min(width * .46, avatarRadius * 2.2)
       : Math.min(width * .29, avatarRadius * 3.8);
@@ -104,10 +108,10 @@
     const bounds = hero.getBoundingClientRect();
     width = Math.max(1, Math.round(bounds.width));
     height = Math.max(1, Math.round(bounds.height));
-    ratio = Math.min(window.devicePixelRatio || 1, 1.5);
+    ratio = Math.min(window.devicePixelRatio || 1, width < 900 ? 1.25 : 1);
     canvas.width = Math.round(width * ratio);
     canvas.height = Math.round(height * ratio);
-    glowRatio = width < 620 ? .5 : .36;
+    glowRatio = width < 620 ? .4 : .22;
     glowCanvas.width = Math.round(width * glowRatio);
     glowCanvas.height = Math.round(height * glowRatio);
     bloomCanvas.width = glowCanvas.width;
@@ -138,7 +142,7 @@
       pushVelocityY: 0,
     }));
 
-    const streamCount = width < 620 ? 92 : 280;
+    const streamCount = width < 620 ? 58 : (lowPowerDevice ? 120 : 180);
     const daylightFields = [
       { x: .14, y: .28, radiusX: .22, radiusY: .18 },
       { x: .86, y: .3, radiusX: .2, radiusY: .2 },
@@ -243,7 +247,7 @@
     return strength;
   }
 
-  function drawParticle(particle, elapsed, delta, yaw, pitch) {
+  function drawParticle(particle, elapsed, delta, yaw, pitch, darkMode) {
     const settle = easeOut((elapsed - particle.delay) / 1450);
     const floatX = Math.sin(elapsed * .00055 + particle.phase) * 1.1;
     const floatY = Math.cos(elapsed * .00048 + particle.phase) * .9;
@@ -265,13 +269,13 @@
     let x = sceneCenterX + xzX * scale + parallaxX * particle.depth;
     let y = sceneCenterY + yzY * scale + parallaxY * particle.depth;
 
-    const field = dragging ? { x: 0, y: 0, strength: 0 } : pressureAt(x, y);
+    const nearPointer = currents.length || trail.length;
+    const field = dragging || !nearPointer ? idleField : pressureAt(x, y);
     updatePush(particle, field, delta);
     x += particle.pushX;
     y += particle.pushY;
-    const interaction = interactionAt(x, y);
+    const interaction = nearPointer ? interactionAt(x, y) : 0;
     const twinkle = .86 + Math.sin(elapsed * (.00075 + particle.sparkle * .0008) + particle.phase) * .14;
-    const darkMode = isDark();
     const baseAlpha = (darkMode ? .68 : .43) * particle.depth * twinkle;
     const alpha = clamp(baseAlpha * (.28 + settle * .72) + interaction * .07 + particle.luminosity * .22);
     const color = darkMode ? particle.color : particle.lightColor;
@@ -281,24 +285,69 @@
       const glowAlpha = darkMode
         ? Math.min(.95, .16 + glowStrength * .72)
         : Math.min(.32, .025 + glowStrength * .24);
-      glowContext.fillStyle = `rgba(${color},${glowAlpha})`;
-      glowContext.beginPath();
-      glowContext.arc(x, y, radius * (darkMode ? 1.3 + glowStrength * 2.2 : 2.2 + glowStrength * 3.1), 0, Math.PI * 2);
-      glowContext.fill();
+      pushDot(glowGroups, color, glowAlpha, x, y, radius * (darkMode ? 1.3 + glowStrength * 2.2 : 2.2 + glowStrength * 3.1));
     }
-    context.fillStyle = `rgba(${color},${alpha})`;
-    context.beginPath();
-    context.arc(x, y, radius, 0, Math.PI * 2);
-    context.fill();
+    pushDot(bodyGroups, color, alpha, x, y, radius);
     if (darkMode && particle.luminosity > .48) {
-      context.fillStyle = `rgba(255,255,255,${Math.min(1, .5 + particle.luminosity * .5)})`;
-      context.beginPath();
-      context.arc(x, y, Math.max(.45, radius * .38), 0, Math.PI * 2);
-      context.fill();
+      pushDot(bodyGroups, "255,255,255", Math.min(1, .5 + particle.luminosity * .5), x, y, Math.max(.45, radius * .38));
     }
-    if (particle.flare && settle > .92) {
-      context.strokeStyle = `rgba(${color},${alpha * .4})`;
+    if (particle.flare && settle > .92) flares.push(x, y, radius, color, alpha * .4);
+  }
+
+  const bodyGroups = new Map();
+  const glowGroups = new Map();
+  const flares = [];
+  const idleField = { x: 0, y: 0, strength: 0 };
+
+  function clearGroups(groups) {
+    groups.forEach((group) => { group.count = 0; });
+  }
+
+  function pushDot(groups, color, alpha, x, y, radius) {
+    const step = Math.max(1, Math.min(16, Math.round(alpha * 16)));
+    const key = `${color}|${step}`;
+    let group = groups.get(key);
+    if (!group) {
+      group = {
+        color,
+        alpha: step / 16,
+        count: 0,
+        x: new Float32Array(3600),
+        y: new Float32Array(3600),
+        r: new Float32Array(3600),
+      };
+      groups.set(key, group);
+    }
+    const index = group.count;
+    if (index >= group.x.length) return;
+    group.x[index] = x;
+    group.y[index] = y;
+    group.r[index] = radius;
+    group.count = index + 1;
+  }
+
+  function flushDots(target, groups) {
+    groups.forEach((group) => {
+      const count = group.count;
+      if (!count) return;
+      target.beginPath();
+      target.fillStyle = `rgba(${group.color},${group.alpha})`;
+      for (let index = 0; index < count; index += 1) {
+        const radius = group.r[index];
+        target.moveTo(group.x[index] + radius, group.y[index]);
+        target.arc(group.x[index], group.y[index], radius, 0, Math.PI * 2);
+      }
+      target.fill();
+    });
+  }
+
+  function paintFlares() {
+    for (let index = 0; index < flares.length; index += 5) {
+      context.strokeStyle = `rgba(${flares[index + 3]},${flares[index + 4]})`;
       context.lineWidth = .55;
+      const x = flares[index];
+      const y = flares[index + 1];
+      const radius = flares[index + 2];
       context.beginPath();
       context.moveTo(x - radius * 5.5, y);
       context.lineTo(x + radius * 5.5, y);
@@ -306,32 +355,29 @@
       context.lineTo(x, y + radius * 5.5);
       context.stroke();
     }
+    flares.length = 0;
   }
 
-  function drawStream(stream, cycleTime, delta) {
-    const darkMode = isDark();
+  function drawStream(stream, cycleTime, delta, darkMode) {
     const originX = darkMode ? stream.x : stream.lightX;
     const originY = darkMode ? stream.y : stream.lightY;
     let x = originX + Math.sin(cycleTime * .00023 + stream.phase) * stream.drift + parallaxX * stream.depth * .55;
     let y = originY + Math.cos(cycleTime * .00019 + stream.phase) * stream.drift * .7 + parallaxY * stream.depth * .55;
-    const field = dragging ? { x: 0, y: 0, strength: 0 } : pressureAt(x, y);
+    const nearPointer = currents.length || trail.length;
+    const field = dragging || !nearPointer ? idleField : pressureAt(x, y);
     updatePush(stream, field, delta);
     x += stream.pushX;
     y += stream.pushY;
-    const interaction = interactionAt(x, y);
+    const interaction = nearPointer ? interactionAt(x, y) : 0;
     const alpha = stream.alpha + interaction * .18;
     const color = darkMode ? stream.color : stream.lightColor;
     const radius = stream.radius * (1 + interaction * .15) + stream.luminosity * 1.15;
     if ((darkMode && stream.luminosity > .18) || (!darkMode && stream.luminosity > .42)) {
-      glowContext.fillStyle = `rgba(${color},${darkMode ? .12 + stream.luminosity * .55 : .035 + stream.luminosity * .18})`;
-      glowContext.beginPath();
-      glowContext.arc(x, y, radius * (darkMode ? 1.4 + stream.luminosity * 1.8 : 2.4 + stream.luminosity * 2.2), 0, Math.PI * 2);
-      glowContext.fill();
+      const glowAlpha = darkMode ? .12 + stream.luminosity * .55 : .035 + stream.luminosity * .18;
+      const glowRadius = radius * (darkMode ? 1.4 + stream.luminosity * 1.8 : 2.4 + stream.luminosity * 2.2);
+      pushDot(glowGroups, color, glowAlpha, x, y, glowRadius);
     }
-    context.fillStyle = `rgba(${color},${alpha})`;
-    context.beginPath();
-    context.arc(x, y, radius, 0, Math.PI * 2);
-    context.fill();
+    pushDot(bodyGroups, color, alpha, x, y, radius);
   }
 
   function drawTrailGlow() {
@@ -363,7 +409,7 @@
     bloomContext.save();
     bloomContext.globalCompositeOperation = darkMode ? "screen" : "source-over";
     bloomContext.globalAlpha = darkMode ? .88 : .62;
-    bloomContext.filter = darkMode ? "blur(3px)" : "blur(5px)";
+    bloomContext.filter = darkMode ? "blur(2px)" : "blur(3px)";
     bloomContext.drawImage(glowCanvas, 0, 0);
     bloomContext.restore();
     context.save();
@@ -381,6 +427,8 @@
     context.clearRect(0, 0, width, height);
     glowContext.clearRect(0, 0, width, height);
     bloomContext.clearRect(0, 0, bloomCanvas.width, bloomCanvas.height);
+    clearGroups(bodyGroups);
+    clearGroups(glowGroups);
 
     const elapsed = reducedMotion.matches ? 5000 : now - startedAt;
     const parallaxEase = 1 - Math.exp(-delta * 5.4);
@@ -400,10 +448,14 @@
     rotationX = clamp(rotationX, -.48, .48);
     const yaw = rotationY + hoverRotationY + (reducedMotion.matches ? 0 : Math.sin(elapsed * .00008) * .007);
     const pitch = rotationX + hoverRotationX + (reducedMotion.matches ? 0 : Math.cos(elapsed * .00007) * .005);
+    const darkMode = isDark();
     drawSpaceHaze();
     drawTrailGlow();
-    streams.forEach((stream) => drawStream(stream, elapsed, delta));
-    particles.forEach((particle) => drawParticle(particle, elapsed, delta, yaw, pitch));
+    for (let index = 0; index < streams.length; index += 1) drawStream(streams[index], elapsed, delta, darkMode);
+    for (let index = 0; index < particles.length; index += 1) drawParticle(particles[index], elapsed, delta, yaw, pitch, darkMode);
+    flushDots(context, bodyGroups);
+    paintFlares();
+    flushDots(glowContext, glowGroups);
     compositeGlow();
 
     trail = trail
