@@ -1,5 +1,376 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Zhonghe · 后端工程师与生活记录</title><link>https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml</link><description>记录技术如何被理解，也记录一个人如何慢慢发生变化。</description><atom:link href="https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml" rel="self"/><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><lastBuildDate>Mon, 21 Sep 2026 18:52:06 +0000</lastBuildDate><item><title>从普通学历求职者的体感谈谈今年秋招的感受</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/116</link><description><![CDATA[<p>最近投了几家公司目前没有收到什么反馈，我想针对这个现象进行一次调查讨论，并不代表大众，仅代表我个人观点。简历是否也回复其实和个人的经历有着极大的关系，优秀的人在哪都会发光。目前就只针对我心中的疑惑进行一次分析。 </p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Zhonghe · 后端工程师与生活记录</title><link>https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml</link><description>记录技术如何被理解，也记录一个人如何慢慢发生变化。</description><atom:link href="https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml" rel="self"/><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><lastBuildDate>Wed, 07 Oct 2026 08:34:21 +0000</lastBuildDate><item><title>复盘MemoBridge的开发</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/117</link><description><![CDATA[<h1>我是怎么把一个问题越做越复杂的</h1>
+<p>2026 年 3 月，我正式开始构思并开发 MemoBridge。</p>
+<p>这是我第一次真正从一个自己遇到的问题出发，尝试通过代码去构造一套完整的解决方案。从定义问题，到抽象领域对象，再到设计数据库、API、前端工作流，几乎整个项目都是我一点点摸索出来的。</p>
+<p>项目现在仍然在开发和调整，但几个月下来，我越来越明显地感觉到一个问题：很多时候，真正阻碍我的并不是代码写不出来，而是我一开始对问题的理解就可能是错的。</p>
+<p>更准确地说，我经常在解决方案已经设计得非常完整之后，才发现它其实并没有解决最初的问题。</p>
+<p>这让我开始重新审视一件事：当 AI 的能力越来越强，尤其是在我大量依赖 AI 一起做产品设计、架构设计和功能实现之后，AI 到底在怎样潜移默化地影响我对项目方向的判断？</p>
+<hr />
+<h2>设计开始脱离问题本身</h2>
+<p>回头看，MemoBridge 最初其实来自几个非常具体的问题。</p>
+<p>我会接触大量资料和 AI 回答。当时顺着上下文能够理解，但几天之后再回来，往往只剩下一堆材料。我已经不记得自己为什么保存它、哪一条真正影响了我、最后形成了什么判断。</p>
+<p>当我持续研究一个问题时，中间会产生很多尝试、反例、修正和阶段性判断。但这些变化散落在不同聊天和资料中。过几天重新回来，我很难快速回答几个最基本的问题：</p>
+<pre><code class="language-text">我现在到底怎么理解这个问题？
+为什么会形成这个判断？
+还有哪里没想明白？
+下一步应该继续哪里？
+</code></pre>
+<p>还有一个问题是，过去研究过的内容几乎不会在新的情境里主动回来。即使我以前已经认真处理过一个问题，当一个相关的新问题出现时，系统也不会提醒我：</p>
+<blockquote>
+<p>你以前其实已经在这里思考过一些东西。</p>
+</blockquote>
+<p>与此同时，AI 又越来越容易生成摘要、关系、知识图谱和结论。这些内容看起来非常完整，但它们很容易制造一种错觉：系统里的知识越来越多，好像我的理解也越来越多。实际上，很多东西只是 AI 生成的结构，并没有真正经过我的思考。</p>
+<p>所以最早的一版 MemoBridge，其实围绕的是一个很简单的问题：</p>
+<pre><code class="language-text">我正在解决什么？
+相关上下文是什么？
+现在推进到哪里？
+怎样把当前状态交给另一个模型，或者未来的自己？
+</code></pre>
+<p>它真正想解决的是：</p>
+<blockquote>
+<p>如何让一次思考跨时间、跨模型、跨会话继续，而不是每次重新开始。</p>
+</blockquote>
+<p>现在回头看，这个出发点其实非常接近我真正的问题。</p>
+<p>问题是在后面的开发过程中，我慢慢偏离了它。</p>
+<hr />
+<h2>当问题变多，我开始用更多结构解决问题</h2>
+<p>到了 V1.8，我遇到的第一个明显摩擦是：问题越来越多。</p>
+<p>当时我看到的是：</p>
+<pre><code class="language-text">问题列表越来越零散
+不知道自己现在位于哪里
+资料、搜索和 AI 能力越来越多
+页面越来越拥挤
+</code></pre>
+<p>于是我做出的判断是：</p>
+<blockquote>
+<p>我需要一个比问题更大的对象来承载这些问题。</p>
+</blockquote>
+<p>于是 Problem 开始向 Repository 演化。</p>
+<p>一个 Repository 有目标、优先级、生命周期、进度、标签和最近活跃时间。单独看，这些设计都很合理。</p>
+<p>但现在回头看，这里已经出现了一个很重要的错误：</p>
+<blockquote>
+<p>我遇到使用摩擦时，没有先重新检查是不是问题定义错了，而是直接给系统增加了一个更强的组织模型。</p>
+</blockquote>
+<p>换句话说，我开始默认：</p>
+<blockquote>
+<p>只要信息越来越多，就需要更高级的结构去管理它。</p>
+</blockquote>
+<p>这其实已经重新滑向了传统知识管理软件的思路。</p>
+<hr />
+<h2>V1.9：从管理问题，进一步变成管理长期主题</h2>
+<p>到了 V1.9，我又往前走了一步。</p>
+<p>我开始觉得 MemoBridge 不应该只管理问题，因为有些东西并不是一个标准的问题。它可能是一段长期学习、一项项目、一个能力方向，或者一个持续探索的主题。</p>
+<p>于是模型进一步扩展成：</p>
+<pre><code class="language-text">Phase
+↓
+Repository
+↓
+Source / Progress / Output / Review
+</code></pre>
+<p>这时候，我已经从保存一次思考状态逐渐走向：</p>
+<blockquote>
+<p>对用户长期知识活动进行整体建模。</p>
+</blockquote>
+<p>表面上系统变得更加通用，但代价也开始出现。</p>
+<p>当一个模型试图承载的东西越来越多，它的语义就越来越模糊。Repository 可以是问题、目标、项目、学习方向，Phase 又负责更高一层组织。</p>
+<p>于是又出现一个熟悉的问题：</p>
+<blockquote>
+<p>一个对象不够，就再创造一个更高层对象去组织它。</p>
+</blockquote>
+<p>而这其实可以无限继续下去。</p>
+<pre><code class="language-text">资料很多
+→ 需要一个对象组织资料
+
+这种对象很多
+→ 再需要一个对象组织这些对象
+
+新的对象又越来越多
+→ 再增加分区、状态、标签、视图
+</code></pre>
+<p>如果继续沿着这个方向走，系统永远可以变得更完整，但不会因此自动变得更好用。</p>
+<hr />
+<h2>V2.0：从管理信息，进一步开始管理理解</h2>
+<p>V2.0 时，我意识到了另一个问题：</p>
+<blockquote>
+<p>信息保存下来，并不等于真正进入了自己的理解。</p>
+</blockquote>
+<p>这个判断直到现在我仍然认为是对的。</p>
+<p>于是 MemoBridge 开始从资料管理进一步转向理解形成。</p>
+<p>新的工作流逐渐变成：</p>
+<pre><code class="language-text">创建 Subject
+→ 建立 Thread
+→ 捕获 SourceItem
+→ 阅读 / QA
+→ Source Summary
+→ Thread Review
+→ Insight Material
+→ ThreadInsight
+→ 记录不确定点
+→ 记录下一步
+→ Subject AI
+</code></pre>
+<p>逻辑上看，它非常完整。</p>
+<p>资料先进入系统，然后经过分析、整理、判断，最后形成自己的 Insight。</p>
+<p>问题在于，我后来越来越强烈地感觉到：</p>
+<blockquote>
+<p>为了帮助用户理解，我们反而给用户创造出了一套理解管理工作。</p>
+</blockquote>
+<p>原来 Obsidian 需要用户维护 Folder、Tag、Link。</p>
+<p>而我开始让用户维护：</p>
+<pre><code class="language-text">Subject
+Thread
+Source
+Review
+Insight
+CognitiveUnit
+理解状态
+资料关系
+推进状态
+</code></pre>
+<p>只是把资料组织换成了认知组织。</p>
+<p>复杂度并没有真正消失。</p>
+<hr />
+<h2>Subject、Thread 和 Capture，其实都暴露了同一个问题</h2>
+<p>比如 Subject 和 Thread。</p>
+<p>最开始资料越来越多，于是我认为需要 Subject 来承载一个长期主题。</p>
+<p>但 Subject 太大之后，又需要 Thread 来拆解 Subject。</p>
+<p>Thread 变多之后，又开始出现 ThreadGroup、Work Area、Kind、Status 等概念。</p>
+<p>最后甚至需要 Structure Review 来帮助用户整理这些结构。</p>
+<p>整个过程变成：</p>
+<pre><code class="language-text">资料越来越难组织
+↓
+创建 Subject / Thread
+
+Thread 越来越乱
+↓
+创建 ThreadGroup
+
+ThreadGroup 又开始混乱
+↓
+增加 Work Area / Tag / Kind / Status
+
+关系越来越难维护
+↓
+再增加 Structure Review
+</code></pre>
+<p>现在回头看，这其实已经形成了一种循环：</p>
+<blockquote>
+<p>系统为了管理复杂度不断创造新的结构，而新的结构本身又制造新的复杂度。</p>
+</blockquote>
+<p>Capture 也是一样。</p>
+<p>我最初设计 Capture，是因为我已经意识到：</p>
+<blockquote>
+<p>用户不应该每保存一份资料，就立刻决定它属于哪个 Subject 或 Thread。</p>
+</blockquote>
+<p>所以 Capture 本来是想降低分类成本。</p>
+<p>但最后的设计仍然是：</p>
+<pre><code class="language-text">外部资料
+→ Capture
+→ 选择 Subject / Thread
+→ 正式 SourceItem
+</code></pre>
+<p>也就是说，Capture 只是把分类延迟了。</p>
+<p>分类义务并没有消失。</p>
+<p>于是用户会得到另一个 Inbox：</p>
+<blockquote>
+<p>这里还有一堆东西等着你整理。</p>
+</blockquote>
+<p>这并没有解决问题，只是把问题向后推了一步。</p>
+<hr />
+<h2>我真正不断重复的错误：把问题翻译成对象</h2>
+<p>现在回头看，我发现自己有一个非常稳定的开发习惯。</p>
+<p>每当发现一个问题，我首先想到的是：</p>
+<blockquote>
+<p>是不是缺一个领域对象？</p>
+</blockquote>
+<p>问题很多：</p>
+<pre><code class="language-text">→ Repository
+</code></pre>
+<p>长期方向很多：</p>
+<pre><code class="language-text">→ Phase
+</code></pre>
+<p>资料需要组织：</p>
+<pre><code class="language-text">→ Subject
+</code></pre>
+<p>Subject 太宽：</p>
+<pre><code class="language-text">→ Thread
+</code></pre>
+<p>资料和理解之间存在鸿沟：</p>
+<pre><code class="language-text">→ CandidateKnowledge / CognitiveUnit
+</code></pre>
+<p>Thread 太多：</p>
+<pre><code class="language-text">→ ThreadGroup / WorkArea
+</code></pre>
+<p>用户不知道下一步：</p>
+<pre><code class="language-text">→ Progression Agent
+</code></pre>
+<p>这些对象单独拿出来几乎都能解释得通。</p>
+<p>但这里有一个我后来才意识到的问题：</p>
+<blockquote>
+<p>能被建模，不代表就应该被建模。</p>
+</blockquote>
+<p>更危险的是，当这些模型真正被实现以后，它们会反过来要求用户按照软件的数据结构去思考。</p>
+<p>用户原本只是想搞清楚一个问题，但系统可能要求他先想：</p>
+<pre><code class="language-text">它属于哪个 Subject？
+它是不是应该创建 Thread？
+这个 Source 扮演什么 Role？
+这个 Thread 当前是什么 Status？
+是否应该进入 Work Area？
+</code></pre>
+<p>于是软件本来应该降低认知负担，最后却创造出了新的认知负担。</p>
+<hr />
+<h1>AI 在这里扮演了一个很特殊的角色</h1>
+<p>我开发 MemoBridge 时大量依赖 AI。</p>
+<p>我的典型流程经常是：</p>
+<pre><code class="language-text">我突然想到一个想法
+↓
+把想法告诉 AI
+↓
+AI 告诉我这个思路可以成立
+↓
+继续帮我设计数据库、API、前端和生命周期
+↓
+实现
+</code></pre>
+<p>比如我提出：</p>
+<blockquote>
+<p>是不是应该有 Subject？</p>
+</blockquote>
+<p>AI 很容易沿着这个前提继续：</p>
+<blockquote>
+<p>可以。Subject 可以解决 A、B、C，然后可以设计这些字段，这些接口，这些状态……</p>
+</blockquote>
+<p>最后整套方案看起来非常完整。</p>
+<p>而完整很容易给我一种错觉：</p>
+<blockquote>
+<p>这个设计已经成立了。</p>
+</blockquote>
+<p>但现在我越来越意识到：</p>
+<p><strong>实现成立和需求成立完全不是一回事。</strong></p>
+<p>AI 非常擅长做一件事情：</p>
+<blockquote>
+<p>在接受你的前提以后，把这个前提推演成一个内部逻辑自洽的系统。</p>
+</blockquote>
+<p>它特别擅长回答：</p>
+<blockquote>
+<p>这个方案怎样实现得更完整？</p>
+</blockquote>
+<p>但另一个更重要的问题是：</p>
+<blockquote>
+<p>这个方案到底该不该存在？</p>
+</blockquote>
+<p>这两个问题完全不同。</p>
+<p>我过去很多时候并没有真正区分它们。</p>
+<hr />
+<h2>一个想法被 AI 解释得通，不代表现实里真的有价值</h2>
+<p>这里还有一个很微妙的问题。</p>
+<p>很多时候我自己已经感觉某个设计不舒服了。</p>
+<p>我会提出一个反例：</p>
+<blockquote>
+<p>这样是不是会让用户管理成本越来越高？</p>
+</blockquote>
+<p>AI 又很容易回答：</p>
+<blockquote>
+<p>可以增加自动分类、折叠机制、推荐机制、生命周期机制来解决。</p>
+</blockquote>
+<p>于是原来的怀疑没有真正击穿那个方案，反而又变成了一个新的功能。</p>
+<p>这形成了一种非常危险的循环：</p>
+<pre><code class="language-text">我提出方案
+↓
+发现方案有问题
+↓
+AI 给问题增加补丁
+↓
+系统更复杂
+↓
+出现新的问题
+↓
+继续增加补丁
+</code></pre>
+<p>AI 并不是故意把项目带偏。</p>
+<p>更准确地说，是我把 AI 用在了一个不适合让它直接替我判断的地方。</p>
+<p>它可以非常强地帮助我回答：</p>
+<blockquote>
+<p>怎样实现？</p>
+</blockquote>
+<p>但值不值得实现，仍然需要真实使用、真实用户和现实反馈来验证。</p>
+<hr />
+<h1>Reddit 上的一次调研，让我第一次真正重新看问题</h1>
+<p>真正让我重新审视 MemoBridge 的，是最近在 Reddit 的 PKM 社区里看到的一些讨论。</p>
+<p>我原来一直把问题理解成：</p>
+<blockquote>
+<p>信息越来越多以后，怎样组织得更好？</p>
+</blockquote>
+<p>但很多真实用户描述的痛苦，其实根本不是组织不够好。</p>
+<p>而是：</p>
+<blockquote>
+<p>我为什么要保存这些东西？</p>
+</blockquote>
+<p>大量用户会收藏文章、视频、网页和 AI 回答。</p>
+<p>收藏的瞬间感觉以后可能有用。</p>
+<p>但随着时间过去，收藏越来越多。</p>
+<p>最后他们面对的不是一个知识库，而是一个债务池：</p>
+<pre><code class="language-text">还没看的文章
+还没整理的视频
+还没处理的 Inbox
+还没归类的笔记
+</code></pre>
+<p>于是保存越容易，负担反而越大。</p>
+<p>这让我第一次认真意识到：</p>
+<blockquote>
+<p>也许保存以后应该被处理这个默认假设本身就是错的。</p>
+</blockquote>
+<p>不是所有值得保存的东西，都值得被进一步处理。</p>
+<p>保存也不应该意味着：</p>
+<blockquote>
+<p>未来的我欠现在的我一次阅读。</p>
+</blockquote>
+<p>这改变了我对 MemoBridge 的理解。</p>
+<hr />
+<h2>一个资料真正重要的，也许不是它属于哪里</h2>
+<p>传统 PKM 很喜欢问：</p>
+<pre><code class="language-text">这是什么？
+它属于哪个主题？
+应该放在哪个文件夹？
+应该加什么 Tag？
+它和什么东西相关？
+</code></pre>
+<p>但 Reddit 上很多讨论让我开始意识到，可能有一个问题比这些都重要：</p>
+<p>为什么我当时要保存它？为什么总是会出现我纳入了很多资料，但是其实这些资料对使用者本人来说并没有什么意义？反而当大量的资料囤积后会增加更多的管理负担？</p>
+<p>例如我保存了一篇 Kubernetes 的文章。</p>
+<p>Tag 可能是：</p>
+<pre><code class="language-text">Kubernetes
+Scheduler
+资源调度
+</code></pre>
+<p>但半年以后，这些 Tag 并不能让我恢复当时的思维状态。</p>
+<p>真正有价值的可能是：</p>
+<blockquote>
+<p>我保存它，是因为它可能解释为什么 Scheduler 不按照实时 CPU 使用率调度。</p>
+</blockquote>
+<p>这句话保存的不是这篇文章是什么。</p>
+<p>而是：</p>
+<blockquote>
+<p><strong>它当时为什么对我有意义。</strong></p>
+</blockquote>
+<p>这开始让我意识到，MemoBridge 真正需要保存的，可能不是越来越复杂的知识结构。</p>
+<p>而是：</p>
+<pre><code class="language-text">为什么这条信息进入了我的注意力？
+它后来参与了哪个问题？
+它改变了我的什么判断？
+我最后留下了什么理解？
+未来什么时候应该重新把它带回来？
+</code></pre>
+<h2>总结</h2>
+<p>刚开始做MemoBridge的时候，我以为开发一个产品最困难的是：怎样把一个想法变成数据库、接口、页面和完整的工作流。几个月以后我才慢慢发现，真正困难的事情发生在写代码之前：你看到的到底是不是问题本身？你提出的解决方案究竟解决了问题，还是只是把问题包装成了一套看起来更加完整的结构？问题的表述的正确？ 一个想法是否真的使用了有效的方法去验证？ 以及一个想法是否能够预测到它对未来系统产生的影响？如何与AI更好的协作？</p>
+<p>MemoBridge 的很多设计它们通常都实现得很完整。Repository、Phase、Subject、Thread、CognitiveUnit、Progression Agent，每一个概念单独拿出来都可以解释，都有对应的数据结构、接口和交互逻辑。但当这些东西越来越多，我逐渐意识到</p>
+<p>一个系统内部逻辑可能是通的， 它在局部逻辑上是自洽的，但在更高一层的问题-方案关系上并不自洽。 这也是这次开发过程中和AI协作中一次重新认识。相当于我们做了很多工作，但是工作本身是逻辑闭环的，但是根据目标来看，工作却不自洽。</p>
+<p>AI 极大降低了把一个想法实现出来的成本。过去一个模糊想法可能因为设计和实现成本太高，在真正写出来以前就已经被放弃；现在，一个想法可以在很短时间内变成完整的领域模型、数据库 Schema、API、前端和测试。某种意义上，这是非常强大的能力。但这也带来了一个新的危险。</p>
+<p>AI 不仅能够帮助我们更快地把正确的东西做出来，也能够帮助我们更快地把一个未经验证的想法做得极其完整。</p>
+<p>当我告诉 AI，我感觉这里需要一个 Subject 时，它往往不会首先追问这个对象到底有没有必要存在，而是很自然地继续推演：Subject 可以解决哪些问题、应该有哪些字段、如何关联 Thread、前端怎么展示、生命周期怎么设计。于是一个想法很快拥有了完整的解释体系。</p>
+<p>而人在面对一个如此完整的方案时，很容易把逻辑完整误认为方向正确。和 AI 协作时最重要的能力可能已经不只是如何提问，而是如何不被 AI 的解释能力带着走。我甚至需要主动要求 AI 去反驳我的方案，而不是只帮助我实现它。</p>
+<p>这次 Reddit 上的调研对我的触动也正是在这里。很多痛点来自于大家的反馈，这样我知道不能脱离实际，一些想法怎么能在在落入系统之前以及落入之后究竟会对项目怎么造成影响？ </p>
+]]></description><guid isPermaLink="false">https://github.com/Zhonghe-zhao/DailyBlog/issues/117</guid><pubDate>Wed, 07 Oct 2026 08:33:43 +0000</pubDate></item><item><title>从普通学历求职者的体感谈谈今年秋招的感受</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/116</link><description><![CDATA[<p>最近投了几家公司目前没有收到什么反馈，我想针对这个现象进行一次调查讨论，并不代表大众，仅代表我个人观点。简历是否也回复其实和个人的经历有着极大的关系，优秀的人在哪都会发光。目前就只针对我心中的疑惑进行一次分析。 </p>
 <h2>关于HC</h2>
 <p><strong>HC是什么：</strong>    简单说公司允许某个部门、某个团队招几个人。</p>
 <h3>HC减少？ 是真的吗？</h3>
