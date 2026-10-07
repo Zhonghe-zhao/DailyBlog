@@ -36,6 +36,7 @@
 *[直达issue](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)*
 
 ## 📖 最近更新
+- [Fiber Channel( FC 协议)](https://github.com/Zhonghe-zhao/DailyBlog/issues/73)--2025-10-29
 - [复盘MemoBridge的开发](https://github.com/Zhonghe-zhao/DailyBlog/issues/117)--2026-10-07
 - [从普通学历求职者的体感谈谈今年秋招的感受](https://github.com/Zhonghe-zhao/DailyBlog/issues/116)--2026-09-21
 - [一集博客貌似解答了现在的我对小时候的我困惑](https://github.com/Zhonghe-zhao/DailyBlog/issues/115)--2026-09-17
@@ -45,7 +46,6 @@
 - [Codex最佳订阅方法(仅限Apple)](https://github.com/Zhonghe-zhao/DailyBlog/issues/114)--2026-06-20
 - [实习总结 (在公司封存)](https://github.com/Zhonghe-zhao/DailyBlog/issues/109)--2026-04-03
 - [切断网络的一天](https://github.com/Zhonghe-zhao/DailyBlog/issues/113)--2026-05-31
-- [博客一周年](https://github.com/Zhonghe-zhao/DailyBlog/issues/112)--2026-05-28
 ## 🤓 计算机基础
 
 - [丢失更新](https://github.com/Zhonghe-zhao/DailyBlog/issues/75) - 2025-11-04
