@@ -1,34 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Zhonghe · 后端工程师与生活记录</title><link>https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml</link><description>记录技术如何被理解，也记录一个人如何慢慢发生变化。</description><atom:link href="https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml" rel="self"/><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><lastBuildDate>Wed, 07 Oct 2026 10:08:00 +0000</lastBuildDate><item><title>Fiber Channel( FC 协议)</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/73</link><description><![CDATA[<p>首先我们需要了解光纤！ 光纤的工作原理是什么？</p>
-<p>光是如何承载信息的 </p>
-<p><strong>光纤通道</strong> （<strong>FC</strong>） 是一种<em>高速数据传输协议</em>，提供有序、无损的原始块数据传输 也就是说：（<strong>Fibre Channel 不是单纯的光纤线</strong>，而是一整套<strong>通信协议 + 硬件标准</strong>）</p>
-<p>光纤通道主要用于将： </p>
-<p><strong>计算机数据存储连接到商业数据中心存储区域网络中的服务器</strong> （存储网络技术）</p>
-<p>FC 的目的就是 —— 让多个服务器能以极高速度<em>访问同一块共享存储</em>。 这正式两太服务器通信的关键？
-这个技术的传输介质是： [<em>光纤或铜缆</em>]</p>
-<pre><code>其实我还是不理解光纤通道这个词！ fiber channel 说它是个协议我不太懂，这个协议的载体是谁？ 光纤吗？ 如果是光纤 这个协议究竟预定了什么？ 这个协议在哪一层发挥作用？ 为什么？
-</code></pre>
-<p><strong>Fibre Channel (FC)</strong> 是一整套<strong>通信体系（protocol stack）</strong>， 定义了从<strong>物理线缆</strong>、<strong>信号编码</strong>到<strong>数据传输协议</strong>的所有层次。</p>
-<p>光纤是协议的 “载体” FC 协议是“说话的语言”， FC 设备（HBA、交换机、存储）是“说话的人”。</p>
-<blockquote>
-<p>“以光纤为媒介的、专门为服务器与存储设备通信设计的一整套协议栈。”</p>
-</blockquote>
-<p>承载的内容： 块数据</p>
-<p>协议规定了 ： </p>
-<p><strong>怎么在光纤上传输“01”信号</strong>（编码、速率、同步）；
-<strong>这些 01 怎么组成“帧”</strong>；
-<strong>帧中包含哪些字段</strong>（目标设备、数据负载、校验码）；
-<strong>怎么建立连接、确认传输、检测错误、重发数据</strong>。 </p>
-<h3>FC协议栈分层</h3>
-<pre><code>FC 其实定义了几层内容，从物理到协议： 为什么FC这个协议分了好多层？ 这是我非常不理解的地方！我们知道网络协议是分层的，但是仅仅一个FC协议为什么又分了好多层？ 对于FC协议我可以大致理解为它为光传播的能量进行了一些规范 以便光可以传输信息! 
-</code></pre>
-<h3>Fibre Channel 是一个完整的网络体系（Storage Network Stack）</h3>
-<p>FC-0（物理层）：对应 TCP/IP 的物理层，负责光纤、电缆、波长、激光功率、电气规范等。
-FC-1（编码层）：对应数据链路层的一部分，负责 8b/10b 编码、同步、错误检测和帧定界。
-FC-2（帧层）：对应数据链路层，定义帧格式、流控制以及交换机制（frame、sequence、exchange）。
-FC-3（公共服务层）：类似网络层或传输层，提供复用和高级功能，如 RAID、多播等。
-FC-4（协议映射层）：对应应用层，负责映射高层协议，例如 SCSI、IP、NVMe 等。</p>
-]]></description><guid isPermaLink="false">https://github.com/Zhonghe-zhao/DailyBlog/issues/73</guid><category>Tech</category><category>6.5840</category><pubDate>Wed, 29 Oct 2025 05:14:19 +0000</pubDate></item><item><title>复盘MemoBridge的开发</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/117</link><description><![CDATA[<h1>我是怎么把一个问题越做越复杂的</h1>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Zhonghe · 后端工程师与生活记录</title><link>https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml</link><description>记录技术如何被理解，也记录一个人如何慢慢发生变化。</description><atom:link href="https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml" rel="self"/><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><lastBuildDate>Wed, 07 Oct 2026 10:10:24 +0000</lastBuildDate><item><title>复盘MemoBridge的开发</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/117</link><description><![CDATA[<h1>我是怎么把一个问题越做越复杂的</h1>
 <p>2026 年 3 月，我正式开始构思并开发 MemoBridge。</p>
 <p>这是我第一次真正从一个自己遇到的问题出发，尝试通过代码去构造一套完整的解决方案。从定义问题，到抽象领域对象，再到设计数据库、API、前端工作流，几乎整个项目都是我一点点摸索出来的。</p>
 <p>项目现在仍然在开发和调整，但几个月下来，我越来越明显地感觉到一个问题：很多时候，真正阻碍我的并不是代码写不出来，而是我一开始对问题的理解就可能是错的。</p>
@@ -399,7 +370,36 @@ Scheduler
 <p>当我告诉 AI，我感觉这里需要一个 Subject 时，它往往不会首先追问这个对象到底有没有必要存在，而是很自然地继续推演：Subject 可以解决哪些问题、应该有哪些字段、如何关联 Thread、前端怎么展示、生命周期怎么设计。于是一个想法很快拥有了完整的解释体系。</p>
 <p>而人在面对一个如此完整的方案时，很容易把逻辑完整误认为方向正确。和 AI 协作时最重要的能力可能已经不只是如何提问，而是如何不被 AI 的解释能力带着走。我甚至需要主动要求 AI 去反驳我的方案，而不是只帮助我实现它。</p>
 <p>这次 Reddit 上的调研对我的触动也正是在这里。很多痛点来自于大家的反馈，这样我知道不能脱离实际，一些想法怎么能在在落入系统之前以及落入之后究竟会对项目怎么造成影响？ </p>
-]]></description><guid isPermaLink="false">https://github.com/Zhonghe-zhao/DailyBlog/issues/117</guid><pubDate>Wed, 07 Oct 2026 08:33:43 +0000</pubDate></item><item><title>从普通学历求职者的体感谈谈今年秋招的感受</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/116</link><description><![CDATA[<p>最近投了几家公司目前没有收到什么反馈，我想针对这个现象进行一次调查讨论，并不代表大众，仅代表我个人观点。简历是否也回复其实和个人的经历有着极大的关系，优秀的人在哪都会发光。目前就只针对我心中的疑惑进行一次分析。 </p>
+]]></description><guid isPermaLink="false">https://github.com/Zhonghe-zhao/DailyBlog/issues/117</guid><category>Project Development</category><pubDate>Wed, 07 Oct 2026 08:33:43 +0000</pubDate></item><item><title>Fiber Channel( FC 协议)</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/73</link><description><![CDATA[<p>首先我们需要了解光纤！ 光纤的工作原理是什么？</p>
+<p>光是如何承载信息的 </p>
+<p><strong>光纤通道</strong> （<strong>FC</strong>） 是一种<em>高速数据传输协议</em>，提供有序、无损的原始块数据传输 也就是说：（<strong>Fibre Channel 不是单纯的光纤线</strong>，而是一整套<strong>通信协议 + 硬件标准</strong>）</p>
+<p>光纤通道主要用于将： </p>
+<p><strong>计算机数据存储连接到商业数据中心存储区域网络中的服务器</strong> （存储网络技术）</p>
+<p>FC 的目的就是 —— 让多个服务器能以极高速度<em>访问同一块共享存储</em>。 这正式两太服务器通信的关键？
+这个技术的传输介质是： [<em>光纤或铜缆</em>]</p>
+<pre><code>其实我还是不理解光纤通道这个词！ fiber channel 说它是个协议我不太懂，这个协议的载体是谁？ 光纤吗？ 如果是光纤 这个协议究竟预定了什么？ 这个协议在哪一层发挥作用？ 为什么？
+</code></pre>
+<p><strong>Fibre Channel (FC)</strong> 是一整套<strong>通信体系（protocol stack）</strong>， 定义了从<strong>物理线缆</strong>、<strong>信号编码</strong>到<strong>数据传输协议</strong>的所有层次。</p>
+<p>光纤是协议的 “载体” FC 协议是“说话的语言”， FC 设备（HBA、交换机、存储）是“说话的人”。</p>
+<blockquote>
+<p>“以光纤为媒介的、专门为服务器与存储设备通信设计的一整套协议栈。”</p>
+</blockquote>
+<p>承载的内容： 块数据</p>
+<p>协议规定了 ： </p>
+<p><strong>怎么在光纤上传输“01”信号</strong>（编码、速率、同步）；
+<strong>这些 01 怎么组成“帧”</strong>；
+<strong>帧中包含哪些字段</strong>（目标设备、数据负载、校验码）；
+<strong>怎么建立连接、确认传输、检测错误、重发数据</strong>。 </p>
+<h3>FC协议栈分层</h3>
+<pre><code>FC 其实定义了几层内容，从物理到协议： 为什么FC这个协议分了好多层？ 这是我非常不理解的地方！我们知道网络协议是分层的，但是仅仅一个FC协议为什么又分了好多层？ 对于FC协议我可以大致理解为它为光传播的能量进行了一些规范 以便光可以传输信息! 
+</code></pre>
+<h3>Fibre Channel 是一个完整的网络体系（Storage Network Stack）</h3>
+<p>FC-0（物理层）：对应 TCP/IP 的物理层，负责光纤、电缆、波长、激光功率、电气规范等。
+FC-1（编码层）：对应数据链路层的一部分，负责 8b/10b 编码、同步、错误检测和帧定界。
+FC-2（帧层）：对应数据链路层，定义帧格式、流控制以及交换机制（frame、sequence、exchange）。
+FC-3（公共服务层）：类似网络层或传输层，提供复用和高级功能，如 RAID、多播等。
+FC-4（协议映射层）：对应应用层，负责映射高层协议，例如 SCSI、IP、NVMe 等。</p>
+]]></description><guid isPermaLink="false">https://github.com/Zhonghe-zhao/DailyBlog/issues/73</guid><category>Tech</category><category>6.5840</category><pubDate>Wed, 29 Oct 2025 05:14:19 +0000</pubDate></item><item><title>从普通学历求职者的体感谈谈今年秋招的感受</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/116</link><description><![CDATA[<p>最近投了几家公司目前没有收到什么反馈，我想针对这个现象进行一次调查讨论，并不代表大众，仅代表我个人观点。简历是否也回复其实和个人的经历有着极大的关系，优秀的人在哪都会发光。目前就只针对我心中的疑惑进行一次分析。 </p>
 <h2>关于HC</h2>
 <p><strong>HC是什么：</strong>    简单说公司允许某个部门、某个团队招几个人。</p>
 <h3>HC减少？ 是真的吗？</h3>

@@ -36,8 +36,8 @@
 *[直达issue](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)*
 
 ## 📖 最近更新
-- [Fiber Channel( FC 协议)](https://github.com/Zhonghe-zhao/DailyBlog/issues/73)--2025-10-29
 - [复盘MemoBridge的开发](https://github.com/Zhonghe-zhao/DailyBlog/issues/117)--2026-10-07
+- [Fiber Channel( FC 协议)](https://github.com/Zhonghe-zhao/DailyBlog/issues/73)--2025-10-29
 - [从普通学历求职者的体感谈谈今年秋招的感受](https://github.com/Zhonghe-zhao/DailyBlog/issues/116)--2026-09-21
 - [一集博客貌似解答了现在的我对小时候的我困惑](https://github.com/Zhonghe-zhao/DailyBlog/issues/115)--2026-09-17
 - [北京第四天(入职第一天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/88)--2025-12-01
