@@ -1,5 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Zhonghe · 后端工程师与生活记录</title><link>https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml</link><description>记录技术如何被理解，也记录一个人如何慢慢发生变化。</description><atom:link href="https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml" rel="self"/><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><lastBuildDate>Wed, 07 Oct 2026 10:10:24 +0000</lastBuildDate><item><title>复盘MemoBridge的开发</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/117</link><description><![CDATA[<h1>我是怎么把一个问题越做越复杂的</h1>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Zhonghe · 后端工程师与生活记录</title><link>https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml</link><description>记录技术如何被理解，也记录一个人如何慢慢发生变化。</description><atom:link href="https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml" rel="self"/><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><lastBuildDate>Wed, 07 Oct 2026 11:43:51 +0000</lastBuildDate><item><title>与AI协作后发现的一些问题</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/118</link><description><![CDATA[<p>在 MemoBridge 的开发过程中，和AI协作往往他不会出错，这里指的是你给出的想法，它可以帮你实现，但它似乎并不会对你产生质疑，或者对这个任务产生质疑。</p>
+<p>这就会出现这种现象如果我提出的设计本身就有问题，但 AI 非常顺利地把它做了出来。 </p>
+<pre><code>比如，当我发现 Subject 里的 Thread 越来越多时，我很自然地冒出一个想法：是不是该加一个 ThreadGroup？
+</code></pre>
+<p>我把这个想法告诉 AI，它通常马上就可以进入实现模式：ThreadGroup 可以降低组织复杂度，可以加数据库关系，可以做一个分组页面，还可以让 AI 自动建议怎么分组…… 很快，一套完整方案就摆在我面前了。 从逻辑上看，一切都很成立。</p>
+<p>但真正应该先问的问题其实是：</p>
+<pre><code>为什么 Thread 会越来越多？这些 Thread 本来就应该存在吗？用户真的需要去组织它们吗？还是说，这个问题根本就是上一个设计自己制造出来的？
+本身的设计上就出现了问题从而引出了额外的不相关的问题？ 
+</code></pre>
+<p>所以AI 很擅长解决我当前指给它看的那个问题，但当前问题不一定就是根问题。
+当我告诉 AI Thread 太多，它会自然解决怎么管理很多 Thread。
+但它不会天然知道，我真正需要的也许不是更好地管理 Thread，而是重新质疑为什么系统允许甚至鼓励产生这么多 Thread</p>
+<p>AI的写方案能力太强，并且短时间的生成数量巨多，查看AI写的文档也是一个费精力的事情，读起来感觉没什么问题。心理可能会出现，既然这么完整，甚至有些地方并不会仔细的思考查看是否有问题，当实现成本下降以后，感觉自己变得更加的顺从了。</p>
+<p>AI 会非常擅长给错误方向打补丁， 原始设计产生问题 -&gt; AI 增加补丁 -&gt; 补丁产生新问题 -&gt; 再增加一层机制 越来越复杂</p>
+]]></description><guid isPermaLink="false">https://github.com/Zhonghe-zhao/DailyBlog/issues/118</guid><pubDate>Wed, 07 Oct 2026 11:43:16 +0000</pubDate></item><item><title>复盘MemoBridge的开发</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/117</link><description><![CDATA[<h1>我是怎么把一个问题越做越复杂的</h1>
 <p>2026 年 3 月，我正式开始构思并开发 MemoBridge。</p>
 <p>这是我第一次真正从一个自己遇到的问题出发，尝试通过代码去构造一套完整的解决方案。从定义问题，到抽象领域对象，再到设计数据库、API、前端工作流，几乎整个项目都是我一点点摸索出来的。</p>
 <p>项目现在仍然在开发和调整，但几个月下来，我越来越明显地感觉到一个问题：很多时候，真正阻碍我的并不是代码写不出来，而是我一开始对问题的理解就可能是错的。</p>
