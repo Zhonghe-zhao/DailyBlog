@@ -206,9 +206,17 @@
       pointer = { x: event.clientX - rect.left, y: event.clientY - rect.top };
       hot = row && list.contains(row) && !row.hidden ? row : null;
     };
+    const finePointer = window.matchMedia("(min-width: 801px)");
     list.addEventListener("pointermove", place);
     list.addEventListener("pointerleave", () => { hot = null; pointer = null; });
     jobs.push((time) => {
+      if (!finePointer.matches) {
+        if (canvas.width) canvas.width = 0;
+        hot = null;
+        pointer = null;
+        presence = 0;
+        return;
+      }
       const delta = Math.min(.05, lastTime ? (time - lastTime) / 1000 : .016);
       lastTime = time;
       const glide = 1 - Math.exp(-delta * 9);
@@ -362,11 +370,12 @@
 
       if (!orbit) return;
       const headBox = head.getBoundingClientRect();
-      const rx = hugText ? textWidth * .48 + 78 : Math.max(160, textWidth * 1.2);
-      const ry = hugText ? 76 : Math.min(72, Math.max(32, box.height * .38));
-      const padX = hugText ? Math.ceil(rx + 18) : 0;
-      const padTop = hugText ? Math.ceil(ry + 14) : 0;
-      const padBottom = hugText ? Math.ceil(ry * .82) : 0;
+      const narrowTitle = hugText && headBox.width < 720;
+      const rx = hugText ? textWidth * (narrowTitle ? .35 : .48) + (narrowTitle ? 26 : 78) : Math.max(160, textWidth * 1.2);
+      const ry = hugText ? (narrowTitle ? 28 : 76) : Math.min(72, Math.max(32, box.height * .38));
+      const padX = hugText ? Math.ceil(rx + (narrowTitle ? 6 : 18)) : 0;
+      const padTop = hugText ? Math.ceil(ry + (narrowTitle ? 6 : 14)) : 0;
+      const padBottom = hugText ? Math.ceil(ry * (narrowTitle ? .35 : .82)) : 0;
       if (hugText) {
         const left = Math.round(box.left - headBox.left - padX);
         const top = Math.round(box.top - headBox.top - padTop);
