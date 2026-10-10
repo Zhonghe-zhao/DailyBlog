@@ -206,17 +206,16 @@
       pointer = { x: event.clientX - rect.left, y: event.clientY - rect.top };
       hot = row && list.contains(row) && !row.hidden ? row : null;
     };
-    const finePointer = window.matchMedia("(min-width: 801px)");
+    const releaseTouch = (event) => {
+      if (event.pointerType === "mouse") return;
+      hot = null;
+      pointer = null;
+    };
     list.addEventListener("pointermove", place);
     list.addEventListener("pointerleave", () => { hot = null; pointer = null; });
+    list.addEventListener("pointerup", releaseTouch);
+    list.addEventListener("pointercancel", releaseTouch);
     jobs.push((time) => {
-      if (!finePointer.matches) {
-        if (canvas.width) canvas.width = 0;
-        hot = null;
-        pointer = null;
-        presence = 0;
-        return;
-      }
       const delta = Math.min(.05, lastTime ? (time - lastTime) / 1000 : .016);
       lastTime = time;
       const glide = 1 - Math.exp(-delta * 9);
@@ -246,33 +245,40 @@
           bandH += (goalH - bandH) * glide;
         }
       }
-      const washColor = dark() ? "226,238,246" : "90,104,116";
-      const cx = width * .46;
-      const cy = bandY + bandH / 2;
-      const radius = Math.max(bandH * 2.8, 180);
-      const wash = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
-      wash.addColorStop(0, `rgba(${washColor},${(dark() ? .045 : .05) * presence})`);
-      wash.addColorStop(.55, `rgba(${washColor},${(dark() ? .015 : .018) * presence})`);
-      wash.addColorStop(1, `rgba(${washColor},0)`);
-      ctx.fillStyle = wash;
-      ctx.fillRect(cx - radius, cy - radius, radius * 2, radius * 2);
+      const cy = bandY + bandH * .42;
+      const spreadX = Math.min(width * .7, Math.max(240, bandH * 2.6));
+      const spreadY = Math.max(72, bandH * .9);
+      if (!dark()) {
+        const wash = ctx.createRadialGradient(width * .46, cy, 0, width * .46, cy, spreadY * 1.6);
+        wash.addColorStop(0, `rgba(90,104,116,${.04 * presence})`);
+        wash.addColorStop(1, "rgba(90,104,116,0)");
+        ctx.fillStyle = wash;
+        ctx.beginPath();
+        ctx.ellipse(width * .46, cy, spreadX * .55, spreadY, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
       stars.forEach((star) => {
         if (!star.ready || star.epoch !== epoch) {
           star.epoch = epoch;
-          star.slotX = .08 + rand(.84);
-          star.slotY = rand();
-          star.x = star.slotX * width;
-          star.y = bandY + star.slotY * Math.max(bandH, 8);
+          const u = Math.max(1e-4, rand());
+          const v = rand();
+          const span = Math.sqrt(-2 * Math.log(u));
+          star.slotX = Math.max(-2.2, Math.min(2.2, span * Math.cos(Math.PI * 2 * v)));
+          star.slotY = Math.max(-2.2, Math.min(2.2, span * Math.sin(Math.PI * 2 * v)));
+          star.x = width * .46;
+          star.y = cy;
           star.ready = true;
         }
-        const tx = star.slotX * width + Math.sin(time * .0004 + star.phase) * 5;
-        const ty = bandY + 8 + star.slotY * Math.max(10, bandH - 16) + Math.cos(time * .00035 + star.phase) * 2;
+        const tx = width * .46 + star.slotX * spreadX * .34 + Math.sin(time * .00032 + star.phase) * 11;
+        const ty = cy + star.slotY * spreadY * .42 + Math.cos(time * .00027 + star.phase) * 8;
         star.x += (tx - star.x) * drift;
         star.y += (ty - star.y) * drift;
         const interaction = nudge(star, pointer?.x, pointer?.y);
         settlePush(star);
-        const gathered = 1 - Math.min(1, Math.abs(star.y - (bandY + bandH / 2)) / Math.max(bandH, 24));
-        paintStar(ctx, star, time, presence * (.45 + gathered * .55), interaction);
+        const nx = (star.x - width * .46) / (spreadX * .5);
+        const ny = (star.y - cy) / (spreadY * .62);
+        const falloff = Math.exp(-(nx * nx + ny * ny) * 1.05);
+        paintStar(ctx, star, time, presence * (.22 + falloff * .78), interaction);
       });
     });
   }
@@ -370,16 +376,19 @@
 
       if (!orbit) return;
       const headBox = head.getBoundingClientRect();
-      const narrowTitle = hugText && headBox.width < 720;
-      const rx = hugText ? textWidth * (narrowTitle ? .35 : .48) + (narrowTitle ? 26 : 78) : Math.max(160, textWidth * 1.2);
-      const ry = hugText ? (narrowTitle ? 28 : 76) : Math.min(72, Math.max(32, box.height * .38));
-      const padX = hugText ? Math.ceil(rx + (narrowTitle ? 6 : 18)) : 0;
-      const padTop = hugText ? Math.ceil(ry + (narrowTitle ? 6 : 14)) : 0;
-      const padBottom = hugText ? Math.ceil(ry * (narrowTitle ? .35 : .82)) : 0;
+      const desiredRx = hugText ? textWidth * .48 + 78 : Math.max(160, textWidth * 1.2);
+      const fitRx = box.left + textWidth / 2 - 16;
+      const rx = hugText ? Math.max(36, Math.min(desiredRx, fitRx)) : desiredRx;
+      const ry = hugText ? Math.min(76, Math.max(52, rx * .72)) : Math.min(72, Math.max(32, box.height * .38));
+      const padLeft = hugText ? Math.max(0, Math.ceil(rx + 10 - textWidth / 2)) : 0;
+      const padRight = padLeft;
+      const padX = padLeft;
+      const padTop = hugText ? Math.ceil(ry + 12) : 0;
+      const padBottom = hugText ? Math.ceil(ry * .82) : 0;
       if (hugText) {
-        const left = Math.round(box.left - headBox.left - padX);
+        const left = Math.round(box.left - headBox.left - padLeft);
         const top = Math.round(box.top - headBox.top - padTop);
-        const orbitWidth = Math.ceil(textWidth + padX * 2);
+        const orbitWidth = Math.ceil(padLeft + textWidth + padRight);
         const orbitHeight = Math.ceil(box.height + padTop + padBottom);
         const place = `${left}|${top}|${orbitWidth}|${orbitHeight}`;
         if (orbit.dataset.place !== place) {
@@ -415,7 +424,8 @@
         const interaction = nudge(star, localPointer?.x, localPointer?.y);
         settlePush(star);
         if (star.x < -12 || star.x > field.width + 12 || star.y < -12 || star.y > field.height + 12) return;
-        paintStar(field.ctx, star, time, hugText ? 1 : .5, interaction, false, hugText ? 1.7 : 1);
+        const starSize = hugText ? (headBox.width < 720 ? 1.05 : 1.7) : 1;
+        paintStar(field.ctx, star, time, hugText ? 1 : .5, interaction, false, starSize);
       });
     });
   }

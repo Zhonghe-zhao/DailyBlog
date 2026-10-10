@@ -152,6 +152,5 @@ body:has(.article) main{position:relative;z-index:1}
   html[data-theme="dark"] body:has(.personal-hero) .site-header .site-nav{background:#020406!important}
 }
 @media(max-width:800px){
-  .posts-page__head{overflow:hidden}
-  .posts-page__head .sky-orbit{overflow:hidden}
+  .posts-page{padding-right:18px;padding-left:52px}
 }

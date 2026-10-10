@@ -10,7 +10,7 @@
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const processorCount = navigator.hardwareConcurrency || 4;
-  const lowPowerDevice = processorCount <= 4 || window.innerWidth < 720;
+  const lowPowerDevice = processorCount <= 4;
   const stellarTones = ["255,255,255", "232,239,244", "205,216,224", "244,246,247"];
   const daylightNeutrals = ["69,85,103", "87,102,118", "105,116,128"];
   let width = 0;
@@ -70,13 +70,11 @@
     sceneCenterX = avatarBounds ? avatarBounds.left - heroBounds.left + avatarBounds.width / 2 : width / 2;
     sceneCenterY = avatarBounds ? avatarBounds.top - heroBounds.top + avatarBounds.height / 2 : height * .32;
     const avatarRadius = avatarBounds ? avatarBounds.width / 2 : compact ? 72 : 95;
-    // Preserve the shape while avoiding thousands of mostly invisible points
-    // on smaller or lower-core devices.
-    const count = compact ? 480 : (lowPowerDevice ? 1450 : 2100);
+    const count = compact ? 1500 : (lowPowerDevice ? 1600 : 2100);
     const radiusX = compact
-      ? Math.min(width * .46, avatarRadius * 2.2)
+      ? Math.min(width * .5, avatarRadius * 3.4)
       : Math.min(width * .29, avatarRadius * 3.8);
-    const radiusY = compact ? avatarRadius * 1.55 : avatarRadius * 1.9;
+    const radiusY = avatarRadius * (compact ? 1.85 : 1.9);
     const targets = [];
     for (let index = 0; index < count; index += 1) {
       const arm = index % 3;
@@ -93,8 +91,8 @@
       const localX = Math.cos(angle) * radiusX * radius;
       const localY = Math.sin(angle) * radiusY * radius * edgeFade;
       if (localY > avatarRadius * 1.02 && Math.abs(localX) < radiusX * .72) continue;
-      const localZ = Math.sin(angle * 1.35 + arm * .8) * (compact ? 42 : 105)
-        + (Math.random() - .5) * (compact ? 36 : 74);
+      const localZ = Math.sin(angle * 1.35 + arm * .8) * (compact ? 92 : 105)
+        + (Math.random() - .5) * (compact ? 66 : 74);
       targets.push({
         x: sceneCenterX + localX,
         y: sceneCenterY + localY,
@@ -108,10 +106,10 @@
     const bounds = hero.getBoundingClientRect();
     width = Math.max(1, Math.round(bounds.width));
     height = Math.max(1, Math.round(bounds.height));
-    ratio = Math.min(window.devicePixelRatio || 1, width < 900 ? 1.25 : 1);
+    ratio = Math.min(window.devicePixelRatio || 1, width < 900 ? 2 : 1.25);
     canvas.width = Math.round(width * ratio);
     canvas.height = Math.round(height * ratio);
-    glowRatio = width < 620 ? .4 : .22;
+    glowRatio = width < 620 ? .28 : .22;
     glowCanvas.width = Math.round(width * glowRatio);
     glowCanvas.height = Math.round(height * glowRatio);
     bloomCanvas.width = glowCanvas.width;
@@ -142,7 +140,7 @@
       pushVelocityY: 0,
     }));
 
-    const streamCount = width < 620 ? 58 : (lowPowerDevice ? 120 : 180);
+    const streamCount = width < 620 ? 140 : (lowPowerDevice ? 140 : 180);
     const daylightFields = [
       { x: .14, y: .28, radiusX: .22, radiusY: .18 },
       { x: .86, y: .3, radiusX: .2, radiusY: .2 },
@@ -263,8 +261,9 @@
     const sinX = Math.sin(pitch);
     const yzY = localY * cosX - xzZ * sinX;
     const yzZ = localY * sinX + xzZ * cosX;
-    const perspective = width < 620 ? 620 : 1050;
+    const perspective = width < 620 ? 980 : 1050;
     const scale = perspective / Math.max(240, perspective + yzZ);
+    const pointScale = width < 720 ? .58 : 1;
 
     let x = sceneCenterX + xzX * scale + parallaxX * particle.depth;
     let y = sceneCenterY + yzY * scale + parallaxY * particle.depth;
@@ -279,7 +278,7 @@
     const baseAlpha = (darkMode ? .68 : .43) * particle.depth * twinkle;
     const alpha = clamp(baseAlpha * (.28 + settle * .72) + interaction * .07 + particle.luminosity * .22);
     const color = darkMode ? particle.color : particle.lightColor;
-    const radius = Math.max(.3, particle.radius * scale * (1 + interaction * .16) + particle.luminosity * 1.75);
+    const radius = Math.max(.28, (particle.radius * scale * (1 + interaction * .16) + particle.luminosity * 1.75) * pointScale);
     const glowStrength = Math.max(particle.luminosity, interaction * .16);
     if ((darkMode && glowStrength > .12) || (!darkMode && glowStrength > .36)) {
       const glowAlpha = darkMode
@@ -371,7 +370,8 @@
     const interaction = nearPointer ? interactionAt(x, y) : 0;
     const alpha = stream.alpha + interaction * .18;
     const color = darkMode ? stream.color : stream.lightColor;
-    const radius = stream.radius * (1 + interaction * .15) + stream.luminosity * 1.15;
+    const pointScale = width < 720 ? .58 : 1;
+    const radius = (stream.radius * (1 + interaction * .15) + stream.luminosity * 1.15) * pointScale;
     if ((darkMode && stream.luminosity > .18) || (!darkMode && stream.luminosity > .42)) {
       const glowAlpha = darkMode ? .12 + stream.luminosity * .55 : .035 + stream.luminosity * .18;
       const glowRadius = radius * (darkMode ? 1.4 + stream.luminosity * 1.8 : 2.4 + stream.luminosity * 2.2);
