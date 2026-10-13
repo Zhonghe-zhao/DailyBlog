@@ -7,8 +7,16 @@
     menu.textContent = open ? "关闭" : "菜单";
     menu.setAttribute("aria-expanded", String(open));
   });
+  const samePage = (link) => {
+    const next = new URL(link.href, window.location.href);
+    const here = new URL(window.location.href);
+    const path = (value) => value.replace(/\/+$/, "") || "/";
+    return next.origin === here.origin && path(next.pathname) === path(here.pathname) && next.search === here.search;
+  };
   nav?.addEventListener("click", (event) => {
-    if (!event.target.closest("a")) return;
+    const link = event.target.closest("a");
+    if (!link) return;
+    if (samePage(link)) event.preventDefault();
     nav.classList.remove("is-open");
     menu.textContent = "菜单";
     menu.setAttribute("aria-expanded", "false");

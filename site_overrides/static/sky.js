@@ -493,13 +493,23 @@
   bindArticle();
   if (!jobs.length) return;
 
-  document.fonts.ready.then(() => { epoch += 1; wake(); });
-  document.addEventListener("visibilitychange", () => { if (!document.hidden) wake(); });
+  let fontsSettled = !document.fonts || document.fonts.status === "loaded";
+  let layoutWidth = window.innerWidth;
+  document.addEventListener("visibilitychange", () => { if (!document.hidden && fontsSettled) wake(); });
   window.addEventListener("resize", () => {
+    if (!fontsSettled || window.innerWidth === layoutWidth) return;
+    layoutWidth = window.innerWidth;
     epoch += 1;
     document.querySelectorAll(".nav-sky, .sky-list, .sky-orbit, .sky-ink, .article-sky").forEach((canvas) => {
       canvas.width = 0;
     });
     wake();
   }, { passive: true });
+  const begin = () => {
+    fontsSettled = true;
+    layoutWidth = window.innerWidth;
+    wake();
+  };
+  if (!fontsSettled && document.fonts?.ready) document.fonts.ready.then(begin, begin);
+  else begin();
 })();
