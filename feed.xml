@@ -1,5 +1,14 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Zhonghe · 后端工程师与生活记录</title><link>https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml</link><description>记录技术如何被理解，也记录一个人如何慢慢发生变化。</description><atom:link href="https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml" rel="self"/><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><lastBuildDate>Wed, 07 Oct 2026 17:51:17 +0000</lastBuildDate><item><title>与AI协作后发现的一些问题</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/118</link><description><![CDATA[<h2>AI 很少或者不会质疑我给出的前提</h2>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Zhonghe · 后端工程师与生活记录</title><link>https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml</link><description>记录技术如何被理解，也记录一个人如何慢慢发生变化。</description><atom:link href="https://raw.githubusercontent.com/Zhonghe-zhao/DailyBlog/main/feed.xml" rel="self"/><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><lastBuildDate>Thu, 15 Oct 2026 14:31:37 +0000</lastBuildDate><item><title>一封对牙齿的道歉信</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/119</link><description><![CDATA[<p>2026年10月15日，今天，我的牙齿又开始疼了。那种熟悉的疼痛，让我再次想起了2023年，想起了那颗最先向我发出求救信号的牙。我突然很想写点什么，写给我的牙齿，写给那些已经接受过根管治疗的牙齿，也写给那些曾经健康、却被我一点点忽视的牙齿。</p>
+<p>对不起，我的牙齿。</p>
+<p>小时候虽然家里告诉我牙齿很重要，但是我没有听话。那时的我不知道牙齿意味着什么，也没有人认真告诉过我，一颗牙齿从健康走向损坏，究竟会经历怎样的过程。在那个年纪，牙齿似乎是理所当然存在的东西。每天吃饭的时候用到它们，吃零食的时候用到它们，除此之外，我几乎不会意识到它们的存在。后来，牙齿上渐渐出现了一些黑色的痕迹，我看见过它们，可我不明白那些黑色的东西究竟意味着什么。我甚至觉得，只要牙齿没有疼痛，就没有什么值得担心的。</p>
+<p>于是，一天又一天，一年又一年。</p>
+<p>我长大了，它们却在我的忽视中慢慢变坏。直到2023年。那一年，我的一颗大牙最先撑不住了。它开始疼痛，后来严重到了神经暴露、需要接受根管治疗的程度。那是我第一次真正体会到，原来牙齿的疼痛可以如此难以忍受。我不得不走进诊所，躺在牙科治疗椅上，看着医生拿起那些我从未了解过的器械。也是从那时起，我才逐渐知道，原来蛀牙并不一定要等到疼痛才需要处理；原来很多早期问题可以通过相对简单的治疗解决；原来根管治疗并不是牙齿生病后的必经之路。</p>
+<p>它们曾经健康的时候我没有珍惜，我一直在忽视他们。我长大了，它们却变坏了，它们曾经有那么长时间可以被保护，我却没有意识到，牙齿是一种很特殊的存在。它们不会说话，不会告诉我今天哪里不舒服，也不会在我忘记刷牙的时候提醒我。它们一旦坏了，无法靠刷牙去让它们复原。它们默默的承担了我每天最重要的事情。陪我从小时候长大，陪我吃过无数顿饭，陪我经历那些快乐、难过、平凡得甚至记不清的日子。</p>
+<p>我从来没有认真感谢过它们。甚至在它们已经出现问题的时候，我还以为，只要不疼，就可以继续拖下去。直到有一天，疼痛变得无法忽视，我才终于肯停下来，认真看看它们。才能停下来感受到原来它们真的存在。 现在回头看，我其实并不完全想责怪小时候的自己。那个孩子确实不懂得这些事情，也没有得到足够的提醒和教育。他不知道龋齿是什么，不知道牙髓是什么，更不知道一颗恒牙可能要陪伴自己几十年。</p>
+<p>唉杀掉神经之后，那颗牙也就随之被安葬了。对不起，我没有早点学会保护你们。</p>
+<p>写给我的牙齿，也写给曾经那个不懂得珍惜它们的自己。</p>
+]]></description><guid isPermaLink="false">https://github.com/Zhonghe-zhao/DailyBlog/issues/119</guid><category>Life</category><pubDate>Thu, 15 Oct 2026 14:30:56 +0000</pubDate></item><item><title>与AI协作后发现的一些问题</title><link>https://github.com/Zhonghe-zhao/DailyBlog/issues/118</link><description><![CDATA[<h2>AI 很少或者不会质疑我给出的前提</h2>
 <p>在 MemoBridge 的开发过程中，我发现和 AI 协作时，它往往不会出错。这里说的不是代码层面的错，而是：只要我给出一个想法，它基本都能帮我实现。但它似乎不会主动质疑我的想法，也不会质疑这个任务本身。</p>
 <p>于是就会出现一种现象：如果我提出的设计本身就有问题，AI 仍然会非常顺利地把它做出来。</p>
 <p>比如，当我发现 Subject 里的 Thread 越来越多时，我很自然地冒出一个想法：是不是该加一个 ThreadGroup？</p>
