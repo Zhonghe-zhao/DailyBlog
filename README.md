@@ -36,6 +36,7 @@
 *[直达issue](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)*
 
 ## 📖 最近更新
+- [22](https://github.com/Zhonghe-zhao/DailyBlog/issues/120)--2026-11-23
 - [一封对牙齿的道歉信](https://github.com/Zhonghe-zhao/DailyBlog/issues/119)--2026-10-15
 - [与AI协作后发现的一些问题](https://github.com/Zhonghe-zhao/DailyBlog/issues/118)--2026-10-07
 - [复盘MemoBridge的开发](https://github.com/Zhonghe-zhao/DailyBlog/issues/117)--2026-10-07
@@ -45,7 +46,6 @@
 - [北京第四天(入职第一天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/88)--2025-12-01
 - [我的简历(持续更新)](https://github.com/Zhonghe-zhao/DailyBlog/issues/111)--2026-04-18
 - [初见北京总结](https://github.com/Zhonghe-zhao/DailyBlog/issues/110)--2026-04-05
-- [Codex最佳订阅方法(仅限Apple)](https://github.com/Zhonghe-zhao/DailyBlog/issues/114)--2026-06-20
 ## 🤓 计算机基础
 
 - [丢失更新](https://github.com/Zhonghe-zhao/DailyBlog/issues/75) - 2025-11-04
@@ -69,13 +69,14 @@
 
 ## 🧭 生活随笔
 
+- [22](https://github.com/Zhonghe-zhao/DailyBlog/issues/120) - 2026-11-23
 - [一封对牙齿的道歉信](https://github.com/Zhonghe-zhao/DailyBlog/issues/119) - 2026-10-15
 - [从普通学历求职者的体感谈谈今年秋招的感受](https://github.com/Zhonghe-zhao/DailyBlog/issues/116) - 2026-09-21
 - [一集博客貌似解答了现在的我对小时候的我困惑](https://github.com/Zhonghe-zhao/DailyBlog/issues/115) - 2026-09-17
 - [切断网络的一天](https://github.com/Zhonghe-zhao/DailyBlog/issues/113) - 2026-05-31
-- [博客一周年](https://github.com/Zhonghe-zhao/DailyBlog/issues/112) - 2026-05-28
 <details><summary>显示更多</summary>
 
+- [博客一周年](https://github.com/Zhonghe-zhao/DailyBlog/issues/112) - 2026-05-28
 - [初见北京总结](https://github.com/Zhonghe-zhao/DailyBlog/issues/110) - 2026-04-05
 - [实习总结 (在公司封存)](https://github.com/Zhonghe-zhao/DailyBlog/issues/109) - 2026-04-03
 - [2026 年后的一些想法和感悟](https://github.com/Zhonghe-zhao/DailyBlog/issues/107) - 2026-03-13
