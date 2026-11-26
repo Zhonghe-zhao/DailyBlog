@@ -36,6 +36,7 @@
 *[直达issue](https://github.com/Zhonghe-zhao/DailyBlog/issues/9)*
 
 ## 📖 最近更新
+- [普通人必须先懂医学才能避免不必要的医疗支出吗？](https://github.com/Zhonghe-zhao/DailyBlog/issues/122)--2026-11-26
 - [2026](https://github.com/Zhonghe-zhao/DailyBlog/issues/121)--2026-11-23
 - [22](https://github.com/Zhonghe-zhao/DailyBlog/issues/120)--2026-11-23
 - [一封对牙齿的道歉信](https://github.com/Zhonghe-zhao/DailyBlog/issues/119)--2026-10-15
@@ -45,7 +46,6 @@
 - [从普通学历求职者的体感谈谈今年秋招的感受](https://github.com/Zhonghe-zhao/DailyBlog/issues/116)--2026-09-21
 - [一集博客貌似解答了现在的我对小时候的我困惑](https://github.com/Zhonghe-zhao/DailyBlog/issues/115)--2026-09-17
 - [北京第四天(入职第一天)](https://github.com/Zhonghe-zhao/DailyBlog/issues/88)--2025-12-01
-- [我的简历(持续更新)](https://github.com/Zhonghe-zhao/DailyBlog/issues/111)--2026-04-18
 ## 🤓 计算机基础
 
 - [丢失更新](https://github.com/Zhonghe-zhao/DailyBlog/issues/75) - 2025-11-04
@@ -69,13 +69,14 @@
 
 ## 🧭 生活随笔
 
+- [普通人必须先懂医学才能避免不必要的医疗支出吗？](https://github.com/Zhonghe-zhao/DailyBlog/issues/122) - 2026-11-26
 - [2026](https://github.com/Zhonghe-zhao/DailyBlog/issues/121) - 2026-11-23
 - [22](https://github.com/Zhonghe-zhao/DailyBlog/issues/120) - 2026-11-23
 - [一封对牙齿的道歉信](https://github.com/Zhonghe-zhao/DailyBlog/issues/119) - 2026-10-15
 - [从普通学历求职者的体感谈谈今年秋招的感受](https://github.com/Zhonghe-zhao/DailyBlog/issues/116) - 2026-09-21
-- [一集博客貌似解答了现在的我对小时候的我困惑](https://github.com/Zhonghe-zhao/DailyBlog/issues/115) - 2026-09-17
 <details><summary>显示更多</summary>
 
+- [一集博客貌似解答了现在的我对小时候的我困惑](https://github.com/Zhonghe-zhao/DailyBlog/issues/115) - 2026-09-17
 - [切断网络的一天](https://github.com/Zhonghe-zhao/DailyBlog/issues/113) - 2026-05-31
 - [博客一周年](https://github.com/Zhonghe-zhao/DailyBlog/issues/112) - 2026-05-28
 - [初见北京总结](https://github.com/Zhonghe-zhao/DailyBlog/issues/110) - 2026-04-05
